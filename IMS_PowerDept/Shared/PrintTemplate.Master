@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PrintTemplate.master.cs" Inherits="IMS_PowerDept.Shared.PrintTemplate" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body onload="javascript:window.print()">
+    <form id="form1" runat="server">
+     <div style="padding:10px; margin:0px auto; width: 913px;">
+     <div style="text-align:center;">
+            <p style="margin:5px;">
+                GOVERNMENT OF NAGALAND</p>
+             <p style="margin:5px;">
+&nbsp;DEPARTMENT OF POWER : ELECTRICAL STORE DIVISION
+            </p>
+               <p style="margin:5px;">
+                DIMAPUR : NAGALAND</p>
+        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
