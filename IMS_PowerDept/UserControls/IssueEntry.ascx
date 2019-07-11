@@ -177,7 +177,7 @@
              <div class="element2">
                  <span style="float: left;">
             <label for="comments">Enter Number of Items Rows to use</label></span>  <span style="float: left;padding-left: 10px;">
-            <asp:TextBox CssClass="form-control" ID="tbItemsRows" TextMode="Number" Text="20" Width="30px" runat="server"></asp:TextBox></span>
+            <asp:TextBox CssClass="form-control" ID="tbItemsRows" TextMode="Number" Text="36" Width="30px" runat="server"></asp:TextBox></span>
                 <span style="float: left;padding-left: 10px;"> <asp:Button ID="btnRowsAdd" class="btn btn-outline btn-primary" ToolTip="This will create the total number of rows to be used for adding items. By default, 10 rows are always displayed." runat="server" Text="CREATE ROWS" OnClick="btnRowsAdd_Click" />
 
                      <asp:Button ID="_btnCancel" CssClass="btn btn-danger" runat="server" Text="RESET PAGE" OnClick="_btnCancel_Click" />
@@ -208,7 +208,7 @@
                             </asp:DropDownList>
 
                      
-                 <%--   <asp:HyperLink ID="hlinkItemenquiry" onclick="window.open(this.href, '', 'width=990, height=450'); return false;"  Font-Size="11px" NavigateUrl="~/Admin/ItemInventory.aspx?item="  Width="70px"  runat="server" ></asp:HyperLink>
+                 <%--   <asp:HyperLink ID="hlinkItemenquiry"  onclick="window.open(this.href, '', 'width=990, height=450'); return false;"  Font-Size="11px" NavigateUrl="~/Admin/ItemInventory.aspx?item="  Width="70px"  runat="server" ></asp:HyperLink>
                --%>        
 
 

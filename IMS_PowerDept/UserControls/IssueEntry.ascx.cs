@@ -51,6 +51,8 @@ namespace IMS_PowerDept.UserControls
                 //then when rows are created below , in rowdata bound the above fetched values can be used to populate it
                 InsertItemsRows(Convert.ToInt32(tbItemsRows.Text));
 
+
+
             }
         }
 
