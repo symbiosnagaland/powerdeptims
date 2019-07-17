@@ -3,9 +3,9 @@
 
 <%@ Register Src="~/UserControls/IssueEntryTemp.ascx" TagPrefix="uc1" TagName="IssueEntryTemp" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
+
         $(function () {
             $("#ContentPlaceHolder1_IssueEntryTemp__tbChallanDate").datepicker(
                 {
@@ -20,10 +20,11 @@
                     dateFormat: 'dd/mm/yy'
                 });
         });
-</script>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
- <uc1:IssueEntryTemp runat="server" ID="IssueEntryTemp" />
-     
 
+    </script>
+
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <uc1:IssueEntryTemp runat="server" ID="IssueEntryTemp" />
 </asp:Content>
