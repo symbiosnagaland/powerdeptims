@@ -41,21 +41,22 @@ namespace IMS_PowerDept.Admin
                 Session["EndDate"] = tbEndDateSearch.Text;
                
                 
-                string appPath = HttpRuntime.AppDomainAppVirtualPath;
-                if (appPath != "/")
+               // string appPath = HttpRuntime.AppDomainAppVirtualPath;
+                //if (appPath != "/")
 
                     ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                      "click", @"<script>
                     window.open('/PrintReports/Report_HeadWiseValuation2.aspx','_newtab');
                     </script>", false);
+                //commented as the if and else seems to be meaningless
 
-                else
+               // else
 
 
-                    ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
-                      "click", @"<script>
-                    window.open('/PrintReports/Report_HeadWiseValuation2.aspx','_newtab');
-                    </script>", false);
+                    //ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
+                  //    "click", @"<script>
+                   // window.open('/PrintReports/Report_HeadWiseValuation2.aspx','_newtab');
+                   // </script>", false);
 
 
             }
@@ -65,25 +66,26 @@ namespace IMS_PowerDept.Admin
                 Session["BeginDate"] = tbStartDateSearch.Text;
                 Session["EndDate"] = tbEndDateSearch.Text;
 
-                string appPath = HttpRuntime.AppDomainAppVirtualPath;
-                if (appPath != "/")
+                //string appPath = HttpRuntime.AppDomainAppVirtualPath;
+               // if (appPath != "/")
 
                     ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                      "click", @"<script>
                     window.open('/PrintReports/Report_HeadWiseValuation.aspx','_newtab');
                     </script>", false);
 
-                else
+                //else
 
 
-                    ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
-                      "click", @"<script>
-                    window.open('/PrintReports/Report_HeadWiseValuation.aspx','_newtab');
-                    </script>", false);
+                    //ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
+                    //  "click", @"<script>
+                   // window.open('/PrintReports/Report_HeadWiseValuation.aspx','_newtab');
+                   // </script>", false);
 
 
             }
         }
+
 
         protected void detailvaluatoinByDivision_Click(object sender, EventArgs e)
         {

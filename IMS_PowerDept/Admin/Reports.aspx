@@ -97,6 +97,23 @@
           dateFormat: 'dd/mm/yy'
       });
 
+        //using jquery for check box insted of autopostback
+
+      /* $('#ContentPlaceHolder1_CheckBox1').click(function () {
+           // alert('Save button clicked');
+           if( $(this).prop("checked") == true)
+           {
+               $("#ContentPlaceHolder1_issuehead").prop("disabled", false);
+           }
+           else
+           {
+               $("#ContentPlaceHolder1_issuehead").prop("disabled", true);
+           }
+
+          
+           //issuehead
+       });
+        */
 
       
     });
@@ -251,7 +268,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
      <asp:SqlDataSource ID="iheads" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select distinct IssueHeadName from IssueHeads"></asp:SqlDataSource>
 
     
-     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+     
            
      <asp:Panel ID="panelSuccess" Visible="false" CssClass="n_ok" runat="server">
 
@@ -259,11 +276,13 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
             <asp:Label ID="lblSuccess" runat="server" Text=""></asp:Label>
         </p>
     </asp:Panel>
+
     <asp:Panel ID="panelError" Visible="false" CssClass="n_error" runat="server">
         <p>
-            <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblError"   runat="server" Text=""></asp:Label>
         </p>
     </asp:Panel>
+
     <div id="contain">
 	<div class="accordion">
         	
@@ -271,13 +290,14 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
 		<div id="tab-1">
 			<a href="#tab-1" class="tab">Head-Wise Valuation Abstract</a>
 			<div class="content">
-
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                 <asp:UpdatePanel ID="up1" runat="server">
             <ContentTemplate>
                 <table style="width:100%">
                     <tr>
                         <td colspan="2">
-                            <asp:CheckBox ID="CheckBox1" EnableViewState="true" AutoPostBack="true" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Preview by Issue Head and Date" runat="server" />
+                            
+                            <asp:CheckBox ID="CheckBox1" EnableViewState="true"  AutoPostBack ="true"  OnCheckedChanged="CheckBox1_CheckedChanged"   Text="Preview by Issue Head and Date" runat="server" />
                             </td>
                     </tr>
                     <tr>

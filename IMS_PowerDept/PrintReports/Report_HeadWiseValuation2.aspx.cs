@@ -21,12 +21,21 @@ namespace IMS_PowerDept.PrintReports
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
         string isssuehead;
         string ch_headvalue = "";
+
+        //this 2 variable are used for changing the date formats in mm/dd/yy
+        string stDate;
+        string edDate;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
             isssuehead = Session["IssueHead"].ToString();
             st.Text = Session["BeginDate"].ToString();
+            stDate = DateTime.ParseExact(st.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            
             ed.Text = Session["EndDate"].ToString();
+            edDate = DateTime.ParseExact(ed.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             rertivebyDate();
         }
 
@@ -34,7 +43,7 @@ namespace IMS_PowerDept.PrintReports
         {
             try
             {
-                dadapter = new SqlDataAdapter(" SELECT distinct dbo.DeliveryItemsChallan.IndentingDivisionName FROM  dbo.DeliveryItemsChallan INNER JOIN dbo.DeliveryItemsDetails ON dbo.DeliveryItemsChallan.DeliveryItemsChallanID = dbo.DeliveryItemsDetails.DeliveryItemsChallanID WHERE (dbo.DeliveryItemsChallan.IsDeliveredTemporary = 'No') AND (dbo.DeliveryItemsDetails.IssueHeadName = '" + Session["IssueHead"].ToString() + "') and dbo.DeliveryItemsChallan.ChallanDate between '" + st.Text + "' and  '" + ed.Text + "'", con);
+                dadapter = new SqlDataAdapter(" SELECT distinct dbo.DeliveryItemsChallan.IndentingDivisionName FROM  dbo.DeliveryItemsChallan INNER JOIN dbo.DeliveryItemsDetails ON dbo.DeliveryItemsChallan.DeliveryItemsChallanID = dbo.DeliveryItemsDetails.DeliveryItemsChallanID WHERE (dbo.DeliveryItemsChallan.IsDeliveredTemporary = 'No') AND (dbo.DeliveryItemsDetails.IssueHeadName = '" + Session["IssueHead"].ToString() + "') and dbo.DeliveryItemsChallan.ChallanDate between '" + stDate  + "' and  '" +  edDate  + "'", con);
                 //dadapter = new SqlDataAdapter("select distinct IndentingDivisionName ,DeliveryItemsChallanID  from DeliveryItemsChallan where IsDeliveredTemporary = 'No' and ChallanDate between '" + st.Text + "' and  '" + ed.Text + "'", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
@@ -43,7 +52,7 @@ namespace IMS_PowerDept.PrintReports
             }
             catch
             {
-                throw;
+                //throw;
             }
         }
 
