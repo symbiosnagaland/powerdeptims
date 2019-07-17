@@ -1,4 +1,5 @@
-﻿<%@ Page Title=" Run Valuation Reports" Language="C#" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="IMS_PowerDept.Admin.RunValuationReports" %>
+﻿
+<%@ Page Title=" Run Valuation Reports" Language="C#" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="IMS_PowerDept.Admin.RunValuationReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/sb-admin.css" rel="stylesheet" />
@@ -8,77 +9,96 @@
 
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
+
 <script type="text/javascript">
     $(function () {
         $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
-            {
-                changeMonth: true,
-                changeYear: true
-            });
+               {
+                   changeMonth: true,
+                   changeYear: true,
+                   dateFormat: 'dd/mm/yy'
+               });      
 
         $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
-            {
-                changeMonth: true,
-                changeYear: true             
-            });
-
+              {
+                  changeMonth: true,
+                  changeYear: true,
+                  dateFormat: 'dd/mm/yy'
+              });
+    
         $("#ContentPlaceHolder1_chdate").datepicker(
              {
                  changeMonth: true,
-                 changeYear: true
-             });
-        $("#ContentPlaceHolder1_chdateend").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
+                 changeYear: true,
+                 dateFormat: 'dd/mm/yy'
              });
 
-
-        $("#ContentPlaceHolder1_stratdiv").datepicker(
+       $("#ContentPlaceHolder1_chdateend").datepicker(
              {
                  changeMonth: true,
-                 changeYear: true
-             });
-        $("#ContentPlaceHolder1_enddiv").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
+                 changeYear: true,
+                 dateFormat: 'dd/mm/yy'
              });
 
+       $("#ContentPlaceHolder1_TextBox1").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
 
-        $("#ContentPlaceHolder1_valStart").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
-             });
-        $("#ContentPlaceHolder1_valEnd").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
-             });
+       $("#ContentPlaceHolder1_TextBox2").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
 
-        $("#ContentPlaceHolder1_TextBox1").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
-             });
-        $("#ContentPlaceHolder1_TextBox2").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
-             });
+       $("#ContentPlaceHolder1_stratdiv").datepicker(
+           {
+               changeMonth: true,
+               changeYear: true,
+               dateFormat: 'dd/mm/yy'
+           });
 
-        $("#ContentPlaceHolder1_endtbsummary").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
-             });
-        $("#ContentPlaceHolder1_tbsummary").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true
-             });
+       $("#ContentPlaceHolder1_enddiv").datepicker(
+          {
+              changeMonth: true,
+              changeYear: true,
+              dateFormat: 'dd/mm/yy'
+          });
 
+       $("#ContentPlaceHolder1_valStart").datepicker(
+         {
+             changeMonth: true,
+             changeYear: true,
+             dateFormat: 'dd/mm/yy'
+         });
+
+       $("#ContentPlaceHolder1_valEnd").datepicker(
+       {
+           changeMonth: true,
+           changeYear: true,
+           dateFormat: 'dd/mm/yy'
+       });
+
+
+       $("#ContentPlaceHolder1_tbsummary").datepicker(
+       {
+           changeMonth: true,
+           changeYear: true,
+           dateFormat: 'dd/mm/yy'
+       });
+
+       $("#ContentPlaceHolder1_endtbsummary").datepicker(
+      {
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: 'dd/mm/yy'
+      });
+
+
+      
     });
 </script>
 
@@ -272,7 +292,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td>
-                        <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                     <tr>
@@ -280,7 +300,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                     Ending Date
                     </td>
                     <td>
-                          <asp:TextBox CssClass="form-control" ID="tbEndDateSearch"  placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+                          <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
 
                     </td>
                 </tr>
@@ -313,7 +333,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td>
-                        <asp:TextBox CssClass="form-control" ID="chdate" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="form-control" ID="chdate" autocomplete="off" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -321,7 +341,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                     Ending Date
                     </td>
                     <td>
-                          <asp:TextBox CssClass="form-control" ID="chdateend" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+                          <asp:TextBox CssClass="form-control" autocomplete="off"  ID ="chdateend" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
 
                     </td>
                 </tr>
@@ -343,7 +363,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td>
-                        <asp:TextBox CssClass="form-control" ID="TextBox1" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="form-control" ID="TextBox1" autocomplete="off"  placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -351,7 +371,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                     Ending Date
                     </td>
                     <td>
-                          <asp:TextBox CssClass="form-control" ID="TextBox2" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+                          <asp:TextBox CssClass="form-control" ID="TextBox2" autocomplete="off"  placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
 
                     </td>
                 </tr>
@@ -419,7 +439,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td>
-                        <asp:TextBox CssClass="form-control"  ID="stratdiv" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="form-control"  ID="stratdiv" autocomplete="off" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                    <tr>
@@ -427,7 +447,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                     Ending Date
                     </td>
                     <td>
-                          <asp:TextBox CssClass="form-control" ID="enddiv" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+                          <asp:TextBox CssClass="form-control" ID="enddiv" autocomplete="off" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
 
                     </td>
                 </tr>
@@ -452,7 +472,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td colspan="2">
-                        <asp:TextBox CssClass="form-control" ID="valStart" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="form-control" ID="valStart" autocomplete="off"  placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -460,7 +480,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                     Ending Date
                     </td>
                    <td colspan="2">
-                          <asp:TextBox CssClass="form-control" ID="valEnd" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+                          <asp:TextBox CssClass="form-control" autocomplete="off"  ID="valEnd" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                      <tr>
@@ -483,7 +503,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td colspan="2">
-                        <asp:TextBox CssClass="form-control" ID="tbsummary" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass="form-control" autocomplete="off" ID="tbsummary" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -491,7 +511,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                     Ending Date
                     </td>
                    <td colspan="2">
-                          <asp:TextBox CssClass="form-control" ID="endtbsummary" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+                          <asp:TextBox CssClass="form-control" ID="endtbsummary" autocomplete="off" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                     <tr>

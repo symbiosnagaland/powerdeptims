@@ -28,11 +28,9 @@ namespace IMS_PowerDept.UserControls
         /// <param name="uploadedFilePathAndName"></param>
         protected void saveexcel_bulkcopy(string fileExtension, string uploadedFilePathAndName)
         {
-
             try
             {
                 string strCSVConnString = "";
-
 
                 if (fileExtension == ".xlsx")
                 {   //read a 2007 file  
@@ -44,19 +42,17 @@ namespace IMS_PowerDept.UserControls
                     //read a 97-2003 file  
                     strCSVConnString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + uploadedFilePathAndName + ";Extended Properties='Excel 8.0;HDR=YES;IMEX=1'";
                 }
-
-
-
+                
                 using (OleDbConnection con = new OleDbConnection(strCSVConnString))
                 {
                     con.Open();
-
                     OleDbCommand com = new OleDbCommand("Select * from [sheet1$]", con);
                     OleDbDataReader dr = com.ExecuteReader();
                     SqlTransaction tr = null;
                     SqlConnection conn = new SqlConnection(AppCode.AppConns.GetConnectionString());
 
                     //this will execute first
+
                     SqlCommand cmdtruncate = conn.CreateCommand();
                     cmdtruncate.CommandText = "truncate table ItemsBulkUploadTemp";
                     //this will execute last after bulk copy to temp
@@ -142,24 +138,16 @@ namespace IMS_PowerDept.UserControls
                 }
             }
 
-
-
-
+                
             catch (Exception ex)
             {
-
                 Session["ERRORMSG"] = ex.ToString();
-              Response.Redirect("Error.aspx");
-
-
-
+                Response.Redirect("Error.aspx");
             }
 
         }
 
-        /// <summary>
-        /// Uploading of excel, first few validations here and then passing to another method to do the sqlbulk upload
-        /// </summary>
+        
         protected void ExcelUploadAndSavetoDB()
         {
             try
@@ -195,14 +183,13 @@ namespace IMS_PowerDept.UserControls
 
                 }
             }
+
             catch (Exception ex)
             {
                 Session["ERRORMSG"] = ex.ToString();
-              Response.Redirect("Error.aspx");
-
-
-
+                Response.Redirect("Error.aspx");
             }
+
             finally
             {
                 string path = Filename.Text;

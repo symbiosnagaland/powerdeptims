@@ -208,7 +208,7 @@
                                 <td>Challan ID :</td>
                                 <td>
                                     <asp:HiddenField ID="HiddenField1" Value='<%#DataBinder.Eval(Container, "DataItem.IsDeliveredTemporary")%>' runat="server" />
-                                    <asp:Label ID="cid" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label></td>
+                                    <asp:Label ID="cid" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label></td>
                             </tr>
                             <tr>
                                 <td>Indent Reference</td>
@@ -216,7 +216,8 @@
                                     <asp:Label ID="ref" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.IndentReference")%>'></asp:Label></td>
                                 <td>Indent Date</td>
                                 <td>
-                                    <asp:Label ID="idate" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.IndentDate", "{0:yyyy/MM/dd}")%>'></asp:Label></td>
+                               <%--     <asp:Label ID="idate" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.IndentDate", "{0:yyyy/MM/dd}")%>'></asp:Label></td> --%>
+                                    <asp:Label ID="idate" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.IndentDate", "{0:dd/MM/yyyy}")%>'></asp:Label></td>
                             </tr>
                             <tr>
                                 <td>Division Name</td>

@@ -20,8 +20,7 @@
 					
                     <asp:TextBox ID="inputUsername" placeholder="Username"  Width="180px" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-					
-<br />
+					<br />
                 	<label for="pass">Password:</label>
 					<asp:TextBox ID="inputPassword" Width="180px" placeholder="Password"  CssClass="form-control" TextMode="Password" runat="server"></asp:TextBox>
                
@@ -34,8 +33,6 @@
 			<div class="footer">&nbsp;<a  href="#">Power Dept. IMS &copy 2014 - <%Response.Write(DateTime.Now.Year.ToString()); %></a> | Powered by <a  href="#">SymBios Soft Tech</a></div>
 		</div>
 	</div>
-
-
     </form>
 </body>
 </html>

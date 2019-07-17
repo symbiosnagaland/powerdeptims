@@ -13,7 +13,6 @@
 
 <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css">
 <link href="../js/sortingfile/jquery-ui.css" rel="stylesheet" type="text/css" />
-
 <link href="jquery.datatables.yadcf.css" rel="stylesheet" type="text/css" />
 
 <script>
@@ -34,9 +33,24 @@
 </script>
 
     <script type="text/javascript">
+      //  $(function () {
+          //  $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
+          //  $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
+       // });
+
         $(function () {
-            $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
-            $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
+            $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd/mm/yy'
+                });
+            $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd/mm/yy'
+                });
         });
 
     </script>
@@ -154,11 +168,11 @@
 
                             <td> 
                                 <span style="float: left; padding-left:10px;">
-                                     <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="mm/dd/yyyy" Width="100px" runat="server"></asp:TextBox>
+                                     <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="dd/mm/yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
                                 </span>
 
                                 <span style="float: left; padding-left:5px;">
-                                     <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="mm/dd/yyyy" Width="100px" runat="server"></asp:TextBox>
+                                     <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="dd/mm/yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
                                 </span>
                             </td>
 
@@ -201,9 +215,9 @@
                 
                              <tr>
                                  <td>
-                                     <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label>
+                                     <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label>
                                  </td>
-                                 <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate", "{0:yyyy-MM-dd}")%>'></asp:Label></td>
+                                 <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate", "{0:dd-MM-yyyy}")%>'></asp:Label></td>
                                    <td>
                                        <asp:Label ID="Label2" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentingDivisionName")%>'></asp:Label>
                                  </td>
@@ -212,7 +226,7 @@
                                  </td>
                                  <td>
                                     <a href='<%# "IssuedEntryEdit.aspx?challanid="+Eval("DeliveryItemsChallanID") %>' class="table-icon edit" style="padding-left:20px;" title="Edit">Edit</a>                      
-                                    <a href='<%# "IssuedItemsDetails.aspx?Id="+Eval("DeliveryItemsChallanID") %>' target="_blank" class="table-icon archive" style="padding-left:20px;" title="View Details">View</a>
+                                    <a href='<%# "IssuedItemsDetails.aspx?Id="+Eval("DeliveryItemsChallanID","{0:0}") %>' target="_blank" class="table-icon archive" style="padding-left:20px;" title="View Details">View</a>
                                     <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("DeliveryItemsChallanID") %>' class="table-icon delete" style="padding-left:20px;" CommandName="Delete" runat="server">Delete</asp:LinkButton>                                                                                                           
                                                        
                                  </td>

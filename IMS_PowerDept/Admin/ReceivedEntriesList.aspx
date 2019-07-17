@@ -10,8 +10,20 @@
 
     <script type="text/javascript">
         $(function () {
-            $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
-            $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
+            
+            $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
+               {
+                   changeMonth: true,
+                   changeYear: true,
+                   dateFormat: 'dd/mm/yy'
+               });
+    
+            $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
+               {
+                   changeMonth: true,
+                   changeYear: true,
+                   dateFormat: 'dd/mm/yy'
+               });
         });
     </script>
 
@@ -31,11 +43,7 @@
      <asp:SqlDataSource ID="sdsihead" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT DISTINCT IssueHeadName FROM ReceivedItemsOTEO"></asp:SqlDataSource>
     
     <div class="full_w">
-        <div class="h_title">List Received Entries</div>
-
-      
-
-      
+        <div class="h_title">List Received Entries</div>      
         <asp:Panel ID="panelAdvancedSearchFilters"  runat="server">
  <div class="element2">
             <table>
@@ -97,10 +105,10 @@
 
                     <td> 
                         <span style="float: left; padding-left: 10px;">
-                            <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
                         </span>
                          <span style="float: left; padding-left: 5px;">
-                            <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
                         </span>
                          
                     </td>
@@ -160,7 +168,7 @@
                      </td>
 
                      <td> 
-                         <asp:Label ID="cHEad" runat="server" Text='<%#Convert.ToDateTime(DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate")).ToString("MM/dd/yyyy")%>'></asp:Label>
+                         <asp:Label ID="cHEad" runat="server" Text='<%#Convert.ToDateTime(DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate")).ToString("dd/MM/yyyy")%>'></asp:Label>
                      </td>
 
                      <td>

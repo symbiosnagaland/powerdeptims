@@ -60,6 +60,7 @@
     <Content Include="Admin\BackUp.aspx" />
     <Content Include="Admin\BulkItemUpload.aspx" />
     <Content Include="Admin\ChargeableHeads.aspx" />
+    <Content Include="Admin\IssueEntryTemporary.aspx" />
     <Content Include="Admin\SearchByItem.aspx" />
     <Content Include="Admin\User_SettingDeveloper.aspx" />
     <Content Include="Admin\IssuedEntryEdit.aspx" />
@@ -207,6 +208,7 @@
     <Content Include="UserControls\BackUp.ascx" />
     <Content Include="UserControls\BulkItemsUploadControl.ascx" />
     <Content Include="UserControls\ChargeableHeadsControl.ascx" />
+    <Content Include="UserControls\IssueEntryTemp.ascx" />
     <Content Include="UserControls\ItemsInventoryControl.ascx" />
     <Content Include="UserControls\ItemsListInventoryControl.ascx" />
     <Content Include="UserControls\TransformerReceiptEntry.ascx" />
@@ -243,6 +245,13 @@
     </Compile>
     <Compile Include="Admin\ChargeableHeads.aspx.designer.cs">
       <DependentUpon>ChargeableHeads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssueEntryTemporary.aspx.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssueEntryTemporary.aspx.designer.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SearchByItem.aspx.cs">
       <DependentUpon>SearchByItem.aspx</DependentUpon>
@@ -875,6 +884,13 @@
     </Compile>
     <Compile Include="UserControls\ChargeableHeadsControl.ascx.designer.cs">
       <DependentUpon>ChargeableHeadsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IssueEntryTemp.ascx.cs">
+      <DependentUpon>IssueEntryTemp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\IssueEntryTemp.ascx.designer.cs">
+      <DependentUpon>IssueEntryTemp.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ItemsInventoryControl.ascx.cs">
       <DependentUpon>ItemsInventoryControl.ascx</DependentUpon>

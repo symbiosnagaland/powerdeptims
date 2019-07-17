@@ -12,7 +12,7 @@ using System.Web;
 namespace IMS_PowerDept.UserControls
 {
 
-    public partial class IssueEntry : System.Web.UI.UserControl
+    public partial class IssueEntryTemp : System.Web.UI.UserControl
     {
         protected static DataTable dtItems = new DataTable();
         static double totalAmount = 0;
@@ -272,11 +272,11 @@ namespace IMS_PowerDept.UserControls
                     DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
                     TextBox itemUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
                     TextBox itemQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
-                   // DropDownList itemIHead = gvItems.Rows[i].FindControl("_ddIhead") as DropDownList;
-                 //   DropDownList ddlRates = gvItems.Rows[i].FindControl("ddlRates") as DropDownList;
+                    // DropDownList itemIHead = gvItems.Rows[i].FindControl("_ddIhead") as DropDownList;
+                    //   DropDownList ddlRates = gvItems.Rows[i].FindControl("ddlRates") as DropDownList;
 
                     HiddenField hdnSelectedIssueHead = gvItems.Rows[i].FindControl("hdnSelectedIssueHead") as HiddenField;
-                    HiddenField hdnSelectedRate = gvItems.Rows[i].FindControl("hdnSelectedRate") as HiddenField;  
+                    HiddenField hdnSelectedRate = gvItems.Rows[i].FindControl("hdnSelectedRate") as HiddenField;
                     //SAVE CODE
                     if (itemName.SelectedValue.ToString() != "")
                     {
@@ -292,13 +292,12 @@ namespace IMS_PowerDept.UserControls
                 {
                     //call the method to save both in primary deliverychallan table and delivery details table
                     akivi.SaveIssuedItems(issued, sb.ToString());
-                   // Session["CHALLANNO"] = _tbChalanNo.Text;
-                   // Response.Redirect(Request.Url.ToString());
+                    //Session["CHALLANNO"] = _tbChalanNo.Text;
+                    // Response.Redirect(Request.Url.ToString());
+                    //Response.Redirect("~/Reports/ChallanWiseValuation.aspx");
                     Response.Redirect("IssuedItemsDetails.aspx?id=" + _tbChalanNo.Text);
 
-                    //Response.Redirect("IssuedEntryEdit.aspx?challanid=" + index);
 
-                    
                 }
 
 
@@ -682,80 +681,80 @@ namespace IMS_PowerDept.UserControls
             //old codes has been comment my multi line comments. only save code has been copied
             //done by biswajit
 
-           /* //checking in there is any null value b4 saving 2 challan table
-            if (_tbChalanNo.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Challan No./Indent number cannot be NULL.";
-                return;
-            }
-            if (_tbIndentValue.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Indent number cannot be NULL.";
-                return;
-            }
-            //_tbChallanDate _ddIntendDivisions _ddCHead
-            if (_tbChallanDate.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Challan Date cannot be NULL.";
-                return;
-            }
-            if (_ddIntendDivisions.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Division Name cannot be NULL.";
-                return;
-            }
-            if (_ddCHead.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "ChargeableHead Name cannot be NULL.";
-                return;
-            }
+            /* //checking in there is any null value b4 saving 2 challan table
+             if (_tbChalanNo.Text.Trim() == "")
+             {
+                 panelError.Visible = true;
+                 lblError.Text = "Challan No./Indent number cannot be NULL.";
+                 return;
+             }
+             if (_tbIndentValue.Text.Trim() == "")
+             {
+                 panelError.Visible = true;
+                 lblError.Text = "Indent number cannot be NULL.";
+                 return;
+             }
+             //_tbChallanDate _ddIntendDivisions _ddCHead
+             if (_tbChallanDate.Text.Trim() == "")
+             {
+                 panelError.Visible = true;
+                 lblError.Text = "Challan Date cannot be NULL.";
+                 return;
+             }
+             if (_ddIntendDivisions.Text.Trim() == "")
+             {
+                 panelError.Visible = true;
+                 lblError.Text = "Division Name cannot be NULL.";
+                 return;
+             }
+             if (_ddCHead.Text.Trim() == "")
+             {
+                 panelError.Visible = true;
+                 lblError.Text = "ChargeableHead Name cannot be NULL.";
+                 return;
+             }
 
-            try
-            {
+             try
+             {
 
-                con.Open();
-                SqlCommand cmdd = new SqlCommand("select * from DeliveryItemsChallan where DeliveryItemsChallanID = @DeliveryItemsChallanID", con);
-                SqlParameter param = new SqlParameter();
-                //SqlParameter param1 = new SqlParameter();
-                param.ParameterName = "@DeliveryItemsChallanID";
-                param.Value = _tbChalanNo.Text;
-                cmdd.Parameters.Add(param);
-                //cmdd.Parameters.Add(param1);
-                SqlDataReader reader = cmdd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    panelError.Visible = true;
-                    lblError.Text = "This Delivery ItemsChallanID already exists.Please choose another ID.";
+                 con.Open();
+                 SqlCommand cmdd = new SqlCommand("select * from DeliveryItemsChallan where DeliveryItemsChallanID = @DeliveryItemsChallanID", con);
+                 SqlParameter param = new SqlParameter();
+                 //SqlParameter param1 = new SqlParameter();
+                 param.ParameterName = "@DeliveryItemsChallanID";
+                 param.Value = _tbChalanNo.Text;
+                 cmdd.Parameters.Add(param);
+                 //cmdd.Parameters.Add(param1);
+                 SqlDataReader reader = cmdd.ExecuteReader();
+                 if (reader.HasRows)
+                 {
+                     panelError.Visible = true;
+                     lblError.Text = "This Delivery ItemsChallanID already exists.Please choose another ID.";
 
-                    reader.Close();
-                    con.Close();
-                    return;
-                }
-                else
-                {
-                    reader.Close();
-                    con.Close();
-                    _SaveDeliveryItemDetails();
-
-
-                }
+                     reader.Close();
+                     con.Close();
+                     return;
+                 }
+                 else
+                 {
+                     reader.Close();
+                     con.Close();
+                     _SaveDeliveryItemDetails();
 
 
-            }
-            catch (System.Threading.ThreadAbortException)
-            {
-                //do nothing
-            }
-            catch (Exception ex)
-            {
-                Session["ERRORMSG"] = ex.ToString();
-                Response.Redirect("~/Error.aspx");
-            }*/
+                 }
+
+
+             }
+             catch (System.Threading.ThreadAbortException)
+             {
+                 //do nothing
+             }
+             catch (Exception ex)
+             {
+                 Session["ERRORMSG"] = ex.ToString();
+                 Response.Redirect("~/Error.aspx");
+             }*/
         }
 
         protected void btnRowsAdd_Click(object sender, EventArgs e)
@@ -870,13 +869,11 @@ namespace IMS_PowerDept.UserControls
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
 
                 issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-               // issued.Date = _tbChallanDate.Text;
+                //issued.Date = _tbChallanDate.Text;
                 issued.IndentValue = _tbIndentValue.Text;
 
                 issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                //issued.Date2 = _tbIntendDate.Text;
+               // issued.Date2 = _tbIntendDate.Text;
                 issued.Division = _ddIntendDivisions.Text;
                 issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
                 issued.IsDeliveredTemporary = istemporary.Checked ? "Yes" : "No";
@@ -925,11 +922,8 @@ namespace IMS_PowerDept.UserControls
                             return;
 
                         }
-                        //TextBox itemQty = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
-                       
-                    }
-
-                    
+                                          
+                    }                    
                 }
                 issued.TotalAmount = totalAmount;
                 //now save it to db
@@ -957,15 +951,12 @@ namespace IMS_PowerDept.UserControls
                     panelError.Visible = true;
                     lblError.Text = "Error! Select atleast one item to add.";
                     panelSuccess.Visible = false;
-
                 }
-
             }
 
             catch (System.Threading.ThreadAbortException)
             {
                 //do nothing
-
             }
             catch (SqlException ex)
             {
@@ -986,9 +977,6 @@ namespace IMS_PowerDept.UserControls
             {
                 Session["ERRORMSG"] = ex.ToString();
                 Response.Redirect("Error.aspx", true);
-
-
-
             }
         }
 

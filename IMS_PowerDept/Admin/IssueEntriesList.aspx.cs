@@ -63,7 +63,17 @@ namespace IMS_PowerDept.Admin
             {
                 SqlDataAdapter aa;
                 DataSet bb;
-                aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or ChallanDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
+
+                //for converting date to MM/dd/yyyy again 
+
+                string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                //this was the old select code
+                //aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + stDate + "' and '" + endDate + "' or ChallanDate between '" + stDate + "' and '" + endDate + "' ", con);
+
+                //NEw Select Code
+                aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + stDate + "' and '" + endDate + "' and  ChallanDate between '" + stDate + "' and '" + endDate + "' ", con);
                 //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
                 bb = new DataSet();
                 aa.Fill(bb);

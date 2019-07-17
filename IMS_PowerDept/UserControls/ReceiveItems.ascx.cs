@@ -44,8 +44,11 @@ namespace IMS_PowerDept.UserControls
             {
                 //InsertEmptyRow();
                 GetIssueHeadsandItemsForDropDowns();
+                InsertEmptyRow(10);
+                _btnSave.Visible = Button1.Visible = true;
 
             }
+            
         }
 
 
@@ -262,9 +265,16 @@ namespace IMS_PowerDept.UserControls
                 properties RecievedItemsOrderObject = new properties();
 
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
-                RecievedItemsOrderObject.Date = tbOTEODate.Text;
+
+                RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                //RecievedItemsOrderObject.Date = tbOTEODate.Text;
+
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
-                RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
+
+                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
+
                 RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
                 RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
                RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
@@ -309,9 +319,15 @@ namespace IMS_PowerDept.UserControls
                    // panelError.Visible = false;
 
                     //putting success message in session so that page can be reloaded
-                    Session["OTEONUMBER"] = tbOtEONumber.Text;
-                    Response.Redirect(Request.Url.ToString());            
-}
+                    //changed by biswajit 
+                    //Session["OTEONUMBER"] = tbOtEONumber.Text;
+                    //Response.Redirect(Request.Url.ToString()); 
+                    
+
+                    Response.Redirect("ReceivedItemsDetails.aspx?id="+tbOtEONumber.Text );
+          
+                }
+            
                 
                 else
                 {
@@ -389,9 +405,15 @@ namespace IMS_PowerDept.UserControls
                 properties RecievedItemsOrderObject = new properties();
 
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
-                RecievedItemsOrderObject.Date = tbOTEODate.Text;
+
+                RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+               // RecievedItemsOrderObject.Date = tbOTEODate.Text;
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
-                RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
+
+                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                
+                //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
+
                 RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
                 RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
                 RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
@@ -480,6 +502,17 @@ namespace IMS_PowerDept.UserControls
                 lblError.Text = ex.Message;
                 panelSuccess.Visible = false;
             }
+        }
+
+        protected void tbOTEODate_TextChanged(object sender, EventArgs e)
+        {
+
+         
+        }
+
+        protected void tbOTEODate_TextChanged1(object sender, EventArgs e)
+        {
+
         }
     }
 }

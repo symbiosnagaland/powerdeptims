@@ -70,12 +70,17 @@ namespace IMS_PowerDept.Admin
                    
                     status.Text = "Temporary Issued Items";
                     status.ForeColor = Color.Red;
-                    lk.Visible = true;
+
+                    //commented by biswajit
+                    //lk.Visible = true;
                 }
                 else
                 {
                     status.Text = "Regular Issued Items"; status.ForeColor = Color.Black;
-                    lk.Visible = false;
+
+                    //commented by biswajit
+                    //lk.Visible = false;
+                   // lk.Visible = true;
                 }
             }
     }

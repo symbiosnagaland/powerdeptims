@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IssueEntry.ascx.cs"  Inherits="IMS_PowerDept.UserControls.IssueEntry" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IssueEntryTemp.ascx.cs"  Inherits="IMS_PowerDept.UserControls.IssueEntryTemp" %>
 
 
      <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
@@ -6,15 +6,13 @@
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker();
-        $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker();
+        $("#ContentPlaceHolder1_IssueEntryTemp__tbChallanDate").datepicker();
+        $("#ContentPlaceHolder1_IssueEntryTemp__tbIntendDate").datepicker();
     });
 </script>
 <style type="text/css">
 .ui-datepicker { font-size:8pt !important}
 </style>
-
-
 <script type="text/javascript">
 
     function SetUnitName(itemid) {
@@ -84,16 +82,17 @@
     $(function () {
         $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker(            
             {
-           //changeMonth: true,
-                // changeYear: true
-                dateFormat: 'dd-mm-yy'
+           changeMonth: true,
+        changeYear: true
     });
         $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker(
             {                changeMonth: true,
-            changeYear: true
+                changeYear: true
             });
     });
-</script>--%>
+</script> --%>
+
+
 
 <style type="text/css">
 .ui-datepicker { font-size:8pt !important}
@@ -133,7 +132,7 @@
     <p><asp:Label ID="lblError" runat="server" Text=""></asp:Label></p>
     </asp:Panel>
 
-    <div class="h_title">Issue Entry</div>
+    <div class="h_title">Temporary Issue Entry</div>
     <div style="margin: 0px auto; padding: 10px">
 
         
@@ -143,7 +142,7 @@
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" autocomplete="off" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
                 <br />
-                <asp:TextBox CssClass="form-control" ID="_tbChallanDate" autocomplete="off"  placeholder="Date"    Width="280px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" autocomplete="off"  ID="_tbChallanDate" placeholder="Date" Width="280px" runat="server"></asp:TextBox>
 
             </div>
 
@@ -152,9 +151,10 @@
         <div class="half_w half_right">
             <div class="h_title">Indent Number / Date(mm/dd/yyyy)</div>
             <div style="margin: 0px auto; padding: 10px">
-                <asp:TextBox CssClass="form-control" ID="_tbIndentValue" autocomplete="off"  placeholder="Indent Number" Width="180px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" ID="_tbIndentValue" autocomplete="off" placeholder="Indent Number" Width="180px" runat="server"></asp:TextBox>
                 <br />
-                <asp:TextBox CssClass="form-control" autocomplete="off"      ID="_tbIntendDate" placeholder="Date" Width="180px" runat="server"></asp:TextBox>
+
+                <asp:TextBox CssClass="form-control" autocomplete="off"  ID="_tbIntendDate" placeholder="Date" Width="180px" runat="server"></asp:TextBox>
 
             </div>
 
@@ -172,7 +172,7 @@
         </div>
 
         <div class="element2">
-            <asp:CheckBox ID="istemporary"  Text=" Select if Issued Entry is Temporary" Checked ="false"   Visible ="false"   runat="server" />
+            <asp:CheckBox ID="istemporary"  ForeColor ="Red"  Text="Issued Entry is Temporary" Checked ="true" Enabled ="false"  runat="server" />
         </div>
 
 
@@ -222,7 +222,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Unit">
                         <ItemTemplate>
-                            <asp:TextBox Width="60px" autocomplete="off" BorderColor="Transparent" BackColor="Transparent" ID="_tbUnit" runat="server">
+                            <asp:TextBox Width="60px" autocomplete="off"  BorderColor ="Transparent" BackColor="Transparent" ID="_tbUnit" runat="server">
                             </asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -255,7 +255,7 @@
 
                        <asp:TemplateField HeaderText="Quantity">
                         <ItemTemplate>
-                            <asp:TextBox Width="60px" autocomplete="off"  CssClass="form-control" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                            <asp:TextBox Width="60px" autocomplete="off"  CssClass ="form-control" ID="_tbQuantity" TextMode ="Number" runat="server" BorderStyle="Solid" BorderWidth="1px">
                             </asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -277,12 +277,12 @@
 
         <div class="element">
            <span style="float:left; width: 111px;"> <label for="comments">VEHICLE NUMBER</label></span>     <span style="float:left; padding-left: 11px;";> 
-               <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbVehicleNumberCaps"    style="text-transform:uppercase"  placeholder="VEHICLE NUMBER" Width="280px" runat="server"></asp:TextBox>
+               <asp:TextBox CssClass="form-control"  autocomplete="off" ID="tbVehicleNumberCaps"    style="text-transform:uppercase"  placeholder="VEHICLE NUMBER" Width="280px" runat="server"></asp:TextBox>
         </span></div>
 
         <div class="element">
               <span style="float:left; width: 111px;">    <label  for="comments">Receiver's Designation</label></span>
-          <span style="float:left; padding-left: 11px;";>   <asp:TextBox CssClass="form-control" ID="tbReceiverDesignation" autocomplete="off"  style="text-transform:capitalize" placeholder="Receiver's Designation" Width="280px" runat="server"></asp:TextBox>
+          <span style="float:left; padding-left: 11px;";>   <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbReceiverDesignation" style="text-transform:capitalize" placeholder="Receiver's Designation" Width="280px" runat="server"></asp:TextBox>
        </span> </div>
 
         <br />

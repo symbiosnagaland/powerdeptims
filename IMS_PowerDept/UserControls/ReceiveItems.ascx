@@ -2,12 +2,17 @@
 <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
+
+<%-- 
 <script type="text/javascript">
     $(function () {
         $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker();
         $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker();
+        
     });
 </script>
+
+    --%>
 <%--<link href="../css/style.css" rel="stylesheet" />
 <link href="../css/navi.css" rel="stylesheet" />
 <link href="../css/sb-admin.css" rel="stylesheet" />--%>
@@ -113,10 +118,10 @@
      <div class="half_w half_left">
 				<div class="h_title"> Supply Order Reference / Date (mm/dd/yyyy)</div>
         <div style="margin:0px auto; padding:10px">
-            <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference" placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
+            <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference"  autocomplete="off"  placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
              
            <br />
-             <asp:TextBox CssClass="form-control" ID="tbSupplyDate" placeholder="Supply Order Date" Width="280px" runat="server"></asp:TextBox>
+             <asp:TextBox CssClass="form-control" ID="tbSupplyDate" autocomplete="off"  placeholder="Supply Order Date" Width="280px" runat="server"></asp:TextBox>
              </div>
 
 </div>
@@ -124,16 +129,16 @@
     <div class="half_w half_right">
 				<div class="h_title">OTEO ID / Date (mm/dd/yyyy)</div>
                 <div style="margin:0px auto; padding:10px">
-                 <asp:TextBox CssClass="form-control" ID="tbOtEONumber" placeholder="OTEO No." Width="280px" runat="server"></asp:TextBox>   
+                 <asp:TextBox CssClass="form-control" ID="tbOtEONumber" autocomplete="off" placeholder="OTEO No." Width="280px" runat="server"></asp:TextBox>   
                     <br />
                    
-                     <asp:TextBox CssClass="form-control" ID="tbOTEODate" placeholder="OTEO Date" Width="280px" runat="server"></asp:TextBox>                                             
+                     <asp:TextBox CssClass="form-control"  autocomplete="off" ID="tbOTEODate" placeholder="OTEO Date" Width="280px" runat="server" OnTextChanged="tbOTEODate_TextChanged1" ></asp:TextBox>                                             
      </div>
     </div>
 
   <div class="element">
                <label>Supplier Name</label>
-               <asp:TextBox ID="tbSupplierName" Width="350px" placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
+               <asp:TextBox ID="tbSupplierName" Width="350px" autocomplete="off"  placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
               </div>
                                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="element2">
@@ -217,19 +222,19 @@
                                                     <asp:TemplateField HeaderText="Unit">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblUnit" runat="server" Text=""></asp:Label>
-                                                            <asp:TextBox Width="70px"  TabIndex="999" BorderColor="Transparent"  ID="_tbUnit" runat="server" BorderStyle="None" BackColor="Transparent"   BorderWidth="1px">
+                                                            <asp:TextBox Width="70px"  TabIndex="999" autocomplete="off"  BorderColor="Transparent"  ID="_tbUnit" runat="server" BorderStyle="None" BackColor="Transparent"   BorderWidth="1px">
                                                             </asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Quantity">
                                                         <ItemTemplate>
-                                                            <asp:TextBox Width="80px"  onchange="UpdateAmountbyQuantity(this.id)"  CssClass="form-control" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox Width="80px"  onchange="UpdateAmountbyQuantity(this.id)"  autocomplete="off" CssClass="form-control" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px">
                                                             </asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Rate">
                                                         <ItemTemplate>
-                                                            <asp:TextBox Width="80px"  onchange="UpdateAmountbyRate(this.id)" CssClass="form-control"  ID="tbRate" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox Width="80px"  onchange="UpdateAmountbyRate(this.id)" CssClass="form-control" autocomplete="off"  ID="tbRate" runat="server" BorderStyle="Solid" BorderWidth="1px">
                                                             </asp:TextBox>
                                                         </ItemTemplate>
                                                           <FooterStyle HorizontalAlign="Right" />
@@ -241,7 +246,7 @@
 
                                                     <asp:TemplateField HeaderText="Amount">
                                                         <ItemTemplate>
-                                                            <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" BackColor="Transparent"   ID="tbAmount" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" BackColor="Transparent" autocomplete="off"  ID="tbAmount" runat="server" BorderStyle="Solid" BorderWidth="1px">
                                                             </asp:TextBox>                                                     
                                                         </ItemTemplate>
                                                         <FooterStyle HorizontalAlign="Right" />

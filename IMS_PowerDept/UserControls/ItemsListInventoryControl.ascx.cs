@@ -25,7 +25,7 @@ namespace IMS_PowerDept.UserControls
 
         protected void btn1_Click(object sender, EventArgs e)
         {
-            string appPath = HttpRuntime.AppDomainAppVirtualPath;
+           /* string appPath = HttpRuntime.AppDomainAppVirtualPath;
 
          
              string scriptPath =   "<script>window.open('/Print/Print_ItemsInventory.aspx?ID=1&issueheadname=@ihn&date=@date','_newtab'); </script>";
@@ -33,10 +33,11 @@ namespace IMS_PowerDept.UserControls
 
              if (tbDate.Text == "")
              {
-                 scriptPath = scriptPath.Replace("@date", DateTime.Today.ToString("MM/dd/yyyy"));
+                 scriptPath = scriptPath.Replace("@date", DateTime.Today.ToString("dd/MM/yyyy"));
              }
              else
              {
+                 tbDate.Text = DateTime.ParseExact(tbDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                  scriptPath = scriptPath.Replace("@date", tbDate.Text);
              }
            
@@ -49,7 +50,7 @@ namespace IMS_PowerDept.UserControls
                   "click","@" + scriptPath, false);
 
           //  SelectedIssueHeadNameDetails(IssueHeadList.SelectedValue.ToString());
-
+            */
         }
         private void SelectedIssueHeadNameDetails(string pStrIssueHeadName)
         {
@@ -69,16 +70,19 @@ namespace IMS_PowerDept.UserControls
 
         protected void btn2_Click(object sender, EventArgs e)
         {
-            string appPath = HttpRuntime.AppDomainAppVirtualPath;
+          /*  string appPath = HttpRuntime.AppDomainAppVirtualPath;
             string scriptPath = "<script>window.open('/Print/Print_ItemsInventory.aspx?ID=2&issueheadname=@ihn&date=@date','_newtab'); </script>";
             scriptPath = scriptPath.Replace("@ihn", Utilities.QueryStringEncode(IssueHeadList.SelectedValue));
+
+            string myDate = DateTime.ParseExact(tbDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             if (tbDate.Text == "")
             {
-                scriptPath = scriptPath.Replace("@date", DateTime.Today.ToString("MM/dd/yyyy"));
+                scriptPath = scriptPath.Replace("@date", DateTime.Today.ToString("dd/MM/yyyy"));
             }
             else
             {
-                scriptPath = scriptPath.Replace("@date", tbDate.Text);
+                scriptPath = scriptPath.Replace("@date", myDate);
             }
           
             if (appPath != "/")
@@ -88,6 +92,8 @@ namespace IMS_PowerDept.UserControls
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                    "click","@" + scriptPath, false);
           //  SelectedIssueHeadNameDetails(IssueHeadList.SelectedValue.ToString());
+           * 
+           */
         }
 
         void DisplayCurrentPage()
@@ -148,20 +154,31 @@ namespace IMS_PowerDept.UserControls
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            if(tbDate.Text=="")
+            {
+                return;
+            }
             string selectedIssueHead = IssueHeadList.SelectedValue.ToString();
+
+            string myDate = DateTime.ParseExact(tbDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
             if (selectedIssueHead == "All" || selectedIssueHead == "")
             {
-                gvItemsInventory.DataSource = SelectedIssueHeadDetails.GetAllDetailsByDate(tbDate.Text);
+                gvItemsInventory.DataSource = SelectedIssueHeadDetails.GetAllDetailsByDate(myDate);
                 gvItemsInventory.DataBind();
                 gvItemsInventory.Visible = true;
             }
             else
             {
-                gvItemsInventory.DataSource = SelectedIssueHeadDetails.GetSelectedIssueHeadDetails(selectedIssueHead,tbDate.Text );
+                gvItemsInventory.DataSource = SelectedIssueHeadDetails.GetSelectedIssueHeadDetails(selectedIssueHead, myDate);
                 gvItemsInventory.DataBind();
                 gvItemsInventory.Visible = true;
             }
+        }
+
+        protected void tbDate_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
      

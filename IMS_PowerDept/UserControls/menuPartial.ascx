@@ -41,8 +41,11 @@
 					</ul>
 				</li>
 				<li class="upp"><a href="#">Issued Entry</a>
+
+
 					<ul>
 						<li>&#8250; <a href="IssueEntry.aspx">New Issued Entry</a></li>
+                        <li>&#8250; <a href="IssueEntryTemporary.aspx">New Temp Issued Entry</a></li>
 						<li>&#8250; <a href="IssueEntriesList.aspx">List Issued Entry</a></li>
                        
 			

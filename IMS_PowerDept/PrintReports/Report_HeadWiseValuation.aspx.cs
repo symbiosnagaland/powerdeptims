@@ -15,13 +15,24 @@ namespace IMS_PowerDept.Print_Reports
         int rowIndex = 1;
         SqlDataAdapter dadapter;
         DataSet dset;
+
+        string stDate;
+        string edDate;
+
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
         string ch_headvalue = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             //isssuehead = Session["IssueHead"].ToString();
+            //issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             st.Text = Session["BeginDate"].ToString();
+            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(),"dd/MM/yyyy",null).ToString ("MM/dd/yyyy");
+
+
             ed.Text = Session["EndDate"].ToString();
+             edDate = DateTime.ParseExact(Session["EndDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            
 
 
             rertivebyDate();
@@ -32,7 +43,7 @@ namespace IMS_PowerDept.Print_Reports
         {
             try
             {
-                dadapter = new SqlDataAdapter("select distinct IndentingDivisionName   from DeliveryItemsChallan where IsDeliveredTemporary = 'No' and ChallanDate between '" + st.Text + "' and  '" + ed.Text + "'", con);
+                dadapter = new SqlDataAdapter("select distinct IndentingDivisionName   from DeliveryItemsChallan where IsDeliveredTemporary = 'No' and ChallanDate between '" + stDate + "' and  '" +  edDate  + "'", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 GridView1.DataSource = dset.Tables[0];
@@ -63,7 +74,7 @@ namespace IMS_PowerDept.Print_Reports
                 Label DEP_ID = e.Row.FindControl("_lbldivi") as Label;
             //    SqlCommand cmd = new SqlCommand("  SELECT distinct dbo.DeliveryItemsChallan.DeliveryItemsChallanID, dbo.DeliveryItemsChallan.chargeableheadname,       dbo.DeliveryItemsChallan.TotalAmount FROM   dbo.DeliveryItemsChallan INNER JOIN dbo.DeliveryItemsDetails ON dbo.DeliveryItemsChallan.DeliveryItemsChallanID = dbo.DeliveryItemsDetails.DeliveryItemsChallanID WHERE (dbo.DeliveryItemsChallan.IndentingDivisionName ='" + DEP_ID.Text.ToString() + "') and ChallanDate between '" + st.Text + "' and  '" + ed.Text + "'", con);
                 //changed june 17 2015
-                SqlCommand cmd = new SqlCommand("select chargeableheadname, sum(totalamount) as totalamount      from deliveryitemschallan          WHERE( IndentingDivisionName ='" + DEP_ID.Text.ToString() + "') and  ChallanDate between '" + st.Text + "' and  '" + ed.Text + "'  group by chargeableheadname", con);
+                SqlCommand cmd = new SqlCommand("select chargeableheadname, sum(totalamount) as totalamount      from deliveryitemschallan          WHERE( IndentingDivisionName ='" + DEP_ID.Text.ToString() + "') and  ChallanDate between '" + stDate  + "' and  '" + edDate  + "'  group by chargeableheadname", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

@@ -175,9 +175,6 @@ namespace IMS_PowerDept.AppCode
             }
             catch { throw; }
 
-
-
-
             return dst;
 
         }
@@ -196,11 +193,7 @@ namespace IMS_PowerDept.AppCode
             }
             catch { throw; }
 
-
-
             return dt;
-
-
 
         }
 
