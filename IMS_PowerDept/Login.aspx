@@ -23,13 +23,13 @@
                         
                         <div class="element">
                             <label for="login">Username:</label>
-                            <asp:TextBox ID="inputUsername" placeholder="Username"  Width="180px" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="inputUsername" placeholder="Username"  autocomplete="off" Width="180px" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         
                         <br />
                         
                         <label for="pass">Password:</label>
-                        <asp:TextBox ID="inputPassword" Width="180px" placeholder="Password"  CssClass="form-control" TextMode="Password" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="inputPassword" Width="180px" placeholder="Password" autocomplete="off"  CssClass="form-control" TextMode="Password" runat="server"></asp:TextBox>
                         
                         <div class="sep"></div>
                         

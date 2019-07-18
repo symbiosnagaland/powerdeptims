@@ -11,10 +11,10 @@
 
     <!--New links-->
     <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
-    <link href="../csss/colors.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../csss/colors.css" rel="stylesheet" type="text/css"/>-->
     <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
 
-    <script type="text/javascript" src="../js/core/libraries/jquery.min.js"></script>	
+    	
     <script type="text/javascript" src="../js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript" src="../js/pages/form_select2.js"></script>
     
@@ -77,7 +77,7 @@
                     <Columns>
                         
                         <asp:BoundField DataField="ReceivedItemsOTEOID" ItemStyle-Width="150px" HeaderText="OTEO ID"  />
-                        <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEO Date" DataFormatString="{0:yyyy/MM/dd}"  />
+                        <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEO Date" DataFormatString="{0:dd/MM/yyyy}"  />
                         <asp:BoundField DataField="ChargeableHeadName" HeaderText="Chargeable Head" ReadOnly="True"  />
                         <asp:BoundField DataField="IssueHeadName"  HeaderText="Issue Head"  />
                         <asp:BoundField DataField="Unit" HeaderText="Unit"  />
@@ -113,7 +113,7 @@
                 <asp:GridView ID="gvItemsIssued" EmptyDataText="No such item issued!" Width="98%" GridLines="None" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False"  PageSize="20" OnDataBound="gvItemsIssued_DataBound1" OnPageIndexChanged="gvItemsIssued_PageIndexChanged" OnPageIndexChanging="gvItemsIssued_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="DeliveryItemsChallanID" ItemStyle-Width="150px" HeaderText="Challan ID"  />
-                        <asp:BoundField DataField="IndentDate"  HeaderText="Indent Date" DataFormatString="{0:yyyy/MM/dd}" />
+                        <asp:BoundField DataField="IndentDate"  HeaderText="Indent Date" DataFormatString="{0:dd/MM/yyyy}" />
                         <asp:BoundField DataField="ChargeableHeadName"  HeaderText="Chargeable Head"  />
                         <asp:BoundField DataField="IssueHeadName"  HeaderText="Issue Head"  />
                         <asp:BoundField DataField="Unit" HeaderText="Unit"  />

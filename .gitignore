@@ -1,2 +1,7 @@
 
 *.dll
+*.pdb
+*.dll
+*.cache
+*.cache
+IMS_PowerDept/obj/Debug/IMS_PowerDept.csproj.FileListAbsolute.txt

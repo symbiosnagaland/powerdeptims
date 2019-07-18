@@ -18,6 +18,8 @@ namespace IMS_PowerDept.CentralStore
         SqlDataAdapter dadaptera;
         DataSet dseta;
 
+        string stDate, edDate;
+
         SqlDataAdapter dadapterava;
         DataSet dsetava;
         protected void Page_Load(object sender, EventArgs e)
@@ -62,7 +64,10 @@ namespace IMS_PowerDept.CentralStore
             {
                 SqlDataAdapter aa;
                 DataSet bb;
-                aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or ChallanDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
+                stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                edDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + stDate + "' and '" + edDate + "' or ChallanDate between '" + stDate + "' and '" + edDate + "' ", con);
                 //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
                 bb = new DataSet();
                 aa.Fill(bb);

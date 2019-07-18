@@ -9,13 +9,37 @@
         <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
-        <script type="text/javascript">
+
+
+       <!-- <script type="text/javascript">
             $(function () {
-                $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
-                $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
+               // $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
+               // $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
             });
-        </script>
+        </script>  -->
+
+    <script type="text/javascript">
+
+
+        $(function () {
+            $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd/mm/yy'
+                });
+            $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd/mm/yy'
+                });
+        });
+
+    </script>
 </asp:Content>
+
+
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -112,11 +136,11 @@
 
                         <td>
                              <span style="float: left; padding-left: 10px;">
-                                    <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="mm/dd/yyyy" Width="100px" runat="server"></asp:TextBox>
+                                    <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off" placeholder="dd/mm/yyyy" Width="100px" runat="server"></asp:TextBox>
                                 </span>
 
                              <span style="float: left; padding-left: 10px;">
-                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="mm/dd/yyyy" Width="100px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="dd/mm/yyyy" Width="100px" runat="server"></asp:TextBox>
                             </span>
 
                         </td>

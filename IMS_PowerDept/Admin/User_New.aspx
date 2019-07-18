@@ -33,20 +33,20 @@
                                         </tr>
                                         <tr class="odd gradeA">
                                             <td>Username</td>
-                                           <td> <asp:TextBox Width="300px" CssClass="form-control" ID="_tbUsername" runat="server"></asp:TextBox>
+                                           <td> <asp:TextBox Width="300px" CssClass="form-control"  ID="_tbUsername" autocomplete="off" runat="server"></asp:TextBox>
 
                                            </td>
                                            
                                         </tr>
                                         <tr class="even gradeA">
                                             <td>Password</td>
-                                           <td> <asp:TextBox Width="300px" TextMode="Password" CssClass="form-control" ID="_tbPassword" runat="server"></asp:TextBox>
+                                           <td> <asp:TextBox Width="300px" TextMode="Password" autocomplete="off"  CssClass ="form-control" ID="_tbPassword" runat="server"></asp:TextBox>
 
                                            </td>
                                         </tr>
                                         <tr class="odd gradeA">
                                             <td>Retype Password</td>
-                                           <td> <asp:TextBox CssClass="form-control" TextMode="Password" Width="300px" ID="_tbrePassword" runat="server"></asp:TextBox>
+                                           <td> <asp:TextBox CssClass="form-control"  autocomplete="off"  TextMode="Password" Width="300px" ID="_tbrePassword" runat="server"></asp:TextBox>
                                            </td>
                                         </tr>
                                         <tr>

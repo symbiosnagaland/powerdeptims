@@ -154,7 +154,7 @@
             <div class="h_title">Challan No. / Date(mm/dd/yyyy) </div>
             
             <div style="margin: 0px auto; padding: 10px">
-                <asp:TextBox CssClass="form-control" autocomplete="off" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" AutoComplete="false" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
                 
                 <br />
                 
