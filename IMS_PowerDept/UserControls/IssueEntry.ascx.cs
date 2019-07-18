@@ -398,6 +398,7 @@ namespace IMS_PowerDept.UserControls
                         DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
                         //DropDownList _ddIhead = row.FindControl("_ddIhead") as DropDownList;
 
+                        
                         DropDownList ddlIheadRateActualBalance = row.FindControl("ddlIheadRateActualBalance") as DropDownList;
                         TextBox _tbUnit = row.FindControl("_tbUnit") as TextBox;
 
@@ -550,15 +551,8 @@ namespace IMS_PowerDept.UserControls
                         //when found the right row, then get out of it
                         //break;
 
-
                        hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
-
-
-
-                        hdnSelectedIssueHead.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[0].Trim();
-
-
-                     
+                        hdnSelectedIssueHead.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[0].Trim();                     
                       //  _tbQuantity.Focus();
                    //  string MatName = value.Split('#')[1];
                    //      string MatGroupId = value.Split('#')[2];

@@ -6,16 +6,6 @@
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
 
-    <!--New links-->
-    <!--<link href="../csss/components.css" rel="stylesheet" type="text/css"/>
-    <link href="../csss/colors.css" rel="stylesheet" type="text/css"/>
-    <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
-
-    <script type="text/javascript" src="../js/core/libraries/jquery.min.js"></script>	
-    <script type="text/javascript" src="../js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="../js/pages/form_select2.js"></script>
-    <!--/New links-->
-
 
   <script type="text/javascript">
 
@@ -151,7 +141,7 @@
     <div style="margin: 0px auto; padding: 10px">
         
         <div class="half_w half_left">
-            <div class="h_title">Challan No. / Date(mm/dd/yyyy) </div>
+            <div class="h_title">Challan No. / Date(dd/mm/yyyy) </div>
             
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" AutoComplete="false" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
@@ -163,7 +153,7 @@
         </div>
         
         <div class="half_w half_right">            
-            <div class="h_title">Indent Number / Date(mm/dd/yyyy)</div>
+            <div class="h_title">Indent Number / Date(dd/mm/yyyy)</div>
             
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbIndentValue" autocomplete="off"  placeholder="Indent Number" Width="180px" runat="server"></asp:TextBox>
@@ -174,7 +164,9 @@
 
         <div class="element">
             <label for="comments">Indenting Division</label><br />            
-            <asp:DropDownList CssClass="form-control select-results-color" ID="_ddIntendDivisions" runat="server"> </asp:DropDownList>
+           
+        <asp:DropDownList CssClass="err" ID="_ddIntendDivisions" Width="250px" runat="server">  </asp:DropDownList>
+
         </div>
 
         <div class="element">
@@ -220,9 +212,8 @@
                         <Columns>
                             <asp:TemplateField HeaderText="Items">
                                 <ItemTemplate>
-                                    <asp:DropDownList ID="_ddItems"  OnSelectedIndexChanged="_ddItems_SelectedIndexChanged"  AutoPostBack="true" AppendDataBoundItems="false" CssClass="err" Width="250px" runat="server"></asp:DropDownList>
-                                         <%--<asp:HyperLink ID="hlinkItemenquiry" onclick="window.open(this.href, '', 'width=990, height=450'); return false;"  Font-Size="11px" NavigateUrl="~/Admin/ItemInventory.aspx?item="  Width="70px"  runat="server" ></asp:HyperLink>--%>
-                                </ItemTemplate>
+                                    <asp:DropDownList ID="_ddItems"  OnSelectedIndexChanged="_ddItems_SelectedIndexChanged"  AutoPostBack="true" AppendDataBoundItems="false" CssClass="err" Width="300px" Height="25px" runat="server"></asp:DropDownList>
+                                               </ItemTemplate>
 
                                 <FooterStyle HorizontalAlign="Right" />
                                 <FooterTemplate></FooterTemplate>
@@ -239,16 +230,19 @@
                             
                             <asp:TemplateField HeaderText="Issue Head : Rate : Net Balance">
                                 <ItemTemplate>
-                                    <%--   <asp:DropDownList ID="_ddIhead" OnSelectedIndexChanged="_ddIhead_SelectedIndexChanged" AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="170px" runat="server"></asp:DropDownList>--%>
-                                    <asp:DropDownList ID="ddlIheadRateActualBalance"  OnSelectedIndexChanged="ddlIheadRateActualBalance_SelectedIndexChanged" AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
+                                       <asp:DropDownList ID="ddlIheadRateActualBalance"  OnSelectedIndexChanged="ddlIheadRateActualBalance_SelectedIndexChanged" AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
 
                                     </asp:DropDownList>
                                     
                                     <asp:HiddenField ID="hdnSelectedIssueHead" runat="server" />
                                     <asp:HiddenField ID="hdnSelectedRate" runat="server" />
 
+
+                                   
+
                                 </ItemTemplate>
                             </asp:TemplateField>
+
                             
                             <%--<asp:TemplateField HeaderText="Rate">
                                     <ItemTemplate>
