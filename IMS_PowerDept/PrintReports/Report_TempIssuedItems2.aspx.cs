@@ -21,6 +21,8 @@ namespace IMS_PowerDept.PrintReports
         int storid = 0;
         int rowIndex = 1;
         string assd;
+        string stDate, edDate;
+
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -28,6 +30,9 @@ namespace IMS_PowerDept.PrintReports
             DivisionName.Text = Session["DivisionName"].ToString();
             st.Text = Session["BeginDate"].ToString();
             ed.Text = Session["EndingDate"].ToString();
+
+            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            edDate  = DateTime.ParseExact(Session["EndingDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
             assd = Session["ChHead"].ToString();
 
             if (!IsPostBack)
@@ -42,7 +47,7 @@ namespace IMS_PowerDept.PrintReports
             try
             {
 
-                dadapter = new SqlDataAdapter("SELECT DISTINCT DeliveryItemsChallanID, ChargeableHeadName FROM DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChallanDate between '" + st.Text + "' and '" + ed.Text + "' AND IsDeliveredTemporary = 'Yes'", con);
+                dadapter = new SqlDataAdapter("SELECT DISTINCT DeliveryItemsChallanID, ChargeableHeadName FROM DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChallanDate between '" + stDate + "' and '" + edDate + "' AND IsDeliveredTemporary = 'Yes'", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 gvChargeableHead.DataSource = dset.Tables[0];

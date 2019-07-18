@@ -9,10 +9,11 @@
     <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
     
+    <!--
     <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
     <link href="../js/sortingfile/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link href="jquery.datatables.yadcf.css" rel="stylesheet" type="text/css" />
-    
+    -->
     <script>
 
         $(document).ready(function () {

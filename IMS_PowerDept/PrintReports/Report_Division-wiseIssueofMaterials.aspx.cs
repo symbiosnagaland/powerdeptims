@@ -23,6 +23,8 @@ namespace IMS_PowerDept.PrintReports
         //int grQtyTotal = 0;
         int storid = 0;
         int rowIndex = 1;
+
+        string stDate, edDate;
         
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
       
@@ -31,6 +33,9 @@ namespace IMS_PowerDept.PrintReports
             DivisionName.Text = Session["DivisionName"].ToString();
             st.Text = Session["BeginDate"].ToString();
             ed.Text = Session["EndingDate"].ToString();
+
+            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            edDate = DateTime.ParseExact(Session["EndingDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
             if (!IsPostBack)
             {
@@ -43,7 +48,7 @@ namespace IMS_PowerDept.PrintReports
             try
             {
                //1 getting all charageable heads
-                    dadapter = new SqlDataAdapter("SELECT DISTINCT  ChargeableHeadName FROM DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChallanDate between '" + st.Text + "' and '" + ed.Text + "' AND IsDeliveredTemporary = 'No'", con);
+                    dadapter = new SqlDataAdapter("SELECT DISTINCT  ChargeableHeadName FROM DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChallanDate between '" + stDate + "' and '" + edDate + "' AND IsDeliveredTemporary = 'No'", con);
                     dset = new DataSet();
                     dadapter.Fill(dset);
                     gvChargeableHead.DataSource = dset.Tables[0];
@@ -66,8 +71,8 @@ namespace IMS_PowerDept.PrintReports
                 Label DEP_ID = e.Row.FindControl("chName") as Label;
                 HiddenField hj = e.Row.FindControl("hfid") as HiddenField;
                 SqlCommand cmd = new SqlCommand("Select * from DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChargeableHeadName='" + DEP_ID.Text.ToString() + "' and (challandate between @startdate and @enddate)", con);
-                cmd.Parameters.AddWithValue("@startdate", st.Text);
-                cmd.Parameters.AddWithValue("@enddate", ed.Text);
+                cmd.Parameters.AddWithValue("@startdate", stDate);
+                cmd.Parameters.AddWithValue("@enddate", edDate);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -87,7 +92,7 @@ namespace IMS_PowerDept.PrintReports
                 string txttemp = et.Text;
                 DataSet ds = new DataSet();
                 //3 getting details table
-                string cmdstr = "SELECT dbo.DeliveryItemsChallan.TotalAmount,dbo.DeliveryItemsDetails.DeliveryItemDetailsID , dbo.DeliveryItemsDetails.ItemName, dbo.DeliveryItemsDetails.IssueHeadName, dbo.DeliveryItemsDetails.Quantity, dbo.DeliveryItemsDetails.Unit, dbo.DeliveryItemsDetails.Rate, (dbo.DeliveryItemsDetails.Rate* dbo.DeliveryItemsDetails.quantity) as amount   FROM  dbo.DeliveryItemsChallan INNER JOIN dbo.DeliveryItemsDetails ON dbo.DeliveryItemsChallan.DeliveryItemsChallanID = dbo.DeliveryItemsDetails.DeliveryItemsChallanID WHERE dbo.DeliveryItemsChallan.DeliveryItemsChallanID = @DeliveryItemsChallanID and  ChallanDate between '" + st.Text + "' and '" + ed.Text + "' ";
+                string cmdstr = "SELECT dbo.DeliveryItemsChallan.TotalAmount,dbo.DeliveryItemsDetails.DeliveryItemDetailsID , dbo.DeliveryItemsDetails.ItemName, dbo.DeliveryItemsDetails.IssueHeadName, dbo.DeliveryItemsDetails.Quantity, dbo.DeliveryItemsDetails.Unit, dbo.DeliveryItemsDetails.Rate, (dbo.DeliveryItemsDetails.Rate* dbo.DeliveryItemsDetails.quantity) as amount   FROM  dbo.DeliveryItemsChallan INNER JOIN dbo.DeliveryItemsDetails ON dbo.DeliveryItemsChallan.DeliveryItemsChallanID = dbo.DeliveryItemsDetails.DeliveryItemsChallanID WHERE dbo.DeliveryItemsChallan.DeliveryItemsChallanID = @DeliveryItemsChallanID and  ChallanDate between '" + stDate + "' and '" + edDate + "' ";
                 SqlCommand cmd = new SqlCommand(cmdstr, con);
                 cmd.Parameters.AddWithValue("@DeliveryItemsChallanID", txttemp);
                 con.Open();

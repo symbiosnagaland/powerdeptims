@@ -14,6 +14,8 @@ namespace IMS_PowerDept.PrintReports
     {
         SqlDataAdapter dadapter;
         DataSet dset;
+
+        string stDate, edDate;
        
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
@@ -21,6 +23,9 @@ namespace IMS_PowerDept.PrintReports
 
             st.Text = Session["BeginDate"].ToString();
             ed.Text = Session["EndingDate"].ToString();
+
+            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            edDate = DateTime.ParseExact(Session["EndingDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
             if (!IsPostBack)
             {
@@ -33,7 +38,7 @@ namespace IMS_PowerDept.PrintReports
         {
             try
             {
-                dadapter = new SqlDataAdapter("SELECT DISTINCT IndentingDivisionName FROM DeliveryItemsChallan WHERE ChallanDate between '" + st.Text + "' and '" + ed.Text + "' AND IsDeliveredTemporary = 'No'", con);
+                dadapter = new SqlDataAdapter("SELECT DISTINCT IndentingDivisionName FROM DeliveryItemsChallan WHERE ChallanDate between '" + stDate + "' and '" + edDate + "' AND IsDeliveredTemporary = 'No'", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 gv1.DataSource = dset.Tables[0];
@@ -54,8 +59,8 @@ namespace IMS_PowerDept.PrintReports
                 Label DEP_ID = e.Row.FindControl("indiv") as Label;
                 //HiddenField hj = e.Row.FindControl("hfid") as HiddenField;
                 SqlCommand cmd = new SqlCommand("Select * from DeliveryItemsChallan where IndentingDivisionName='" + DEP_ID.Text.ToString() + "'and (challandate between @startdate and @enddate)", con);
-                cmd.Parameters.AddWithValue("@startdate", st.Text);
-                cmd.Parameters.AddWithValue("@enddate", ed.Text);
+                cmd.Parameters.AddWithValue("@startdate", stDate);
+                cmd.Parameters.AddWithValue("@enddate", edDate);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

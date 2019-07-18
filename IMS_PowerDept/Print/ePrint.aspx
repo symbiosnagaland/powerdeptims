@@ -49,14 +49,14 @@
                  <span style="float:right; font-weight:bold">OTEO No/Date : 
 
             <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label> |
-             <asp:Label ID="cdate" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:yyyy/MM/dd}")%>'></asp:Label> 
+             <asp:Label ID="cdate" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:dd/MM/yyyy}")%>'></asp:Label> 
         </span><br />
 
         <hr />
         <span style="margin:8px;font-weight:bold;padding-left:30px">
            S Order Ref./Date : <asp:Label ID="divisionname" Font-Bold="true" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.SupplyOrderReference")%>'></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="Label1" Font-Bold="true" Font-Size="18px"  runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:yyyy/MM/dd}")%>'></asp:Label>
+        <asp:Label ID="Label1" Font-Bold="true" Font-Size="18px"  runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:dd/MM/yyyy}")%>'></asp:Label>
         </span>
         <br />  
         <span style="margin:8px;font-weight:bold;padding-left:30px">

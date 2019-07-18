@@ -25,6 +25,7 @@
                   changeYear: true,
                   dateFormat: 'dd/mm/yy'
               });
+        
     
         $("#ContentPlaceHolder1_chdate").datepicker(
              {
@@ -292,6 +293,8 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
 			<div class="content">
                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                 <asp:UpdatePanel ID="up1" runat="server">
+                    
+
             <ContentTemplate>
                 <table style="width:100%">
                     <tr>
@@ -334,8 +337,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
             </table>
 </ContentTemplate>
             <Triggers>
-                <asp:AsyncPostBackTrigger ControlID="CheckBox1" 
-                    EventName="CheckedChanged" />
+                <asp:AsyncPostBackTrigger ControlID="CheckBox1" EventName="CheckedChanged" />
             </Triggers>
         </asp:UpdatePanel>
 				

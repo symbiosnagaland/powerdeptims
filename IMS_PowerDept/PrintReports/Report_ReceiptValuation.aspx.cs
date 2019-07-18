@@ -22,12 +22,16 @@ namespace IMS_PowerDept.PrintReports
         //int grQtyTotal = 0;
         int storid = 0;
         int rowIndex = 1;
+        string stDate, edDate;
 
       
         protected void Page_Load(object sender, EventArgs e)
         {
             st.Text = Session["BeginDate"].ToString();
             ed.Text = Session["EndingDate"].ToString();
+            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            edDate = DateTime.ParseExact(Session["EndingDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             if (!IsPostBack)
             {
                 retriveData();
@@ -38,7 +42,7 @@ namespace IMS_PowerDept.PrintReports
             try
             {
 
-                dadapter = new SqlDataAdapter("SELECT DISTINCT  ChargeableHeadName FROM  ReceivedItemsOTEO  where ReceivedItemOTEODate between '" + st.Text + "' and  '" + ed.Text + "'", con);
+                dadapter = new SqlDataAdapter("SELECT DISTINCT  ChargeableHeadName FROM  ReceivedItemsOTEO  where ReceivedItemOTEODate between '" + stDate + "' and  '" + edDate + "'", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 gv1.DataSource = dset.Tables[0];
@@ -62,7 +66,7 @@ namespace IMS_PowerDept.PrintReports
                 GridView gv = (GridView)e.Row.FindControl("gv2");
                 Label DEP_ID = e.Row.FindControl("chName") as Label;
                 HiddenField hj = e.Row.FindControl("hfid") as HiddenField;
-                SqlCommand cmd = new SqlCommand("Select * from ReceivedItemsOTEO where  ChargeableHeadName='" + DEP_ID.Text.ToString() + "' and ReceivedItemOTEODate between '" + st.Text + "' and  '" + ed.Text + "'", con);
+                SqlCommand cmd = new SqlCommand("Select * from ReceivedItemsOTEO where  ChargeableHeadName='" + DEP_ID.Text.ToString() + "' and ReceivedItemOTEODate between '" + stDate + "' and  '" + edDate + "'", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

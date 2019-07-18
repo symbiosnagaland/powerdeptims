@@ -20,11 +20,16 @@ namespace IMS_PowerDept.PrintReports
        // int grQtyTotal = 0;
        // int storid = 0;
         int rowIndex = 1;
+        string stDate, edDate;
+
         string ch_headvalue = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             st.Text = Session["BeginDate"].ToString();
+            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             ed.Text = Session["EndingDate"].ToString();
+            edDate = DateTime.ParseExact(Session["EndingDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
             if (!IsPostBack)
             {
@@ -37,7 +42,7 @@ namespace IMS_PowerDept.PrintReports
         {
             try
             {
-                dadapter = new SqlDataAdapter("select distinct IndentingDivisionName from DeliveryItemsChallan where IsDeliveredTemporary = 'No' and ChallanDate between '" + st.Text + "' and  '" + ed.Text + "' ", con);
+                dadapter = new SqlDataAdapter("select distinct IndentingDivisionName from DeliveryItemsChallan where IsDeliveredTemporary = 'No' and ChallanDate between '" + stDate + "' and  '" + edDate + "' ", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 GridView1.DataSource = dset.Tables[0];
@@ -55,7 +60,7 @@ namespace IMS_PowerDept.PrintReports
 
                 GridView gv = (GridView)e.Row.FindControl("GridView2");
                 Label DEP_ID = e.Row.FindControl("_lbldivi") as Label;
-                SqlCommand cmd = new SqlCommand("Select * from DeliveryItemsChallan where IndentingDivisionName='" + DEP_ID.Text.ToString() + "' and ChallanDate between '" + st.Text + "' and  '" + ed.Text + "'  order by ChargeableHeadName", con);
+                SqlCommand cmd = new SqlCommand("Select * from DeliveryItemsChallan where IndentingDivisionName='" + DEP_ID.Text.ToString() + "' and ChallanDate between '" + stDate + "' and  '" + edDate + "'  order by ChargeableHeadName", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

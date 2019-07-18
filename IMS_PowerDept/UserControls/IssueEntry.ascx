@@ -7,7 +7,7 @@
 
 
     <!--New links-->
-    <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../csss/components.css" rel="stylesheet" type="text/css"/>
     <link href="../csss/colors.css" rel="stylesheet" type="text/css"/>
     <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
 
@@ -17,11 +17,11 @@
     <!--/New links-->
 
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
     $(function () {
         $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker();
-        $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker();
+       $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker();
     });
 
 </script>
@@ -102,12 +102,12 @@
 </script>
 
 
-<%--<script type="text/javascript">
+<!--<script type="text/javascript">
     $(function () {
         $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker(            
             {
-           //changeMonth: true,
-                // changeYear: true
+                changeMonth: true,
+                changeYear: true,
                 dateFormat: 'dd-mm-yy'
     });
         $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker(
@@ -115,7 +115,7 @@
             changeYear: true
             });
     });
-</script>--%>
+</script>-->
 
 <asp:SqlDataSource ID="_sdsSaveDIChallan" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" DeleteCommand="DELETE FROM [DeliveryItemsChallan] WHERE [DeliveryItemsChallanID] = @original_DeliveryItemsChallanID AND [IndentReference] = @original_IndentReference AND [IndentDate] = @original_IndentDate AND [IndentingDivisionName] = @original_IndentingDivisionName AND [ChargeableHeadName] = @original_ChargeableHeadName AND [TotalAmount] = @original_TotalAmount AND [IsDeliveredTemporary] = @original_IsDeliveredTemporary AND [ModifiedOn] = @original_ModifiedOn AND [ModifiedBy] = @original_ModifiedBy" InsertCommand="INSERT INTO [DeliveryItemsChallan] ([DeliveryItemsChallanID], [IndentReference], [IndentDate], [IndentingDivisionName], [ChargeableHeadName], [TotalAmount], [IsDeliveredTemporary], [ModifiedOn], [ModifiedBy]) VALUES (@DeliveryItemsChallanID, @IndentReference, @IndentDate, @IndentingDivisionName, @ChargeableHeadName, @TotalAmount, @IsDeliveredTemporary, @ModifiedOn, @ModifiedBy)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [DeliveryItemsChallan]" UpdateCommand="UPDATE [DeliveryItemsChallan] SET [IndentReference] = @IndentReference, [IndentDate] = @IndentDate, [IndentingDivisionName] = @IndentingDivisionName, [ChargeableHeadName] = @ChargeableHeadName, [TotalAmount] = @TotalAmount, [IsDeliveredTemporary] = @IsDeliveredTemporary, [ModifiedOn] = @ModifiedOn, [ModifiedBy] = @ModifiedBy WHERE [DeliveryItemsChallanID] = @original_DeliveryItemsChallanID AND [IndentReference] = @original_IndentReference AND [IndentDate] = @original_IndentDate AND [IndentingDivisionName] = @original_IndentingDivisionName AND [ChargeableHeadName] = @original_ChargeableHeadName AND [TotalAmount] = @original_TotalAmount AND [IsDeliveredTemporary] = @original_IsDeliveredTemporary AND [ModifiedOn] = @original_ModifiedOn AND [ModifiedBy] = @original_ModifiedBy">
     <InsertParameters>

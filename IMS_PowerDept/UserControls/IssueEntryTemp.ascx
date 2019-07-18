@@ -7,7 +7,7 @@
 
 
     <!--New links-->
-    <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
+   <!-- <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
     <link href="../csss/colors.css" rel="stylesheet" type="text/css"/>
     <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
 

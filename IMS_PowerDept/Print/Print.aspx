@@ -58,8 +58,8 @@
                 <ItemTemplate>
                   <span style="float:right; font-weight:bold">Challan No/Date : 
 
-            <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label> |
-             <asp:Label ID="cdate" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChallanDate","{0:yyyy/MM/dd}")%>'></asp:Label> 
+            <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label> |
+             <asp:Label ID="cdate" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChallanDate","{0:dd/MM/yyyy}")%>'></asp:Label> 
         </span><br />
         <hr />
         To<br />
@@ -71,7 +71,7 @@
              <span style="padding-left:30px;  margin:0px auto">
                  Please find original and duplicate copy of the Delivery Challan for the issue of stores as per your
                     Indent No <asp:Label ID="indentNo" Font-Underline="true" Font-Bold="true" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentReference")%>'></asp:Label> 
-                    &nbsp;dated <asp:Label ID="idate" Font-Underline="true" Font-Bold="true" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate","{0:yyyy/MM/dd}")%>'></asp:Label> 
+                    &nbsp;dated <asp:Label ID="idate" Font-Underline="true" Font-Bold="true" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate","{0:dd/MM/yyyy}")%>'></asp:Label> 
                  &nbsp;against the name of 
                  work/account <asp:Label ID="ihead" Font-Bold="true" Font-Underline="true" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChargeableHeadName")%>'></asp:Label> 
                  &nbsp;.The duplicate copy of the Challan duly signed by you may please be returned within fifteen days
