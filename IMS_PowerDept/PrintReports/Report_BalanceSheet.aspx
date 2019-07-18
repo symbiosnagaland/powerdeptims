@@ -18,7 +18,7 @@
      As On:&nbsp; <asp:Label ID="st" runat="server" Text=""></asp:Label>
 
          <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-          ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="[sp_GetBalanceSheet]"></asp:SqlDataSource>
+          ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="[sp_GetBalanceSheetInventoryLatest]"></asp:SqlDataSource>
        <hr />
 
       

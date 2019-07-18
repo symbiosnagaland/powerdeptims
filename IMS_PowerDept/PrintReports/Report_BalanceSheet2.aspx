@@ -20,7 +20,7 @@
 
 
       <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-          ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="[sp_GetBalanceSheetByIssueHead] @IssueHeadName">
+          ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="[sp_GetBalanceSheetInventoryLatestByIssueHead] @IssueHeadName">
           <SelectParameters>
               <asp:SessionParameter Name="IssueHeadName" SessionField="Ihead" Type="String" />
           </SelectParameters>
