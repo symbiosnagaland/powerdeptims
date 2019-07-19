@@ -425,7 +425,7 @@ namespace IMS_PowerDept.UserControls
 
                         ddlIheadRateActualBalance.DataSource = dtIssueheadRateNetActualBalance;
                         ddlIheadRateActualBalance.DataTextField = "IssueheadRateNetActualBalance";
-                        ddlIheadRateActualBalance.DataValueField = "Rate";
+                        ddlIheadRateActualBalance.DataValueField = "IssueheadRateNetActualBalance";
                         ddlIheadRateActualBalance.DataBind();
                         ddlIheadRateActualBalance.Items.Insert(0, new ListItem("Issue Head : Rate : Net Balance", "0"));
                         //when found the right row, then get out of it
@@ -532,7 +532,7 @@ namespace IMS_PowerDept.UserControls
                         HiddenField hdnSelectedRate = row.FindControl("hdnSelectedRate") as HiddenField;      
 
                         TextBox _tbQuantity = row.FindControl("_tbQuantity") as TextBox;
-                      //  DataTable dt = dst.Tables["IssueheadRateNetActualBalance"].Clone();
+                        //  DataTable dt = dst.Tables["IssueheadRateNetActualBalance"].Clone();
                         //populate new destination table 
                         //DataRow[] rates = dst.Tables["IssueheadRateNetActualBalance"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "' and issueheadname= '" + ddlIssuehead.SelectedValue.ToString() + "'");
                         //foreach (DataRow dr in rates)
@@ -543,17 +543,17 @@ namespace IMS_PowerDept.UserControls
                         //DataTable distinctValues = view.ToTable(true, "Rate");
 
                         //ddlRates.DataSource = distinctValues;
-                    //    ddlRates.DataTextField = "Rate";
-                     //   ddlRates.DataBind();
-                     //   ddlRates.Items.Insert(0, new ListItem("--Select Rate--", "0"));
+                        //    ddlRates.DataTextField = "Rate";
+                        //   ddlRates.DataBind();
+                        //   ddlRates.Items.Insert(0, new ListItem("--Select Rate--", "0"));
                         //when found the right row, then get out of it
                         //break;
 
 
-                       hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
+                        //   hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
 
 
-
+                        hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[1].Trim();
                         hdnSelectedIssueHead.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[0].Trim();
 
 

@@ -44,74 +44,105 @@
        <asp:Panel ID="panelAdvancedSearchFilters"  runat="server">
 
             <table>
+                    
+                    <tr>
+                        <td style="width:200px">
+                            <label for="comments"> Search by OTEO No., Supply Order No. or Supplier</label>
+                        </td>
+                        
+                        <td>
+                            <span style="float: left; width: 55%; padding-left:10px;">
+                                <input type="text" class="form-control" id="etsearch" runat="server" style="height: 22px; width:220px" placeholder="Search Keyword..." />
+                            </span>
+                            
+                            <span class="input-group-btn" style="float: left; height: 50px; width:10px; padding-left:2px;">
+                                <button runat="server" id="btnSearchImage" class="btn btn-default" title="click to search" onserverclick="btnSearchImage_ServerClick" type="button"  style="height: 36px; width:30px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;"><i class="fa fa-search"></i></button>
+                            </span>
+                        </td>
+                        
+                        <td></td>
+                    </tr>
+                    
+                    <!--Add by khyo -->
+                    <tr>                        
+                        <th style="text-align:center; background-color:#fff; color: black;"></th>
+                        <th style="background-color:#fff; color: black;">
+                            <span style="text-align:center; margin-left:120px;">OR</span>
 
-                <tr>
-                    <td>
-                        <span style="float: left;">
-                            <label for="comments">Search by OTEO No., Supply Order No. or Supplier</label>
-                        </span>
-
-                    </td>
-                    <td>
-                       <span style="float: left; padding-left: 10px; width: 47%;">
-                            <input type="text" class="form-control" id="etsearch" runat="server" style="height: 22px; width:222px" placeholder="Search Keyword..." />
-                         </span>
-
-                        <span class="input-group-btn" style="float: left; height: 50px; width: 55px; padding-left:45px;">
-                             <button runat="server" id="btnSearchImage"  class="btn btn-default" title="click to search" onserverclick="btnSearchImage_ServerClick" type="button" style="height: 36px; width: 35px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        </span>
-
-                    </td>
-                    <td></td>
-                </tr>
+                        </th>                        
+                    </tr>
 
 
+                    <tr>
+                        <td>
+                            <span style="float: left;"><label for="comments">Issue Head </label></span>
+                        </td>
+                        
+                        <td>
+                            <span style="float: left; padding-left: 10px;">
+                                <asp:DropDownList CssClass="err" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlIssueHead" Width="250px" runat="server" DataSourceID="sdsihead" DataTextField="IssueHeadName" DataValueField="IssueHeadName" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
+                                    <asp:ListItem Text="All" Value="%"/>
+                                </asp:DropDownList>
+                            </span>
+                        </td>
+                        
+                        <td></td>
+                    </tr>
 
+                    <!--Add by khyo -->
+                    <tr>                        
+                        <th style="text-align:center; background-color:#fff; color: black;"></th>
+                        <th style="background-color:#fff; color: black;">
+                            <span style="text-align:center; margin-left:120px;">OR</span>
 
+                        </th>                        
+                    </tr>
 
+                    <tr>
+                        <td>
+                            <span style="float: left;"><label for="comments">Chargeable Head</label></span>
+                        </td>
+                        
+                        <td>
+                            <span style="float: left; padding-left: 10px;">
+                                <asp:DropDownList CssClass="err" ID="ddlChargeableHead" AppendDataBoundItems="true" AutoPostBack="true" Width="250px" runat="server" DataSourceID="sdschead" DataTextField="ChargeableHeadName" DataValueField="ChargeableHeadName" OnSelectedIndexChanged="ddlChargeableHead_SelectedIndexChanged">
+                                    <asp:ListItem Text="All" Value="%"/>
+                                </asp:DropDownList>
+                            </span>
+                        </td>
+                        
+                        <td></td>
+                    </tr>
+                    <!--Add by khyo -->
+                    <tr>                        
+                        <th style="text-align:center; background-color:#fff; color: black;"></th>
+                        <th style="background-color:#fff; color: black;">
+                            <span style="text-align:center; margin-left:120px;">OR</span>
 
-                <tr>
-                    <td><span style="float: left;">
-                    <label for="comments">Issue Head </label>
-                </span></td>
-                    <td><span style="float: left; padding-left: 10px;">
-                    <asp:DropDownList CssClass="err" AppendDataBoundItems="true" AutoPostBack="true" ID="ddlIssueHead" Width="250px" runat="server" DataSourceID="sdsihead" DataTextField="IssueHeadName" DataValueField="IssueHeadName" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
-                         <asp:ListItem Text="All" Value="%"/>
-                    </asp:DropDownList>
-                </span></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><span style="float: left;">
-                    <label for="comments">Chargeable Head</label>
-                </span></td>
-                    <td><span style="float: left; padding-left: 10px;">
-                    <asp:DropDownList CssClass="err" ID="ddlChargeableHead" AppendDataBoundItems="true" AutoPostBack="true" Width="250px" runat="server" DataSourceID="sdschead" DataTextField="ChargeableHeadName" DataValueField="ChargeableHeadName" OnSelectedIndexChanged="ddlChargeableHead_SelectedIndexChanged">
-                         <asp:ListItem Text="All" Value="%"/>
-                    </asp:DropDownList>
-                </span></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> <span style="float: left;">
-                    <label>Search between OTEO/Supply Order dates </label>
-                </span>
-</td>
-                    <td> <span style="float: left; padding-left: 10px;">
-                    <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" AutoComplete="off" Width="120px" runat="server"></asp:TextBox>
-                </span>
-                    <span style="float: left; padding-left: 10px;">
-                    <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" AutoComplete="off" Width="120px" runat="server"></asp:TextBox>
+                        </th>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="float: left;"><label>Search between OTEO/Supply Order dates </label></span>
+                        </td>
+                        
+                        <td>
+                            <span style="float: left; padding-left: 10px;">
+                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                            </span>
+                            
+                            <span style="float: left; padding-left: 5px;">
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                            </span>
+                        </td>
+                        
+                        <td>
+                            <asp:Button ID="Button2" CssClass="btn btn-primary" runat="server" Text="Search" OnClick="btnSearch_Click" />
+                            <asp:Button ID="Button3" CssClass="btn btn-warning" runat="server" Text="Cancel" OnClick="btnCancel_Click"/>
+                        </td>
+                    </tr>
 
-                </span></td>
-                    <td>  <asp:Button ID="btnSearch" CssClass="btn btn-primary" runat="server" Text="Search" OnClick="btnSearch_Click"  />
-                        <asp:Button ID="btnCancel" CssClass="btn btn-warning" runat="server" Text="Cancel" OnClick="btnCancel_Click"/></td>
-
-                </tr>
-                
-            </table>
+                </table>
         </asp:Panel> 
              <div class="entry">
             <div class="sep">

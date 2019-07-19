@@ -64,7 +64,7 @@
               </asp:TemplateField>
 
 
-               <asp:TemplateField HeaderText ="Rate">
+               <asp:TemplateField HeaderText ="Effective Rate">
                   <ItemTemplate>
                       <asp:Label ID="ggd" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "rate") %>' />
                   </ItemTemplate>
