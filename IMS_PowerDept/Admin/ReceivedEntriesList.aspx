@@ -115,7 +115,14 @@
                         
                         <td></td>
                     </tr>
-                    
+                    <!--Add by khyo -->
+                    <tr>                        
+                        <th style="text-align:center; background-color:#fff; color: black;"></th>
+                        <th style="background-color:#fff; color: black;">
+                            <span style="text-align:center; margin-left:120px;">OR</span>
+
+                        </th>                        
+                    </tr>
                     <tr>
                         <td>
                             <span style="float: left;"><label>Search between OTEO/Supply Order dates </label></span>

@@ -167,7 +167,7 @@
         
         <div class="element">
             <label for="comments">Indenting Division</label>
-            <asp:DropDownList CssClass="form-control select-results-color" ID="_ddIntendDivisions" Width="250px" runat="server"> </asp:DropDownList>
+            <asp:DropDownList CssClass="err" ID="_ddIntendDivisions" Width="250px" runat="server"> </asp:DropDownList>
         </div>
         
         <div class="element">

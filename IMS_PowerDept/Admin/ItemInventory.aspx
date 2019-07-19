@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
-    <link href="../csss/colors.css" rel="stylesheet" type="text/css"/>
+   
     <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
 
     <script type="text/javascript" src="../js/core/libraries/jquery.min.js"></script>	
