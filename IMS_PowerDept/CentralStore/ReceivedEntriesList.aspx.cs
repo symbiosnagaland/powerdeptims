@@ -105,7 +105,12 @@ namespace IMS_PowerDept.CentralStore
             {
                 SqlDataAdapter aa;
                 DataSet bb;
-                aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or SupplyOrderDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
+                string stDate, edDate;
+
+                stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                edDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + edDate + "' or SupplyOrderDate between '" + stDate + "' and '" + edDate + "' ", con);
                 //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
                 bb = new DataSet();
                 aa.Fill(bb);

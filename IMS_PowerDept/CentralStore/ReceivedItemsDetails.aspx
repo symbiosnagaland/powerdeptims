@@ -211,13 +211,13 @@ table {
                              <td> <asp:Label ID="cid" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label></td>
 
                         <td>OTEO Date</td>
-                              <td> <asp:Label ID="Label4" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:yyyy/MM/dd}")%>'></asp:Label></td>
+                              <td> <asp:Label ID="Label4" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
                               </tr>
                          <tr>
                              <td>Supply Order Reference</td>
                              <td><asp:Label ID="ref" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.SupplyOrderReference")%>'></asp:Label></td>
                              <td>Supply Order Date</td>
-                             <td><asp:Label ID="idate" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:yyyy/MM/dd}")%>'></asp:Label></td>
+                             <td><asp:Label ID="idate" Font-Size="14px" Font-Bold="true" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
                          </tr>
                              <tr>
                                  <td>Supplier</td>

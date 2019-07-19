@@ -7,8 +7,22 @@
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
-        $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
+       // $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
+       // $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
+
+        $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
+             {
+                 changeMonth: true,
+                 changeYear: true,
+                 dateFormat: 'dd/mm/yy'
+             });
+
+        $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
+             {
+                 changeMonth: true,
+                 changeYear: true,
+                 dateFormat: 'dd/mm/yy'
+             });
     });
 </script>
 <style type="text/css">
@@ -86,10 +100,10 @@
                 </span>
 </td>
                     <td> <span style="float: left; padding-left: 10px;">
-                    <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="120px" runat="server"></asp:TextBox>
+                    <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" AutoComplete="off" Width="120px" runat="server"></asp:TextBox>
                 </span>
                     <span style="float: left; padding-left: 10px;">
-                    <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="120px" runat="server"></asp:TextBox>
+                    <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" AutoComplete="off" Width="120px" runat="server"></asp:TextBox>
 
                 </span></td>
                     <td>  <asp:Button ID="btnSearch" CssClass="btn btn-primary" runat="server" Text="Search" OnClick="btnSearch_Click"  />

@@ -16,13 +16,27 @@
 <script type="text/javascript" src="../js/pages/form_select2.js"></script>--%>
 
 
-    <%-- <script type="text/javascript">
+ <script type="text/javascript">
         $(function () {
-            $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker();
-            $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker();
+           // $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker();
+           // $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker();
+
+            $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker(
+             {
+                 changeMonth: true,
+                 changeYear: true,
+                 dateFormat: 'dd/mm/yy'
+             });
+
+            $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker(
+                 {
+                     changeMonth: true,
+                     changeYear: true,
+                     dateFormat: 'dd/mm/yy'
+                 });
         
         });
-    </script>--%>
+    </script>
 
     <%--<link href="../css/style.css" rel="stylesheet" />
     <link href="../css/navi.css" rel="stylesheet" />
@@ -130,7 +144,7 @@
     
     <div style="margin:0px auto;padding:10px">
         <div class="half_w half_left">
-            <div class="h_title"> Supply Order Reference / Date (mm/dd/yyyy)</div>
+            <div class="h_title"> Supply Order Reference / Date (dd/mm/yyyy)</div>
             
             <div style="margin:0px auto; padding:10px">
                 <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference"  autocomplete="off"  placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
@@ -143,7 +157,7 @@
         </div>
         
         <div class="half_w half_right">
-            <div class="h_title">OTEO ID / Date (mm/dd/yyyy)</div>
+            <div class="h_title">OTEO ID / Date (dd/mm/yyyy)</div>
             
             <div style="margin:0px auto; padding:10px">
                 <asp:TextBox CssClass="form-control" ID="tbOtEONumber" autocomplete="off" placeholder="OTEO No." Width="280px" runat="server"></asp:TextBox>

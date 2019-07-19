@@ -11,9 +11,17 @@
     <script type="text/javascript">
         $(function ()
         {
-            $("#ContentPlaceHolder1_ItemsListInventoryControl_tbDate").datepicker();
+           // $("#ContentPlaceHolder1_ItemsListInventoryControl_tbDate").datepicker();
 
+            $("#ContentPlaceHolder1_ItemsListInventoryControl_tbDate").datepicker(
+              {
+                  changeMonth: true,
+                  changeYear: true,
+                  dateFormat: 'dd/mm/yy'
+              });
         });
+
+       
     </script>
 
 
@@ -48,7 +56,7 @@
 
                     <td> 
                         <span style="float: left; padding-left: 10px;">
-                            <asp:TextBox CssClass="form-control" ID="tbDate" autocomplete="off"  placeholder="Date" Width="155px" runat="server" OnTextChanged="tbDate_TextChanged"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="tbDate" autocomplete="off"  placeholder="dd/mm/yyyy" Width="155px" runat="server" OnTextChanged="tbDate_TextChanged"></asp:TextBox>
                         </span>
                      <%--    <span style="float: left; padding-left: 5px;">
                             <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="To Date" Width="155px" runat="server"></asp:TextBox>
