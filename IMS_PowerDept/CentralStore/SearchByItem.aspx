@@ -1,14 +1,26 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SearchByItem.aspx.cs" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Shared/CentralStore_Master.Master" Inherits="IMS_PowerDept.CentralStore.SearchByItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+  
+     <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/sb-admin.css" rel="stylesheet" />
-     <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
+    <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
-<style type="text/css">
-.ui-datepicker { font-size:8pt !important}
-</style>
+    <!--New links-->
+    <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../csss/colors.css" rel="stylesheet" type="text/css"/>-->
+    <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
+
+    	
+    <script type="text/javascript" src="../js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../js/pages/form_select2.js"></script>
+    
+    <style type="text/css">
+        .ui-datepicker { font-size:8pt !important}
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
@@ -28,10 +40,15 @@
          
              <div style="margin:0px auto;padding-left:15px">
             
-               <asp:DropDownList CssClass="form-control err"  ID="ddlItemName" Width="385px" Height="35px" runat="server" 
+             <%--  <asp:DropDownList CssClass="form-control err"  ID="ddlItemName" Width="385px" Height="35px" runat="server" 
                        AppendDataBoundItems="true" AutoPostBack="true"  DataSourceID="dataSourceItemName" title="Only items received are shown here" DataTextField="itemname"  OnSelectedIndexChanged="ddlItems_SelectedIndexChanged">
                         <asp:ListItem Text="--select item name from inventory--" Value="00"/>
-                    </asp:DropDownList> </div>
+                    </asp:DropDownList>--%>
+                 <asp:DropDownList CssClass="form-control select-results-color"  ID="ddlItemName" Width="385px" Height="35px" runat="server" AppendDataBoundItems="true" AutoPostBack="true"  DataSourceID="dataSourceItemName" title="Only items received are shown here" DataTextField="itemname"  OnSelectedIndexChanged="ddlItems_SelectedIndexChanged">
+                    <asp:ListItem Text="--select item name from inventory--" Value="00"/>
+                </asp:DropDownList>
+
+             </div>
        
         
      

@@ -58,13 +58,13 @@ namespace IMS_PowerDept.CentralStore {
         protected global::System.Web.UI.HtmlControls.HtmlInputText _txtsearch;
         
         /// <summary>
-        /// btnSearchImage control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnSearchImage;
+        protected global::System.Web.UI.HtmlControls.HtmlButton Button2;
         
         /// <summary>
         /// _ddldivname control.
@@ -103,31 +103,22 @@ namespace IMS_PowerDept.CentralStore {
         protected global::System.Web.UI.WebControls.TextBox tbEndDateSearch;
         
         /// <summary>
-        /// btnSearch control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
-        /// Button1 control.
+        /// Button4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// _pnlactions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel _pnlactions;
+        protected global::System.Web.UI.WebControls.Button Button4;
         
         /// <summary>
         /// _rprt control.
