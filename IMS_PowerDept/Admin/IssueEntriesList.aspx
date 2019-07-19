@@ -11,9 +11,11 @@
     
     
     <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
-    <link href="../js/sortingfile/jquery-ui.css" rel="stylesheet" type="text/css" />
-    <link href="jquery.datatables.yadcf.css" rel="stylesheet" type="text/css" />
-    
+    <link type="text/css" href="../js/sortingfile/jquery-ui.css" rel="stylesheet" />
+    <link type="text/css" href="jquery.datatables.yadcf.css" rel="stylesheet" />    
+
+
+
     <script>
 
         $(document).ready(function () {
@@ -168,13 +170,24 @@
                         <td>  </td>
                         <td>  </td>
                     </tr>
-                    
+
+                    <!--Add by khyo-->
+                    <tr>                        
+                        <th style="text-align:center; background-color:#fff; color: black;"></th>
+                        <th style="background-color:#fff; color: black;">
+                            <span style="text-align:center; margin-left:120px;">OR</span>
+
+                        </th>                        
+                    </tr>
+
+
                     <tr>
                         <td>
                             <label>Search between  dates </label>
                         </td>
                         
                         <td>
+
                             <span style="float: left; padding-left:10px;">
                                 <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="dd/mm/yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
                             </span>

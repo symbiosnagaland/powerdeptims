@@ -6,15 +6,6 @@
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
 
-<%--<link href="../csss/components.css" rel="stylesheet" type="text/css">
-<link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-
-
-
-<script type="text/javascript" src="../js/core/libraries/jquery.min.js"></script>	
-<script type="text/javascript" src="../js/plugins/forms/selects/select2.min.js"></script>
-<script type="text/javascript" src="../js/pages/form_select2.js"></script>--%>
-
 
  <script type="text/javascript">
         $(function () {
