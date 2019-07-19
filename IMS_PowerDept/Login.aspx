@@ -23,7 +23,7 @@
                         
                         <div class="element">
                             <label for="login">Username:</label>
-                            <asp:TextBox ID="inputUsername" placeholder="Username"  autocomplete="off" Width="180px" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="inputUsername"  AutoComplete ="off" placeholder="Username"   Width="180px" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         
                         <br />
