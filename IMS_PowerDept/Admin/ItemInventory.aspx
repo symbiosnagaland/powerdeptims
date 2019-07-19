@@ -4,12 +4,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/components.css" rel="stylesheet" type="text/css"/>
    
-    <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
 
-    <script type="text/javascript" src="../js/core/libraries/jquery.min.js"></script>	
-    <script type="text/javascript" src="../js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../js/core/jquery.min.js"></script>	
+    <script type="text/javascript" src="../js/plugins/selects/select2.min.js"></script>
     <script type="text/javascript" src="../js/pages/form_select2.js"></script>
 
 </asp:Content>
