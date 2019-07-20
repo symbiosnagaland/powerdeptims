@@ -1,7 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SearchByItem.aspx.cs" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Shared/CentralStore_Master.Master" Inherits="IMS_PowerDept.CentralStore.SearchByItem" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-  
+    
+    
+    
+      
     <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/sb-admin.css" rel="stylesheet" />
     <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
