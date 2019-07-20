@@ -10,12 +10,11 @@
     <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
     <!--New links-->
-    <link href="../csss/components.css" rel="stylesheet" type="text/css"/>
-    <!--<link href="../csss/colors.css" rel="stylesheet" type="text/css"/>-->
-    <link href="../csss/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/components.css" rel="stylesheet" type="text/css"/>   
+    <link href="../css/icons/icomoon/styles.css" rel="stylesheet" type="text/css"/>
 
-    	
-    <script type="text/javascript" src="../js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="../js/core/jquery.min.js"></script>	
+    <script type="text/javascript" src="../js/plugins/selects/select2.min.js"></script>
     <script type="text/javascript" src="../js/pages/form_select2.js"></script>
     
     <style type="text/css">
