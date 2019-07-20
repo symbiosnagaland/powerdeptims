@@ -334,9 +334,9 @@ namespace IMS_PowerDept.Admin
                     while (dr.Read()) //ri.ChargeableHeadName, ri.IssueHeadName,
                     {
                         hdnFieldOTEOID.Value=  tbOtEONumber.Text = oteoID;                       
-                        tbOTEODate.Text = Convert.ToDateTime(dr["ReceivedItemOTEODate"]).ToString("MM/dd/yyyy");
+                        tbOTEODate.Text = Convert.ToDateTime(dr["ReceivedItemOTEODate"]).ToString("dd/MM/yyyy");
                         tbSupplyOrderReference.Text = dr["SupplyOrderReference"].ToString();
-                        tbSupplyDate.Text = Convert.ToDateTime(dr["SupplyOrderDate"]).ToString("MM/dd/yyyy");
+                        tbSupplyDate.Text = Convert.ToDateTime(dr["SupplyOrderDate"]).ToString("dd/MM/yyyy");
                         tbSupplierName.Text = dr["Supplier"].ToString();
 
                        // ddlChargeableHead.SelectedValue = 

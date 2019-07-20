@@ -6,11 +6,30 @@
     <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
+
+
+
 <script type="text/javascript">
-    $(function () {
+    /*$(function () {
         $("#ContentPlaceHolder1_tbSupplyDate").datepicker();
         $("#ContentPlaceHolder1_tbOTEODate").datepicker();
+    });*/
+
+    $(function () {
+        $("#ContentPlaceHolder1_tbChallanDate").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
+        $("#ContentPlaceHolder1_tbIntendDate").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
     });
+
 </script>
 <style type="text/css">
 .ui-datepicker { font-size:8pt !important}
@@ -111,7 +130,7 @@
 <div style="margin:0px auto;padding:10px">
     
    <div class="half_w half_left">
-            <div class="h_title">Challan No. / Date(mm/dd/yyyy) </div>
+            <div class="h_title">Challan No. / Date(dd/mm/yyyy) </div>
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
                 <br />
@@ -122,7 +141,7 @@
         </div>
 
         <div class="half_w half_right">
-            <div class="h_title">Indent Number / Date(mm/dd/yyyy)</div>
+            <div class="h_title">Indent Number / Date(dd/mm/yyyy)</div>
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbIndentValue" placeholder="Indent Number" Width="280px" runat="server"></asp:TextBox>
                 <br />

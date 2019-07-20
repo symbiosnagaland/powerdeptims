@@ -69,7 +69,7 @@
                 
        
           <asp:BoundField DataField="ReceivedItemsOTEOID" ItemStyle-Width="150px" HeaderText="OTEO ID"  />
-          <asp:BoundField DataField="ReceivedItemOTEODate" ItemStyle-Width="190px" HeaderText="OTEO Date" DataFormatString="{0:yyyy/MM/dd}" />
+          <asp:BoundField DataField="ReceivedItemOTEODate" ItemStyle-Width="190px" HeaderText="OTEO Date" DataFormatString="{0:dd/MM/yyyy}" />
           <asp:BoundField DataField="ChargeableHeadName" HeaderText="Chargeable Head" ReadOnly="True"  />
           <asp:BoundField DataField="IssueHeadName" ItemStyle-Width="199px" HeaderText="Issue Head"  />
           <asp:BoundField DataField="Unit" HeaderText="Unit"  />
@@ -112,7 +112,7 @@
                 
  
           <asp:BoundField DataField="DeliveryItemsChallanID" ItemStyle-Width="150px" HeaderText="Challan ID"  />
-          <asp:BoundField DataField="IndentDate" ItemStyle-Width="190px" HeaderText="Indent Date" DataFormatString="{0:yyyy/MM/dd}" />
+          <asp:BoundField DataField="IndentDate" ItemStyle-Width="190px" HeaderText="Indent Date" DataFormatString="{0:dd/MM/yyyy}" />
           <asp:BoundField DataField="ChargeableHeadName" ItemStyle-Width="199px" HeaderText="Chargeable Head"  />
           <asp:BoundField DataField="IssueHeadName" HeaderText="Issue Head" ReadOnly="True"  />
           <asp:BoundField DataField="Unit" HeaderText="Unit"  />

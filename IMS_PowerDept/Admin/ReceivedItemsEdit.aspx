@@ -7,9 +7,24 @@
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 <script type="text/javascript">
-    $(function () {
+    /*$(function () {
         $("#ContentPlaceHolder1_tbSupplyDate").datepicker();
         $("#ContentPlaceHolder1_tbOTEODate").datepicker();
+    });*/
+
+    $(function () {
+        $("#ContentPlaceHolder1_tbSupplyDate").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
+        $("#ContentPlaceHolder1_tbOTEODate").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
     });
 </script>
 <style type="text/css">
@@ -111,7 +126,7 @@
 <div style="margin:0px auto;padding:10px">
     
      <div class="half_w half_left">
-				<div class="h_title"> Supply Order Reference / Date (mm/dd/yyyy)</div>
+				<div class="h_title"> Supply Order Reference / Date (dd/mm/yyyy)</div>
         <div style="margin:0px auto; padding:10px">
             <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference" placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
              
@@ -122,7 +137,7 @@
 </div>
 
     <div class="half_w half_right">
-				<div class="h_title">OTEO ID / Date (mm/dd/yyyy)</div>
+				<div class="h_title">OTEO ID / Date (dd/mm/yyyy)</div>
                 <div style="margin:0px auto; padding:10px">
                  <asp:TextBox CssClass="form-control"  ID="tbOtEONumber" placeholder="OTEO No." Width="180px" runat="server"></asp:TextBox>   
                     <br />
@@ -239,7 +254,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Unit">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblUnit" Text='<%# Eval("unit") %>' runat="server"></asp:Label>
+                                                            <asp:Label ID="lblUnit" Text='<%# Eval("unit") %>'  runat="server"></asp:Label>
                                                    
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -347,19 +362,19 @@
                                                     <asp:TemplateField HeaderText="Unit">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblUnit" runat="server" Text=""></asp:Label>
-                                                            <asp:TextBox Width="50px"  TabIndex="999" BorderColor="Transparent"  ID="_tbUnit" runat="server" BorderStyle="None" BackColor="Transparent"   BorderWidth="1px">
+                                                            <asp:TextBox Width="50px"  TabIndex="999" BorderColor="Transparent" AutoComplete="off"  ID="_tbUnit" runat="server" BorderStyle="None" BackColor="Transparent"   BorderWidth="1px">
                                                             </asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Quantity">
                                                         <ItemTemplate>
-                                                            <asp:TextBox Width="50px"  onchange="UpdateAmountbyQuantity(this.id)"  CssClass="form-control" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox Width="50px"  onchange="UpdateAmountbyQuantity(this.id)"  CssClass="form-control" AutoComplete="off" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px">
                                                             </asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Rate">
                                                         <ItemTemplate>
-                                                            <asp:TextBox Width="70px"   onchange="UpdateAmountbyRate(this.id)" CssClass="form-control"  ID="tbRate" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox Width="70px"   onchange="UpdateAmountbyRate(this.id)" CssClass="form-control"  ID="tbRate" AutoComplete="off" runat="server" BorderStyle="Solid" BorderWidth="1px">
                                                             </asp:TextBox>
                                                         </ItemTemplate>
                                                           <FooterStyle HorizontalAlign="Right" />

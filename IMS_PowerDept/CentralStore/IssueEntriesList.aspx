@@ -37,6 +37,11 @@
         });
 
     </script>
+        <style type="text/css">
+            .auto-style1 {
+                height: 33px;
+            }
+        </style>
 </asp:Content>
 
 
@@ -227,9 +232,9 @@
                 
                  <tr>
                      <td>
-                         <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label>
+                         <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label>
                      </td>
-                     <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate")%>'></asp:Label></td>
+                     <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
                        <td>
                            <asp:Label ID="Label2" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentingDivisionName")%>'></asp:Label>
                      </td>

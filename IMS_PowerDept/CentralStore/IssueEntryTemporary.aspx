@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="IssueEntryTemporary.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="IMS_PowerDept.CentralStore.IssueEntryTemporary" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Shared/CentralStore_Master.Master" AutoEventWireup="true" CodeBehind="IssueEntryTemporary.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="IMS_PowerDept.CentralStore.IssueEntryTemporary" %>
 
 
 <%@ Register Src="~/UserControls/IssueEntryTemp.ascx" TagPrefix="uc1" TagName="IssueEntryTemp" %>

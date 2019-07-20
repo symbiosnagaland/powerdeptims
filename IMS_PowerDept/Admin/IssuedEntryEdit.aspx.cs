@@ -83,9 +83,9 @@ namespace IMS_PowerDept.Admin
                       // hdnFieldChallanID.Value= _tbChalanNo.Text = challanID;
                         hdnFieldChallanID.Value = _tbChalanNo.Text = challanID.ToString();
                        
-                        _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("MM/dd/yyyy");
+                        _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("dd/MM/yyyy");
                         _tbIndentValue.Text = dr["IndentReference"].ToString();
-                        _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("MM/dd/yyyy");
+                        _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("dd/MM/yyyy");
                        
                        // _ddIntendDivisions.SelectedValue = dr["ChargeableHeadID"].ToString(); instead of using ddl using label to display old data and giving option ddl seperately to change if user wants to
                         lblDivisionOld.Text = dr["IndentingDivisionName"].ToString();

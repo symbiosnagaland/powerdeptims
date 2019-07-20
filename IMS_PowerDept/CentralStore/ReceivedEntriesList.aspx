@@ -175,7 +175,7 @@
                      <td>
                          <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label>
                      </td>
-                     <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate")%>'></asp:Label></td>
+                     <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
                        <td>
                            <asp:Label ID="Label2" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChargeableHeadName")%>'></asp:Label>
                      </td>

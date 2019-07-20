@@ -35,6 +35,9 @@ namespace IMS_PowerDept.AppCode
         /// </summary>
         /// <returns></returns>
         ///  public static void RetrieveActiveIssueHeadsAndActiveItemsSeperately(out int maxOTEOID)
+        ///  
+        string stDate, edDate;
+
         public static DataSet RetrieveActiveIssueHeadsAndActiveItemsSeperately(out int maxOTEOID)
         {
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
@@ -271,13 +274,15 @@ namespace IMS_PowerDept.AppCode
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
 
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
-            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", RecievedItemsOrderObject.Date);
+            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", stDate);
             cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
-            cmd.Parameters.AddWithValue("@SupplyOrderDate", RecievedItemsOrderObject.SupplyDate);
+            cmd.Parameters.AddWithValue("@SupplyOrderDate", edDate );
             cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
             cmd.Parameters.AddWithValue("@ChargeableHeadName", RecievedItemsOrderObject.ChargeableHeadName);
             cmd.Parameters.AddWithValue("@IssueHeadName", RecievedItemsOrderObject.IssueHeadName);
@@ -320,13 +325,17 @@ namespace IMS_PowerDept.AppCode
         {
 
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
+
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
-            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", RecievedItemsOrderObject.Date);
+            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", stDate);
             cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
-            cmd.Parameters.AddWithValue("@SupplyOrderDate", RecievedItemsOrderObject.SupplyDate);
+            cmd.Parameters.AddWithValue("@SupplyOrderDate",edDate);
             cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
             cmd.Parameters.AddWithValue("@ChargeableHeadName", RecievedItemsOrderObject.ChargeableHeadName);
             cmd.Parameters.AddWithValue("@IssueHeadName", RecievedItemsOrderObject.IssueHeadName);
