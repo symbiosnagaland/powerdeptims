@@ -30,12 +30,12 @@
 
             .remarksbox{
                 margin: auto;
-                width: 8.5in;
-                border: 1px solid #000000;
-                padding: 20px;
+                width: 8.9in;
+                text-align: left;
+                padding-bottom: 25px;
             }
 
-            article, article address, table.meta, table.inventory { margin: 0 0 0em; padding-top: 50px; }
+            article, article address, table.meta, table.inventory { margin: 0 0 0em; padding-top: 50px; text-align: left; }
 			article:after { clear: both; content: ""; display: table; }
 			article h1 { clip: rect(0 0 0 0); position: absolute; }
 
@@ -49,6 +49,8 @@
             }
 
         </style>
+
+       
 
     </head>
     
@@ -167,15 +169,42 @@
             <br />
 
 
-            <div class="remarksbox">
-                Remarks :-
+            <div class="remarksbox">                
+                
+                <div style="float: left; width:80px;"> Remarks :-</div>
 
+                <div style="float: left; width:760px; text-align: left; padding-bottom:20px;">
+                    <label style="height: auto; line-height:20px; padding-bottom:20px;" id="lbltipAddedComment"></label>
+
+                    <script>
+                        function addLoadEvent(func) {
+                            var oldonload = window.onload;
+                            if (typeof window.onload != 'function') {
+                                window.onload = func;
+                            } else {
+                                window.onload = function () {
+                                    if (oldonload) {
+                                        oldonload();
+                                    }
+                                    func();
+                                }
+                            }
+                        }
+
+                        addLoadEvent(function () {
+                            document.getElementById('lbltipAddedComment').innerHTML = "";
+
+                        });
+                    </script>  
+                </div>
+                
+               
             </div>
 
             <article>
-                <div style="width: 9.9in; margin: 0 auto;">
+                <div style="width: 8.9in; margin: 0 auto;">
                 
-                    <table style="margin: 0 auto; width: 8.9in">
+                    <table style="margin: 0 auto; width: 8.9in; text-align:left;">
                     
                         <tr>
                             <th style="text-align: left; width: 350px;font-weight: normal">Issued By </th>

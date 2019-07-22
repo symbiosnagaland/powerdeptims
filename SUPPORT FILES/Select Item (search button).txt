@@ -1,0 +1,10 @@
+Refer Source: Limitless Template
+
+Add Files and Folder :
+1. Components.css
+2. Icons
+3. Core - jquery.min.js
+4. Pages - form_select2.js
+5. Plugins - selects - select2.min.js
+
+Note : Modified the codes and remove the unwanted code. Locally edit the stylesheet layouts and javascript code
