@@ -19,7 +19,7 @@ namespace IMS_PowerDept.Admin
         protected static DataSet dst = new DataSet();
 
         //protected static string ChallanID;
-        protected static decimal ChallanID;
+       // protected  decimal ChallanID;
         DataTable data;
         DataTable data2;
         string stDate, edDate;
@@ -45,9 +45,11 @@ namespace IMS_PowerDept.Admin
                 {
 
                    // ChallanID = Request.QueryString["challanid"];
-                    ChallanID = Convert.ToDecimal  (Request.QueryString["challanid"]);
+
+                  //  ChallanID = Convert.ToDecimal  (Request.QueryString["challanid"]);
+                    hdnFieldChallanNotoEdit.Value = Request.QueryString["challanid"];
                     //1 based on above oteoid , get the item details to edit
-                    GetIssuedItemsDetails(ChallanID);
+                    GetIssuedItemsDetails(Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
 
                     //first get data from db
                     _retriveCheadDivsion();
@@ -379,20 +381,28 @@ namespace IMS_PowerDept.Admin
             //}
             //instead of using command name =delete, using amount value
             //else
+
+
+
              if (e.CommandName != "")
             {
                 double amount = Convert.ToDouble(e.CommandName);
                 string receivedItemID = e.CommandArgument.ToString();
                 SqlTransaction tr = null;
 
-                //this will execute first
-                SqlCommand cmd = conn.CreateCommand();
+                if (Request.QueryString["challanid"] != null)
+                {
+
+                }
+
+                    //this will execute first
+                    SqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM DeliveryItemsDetails WHERE DeliveryItemDetailsID = @DeliveryItemDetailsID";
                 cmd.Parameters.AddWithValue("@DeliveryItemDetailsID", receivedItemID);
 
                 SqlCommand cmd2 = conn.CreateCommand();
                 cmd2.CommandText = "update DeliveryItemsChallan set totalamount = totalamount-" + amount + " where DeliveryItemsChallanID =@DeliveryItemsChallanID";
-                cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", ChallanID);
+                cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
                 try
                 {
                     conn.Open();
@@ -446,7 +456,7 @@ namespace IMS_PowerDept.Admin
                 //        conn2.Close();
                 //    }
                 //}
-                GetIssuedItemsDetails(ChallanID);
+                GetIssuedItemsDetails(Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
                 gvItems_Edit.DataBind();
 
             }
