@@ -14,9 +14,9 @@ namespace IMS_PowerDept.UserControls
 
     public partial class IssueEntryTemp : System.Web.UI.UserControl
     {
-        protected static DataTable dtItems = new DataTable();
-        static double totalAmount = 0;
-        protected static DataSet dst = new DataSet();
+        protected  DataTable dtItems = new DataTable();
+         double totalAmount = 0;
+        protected  DataSet dst = new DataSet();
         SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
         DataTable data;
         DataTable data2;

@@ -14,9 +14,9 @@ namespace IMS_PowerDept.UserControls
 
     public partial class IssueEntry : System.Web.UI.UserControl
     {
-        protected static DataTable dtItems = new DataTable();
-        static double totalAmount = 0;
-        protected static DataSet dst = new DataSet();
+        protected  DataTable dtItems = new DataTable();
+        double totalAmount = 0;
+        protected  static DataSet dst = new DataSet();
         SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
         DataTable data;
         DataTable data2;
@@ -938,12 +938,16 @@ namespace IMS_PowerDept.UserControls
                 {
                     // //call the method to save both in primary deliverychallan table and delivery details table
                     akivi.SaveIssuedItems(issued, sb.ToString());
-                    //Session["CHALLANNO"] = _tbChalanNo.Text;
+                    //Session["CHALLANNO"] = _tbChalanNo.Text; 
+
+                    lblSuccess.Text ="Challan number "+ _tbChalanNo.Text + " details entered successfully!";
+
+
                     _tbChalanNo.Text = (Convert.ToDouble(_tbChalanNo.Text) + 1).ToString();
 
                     panelError.Visible = false;
                     panelSuccess.Visible = true;
-                    lblSuccess.Text ="Challan number "+ _tbChalanNo.Text + " details entered successfully!";
+                  
 
                     //to continue with same
                  //   Response.Redirect("IssueEntriesList.aspx");
