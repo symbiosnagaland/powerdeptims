@@ -233,11 +233,17 @@ namespace IMS_PowerDept.Admin
                 decimal orginalChallanID = Convert.ToDecimal(hdnFieldChallanID.Value);
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
-                issued.Date = _tbChallanDate.Text;
+
+               // issued.Date = _tbChallanDate.Text;
+                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
                 stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
                 issued.IndentValue = _tbIndentValue.Text;
-                issued.Date2 = _tbIntendDate.Text;
+                // issued.Date2 = _tbIntendDate.Text;
+
+                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
                 edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
                 //using 2 controls for displaying old value and for givng option to check
@@ -622,11 +628,14 @@ namespace IMS_PowerDept.Admin
                 decimal orginalChallanID = Convert.ToDecimal(hdnFieldChallanID.Value);
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
-                issued.Date = _tbChallanDate.Text;
+               // issued.Date = _tbChallanDate.Text;
+                issued.Date=DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                 stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
                 issued.IndentValue = _tbIndentValue.Text;
-                issued.Date2 = _tbIntendDate.Text;
+               // issued.Date2 = _tbIntendDate.Text;
+
+                issued.Date2=DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
                 edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
               

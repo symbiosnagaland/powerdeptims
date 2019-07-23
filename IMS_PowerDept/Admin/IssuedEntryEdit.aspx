@@ -17,17 +17,18 @@
         });*/
 
         $(function () {
-            $("#ContentPlaceHolder1_tbChallanDate").datepicker(
+           
+            $("#ContentPlaceHolder1__tbChallanDate").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
-            $("#ContentPlaceHolder1_tbIntendDate").datepicker(
+            $("#ContentPlaceHolder1__tbIntendDate").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
         });
 
@@ -132,22 +133,22 @@
 <div style="margin:0px auto;padding:10px">
     
    <div class="half_w half_left">
-            <div class="h_title">Challan No. / Date(dd/mm/yyyy) </div>
+            <div class="h_title">Challan No. / Date(dd-mm-yyyy) </div>
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
                 <br />
-                <asp:TextBox CssClass="form-control" ID="_tbChallanDate" placeholder="Date" Width="280px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" ID="_tbChallanDate" placeholder="Challan Date" Width="280px" runat="server"></asp:TextBox>
 
             </div>
 
         </div>
 
         <div class="half_w half_right">
-            <div class="h_title">Indent Number / Date(dd/mm/yyyy)</div>
+            <div class="h_title">Indent Number / Date(dd-mm-yyyy)</div>
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbIndentValue" placeholder="Indent Number" Width="280px" runat="server"></asp:TextBox>
                 <br />
-                <asp:TextBox CssClass="form-control" ID="_tbIntendDate" placeholder="Date" Width="280px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" ID="_tbIntendDate" placeholder="Indent Date" Width="280px" runat="server"></asp:TextBox>
 
             </div>
 
