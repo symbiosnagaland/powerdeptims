@@ -202,6 +202,15 @@ namespace IMS_PowerDept.UserControls {
         protected global::System.Web.UI.WebControls.TextBox tbReceiverDesignation;
         
         /// <summary>
+        /// tbRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbRemarks;
+        
+        /// <summary>
         /// save control.
         /// </summary>
         /// <remarks>

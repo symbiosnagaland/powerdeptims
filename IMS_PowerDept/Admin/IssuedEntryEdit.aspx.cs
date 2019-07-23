@@ -22,6 +22,8 @@ namespace IMS_PowerDept.Admin
         protected static decimal ChallanID;
         DataTable data;
         DataTable data2;
+        string stDate, edDate;
+
        SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,7 +45,7 @@ namespace IMS_PowerDept.Admin
                 {
 
                    // ChallanID = Request.QueryString["challanid"];
-                    ChallanID = Convert.ToDecimal(Request.QueryString["challanid"]);
+                    ChallanID = Convert.ToDecimal  (Request.QueryString["challanid"]);
                     //1 based on above oteoid , get the item details to edit
                     GetIssuedItemsDetails(ChallanID);
 
@@ -72,7 +74,7 @@ namespace IMS_PowerDept.Admin
             try
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT IndentReference, IndentDate, ChallanDate, IndentingDivisionName, ChargeableHeadName, TotalAmount, IsDeliveredTemporary, vehiclenumber, receiverdesignation FROM            DeliveryItemsChallan where deliveryitemschallanID =@deliveryitemschallanID";
+                cmd.CommandText = "SELECT IndentReference, IndentDate, ChallanDate, IndentingDivisionName, ChargeableHeadName, TotalAmount, IsDeliveredTemporary, vehiclenumber, receiverdesignation,Remarks FROM            DeliveryItemsChallan where deliveryitemschallanID =@deliveryitemschallanID";
                 cmd.Parameters.AddWithValue("@deliveryitemschallanID", challanID);
                 conn.Open();
                 dr = cmd.ExecuteReader();
@@ -95,6 +97,7 @@ namespace IMS_PowerDept.Admin
 
                         tbVehicleNumberCaps.Text = dr["vehiclenumber"].ToString();
                         tbReceiverDesignation.Text = dr["receiverdesignation"].ToString();
+                        tbremarks .Text  = dr["Remarks"].ToString();
                          
                             string isdelivered= dr["IsDeliveredTemporary"].ToString();
                             if (isdelivered == "Yes") //1 is for true
@@ -231,8 +234,12 @@ namespace IMS_PowerDept.Admin
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
                 issued.Date = _tbChallanDate.Text;
+                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
                 issued.IndentValue = _tbIndentValue.Text;
                 issued.Date2 = _tbIntendDate.Text;
+                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
                 //using 2 controls for displaying old value and for givng option to check
                 if (_ddIntendDivisions.SelectedIndex > 0)
                     issued.Division = _ddIntendDivisions.Text;
@@ -250,6 +257,10 @@ namespace IMS_PowerDept.Admin
                 //if data is saved in challan table , save into item table
                 StringBuilder sb = new StringBuilder();
                 //  sb.Append("<root>");
+                issued.VehicleNumber = tbVehicleNumberCaps.Text;
+                issued.ReceiverDesignation = tbReceiverDesignation.Text ;
+                issued.Remarks = tbremarks.Text;
+
                 string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
@@ -612,8 +623,12 @@ namespace IMS_PowerDept.Admin
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
                 issued.Date = _tbChallanDate.Text;
+                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
                 issued.IndentValue = _tbIndentValue.Text;
                 issued.Date2 = _tbIntendDate.Text;
+
+                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
               
                 if (_ddIntendDivisions.SelectedIndex > 0)
                     issued.Division = _ddIntendDivisions.Text;
@@ -629,6 +644,8 @@ namespace IMS_PowerDept.Admin
                 issued.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 issued.ReceiverDesignation = tbReceiverDesignation.Text;
                 issued.VehicleNumber = tbVehicleNumberCaps.Text.ToUpper();
+                issued.Remarks = tbremarks.Text;
+
                
                 StringBuilder sb = new StringBuilder();
                             string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";

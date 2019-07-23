@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="IssuedEntryEdit.aspx.cs" Inherits="IMS_PowerDept.Admin.IssuedEntryEdit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -7,30 +10,29 @@
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
+    <script type="text/javascript">
+        /*$(function () {
+            $("#ContentPlaceHolder1_tbSupplyDate").datepicker();
+            $("#ContentPlaceHolder1_tbOTEODate").datepicker();
+        });*/
 
-
-<script type="text/javascript">
-    /*$(function () {
-        $("#ContentPlaceHolder1_tbSupplyDate").datepicker();
-        $("#ContentPlaceHolder1_tbOTEODate").datepicker();
-    });*/
-
-    $(function () {
-        $("#ContentPlaceHolder1_tbChallanDate").datepicker(
-            {
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'dd/mm/yy'
-            });
-        $("#ContentPlaceHolder1_tbIntendDate").datepicker(
-            {
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'dd/mm/yy'
-            });
-    });
+        $(function () {
+            $("#ContentPlaceHolder1_tbChallanDate").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd/mm/yy'
+                });
+            $("#ContentPlaceHolder1_tbIntendDate").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd/mm/yy'
+                });
+        });
 
 </script>
+
 <style type="text/css">
 .ui-datepicker { font-size:8pt !important}
 </style> 
@@ -332,7 +334,7 @@
 
                             <asp:TemplateField HeaderText="Quantity">
                         <ItemTemplate>
-                            <asp:TextBox Width="60px" CssClass="form-control" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                            <asp:TextBox Width="60px" CssClass="form-control" ID="_tbQuantity" AutoComplete="off" runat="server" BorderStyle="Solid" BorderWidth="1px">
                             </asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -348,15 +350,23 @@
 
 
        <div class="element">
-           <span style="float:left; width: 111px;"> <label for="comments">VEHICLE NUMBER</label></span>     <span style="float:left; padding-left: 11px;";> <asp:TextBox CssClass="form-control" ID="tbVehicleNumberCaps"    style="text-transform:uppercase"  placeholder="VEHICLE NUMBER" Width="280px" runat="server"></asp:TextBox>
+           <span style="float:left; width: 111px;"> <label for="comments">VEHICLE NUMBER</label></span>    
+            <span style="float:left; padding-left: 11px;";> <asp:TextBox CssClass="form-control" ID="tbVehicleNumberCaps"  AutoComplete="off"   style="text-transform:uppercase"  placeholder="VEHICLE NUMBER" Width="280px" runat="server"></asp:TextBox>
         </span></div>
 
         <div class="element">
               <span style="float:left; width: 111px;">    <label  for="comments">Receiver's Designation</label></span>
-          <span style="float:left; padding-left: 11px;";>   <asp:TextBox CssClass="form-control" ID="tbReceiverDesignation" style="text-transform:capitalize" placeholder="Receiver's Designation" Width="280px" runat="server"></asp:TextBox>
+          <span style="float:left; padding-left: 11px;";>   <asp:TextBox CssClass="form-control" ID="tbReceiverDesignation" style="text-transform:capitalize" placeholder="Receiver's Designation" AutoComplete="off" Width="280px" runat="server"></asp:TextBox>
+       </span> </div>
+
+     <div class="element">
+              <span style="float:left; width: 111px;">    <label  for="comments">Remarks</label></span>
+          <span style="float:left; padding-left: 11px;";>  
+               <asp:TextBox CssClass="form-control" ID="tbremarks" TextMode ="MultiLine"  style="text-transform:capitalize" placeholder="Remarks" AutoComplete="off" Width="280px" runat="server"></asp:TextBox>
        </span> </div>
 
                  <br />
+                <br />
     
     <div class="entry">
             <p>

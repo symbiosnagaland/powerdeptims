@@ -11,7 +11,8 @@
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
 <script type="text/javascript">
-    $(function () {
+    $ (function () {
+        
         $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
                {
                    changeMonth: true,
@@ -291,11 +292,16 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
 		<div id="tab-1">
 			<a href="#tab-1" class="tab">Head-Wise Valuation Abstract</a>
 			<div class="content">
+
                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                 <asp:UpdatePanel ID="up1" runat="server">
-                    
+
+                  
+                  
 
             <ContentTemplate>
+
+
                 <table style="width:100%">
                     <tr>
                         <td colspan="2">

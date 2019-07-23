@@ -261,6 +261,8 @@ namespace IMS_PowerDept.UserControls
                 // issued.TotalAmount = Convert.ToDouble(_tbtotalAmount.Text); 
                 issued.ReceiverDesignation = tbReceiverDesignation.Text;
                 issued.VehicleNumber = tbVehicleNumberCaps.Text.ToUpper();
+                issued.Remarks = tbRemarks.Text;
+
 
                 //if data is saved in challan table , save into item table
                 StringBuilder sb = new StringBuilder();
@@ -880,6 +882,7 @@ namespace IMS_PowerDept.UserControls
                 issued.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 issued.ReceiverDesignation = tbReceiverDesignation.Text;
                 issued.VehicleNumber = tbVehicleNumberCaps.Text.ToUpper();
+                issued.Remarks  =  tbRemarks.Text;
 
                 StringBuilder sb = new StringBuilder();
                 string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";

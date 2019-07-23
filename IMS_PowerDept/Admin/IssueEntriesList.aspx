@@ -222,7 +222,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Challan ID</th>
-                        <th scope="col">IndentDate</th>
+                        <th scope="col">Challan Date</th>
                         <th scope="col">Division</th>
                         <th scope="col">Chargeable Head</th>
                         <th style="text-align:center; color:white; z-index:1000; ">Actions</th>
@@ -238,7 +238,7 @@
                             </td>
                             
                             <td>
-                                <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate", "{0:dd-MM-yyyy}")%>'></asp:Label>
+                                <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChallanDate", "{0:dd/MM/yyyy}")%>'></asp:Label>
                             </td>
                             
                             <td>

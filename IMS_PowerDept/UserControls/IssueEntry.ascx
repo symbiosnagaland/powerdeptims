@@ -292,7 +292,19 @@
                 <asp:TextBox CssClass="form-control" ID="tbReceiverDesignation" autocomplete="off"  style="text-transform:capitalize" placeholder="Receiver's Designation" Width="280px" runat="server"></asp:TextBox>
             </span> 
         </div>
+
+        <div class="element">
+            <span style="float:left; width: 111px;"> 
+                <label for="comments">Remarks</label>
+            </span>     
+            
+            <span style="float:left; padding-left: 11px;";> 
+               <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbRemarks" style="text-transform:uppercase"  placeholder="Remarks" TextMode ="MultiLine"   Width="280px" runat="server"></asp:TextBox>
+            </span>
+        </div>
         
+        <br />
+        <br />
         <br />
 
         <div class="entry">

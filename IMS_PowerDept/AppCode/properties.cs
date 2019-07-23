@@ -123,6 +123,13 @@ namespace IMS_PowerDept.AppCode
             set { receiverdesignation = value; }
         }
 
+        protected string remarks;
+        public String Remarks
+        {
+            get { return remarks; }
+            set { remarks = value; }
+        }
+
 
 
     }
