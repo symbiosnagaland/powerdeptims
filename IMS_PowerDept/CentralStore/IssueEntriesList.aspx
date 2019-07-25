@@ -220,7 +220,7 @@
            <thead>
             <tr>
                 <td>Challan ID</td>
-             <td>IndentDate</td>
+             <td>Challan Date</td>
               <td>Division</td>
              <td>Chargeable Head</td>
                 <td>Actions</td>
@@ -234,7 +234,7 @@
                      <td>
                          <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label>
                      </td>
-                     <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentDate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
+                     <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChallanDate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
                        <td>
                            <asp:Label ID="Label2" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IndentingDivisionName")%>'></asp:Label>
                      </td>
