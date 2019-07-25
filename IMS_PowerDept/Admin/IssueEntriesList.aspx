@@ -106,7 +106,7 @@
                         
                         <td>
                             <span style="float: left; padding-left: 10px; width: 47%;">
-                                <input type="text" class="form-control" id="_txtsearch" runat="server" style="height: 22px; width:220px" placeholder="Search Keyword..." />
+                                <input type="text" class="form-control" id="_txtsearch" runat="server" autocomplete ="off"  style="height: 22px; width:220px" placeholder="Search Keyword..." />
                             </span>
                             
                             <span class="input-group-btn" style="float: left; height: 50px; width: 55px; padding-left:45px;">
