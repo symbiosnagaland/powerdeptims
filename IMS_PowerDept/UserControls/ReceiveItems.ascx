@@ -16,14 +16,14 @@
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
             $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker(
                  {
                      changeMonth: true,
                      changeYear: true,
-                     dateFormat: 'dd/mm/yy'
+                     dateFormat: 'dd-mm-yy'
                  });
         
         });
@@ -116,7 +116,7 @@
 
     function getOrder(orderId)
     {
-        alert(orderId.selectedIndex );
+        //alert(orderId.selectedIndex );
 
      }
 
@@ -247,7 +247,7 @@
                         <asp:TemplateField HeaderText="Item">
                             
                             <ItemTemplate>
-                                <asp:TextBox ID="hdnFieldItemID" runat="server" />
+                                <asp:HiddenField ID="hdnFieldItemID" runat="server" />
                                 <asp:DropDownList AppendDataBoundItems="true" onchange="SetUnitName(this.id);getOrder(this.id);" 
                                     CssClass="err" Width="280px" ID="_ddItems" runat="server">
 
@@ -310,20 +310,16 @@
 
                         <%--Bisu writes code here for temporary purpose--%>
 
-                         <asp:TemplateField HeaderText="order No">
+                         <%--<asp:TemplateField HeaderText="order No">
                             <ItemTemplate>
                                 <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" onchange ="getOrder(this.id)"
                                     BackColor="Transparent" autocomplete="off"  ID="tbOrderNo" runat="server"
                                      BorderStyle="Solid" BorderWidth="1px">
 
                                 </asp:TextBox>
-                            </ItemTemplate>
-                            
-                            <%-- Bisu Finishes here--%>
-
-                        </asp:TemplateField>
-                    </Columns> 
-                                     
+                            </ItemTemplate>                        
+                        </asp:TemplateField>--%>
+                    </Columns>                                      
                 </asp:GridView>
             </ContentTemplate>
             

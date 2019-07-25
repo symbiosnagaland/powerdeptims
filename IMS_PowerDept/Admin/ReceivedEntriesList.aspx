@@ -54,7 +54,7 @@
                         
                         <td>
                             <span style="float: left; width: 55%; padding-left:10px;">
-                                <input type="text" class="form-control" id="etsearch" runat="server" style="height: 22px; width:220px" placeholder="Search Keyword..." />
+                                <input type="text" class="form-control" id="etsearch" runat="server" autocomplete ="off" style="height: 22px; width:220px" placeholder="Search Keyword..." />
                             </span>
                             
                             <span class="input-group-btn" style="float: left; height: 50px; width:10px; padding-left:2px;">

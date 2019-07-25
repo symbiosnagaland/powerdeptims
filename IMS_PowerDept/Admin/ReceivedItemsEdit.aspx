@@ -128,7 +128,7 @@
      <div class="half_w half_left">
 				<div class="h_title"> Supply Order Reference / Date (dd-mm-yyyy)</div>
         <div style="margin:0px auto; padding:10px">
-            <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference" placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
+            <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference" placeholder="Supply Order Reference" AutoComplete="off" Width="280px" runat="server"></asp:TextBox>
              
            <br />
              <asp:TextBox CssClass="form-control" ID="tbSupplyDate" placeholder="Supply Order Date" Width="280px" runat="server"></asp:TextBox>
@@ -148,7 +148,7 @@
 
   <div class="element">
                <label>Supplier Name</label>
-               <asp:TextBox ID="tbSupplierName" Width="350px" placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
+               <asp:TextBox ID="tbSupplierName" Width="350px" AutoComplete="off" placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
               </div>
                                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div>
