@@ -110,6 +110,15 @@
           document.getElementById("<%= gvItems.ClientID%>_tbtotalAmount").value = sum;
      }
 
+    //this is bisu function
+
+    
+
+    function getOrder(orderId)
+    {
+        alert(orderId.selectedIndex );
+
+     }
 
     function SetTarget() {
         document.forms[0].target = "_blank";
@@ -118,6 +127,8 @@
 </script>
 
 <%--content starts here--%>
+
+
 <div class="full_w">
     <asp:Panel ID="panelSuccess" Visible="false" CssClass="n_ok" runat="server">
         <p>
@@ -135,7 +146,7 @@
     
     <div style="margin:0px auto;padding:10px">
         <div class="half_w half_left">
-            <div class="h_title"> Supply Order Reference / Date (dd/mm/yyyy)</div>
+            <div class="h_title"> Supply Order Reference / Date (dd-mm-yyyy)</div>
             
             <div style="margin:0px auto; padding:10px">
                 <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference"  autocomplete="off"  placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
@@ -148,7 +159,7 @@
         </div>
         
         <div class="half_w half_right">
-            <div class="h_title">OTEO ID / Date (dd/mm/yyyy)</div>
+            <div class="h_title">OTEO ID / Date (dd-mm-yyyy)</div>
             
             <div style="margin:0px auto; padding:10px">
                 <asp:TextBox CssClass="form-control" ID="tbOtEONumber" autocomplete="off" placeholder="OTEO No." Width="280px" runat="server"></asp:TextBox>
@@ -165,7 +176,7 @@
             <asp:TextBox ID="tbSupplierName" Width="350px" autocomplete="off"  placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
         </div>
         
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true"  runat="server"></asp:ScriptManager>
         
         <div class="element2">
             <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
@@ -229,15 +240,16 @@
         
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <asp:GridView ID="gvItems" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="true" CssClass="table table-bordered" BackColor="White">
+                <asp:GridView ID="gvItems" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="true" CssClass="table table-bordered" BackColor="White" OnSelectedIndexChanged="gvItems_SelectedIndexChanged">
                    
                     <Columns>
                         
                         <asp:TemplateField HeaderText="Item">
                             
                             <ItemTemplate>
-                                <asp:HiddenField ID="hdnFieldItemID" runat="server" />
-                                <asp:DropDownList AppendDataBoundItems="true" onchange="SetUnitName(this.id)" CssClass="err" Width="280px" ID="_ddItems" runat="server">
+                                <asp:TextBox ID="hdnFieldItemID" runat="server" />
+                                <asp:DropDownList AppendDataBoundItems="true" onchange="SetUnitName(this.id);getOrder(this.id);" 
+                                    CssClass="err" Width="280px" ID="_ddItems" runat="server">
 
                                 </asp:DropDownList>
                             </ItemTemplate>
@@ -281,7 +293,9 @@
                         
                         <asp:TemplateField HeaderText="Amount">
                             <ItemTemplate>
-                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" BackColor="Transparent" autocomplete="off"  ID="tbAmount" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" 
+                                    BackColor="Transparent" autocomplete="off"  ID="tbAmount" 
+                                    runat="server" BorderStyle="Solid" BorderWidth="1px">
 
                                 </asp:TextBox>
                             </ItemTemplate>
@@ -294,7 +308,22 @@
 
                         </asp:TemplateField>
 
-                    </Columns>                  
+                        <%--Bisu writes code here for temporary purpose--%>
+
+                         <asp:TemplateField HeaderText="order No">
+                            <ItemTemplate>
+                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" onchange ="getOrder(this.id)"
+                                    BackColor="Transparent" autocomplete="off"  ID="tbOrderNo" runat="server"
+                                     BorderStyle="Solid" BorderWidth="1px">
+
+                                </asp:TextBox>
+                            </ItemTemplate>
+                            
+                            <%-- Bisu Finishes here--%>
+
+                        </asp:TemplateField>
+                    </Columns> 
+                                     
                 </asp:GridView>
             </ContentTemplate>
             

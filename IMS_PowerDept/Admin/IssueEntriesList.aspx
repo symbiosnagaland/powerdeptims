@@ -39,13 +39,13 @@
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
             $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
         });
 
@@ -189,11 +189,11 @@
                         <td>
 
                             <span style="float: left; padding-left:10px;">
-                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="dd/mm/yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" placeholder="dd-mm-yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
                             </span>
                             
                             <span style="float: left; padding-left:5px;">
-                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="dd/mm/yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="dd-mm-yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
                             </span>
                         </td>
                         

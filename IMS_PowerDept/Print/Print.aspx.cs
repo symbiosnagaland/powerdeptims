@@ -27,6 +27,11 @@ namespace IMS_PowerDept.Print
                 tempcounter = 0;
             }
         }
+
+        protected void Repeater3_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
     }
 
 }
