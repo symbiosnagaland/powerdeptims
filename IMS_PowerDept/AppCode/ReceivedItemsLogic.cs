@@ -206,7 +206,9 @@ namespace IMS_PowerDept.AppCode
         /// </summary>
         /// <param name="RecievedItemsOrderObject"></param>
         /// <param name="sqlstatements"></param>
-        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements)
+        /// 
+
+        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements, string sqlRate)
         {
 
             SqlTransaction tr = null;
@@ -232,6 +234,10 @@ namespace IMS_PowerDept.AppCode
             SqlCommand cmd2 = conn.CreateCommand();
             cmd2.CommandText = sqlstatements;
 
+            SqlCommand cmd3 = conn.CreateCommand();
+            cmd3.CommandText = sqlRate;
+           
+
             try
             {
               
@@ -239,9 +245,11 @@ namespace IMS_PowerDept.AppCode
                     tr = conn.BeginTransaction();
                     cmd.Transaction = tr;
                     cmd2.Transaction = tr;
+                    cmd3.Transaction = tr;
 
                     cmd.ExecuteNonQuery();
                     cmd2.ExecuteNonQuery();
+                    cmd3.ExecuteNonQuery();
                     tr.Commit();
 
 

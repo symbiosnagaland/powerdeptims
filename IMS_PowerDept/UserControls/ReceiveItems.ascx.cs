@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace IMS_PowerDept.UserControls
 {
@@ -49,6 +50,18 @@ namespace IMS_PowerDept.UserControls
 
             }
             
+        }
+
+
+        //trying to call a code befhind function using java script
+        [WebMethod]  
+        public static string ProcessIT(string issueHead, string itemId)
+        {
+            int a=5;
+            int b=7;
+            int c = a + b;
+            
+            return "hello world "+c;
         }
 
 
@@ -155,6 +168,7 @@ namespace IMS_PowerDept.UserControls
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error in loading the items.')", true);
             }
         }
+
 
          private void AddNewRowsToGrid()
         {
@@ -288,8 +302,12 @@ namespace IMS_PowerDept.UserControls
                 RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 //getting all the values of controls values inside gridview control
                 StringBuilder sb = new StringBuilder();
+                StringBuilder sb1 = new StringBuilder();
+
                 //  sb.Append("<root>");
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
+                
+                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,OrderNO,Quantity,IssueHeadNo) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
@@ -306,22 +324,19 @@ namespace IMS_PowerDept.UserControls
                     //CODE TO CHECK NULL VALUES
 
                     //SAVE CODE
-                    if (itemName.SelectedValue.ToString() != "0")               
+                    if (itemName.SelectedValue.ToString() != "0")
+                    {
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
+                        sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbQuantity.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.Text));
+                         
+                    }
                 }
                 //now save it to db
                 //making sure sb string is not empty
                 if (sb.ToString() != "")
                 {
-                    ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString());
-                  //  panelSuccess.Visible = true;
-                   // lblSuccess.Text = "Items Details successfully Uploaded.";
-                   // panelError.Visible = false;
-
-                    //putting success message in session so that page can be reloaded
-                    //changed by biswajit 
-                    //Session["OTEONUMBER"] = tbOtEONumber.Text;
-                    //Response.Redirect(Request.Url.ToString()); 
+                    ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(),sb1.ToString ());
+                 
                     
 
                     Response.Redirect("ReceivedItemsDetails.aspx?id="+tbOtEONumber.Text );
@@ -426,9 +441,15 @@ namespace IMS_PowerDept.UserControls
                 Session["USERID"] = 1;
                 RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 //getting all the values of controls values inside gridview control
+
                 StringBuilder sb = new StringBuilder();
+                StringBuilder sb1 = new StringBuilder();
+
                 //  sb.Append("<root>");
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
+
+                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,OrderNO,Quantity,IssueHeadNo) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
@@ -446,13 +467,20 @@ namespace IMS_PowerDept.UserControls
 
                     //SAVE CODE
                     if (itemName.SelectedValue.ToString() != "0")
+                    {
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
+
+                        sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbQuantity.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.Text));
+                            
+
+                    }
                 }
                 //now save it to db
                 //making sure sb string is not empty
                 if (sb.ToString() != "")
                 {
-                    ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString());
+                    ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString());
+                   // ameh.SaveItemRate( sb1.ToString());
                     //  panelSuccess.Visible = true;
                     // lblSuccess.Text = "Items Details successfully Uploaded.";
                     // panelError.Visible = false;
@@ -514,5 +542,12 @@ namespace IMS_PowerDept.UserControls
         {
 
         }
+
+        protected void gvItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

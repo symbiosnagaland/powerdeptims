@@ -16,7 +16,7 @@ namespace IMS_PowerDept.UserControls
     {
         protected static DataTable dtItems = new DataTable();
          double totalAmount = 0;
-        protected  DataSet dst = new DataSet();
+        protected static  DataSet dst = new DataSet();
         SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
         DataTable data;
         DataTable data2;

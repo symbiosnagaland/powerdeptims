@@ -15,27 +15,27 @@
             {
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: 'dd/mm/yy'
+                dateFormat: 'dd-mm-yy'
             });
 
         $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
             {
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: 'dd/mm/yy'
+                dateFormat: 'dd-mm-yy'
             });
 
        $("#ContentPlaceHolder1_chdate").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
         $("#ContentPlaceHolder1_chdateend").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
 
@@ -43,13 +43,13 @@
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
         $("#ContentPlaceHolder1_TextBox2").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
 
@@ -59,13 +59,13 @@
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
         $("#ContentPlaceHolder1_enddiv").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
         //--------------------------------
@@ -74,26 +74,26 @@
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
     $("#ContentPlaceHolder1_valEnd").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
      $("#ContentPlaceHolder1_endtbsummary").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
         $("#ContentPlaceHolder1_tbsummary").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
     });

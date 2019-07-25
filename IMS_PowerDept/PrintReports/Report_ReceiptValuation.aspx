@@ -47,14 +47,14 @@
                                                   <div style="margin:7px">
                                                      S Order Ref./Date : &nbsp; <asp:Label ID="divisionname" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.SupplyOrderReference")%>'></asp:Label>
                                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                       Dated :<asp:Label ID="Label1"  runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:yyyy/MM/dd}")%>'></asp:Label>
+                                                       Dated :<asp:Label ID="Label1"  runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:dd/MM/yyyy}")%>'></asp:Label>
                                                   
                                                    </div>
                                                    
                                                   <div style="margin:7px">
                                                    OTEO Ref : &nbsp; <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                       Dated : &nbsp;&nbsp;<asp:Label ID="cdate" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:yyyy/MM/dd}")%>'></asp:Label> 
+                                                       Dated : &nbsp;&nbsp;<asp:Label ID="cdate" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:dd/MM/yyyy}")%>'></asp:Label> 
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         Issue Head :&nbsp; <asp:Label ID="Label4"  runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.IssueHeadName")%>'></asp:Label>
                                                    </div>
