@@ -9,9 +9,7 @@
 
  <script type="text/javascript">
         $(function () {
-           // $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker();
-           // $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker();
-
+          
             $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker(
              {
                  changeMonth: true,
@@ -39,28 +37,42 @@
 
 <script type="text/javascript">
 
-     function SetUnitName(itemid) {
+    function SetUnitName(itemid)
+    {
          var e = document.getElementById(itemid);
          var itemsvalue = e.options[e.selectedIndex].value;
+        // alert(itemsvalue);
          var mySplitResult = itemsvalue.split(" ");
+         //alert(mySplitResult);
          /* Store last character of string id of ddlitems */
          // var last_character = itemid[itemid.length - 1];
          var splitItemsID = itemid.split("_");
          //making sure the last digit is not 0
          //fetching the last part of the control id(which is dynamic)
          var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-         if (typeof mySplitResult[1] === "undefined") {
+         if (typeof mySplitResult[1] === "undefined")
+         {
              document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+             
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
          }
          else {
              document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             //SAVING item id for saving to db also
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
          }
-     }
+
+         //Bisu writes the code
+
+        if (typeof mySplitResult[2] === "undefined")
+        {
+             document.getElementById("<%= gvItems.ClientID%>__tbOrderNo_" + dynamicidpart).value = '';            
+         }
+         else
+         {
+             document.getElementById("<%= gvItems.ClientID%>__tbOrderNo_" + dynamicidpart).value = mySplitResult[2];            
+         }
+    }
+
      //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
      function UpdateAmountbyRate(rateid) {
          // var last_character = itemid[itemid.length - 1];
@@ -187,11 +199,12 @@
                     <div class="form-group ">
                         <div style="float:left;">
                             <span class="singleLineLeft">
-                                <label> Issue Head(Ledger) </label>
+                                <label> Issue Head </label>
                             </span>
                             
                             <span class="singleLineRight">
-                                <asp:DropDownList  CssClass="form-control" ID="ddlIssueHead" Height="30px" Width="200px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
+                                <asp:DropDownList  CssClass="form-control" ID="ddlIssueHead" Height="30px" Width="200px"
+                                     runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
                                     <asp:ListItem Value="">Select Issue Head</asp:ListItem>
                                 </asp:DropDownList>
                             </span>
@@ -247,9 +260,9 @@
                         <asp:TemplateField HeaderText="Item">
                             
                             <ItemTemplate>
-                                <asp:HiddenField ID="hdnFieldItemID" runat="server" />
-                                <asp:DropDownList AppendDataBoundItems="true" onchange="SetUnitName(this.id);getOrder(this.id);" 
-                                    CssClass="err" Width="280px" ID="_ddItems" runat="server">
+                                <asp:HiddenField ID="hdnFieldItemID" runat="server"  />
+                                <asp:DropDownList AppendDataBoundItems="true"  onchange="SetUnitName(this.id)" 
+                                    CssClass="err" Width="280px" ID="_ddItems" runat="server" >
 
                                 </asp:DropDownList>
                             </ItemTemplate>
@@ -310,15 +323,16 @@
 
                         <%--Bisu writes code here for temporary purpose--%>
 
-                         <%--<asp:TemplateField HeaderText="order No">
+                         <asp:TemplateField HeaderText="order No">
                             <ItemTemplate>
-                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" onchange ="getOrder(this.id)"
-                                    BackColor="Transparent" autocomplete="off"  ID="tbOrderNo" runat="server"
+                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" 
+                                    BackColor="Transparent" autocomplete="off"  ID="_tbOrderNo" runat="server"
                                      BorderStyle="Solid" BorderWidth="1px">
 
                                 </asp:TextBox>
                             </ItemTemplate>                        
-                        </asp:TemplateField>--%>
+                        </asp:TemplateField>
+                       <%-- Bisu Ends his code here--%>
                     </Columns>                                      
                 </asp:GridView>
             </ContentTemplate>
