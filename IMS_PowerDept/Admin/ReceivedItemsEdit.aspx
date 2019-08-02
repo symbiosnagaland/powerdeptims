@@ -232,7 +232,7 @@
            <div class="element clear"></div>
         <h2>Added Items</h2>
 
-        <asp:GridView ID="gvItems_Edit" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="True" CssClass="table table-bordered" BackColor="White" DataSourceID="sds_gvitemsedit"  OnRowCommand="gvItems_Edit_RowCommand" >
+        <asp:GridView ID="gvItems_Edit" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="True" CssClass="table table-bordered" BackColor="White" DataSourceID="sds_gvitemsedit"  OnRowCommand="gvItems_Edit_RowCommand" OnSelectedIndexChanged="gvItems_Edit_SelectedIndexChanged" >
                                                 <Columns>
 
                                                      <asp:TemplateField HeaderText="Sl."> 
@@ -284,7 +284,17 @@
                                                                                                           
                                                         </ItemTemplate>
 
-                                                       
+                                                         </asp:TemplateField>
+
+
+                                                        <asp:TemplateField HeaderText="OrderNO">
+                                                        <ItemTemplate>
+                                                           <asp:Label ID="lblAmount" Text='<%# Eval("OrderNO") %>' runat="server"></asp:Label>
+                                                         
+                                                                                                          
+                                                        </ItemTemplate>
+
+                                                        </asp:TemplateField>
 
                                                      <%--   <FooterStyle HorizontalAlign="Right" />
                                                         <FooterTemplate>
@@ -292,12 +302,12 @@
                                                              
                                                         </FooterTemplate>--%>
 
-                                                    </asp:TemplateField>
+                                                   
 
                                                     
                                                     <asp:TemplateField HeaderText="Action">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") %>' CommandName='<%# Eval("amount") %>' runat="server">Delete</asp:LinkButton>                                                                                                           
+                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") +","+ Eval("ItemId") %>' CommandName='<%# Eval("amount") %>'  runat="server">Delete</asp:LinkButton>                                                                                                           
                                                         </ItemTemplate>
                                                         </asp:TemplateField>
 

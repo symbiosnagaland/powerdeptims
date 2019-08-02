@@ -17,7 +17,7 @@ namespace IMS_PowerDept.UserControls
     {
         protected static DataTable dtItems = new DataTable();
         protected static DataTable gridviewItemsDataTable = new DataTable();
-        string myTempData;
+        string CheckExistingItem;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -326,11 +326,10 @@ namespace IMS_PowerDept.UserControls
                 
                 string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
 
-                string updateRateMaster = "Update  ItemsRateMaster set MaxOrderNO= '@odNo' where itemid= '@ITEMID'";
+                string UpdateRateMaster = "Update  ItemsRateMaster set MaxOrderNO= '@odNo' where itemid= '@ITEMID'";
 
-                string insertRateMasterSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
 
-               
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
@@ -348,16 +347,21 @@ namespace IMS_PowerDept.UserControls
                     //CODE TO CHECK NULL VALUES
 
                     //SAVE CODE
-                    myTempData = _tbOrderNo.Text;
+                    CheckExistingItem = _tbOrderNo.Text;
                     if (itemName.SelectedValue.ToString() != "0")
                     {
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
-                        sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
 
-                        sb2.Append(insertRateMasterSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
-
-                        sb3.Append(updateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", _tbOrderNo.Text));
-                        
+                        if (CheckExistingItem == "1")
+                        {
+                            sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb2.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                        }
+                        else
+                        {
+                            sb3.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", _tbOrderNo.Text));
+                            sb2.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                        } 
                     }
                 }
                 //now save it to db
@@ -367,16 +371,16 @@ namespace IMS_PowerDept.UserControls
                     //ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(),sb1.ToString (),sb2.ToString(),sb3.ToString ());
                  
                     //
-                    if (sb1.ToString() != "" && sb2.ToString() != "")
+                    if (sb1.ToString() != "" && sb3.ToString() != "")
                     {
                         ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString(), sb2.ToString(), sb3.ToString());
                     }
-                    else if (sb1.ToString() != "" && sb2.ToString() == "")
+                    else if (sb1.ToString() != "" && sb3.ToString() == "")
                     {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString());
+                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString(), sb1.ToString());
                     }
 
-                    else if (sb1.ToString() == "" && sb2.ToString() != "")
+                    else if (sb1.ToString() == "" && sb3.ToString() != "")
                     {
                         ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb2.ToString(), sb3.ToString());
                     }
@@ -486,19 +490,20 @@ namespace IMS_PowerDept.UserControls
                 //getting all the values of controls values inside gridview control
 
                 StringBuilder sb = new StringBuilder();
+
                 StringBuilder sb1 = new StringBuilder();
-                StringBuilder sb2 = new StringBuilder();
-                StringBuilder sb3 = new StringBuilder();
+               StringBuilder sb2 = new StringBuilder();
+               StringBuilder sb3 = new StringBuilder();
 
                 //  sb.Append("<root>");
 
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
 
-                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
                 string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemid='@ITEMID'";
 
 
-                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -518,21 +523,22 @@ namespace IMS_PowerDept.UserControls
                     // Label lblAmount = gvItems.Rows[i].FindControl("lblAmount") as Label;
 
                     //CODE TO CHECK NULL VALUES
-                    myTempData = tbOrderNo.Text ;
+                    CheckExistingItem = tbOrderNo.Text;
                     //SAVE CODE
                     if (itemName.SelectedValue.ToString() != "0")
                     {
 
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
-                        
-                        if(myTempData =="1")//no such item there in master
+
+                        if (CheckExistingItem == "1")
                         { 
-                            sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                            sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace ("@OTEO",tbOtEONumber.Text));
+                            sb2.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
                         }
                         else
                         { 
                             sb3.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", tbOrderNo.Text));
-                            sb2.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                            sb2.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
                         } 
                    }
                 }
@@ -540,16 +546,16 @@ namespace IMS_PowerDept.UserControls
                 //making sure sb string is not empty
                 if (sb.ToString() != "")
                 {
-                    if (sb1.ToString() != "" && sb2.ToString() != "")
+                    if (sb1.ToString() != "" && sb3.ToString() != "")
                     {
                         ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString(), sb2.ToString(), sb3.ToString());
                     }
-                    else if (sb1.ToString() != "" && sb2.ToString() == "")
+                    else if (sb1.ToString() != "" && sb3.ToString() == "")
                     {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString());
+                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString(), sb2.ToString());
                     }
 
-                    else if (sb1.ToString() == "" && sb2.ToString() != "")
+                    else if (sb1.ToString() == "" && sb3.ToString() != "")
                     {
                         ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb2.ToString(),sb3.ToString ());
                     }

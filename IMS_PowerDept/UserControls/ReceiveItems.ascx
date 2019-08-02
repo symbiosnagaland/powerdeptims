@@ -41,7 +41,7 @@
     {
          var e = document.getElementById(itemid);
          var itemsvalue = e.options[e.selectedIndex].value;
-        // alert(itemsvalue);
+         //alert(itemsvalue);
          var mySplitResult = itemsvalue.split(" ");
          //alert(mySplitResult);
          /* Store last character of string id of ddlitems */
@@ -56,20 +56,30 @@
              
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
          }
-         else {
+         else
+         {
              document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
          }
 
          //Bisu writes the code
-
+        <%--
         if (typeof mySplitResult[2] === "undefined")
         {
-             document.getElementById("<%= gvItems.ClientID%>__tbOrderNo_" + dynamicidpart).value = '';            
+            document.getElementById("<%= gvItems.ClientID%>__tbIssueName_" + dynamicidpart).value = '';            
          }
          else
          {
-             document.getElementById("<%= gvItems.ClientID%>__tbOrderNo_" + dynamicidpart).value = mySplitResult[2];            
+            document.getElementById("<%= gvItems.ClientID%>__tbIssueName_" + dynamicidpart).value = mySplitResult[2];            
+        }
+        --%>
+
+        if (typeof mySplitResult[3] === "undefined") {
+            document.getElementById("<%= gvItems.ClientID%>__tbOrderNo_" + dynamicidpart).value = '';
+         }
+        else
+        {
+             document.getElementById("<%= gvItems.ClientID%>__tbOrderNo_" + dynamicidpart).value = mySplitResult[3];
          }
     }
 
@@ -332,6 +342,18 @@
                                 </asp:TextBox>
                             </ItemTemplate>                        
                         </asp:TemplateField>
+
+                        <%-- 
+                        <asp:TemplateField HeaderText="Issue Name">
+                            <ItemTemplate>
+                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" 
+                                    BackColor="Transparent" autocomplete="off"  ID="_tbIssueName" runat="server"
+                                     BorderStyle="Solid" BorderWidth="1px">
+
+                                </asp:TextBox>
+                            </ItemTemplate>                        
+                        </asp:TemplateField>
+                        --%>
                        <%-- Bisu Ends his code here--%>
                     </Columns>                                      
                 </asp:GridView>

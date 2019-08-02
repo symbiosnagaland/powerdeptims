@@ -382,7 +382,11 @@ namespace IMS_PowerDept.Admin
             {                
                 //Label lblAmount = (Label) gvItems_Edit.FindControl(e.
                 double amount = Convert.ToDouble(e.CommandName);
-            string receivedItemID= e.CommandArgument.ToString();
+            string[] MyArraryOfCommand= e.CommandArgument.ToString().Split(new char[] { ',' });
+
+            string receivedItemID = MyArraryOfCommand[0];
+            string ItemID = MyArraryOfCommand[1];
+
             SqlTransaction tr = null;
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
@@ -399,6 +403,13 @@ namespace IMS_PowerDept.Admin
             SqlCommand cmd3 = conn.CreateCommand();
             cmd3.CommandText = "SELECT COUNT (*) FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)";
             cmd3.Parameters.AddWithValue("@ReceivedItemsOTEOID", OTEOID);
+
+            SqlCommand cmd4 = conn.CreateCommand();
+            cmd4.CommandText = "DELETE FROM [Itemsratesecondary] WHERE [ItemID] = @ItemID and OTEO=@receiveditemsoteoid";
+            cmd4.Parameters.AddWithValue("@ItemID", ItemID);
+            cmd4.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
+
+
           
             try
             {
@@ -408,9 +419,11 @@ namespace IMS_PowerDept.Admin
                     tr = conn.BeginTransaction();
                     cmd.Transaction = tr;
                     cmd2.Transaction = tr;
+                    cmd4.Transaction = tr;
 
                     cmd.ExecuteNonQuery();
                     cmd2.ExecuteNonQuery();
+                    cmd4.ExecuteNonQuery();
                     tr.Commit();
                     int count = Convert.ToInt32(cmd3.ExecuteScalar());
                     if (count < 1)
@@ -529,6 +542,11 @@ namespace IMS_PowerDept.Admin
                 Response.Redirect("ReceivedEntriesList.aspx");
                 
             }
+        }
+
+        protected void gvItems_Edit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }           
 }
 }
