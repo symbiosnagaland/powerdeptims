@@ -83,7 +83,7 @@ namespace IMS_PowerDept.AppCode
 
             //string cmd4 = "SELECT ItemsRateMaster.ItemId,IssueHeadNo,OrderNo as order1 from ItemsRateMaster,Items,issueheads  where  Items.itemid=ItemsRateMaster.ItemId and issueheads.issueheadid=ItemsRateMaster.IssueHeadNo and issueheads.status='A' and Items.status='A'";
 
-            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' ' + " +
+            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' '+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +' '+ " +
  " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
   " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid = items.itemid LEFT JOIN  " +
   "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A'";
