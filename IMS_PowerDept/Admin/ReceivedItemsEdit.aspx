@@ -17,13 +17,13 @@
             {
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: 'dd/mm/yy'
+                dateFormat: 'dd-mm-yy'
             });
         $("#ContentPlaceHolder1_tbOTEODate").datepicker(
             {
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: 'dd/mm/yy'
+                dateFormat: 'dd-mm-yy'
             });
     });
 </script>
@@ -44,26 +44,26 @@
         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
         if (typeof mySplitResult[1] === "undefined") {
             document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
-         }
-         else {
-             document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             //SAVING item id for saving to db also
-             document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
-         }
-     }
-     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
-     function UpdateAmountbyRate(rateid) {
-         // var last_character = itemid[itemid.length - 1];
-         var splitItemsID = rateid.split("_");
-         //making sure the last digit is not 0
-         //fetching the last part of the control id(which is dynamic)
-         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-         //update amount textbox for this row
-         //amount =rate * quantity
-         document.getElementById("<%= gvItems.ClientID%>_tbAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
+            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
+        }
+        else {
+            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
+            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+            //SAVING item id for saving to db also
+            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
+        }
+    }
+    //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
+    function UpdateAmountbyRate(rateid) {
+        // var last_character = itemid[itemid.length - 1];
+        var splitItemsID = rateid.split("_");
+        //making sure the last digit is not 0
+        //fetching the last part of the control id(which is dynamic)
+        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
+        //update amount textbox for this row
+        //amount =rate * quantity
+        document.getElementById("<%= gvItems.ClientID%>_tbAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
          calculateSum();
      }
 
@@ -101,12 +101,12 @@
              }
          }
          document.getElementById("<%= gvItems.ClientID%>_tbtotalAmount").value = parseFloat(document.getElementById("ContentPlaceHolder1_tbtotalAmountAddedItems").value) + sum;
-      }
+     }
 
 
-      function SetTarget() {
-          document.forms[0].target = "_blank";
-      }
+     function SetTarget() {
+         document.forms[0].target = "_blank";
+     }
     </script>
 <%--content starts   here--%> 
      <div class="full_w">
@@ -126,9 +126,9 @@
 <div style="margin:0px auto;padding:10px">
     
      <div class="half_w half_left">
-				<div class="h_title"> Supply Order Reference / Date (dd/mm/yyyy)</div>
+				<div class="h_title"> Supply Order Reference / Date (dd-mm-yyyy)</div>
         <div style="margin:0px auto; padding:10px">
-            <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference" placeholder="Supply Order Reference" Width="280px" runat="server"></asp:TextBox>
+            <asp:TextBox CssClass="form-control" ID="tbSupplyOrderReference" placeholder="Supply Order Reference" AutoComplete="off" Width="280px" runat="server"></asp:TextBox>
              
            <br />
              <asp:TextBox CssClass="form-control" ID="tbSupplyDate" placeholder="Supply Order Date" Width="280px" runat="server"></asp:TextBox>
@@ -137,7 +137,7 @@
 </div>
 
     <div class="half_w half_right">
-				<div class="h_title">OTEO ID / Date (dd/mm/yyyy)</div>
+				<div class="h_title">OTEO ID / Date (dd-mm-yyyy)</div>
                 <div style="margin:0px auto; padding:10px">
                  <asp:TextBox CssClass="form-control"  ID="tbOtEONumber" placeholder="OTEO No." Width="180px" runat="server"></asp:TextBox>   
                     <br />
@@ -148,7 +148,7 @@
 
   <div class="element">
                <label>Supplier Name</label>
-               <asp:TextBox ID="tbSupplierName" Width="350px" placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
+               <asp:TextBox ID="tbSupplierName" Width="350px" AutoComplete="off" placeholder="Add Supplier Name" CssClass="form-control" runat="server"></asp:TextBox>
               </div>
                                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div>
@@ -284,17 +284,7 @@
                                                                                                           
                                                         </ItemTemplate>
 
-                                                         </asp:TemplateField>
-
-
-                                                        <asp:TemplateField HeaderText="OrderNO">
-                                                        <ItemTemplate>
-                                                           <asp:Label ID="lblAmount" Text='<%# Eval("OrderNO") %>' runat="server"></asp:Label>
-                                                         
-                                                                                                          
-                                                        </ItemTemplate>
-
-                                                        </asp:TemplateField>
+                                                       
 
                                                      <%--   <FooterStyle HorizontalAlign="Right" />
                                                         <FooterTemplate>
@@ -302,7 +292,7 @@
                                                              
                                                         </FooterTemplate>--%>
 
-                                                   
+                                                    </asp:TemplateField>
 
                                                     
                                                     <asp:TemplateField HeaderText="Action">

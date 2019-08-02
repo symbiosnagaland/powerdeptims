@@ -13,13 +13,13 @@
                 {
                     changeMonth: true,
                      changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
             $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
         });
         

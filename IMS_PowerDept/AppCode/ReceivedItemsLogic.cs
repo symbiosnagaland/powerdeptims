@@ -46,7 +46,7 @@ namespace IMS_PowerDept.AppCode
             string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
             //retrive item names
             //commented by bisu
-            //string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
+            string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
 
 
             //bisu writes cmd4
@@ -68,7 +68,7 @@ namespace IMS_PowerDept.AppCode
     " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid ="+
      "  (select distinct    ItemsRateMaster.itemid  from "+
      " ItemsRateMaster where items.itemid =ItemsRateMaster.itemid)  ";
-
+             
              * */
 
 
@@ -83,10 +83,8 @@ namespace IMS_PowerDept.AppCode
 
             //string cmd4 = "SELECT ItemsRateMaster.ItemId,IssueHeadNo,OrderNo as order1 from ItemsRateMaster,Items,issueheads  where  Items.itemid=ItemsRateMaster.ItemId and issueheads.issueheadid=ItemsRateMaster.IssueHeadNo and issueheads.status='A' and Items.status='A'";
 
-            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' '+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +' '+ " +
- " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
-  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid = items.itemid LEFT JOIN  " +
-  "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A'";
+            // string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit  as itemid_unit, itemname " +
+            // FROM Items WHERE ITEMS.status='A'";
 
             SqlCommand cmd3 = conn.CreateCommand();
             cmd3.CommandText = "select max(ReceivedItemsOTEOID) from receiveditemsoteo";
@@ -127,10 +125,7 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
 
 
-            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' ' + " +
- " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
-  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid = items.itemid LEFT JOIN  " +
-  "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A' and IssueHeads.IssueHeadName='" + myIssueHead + "'";
+            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit  from items WHERE ITEMS.status='A' ";
 
             try
             {
@@ -286,7 +281,7 @@ namespace IMS_PowerDept.AppCode
         /// 
 
         //SaveReceivedItemsDetails with 5 parameters
-        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements, string sqlRate, string sqlRateSecondary, string sqlRateUpdate)
+        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements)
         {
 
             SqlTransaction tr = null;
@@ -313,15 +308,7 @@ namespace IMS_PowerDept.AppCode
             cmd2.CommandText = sqlstatements;
 
 
-            SqlCommand cmd3 = conn.CreateCommand();
-            cmd3.CommandText = sqlRate;
 
-
-            SqlCommand cmd5 = conn.CreateCommand();
-            cmd5.CommandText = sqlRateUpdate;
-
-            SqlCommand cmd4 = conn.CreateCommand();
-            cmd4.CommandText = sqlRateSecondary;
 
 
             try
@@ -331,16 +318,11 @@ namespace IMS_PowerDept.AppCode
                 tr = conn.BeginTransaction();
                 cmd.Transaction = tr;
                 cmd2.Transaction = tr;
-                cmd3.Transaction = tr;
 
-                cmd4.Transaction = tr;
-                cmd5.Transaction = tr;
 
                 cmd.ExecuteNonQuery();
                 cmd2.ExecuteNonQuery();
-                cmd3.ExecuteNonQuery();
-                cmd4.ExecuteNonQuery();
-                cmd5.ExecuteNonQuery();
+
                 tr.Commit();
             }
             catch
@@ -355,127 +337,7 @@ namespace IMS_PowerDept.AppCode
         }
 
         // SaveReceivedItemsDetails with 4 parameters
-        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements, string sqlRateSecondary, string sqlRateUpdate)
-        {
 
-            SqlTransaction tr = null;
-            SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-            //this will execute first
-
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "sp_InsertReceivedItemsAfterValidation";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
-            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", RecievedItemsOrderObject.Date);
-            cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
-            cmd.Parameters.AddWithValue("@SupplyOrderDate", RecievedItemsOrderObject.SupplyDate);
-            cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
-            cmd.Parameters.AddWithValue("@ChargeableHeadName", RecievedItemsOrderObject.ChargeableHeadName);
-            cmd.Parameters.AddWithValue("@IssueHeadName", RecievedItemsOrderObject.IssueHeadName);
-            cmd.Parameters.AddWithValue("@TotalAmount", RecievedItemsOrderObject.TotalAmount);
-            cmd.Parameters.AddWithValue("@ModifiedBy", RecievedItemsOrderObject.ModifiedBy);
-
-            //    cmd.Parameters.AddWithValue("@XMLItems", XMLItems);
-
-
-            SqlCommand cmd2 = conn.CreateCommand();
-            cmd2.CommandText = sqlstatements;
-
-
-            SqlCommand cmd5 = conn.CreateCommand();
-            cmd5.CommandText = sqlRateUpdate;
-
-            SqlCommand cmd4 = conn.CreateCommand();
-            cmd4.CommandText = sqlRateSecondary;
-
-
-            try
-            {
-
-                conn.Open();
-                tr = conn.BeginTransaction();
-                cmd.Transaction = tr;
-                cmd2.Transaction = tr;
-
-                cmd4.Transaction = tr;
-                cmd5.Transaction = tr;
-
-                cmd.ExecuteNonQuery();
-                cmd2.ExecuteNonQuery();
-
-                cmd4.ExecuteNonQuery();
-                cmd5.ExecuteNonQuery();
-                tr.Commit();
-            }
-            catch
-            {
-                tr.Rollback();
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-        // SaveReceivedItemsDetails with 3 parameters
-        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements, string sqlRate)
-        {
-
-            SqlTransaction tr = null;
-            SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-            //this will execute first
-
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "sp_InsertReceivedItemsAfterValidation";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
-            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", RecievedItemsOrderObject.Date);
-            cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
-            cmd.Parameters.AddWithValue("@SupplyOrderDate", RecievedItemsOrderObject.SupplyDate);
-            cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
-            cmd.Parameters.AddWithValue("@ChargeableHeadName", RecievedItemsOrderObject.ChargeableHeadName);
-            cmd.Parameters.AddWithValue("@IssueHeadName", RecievedItemsOrderObject.IssueHeadName);
-            cmd.Parameters.AddWithValue("@TotalAmount", RecievedItemsOrderObject.TotalAmount);
-            cmd.Parameters.AddWithValue("@ModifiedBy", RecievedItemsOrderObject.ModifiedBy);
-
-            //    cmd.Parameters.AddWithValue("@XMLItems", XMLItems);
-
-
-            SqlCommand cmd2 = conn.CreateCommand();
-            cmd2.CommandText = sqlstatements;
-
-
-            SqlCommand cmd3 = conn.CreateCommand();
-            cmd3.CommandText = sqlRate;
-
-
-            try
-            {
-
-                conn.Open();
-                tr = conn.BeginTransaction();
-                cmd.Transaction = tr;
-                cmd2.Transaction = tr;
-                cmd3.Transaction = tr;
-
-                cmd.ExecuteNonQuery();
-                cmd2.ExecuteNonQuery();
-                cmd3.ExecuteNonQuery();
-
-
-                tr.Commit();
-            }
-            catch
-            {
-                tr.Rollback();
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
         #endregion
 
 

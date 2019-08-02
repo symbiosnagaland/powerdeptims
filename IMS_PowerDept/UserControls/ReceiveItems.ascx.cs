@@ -17,7 +17,7 @@ namespace IMS_PowerDept.UserControls
     {
         protected static DataTable dtItems = new DataTable();
         protected static DataTable gridviewItemsDataTable = new DataTable();
-        string myTempData;
+        string CheckExistingItem;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace IMS_PowerDept.UserControls
 
 
                 ddlChargeableHead.Enabled = false;
-                gvItems.Enabled = false;
+                // gvItems.Enabled = false;
 
 
             }
@@ -128,7 +128,7 @@ namespace IMS_PowerDept.UserControls
             if (ddlIssueHead.SelectedValue != "")
             {
                 ddlChargeableHead.Enabled = true;
-                gvItems.Enabled = true;
+                // gvItems.Enabled = true;
 
 
                 ddlChargeableHead.DataSource = ReceivedItemsLogic.RetrieveCorrespondingActiveChargeableHeads(Convert.ToInt32(ddlIssueHead.SelectedValue));
@@ -143,7 +143,7 @@ namespace IMS_PowerDept.UserControls
             else
             {
                 ddlChargeableHead.Enabled = false;
-                gvItems.Enabled = false;
+                // gvItems.Enabled = false;
 
             }
         }
@@ -207,7 +207,7 @@ namespace IMS_PowerDept.UserControls
                         TextBox _tbQuantity = (TextBox)gvItems.Rows[rowIndex].Cells[3].FindControl("_tbQuantity");
                         TextBox tbRate = (TextBox)gvItems.Rows[rowIndex].Cells[3].FindControl("tbRate");
                         TextBox tbAmount = (TextBox)gvItems.Rows[rowIndex].Cells[3].FindControl("tbAmount");
-                        TextBox tbOrderNo = (TextBox)gvItems.Rows[rowIndex].Cells[3].FindControl("_tbOrderNo");
+                        //TextBox tbOrderNo = (TextBox)gvItems.Rows[rowIndex].Cells[3].FindControl("_tbOrderNo");
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         //   drCurrentRow["RowNumber"] = i + 1;
@@ -217,7 +217,7 @@ namespace IMS_PowerDept.UserControls
                         dtCurrentTable.Rows[i - 1]["Quantity"] = _tbQuantity.Text;
                         dtCurrentTable.Rows[i - 1]["Rate"] = tbRate.Text;
                         dtCurrentTable.Rows[i - 1]["Amount"] = tbAmount.Text;
-                        dtCurrentTable.Rows[i - 1]["OrderNO"] = tbOrderNo.Text;
+                        //  dtCurrentTable.Rows[i - 1]["OrderNO"] = tbOrderNo.Text;
 
 
 
@@ -317,19 +317,18 @@ namespace IMS_PowerDept.UserControls
                 RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 //getting all the values of controls values inside gridview control
                 StringBuilder sb = new StringBuilder();
-                StringBuilder sb1 = new StringBuilder();
-                StringBuilder sb2 = new StringBuilder();
-                StringBuilder sb3 = new StringBuilder();
+                //  StringBuilder sb1 = new StringBuilder();
+                //   StringBuilder sb2 = new StringBuilder();
+                //  StringBuilder sb3 = new StringBuilder();
 
                 //  sb.Append("<root>");
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
 
-                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+                // string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
 
-                string updateRateMaster = "Update  ItemsRateMaster set MaxOrderNO= '@odNo' where itemid= '@ITEMID'";
+                //   string UpdateRateMaster = "Update  ItemsRateMaster set MaxOrderNO= '@odNo' where itemid= '@ITEMID'";
 
-                string insertRateMasterSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
-
+                //   string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -342,21 +341,17 @@ namespace IMS_PowerDept.UserControls
                     TextBox tbQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
                     TextBox tbRate = gvItems.Rows[i].FindControl("tbRate") as TextBox;
                     TextBox tbAmount = gvItems.Rows[i].FindControl("tbAmount") as TextBox;
-                    TextBox _tbOrderNo = gvItems.Rows[i].FindControl("_tbOrderNo") as TextBox;
+                    // TextBox _tbOrderNo = gvItems.Rows[i].FindControl("_tbOrderNo") as TextBox;
                     // Label lblAmount = gvItems.Rows[i].FindControl("lblAmount") as Label;
 
                     //CODE TO CHECK NULL VALUES
 
                     //SAVE CODE
-                    myTempData = _tbOrderNo.Text;
+                    //CheckExistingItem = _tbOrderNo.Text;
                     if (itemName.SelectedValue.ToString() != "0")
                     {
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
-                        sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
 
-                        sb2.Append(insertRateMasterSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
-
-                        sb3.Append(updateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", _tbOrderNo.Text));
 
                     }
                 }
@@ -364,23 +359,10 @@ namespace IMS_PowerDept.UserControls
                 //making sure sb string is not empty
                 if (sb.ToString() != "")
                 {
-                    //ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(),sb1.ToString (),sb2.ToString(),sb3.ToString ());
+                    ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString());
 
                     //
-                    if (sb1.ToString() != "" && sb2.ToString() != "")
-                    {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString(), sb2.ToString(), sb3.ToString());
-                    }
-                    else if (sb1.ToString() != "" && sb2.ToString() == "")
-                    {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString());
-                    }
 
-                    else if (sb1.ToString() == "" && sb2.ToString() != "")
-                    {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb2.ToString(), sb3.ToString());
-                    }
-                    //
 
                     Response.Redirect("ReceivedItemsDetails.aspx?id=" + tbOtEONumber.Text);
 
@@ -486,6 +468,7 @@ namespace IMS_PowerDept.UserControls
                 //getting all the values of controls values inside gridview control
 
                 StringBuilder sb = new StringBuilder();
+
                 StringBuilder sb1 = new StringBuilder();
                 StringBuilder sb2 = new StringBuilder();
                 StringBuilder sb3 = new StringBuilder();
@@ -494,11 +477,11 @@ namespace IMS_PowerDept.UserControls
 
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
 
-                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
-                string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemid='@ITEMID'";
+                // string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
+                // string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemid='@ITEMID'";
 
 
-                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+                // string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -510,7 +493,7 @@ namespace IMS_PowerDept.UserControls
                     TextBox _tbUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
                     // Label lblUnit = gvItems.Rows[i].FindControl("lblUnit") as Label;
 
-                    TextBox tbOrderNo = gvItems.Rows[i].FindControl("_tbOrderNo") as TextBox;
+                    // TextBox tbOrderNo = gvItems.Rows[i].FindControl("_tbOrderNo") as TextBox;
 
                     TextBox tbQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
                     TextBox tbRate = gvItems.Rows[i].FindControl("tbRate") as TextBox;
@@ -518,41 +501,21 @@ namespace IMS_PowerDept.UserControls
                     // Label lblAmount = gvItems.Rows[i].FindControl("lblAmount") as Label;
 
                     //CODE TO CHECK NULL VALUES
-                    myTempData = tbOrderNo.Text;
+                    //CheckExistingItem = tbOrderNo.Text;
                     //SAVE CODE
                     if (itemName.SelectedValue.ToString() != "0")
                     {
 
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
 
-                        if (myTempData == "1")//no such item there in master
-                        {
-                            sb1.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
-                        }
-                        else
-                        {
-                            sb3.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", tbOrderNo.Text));
-                            sb2.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
-                        }
                     }
                 }
                 //now save it to db
                 //making sure sb string is not empty
                 if (sb.ToString() != "")
                 {
-                    if (sb1.ToString() != "" && sb2.ToString() != "")
-                    {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString(), sb2.ToString(), sb3.ToString());
-                    }
-                    else if (sb1.ToString() != "" && sb2.ToString() == "")
-                    {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb1.ToString());
-                    }
 
-                    else if (sb1.ToString() == "" && sb2.ToString() != "")
-                    {
-                        ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString(), sb2.ToString(), sb3.ToString());
-                    }
+                    ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString());
 
 
                     //Session["OTEONUMBER"] = tbOtEONumber.Text;

@@ -16,13 +16,13 @@
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
             $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'dd-mm-yy'
                 });
         });
 

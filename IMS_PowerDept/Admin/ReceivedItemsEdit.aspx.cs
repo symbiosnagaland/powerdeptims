@@ -13,9 +13,9 @@ namespace IMS_PowerDept.Admin
 {
     public partial class ReceivedItemsEdit : System.Web.UI.Page
     {
-        
+
         protected static DataTable dtItems = new DataTable();
-      //  protected static DataTable gridviewItemsDataTable = new DataTable();
+        //  protected static DataTable gridviewItemsDataTable = new DataTable();
         protected static string OTEOID;
 
 
@@ -40,10 +40,10 @@ namespace IMS_PowerDept.Admin
 
                     _btnSave.Visible = _btnCancel.Visible = true;
                 }
-          }
-     
+            }
 
-                 /*for the purpose of opening new print page if saved */
+
+            /*for the purpose of opening new print page if saved */
             if (Session["OTEONUMBER"] != null)
             {
                 //temp code to display properly in local as well as in hosting environment 
@@ -58,12 +58,12 @@ namespace IMS_PowerDept.Admin
 
         }
 
-     
+
 
         //populating data for edit purpose
         private void RetrieveActive_IssueHeads_Items_ChargeableHeads()
         {
-            
+
             DataSet dst = new DataSet();
             dst =
                  ReceivedItemsLogic.RetrieveActive_IssueHeads_Items_ChargeableHeads();
@@ -83,7 +83,7 @@ namespace IMS_PowerDept.Admin
             //ddlChargeableHead.DataBind();
             //ddlChargeableHead.Items.Insert(0, new ListItem("--Select ChargeableHead Head--", ""));
 
-       
+
 
         }
 
@@ -113,7 +113,7 @@ namespace IMS_PowerDept.Admin
             }
 
             //Store the DataTable in ViewState
-           // ViewState["CurrentTable"] = dt;
+            // ViewState["CurrentTable"] = dt;
 
             gvItems.DataSource = dt;
             gvItems.DataBind();
@@ -154,9 +154,9 @@ namespace IMS_PowerDept.Admin
                 //if (e.Row.RowType == DataControlRowType.Footer)
                 //{
                 //    TextBox tbtotalAmount = e.Row.FindControl("tbtotalAmount") as TextBox;
-                    
+
                 //    tbtotalAmount.Text = tbtotalAmountAddedItems.Text;
-                   
+
                 //}
             }
             catch
@@ -188,10 +188,10 @@ namespace IMS_PowerDept.Admin
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
                 RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
                 RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
-               
-                
-               // RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
-               // RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+
+
+                // RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
+                // RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
                 if (ddlChargeableHead.SelectedIndex > 0)
                     RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
                 else
@@ -202,8 +202,8 @@ namespace IMS_PowerDept.Admin
                 else
                     RecievedItemsOrderObject.IssueHeadName = lblIssueHeadOld.Text; //same old value populated
 
-              
-               
+
+
                 RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 //getting all the values of controls values inside gridview control
                 StringBuilder sb = new StringBuilder();
@@ -233,21 +233,21 @@ namespace IMS_PowerDept.Admin
                 {
                     //getting total amount from footer
                     TextBox tbtotalAmount = gvItems.FooterRow.FindControl("tbtotalAmount") as TextBox;
-                    RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);   
-                    ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, originalOTEOID,sb.ToString()); 
+                    RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);
+                    ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, originalOTEOID, sb.ToString());
                 }
                 else //no new items received so, can save primary table only
                 {
                     //getting total amount from single label
-                    
+
                     RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmountAddedItems.Text);
                     ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, ReceivedItemsOTEOID);  //originalOTEOID 
-                 
+
                 }
                 Session["OTEONUMBER"] = tbOtEONumber.Text;
-              // Response.Redirect(Request.Url.ToString());
-                 Response.Redirect("~/Admin/ReceivedItemsEdit.aspx?Id="+tbOtEONumber.Text);
-                
+                // Response.Redirect(Request.Url.ToString());
+                Response.Redirect("~/Admin/ReceivedItemsEdit.aspx?Id=" + tbOtEONumber.Text);
+
                 //temp code to display properly in local as well as in hosting environment 
                 //string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 //if (appPath != "/")
@@ -256,10 +256,10 @@ namespace IMS_PowerDept.Admin
                 //    ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('/Print/ePrint.aspx?Id=" + Session["OTEONUMBER"].ToString() + "');", true);
                 //Session["OTEONUMBER"] = null;
 
-               
 
 
-               
+
+
 
             }
             //catch (System.Threading.ThreadAbortException)
@@ -282,7 +282,7 @@ namespace IMS_PowerDept.Admin
                 }
             }
 
-            
+
 
             catch (Exception ex)
             {
@@ -313,7 +313,7 @@ namespace IMS_PowerDept.Admin
             Response.Redirect(Request.Url.ToString());
         }
 
-   
+
 
 
         #region Get Received Items Details DB
@@ -333,16 +333,16 @@ namespace IMS_PowerDept.Admin
                 {
                     while (dr.Read()) //ri.ChargeableHeadName, ri.IssueHeadName,
                     {
-                        hdnFieldOTEOID.Value=  tbOtEONumber.Text = oteoID;                       
+                        hdnFieldOTEOID.Value = tbOtEONumber.Text = oteoID;
                         tbOTEODate.Text = Convert.ToDateTime(dr["ReceivedItemOTEODate"]).ToString("dd/MM/yyyy");
                         tbSupplyOrderReference.Text = dr["SupplyOrderReference"].ToString();
                         tbSupplyDate.Text = Convert.ToDateTime(dr["SupplyOrderDate"]).ToString("dd/MM/yyyy");
                         tbSupplierName.Text = dr["Supplier"].ToString();
 
-                       // ddlChargeableHead.SelectedValue = 
-                       // ddlIssueHead.SelectedValue = dr["IssueHeadID"].ToString();
+                        // ddlChargeableHead.SelectedValue = 
+                        // ddlIssueHead.SelectedValue = dr["IssueHeadID"].ToString();
                         lblIssueHeadOld.Text = dr["IssueHeadName"].ToString();
-                        lblChargeableHead.Text = dr["ChargeableHeadName"].ToString(); 
+                        lblChargeableHead.Text = dr["ChargeableHeadName"].ToString();
 
                         tbtotalAmountAddedItems.Text = dr["totalamount"].ToString();
 
@@ -365,8 +365,8 @@ namespace IMS_PowerDept.Admin
 
         }
         #endregion
-        
-        
+
+
         /// <summary>
         /// //on row command of the items, mainly now 1. delete specfic row of slected item id in the secondary table
         /// 2. update sum total amount in primary table
@@ -375,75 +375,75 @@ namespace IMS_PowerDept.Admin
         /// <param name="e"></param>
         protected void gvItems_Edit_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-           
+
             //if (e.CommandName == "Delete")
             //instead of using command name =delete, using amount value
-            if(e.CommandName !="")
-            {                
+            if (e.CommandName != "")
+            {
                 //Label lblAmount = (Label) gvItems_Edit.FindControl(e.
                 double amount = Convert.ToDouble(e.CommandName);
-            string[] MyArraryOfCommand= e.CommandArgument.ToString().Split(new char[] { ',' });
+                string[] MyArraryOfCommand = e.CommandArgument.ToString().Split(new char[] { ',' });
 
-            string receivedItemID = MyArraryOfCommand[0];
-            string ItemID = MyArraryOfCommand[1];
+                string receivedItemID = MyArraryOfCommand[0];
+                string ItemID = MyArraryOfCommand[1];
 
-            SqlTransaction tr = null;
-            SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-            //this will execute first
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "DELETE FROM [ReceivedItemsDetails] WHERE [ReceivedItemID] = @ReceivedItemID";
-            cmd.Parameters.AddWithValue("@ReceivedItemID", receivedItemID);
-            
-            SqlCommand cmd2 = conn.CreateCommand();
-            cmd2.CommandText = "update ReceivedItemsOTEO set totalamount = totalamount-"+amount + " where receiveditemsoteoid =@receiveditemsoteoid";
+                SqlTransaction tr = null;
+                SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
+                //this will execute first
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM [ReceivedItemsDetails] WHERE [ReceivedItemID] = @ReceivedItemID";
+                cmd.Parameters.AddWithValue("@ReceivedItemID", receivedItemID);
+
+                SqlCommand cmd2 = conn.CreateCommand();
+                cmd2.CommandText = "update ReceivedItemsOTEO set totalamount = totalamount-" + amount + " where receiveditemsoteoid =@receiveditemsoteoid";
                 //cmd2.Parameters.AddWithValue("@amount",);
-            cmd2.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
+                cmd2.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
 
 
-            SqlCommand cmd3 = conn.CreateCommand();
-            cmd3.CommandText = "SELECT COUNT (*) FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)";
-            cmd3.Parameters.AddWithValue("@ReceivedItemsOTEOID", OTEOID);
+                SqlCommand cmd3 = conn.CreateCommand();
+                cmd3.CommandText = "SELECT COUNT (*) FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)";
+                cmd3.Parameters.AddWithValue("@ReceivedItemsOTEOID", OTEOID);
 
-            SqlCommand cmd4 = conn.CreateCommand();
-            cmd4.CommandText = "DELETE FROM [Itemsratesecondary] WHERE [ItemID] = @ItemID and OTEO=@receiveditemsoteoid";
-            cmd4.Parameters.AddWithValue("@ItemID", ItemID);
-            cmd4.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
+                //SqlCommand cmd4 = conn.CreateCommand();
+                //cmd4.CommandText = "DELETE FROM [Itemsratesecondary] WHERE [ItemID] = @ItemID and OTEO=@receiveditemsoteoid";
+                //cmd4.Parameters.AddWithValue("@ItemID", ItemID);
+                // cmd4.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
 
 
-          
-            try
-            {
-                using (conn)
+
+                try
                 {
-                    conn.Open();
-                    tr = conn.BeginTransaction();
-                    cmd.Transaction = tr;
-                    cmd2.Transaction = tr;
-                    cmd4.Transaction = tr;
-
-                    cmd.ExecuteNonQuery();
-                    cmd2.ExecuteNonQuery();
-                    cmd4.ExecuteNonQuery();
-                    tr.Commit();
-                    int count = Convert.ToInt32(cmd3.ExecuteScalar());
-                    if (count < 1)
+                    using (conn)
                     {
-                        _btnDelete.Visible = true;
+                        conn.Open();
+                        tr = conn.BeginTransaction();
+                        cmd.Transaction = tr;
+                        cmd2.Transaction = tr;
+                        // cmd4.Transaction = tr;
+
+                        cmd.ExecuteNonQuery();
+                        cmd2.ExecuteNonQuery();
+                        // cmd4.ExecuteNonQuery();
+                        tr.Commit();
+                        int count = Convert.ToInt32(cmd3.ExecuteScalar());
+                        if (count < 1)
+                        {
+                            _btnDelete.Visible = true;
+                        }
                     }
                 }
-            }
-            catch
-            {
-                tr.Rollback();
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            GetRecievedItemsDetails(OTEOID);
-            gvItems_Edit.DataBind();
-           
+                catch
+                {
+                    tr.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                GetRecievedItemsDetails(OTEOID);
+                gvItems_Edit.DataBind();
+
             }
         }
 
@@ -458,69 +458,69 @@ namespace IMS_PowerDept.Admin
             RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
             RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
             RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
-                 
-               // RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
-               // RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
-                if (ddlChargeableHead.SelectedIndex > 0)
-                    RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
-                else
-                    RecievedItemsOrderObject.ChargeableHeadName = lblChargeableHead.Text; //same old value populated
 
-                if (ddlIssueHead.SelectedIndex > 0)
-                    RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
-                else
-                    RecievedItemsOrderObject.IssueHeadName = lblIssueHeadOld.Text; //same old value populated
+            // RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
+            // RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+            if (ddlChargeableHead.SelectedIndex > 0)
+                RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
+            else
+                RecievedItemsOrderObject.ChargeableHeadName = lblChargeableHead.Text; //same old value populated
 
-              
-               
-                RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
-                //getting all the values of controls values inside gridview control
-                StringBuilder sb = new StringBuilder();
-                //  sb.Append("<root>");
-                string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
+            if (ddlIssueHead.SelectedIndex > 0)
+                RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+            else
+                RecievedItemsOrderObject.IssueHeadName = lblIssueHeadOld.Text; //same old value populated
 
-                for (int i = 0; i < gvItems.Rows.Count; i++)
-                {
-                    // TextBox tbItemID = gvItems.Rows[i].FindControl("tbItemID") as TextBox;
-                    HiddenField hdnFieldItemID = gvItems.Rows[i].FindControl("hdnFieldItemID") as HiddenField;
-                    DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
-                    TextBox _tbUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
-                    // Label lblUnit = gvItems.Rows[i].FindControl("lblUnit") as Label;
-                    TextBox tbQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
-                    TextBox tbRate = gvItems.Rows[i].FindControl("tbRate") as TextBox;
-                    TextBox tbAmount = gvItems.Rows[i].FindControl("tbAmount") as TextBox;
-                    // Label lblAmount = gvItems.Rows[i].FindControl("lblAmount") as Label;
 
-                    //CODE TO CHECK NULL VALUES
 
-                    //SAVE CODE
-                    if (itemName.SelectedValue.ToString() != "0")
-                        sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
-                }
-                //now save it to db
-                if (sb.ToString() != "")
-                {
-                    //getting total amount from footer
-                    TextBox tbtotalAmount = gvItems.FooterRow.FindControl("tbtotalAmount") as TextBox;
-                    RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);   
-                    ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, originalOTEOID,sb.ToString()); 
-                }
-                else //no new items received so, can save primary table only
-                {
-                    //getting total amount from single label
-                    
-                    RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmountAddedItems.Text);
-                    ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, originalOTEOID);  //originalOTEOID 
-                 
-                }
-               // Session["OTEONUMBER"] = tbOtEONumber.Text;
-                Response.Redirect("~/Admin/ReceivedEntriesList.aspx");
-                
-                           }
+            RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
+            //getting all the values of controls values inside gridview control
+            StringBuilder sb = new StringBuilder();
+            //  sb.Append("<root>");
+            string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
+
+            for (int i = 0; i < gvItems.Rows.Count; i++)
+            {
+                // TextBox tbItemID = gvItems.Rows[i].FindControl("tbItemID") as TextBox;
+                HiddenField hdnFieldItemID = gvItems.Rows[i].FindControl("hdnFieldItemID") as HiddenField;
+                DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
+                TextBox _tbUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
+                // Label lblUnit = gvItems.Rows[i].FindControl("lblUnit") as Label;
+                TextBox tbQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
+                TextBox tbRate = gvItems.Rows[i].FindControl("tbRate") as TextBox;
+                TextBox tbAmount = gvItems.Rows[i].FindControl("tbAmount") as TextBox;
+                // Label lblAmount = gvItems.Rows[i].FindControl("lblAmount") as Label;
+
+                //CODE TO CHECK NULL VALUES
+
+                //SAVE CODE
+                if (itemName.SelectedValue.ToString() != "0")
+                    sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
+            }
+            //now save it to db
+            if (sb.ToString() != "")
+            {
+                //getting total amount from footer
+                TextBox tbtotalAmount = gvItems.FooterRow.FindControl("tbtotalAmount") as TextBox;
+                RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);
+                ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, originalOTEOID, sb.ToString());
+            }
+            else //no new items received so, can save primary table only
+            {
+                //getting total amount from single label
+
+                RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmountAddedItems.Text);
+                ameh.UpdateReceivedItemsDetails(RecievedItemsOrderObject, originalOTEOID);  //originalOTEOID 
+
+            }
+            // Session["OTEONUMBER"] = tbOtEONumber.Text;
+            Response.Redirect("~/Admin/ReceivedEntriesList.aspx");
+
+        }
 
         protected void _btnDelete_Click(object sender, EventArgs e)
         {
-          
+
             int index = Convert.ToInt32(hdnFieldOTEOID.Value);
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
 
@@ -538,15 +538,15 @@ namespace IMS_PowerDept.Admin
             {
                 cmd2.ExecuteNonQuery();
                 conn.Close();
-              
+
                 Response.Redirect("ReceivedEntriesList.aspx");
-                
+
             }
         }
 
         protected void gvItems_Edit_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }           
-}
+        }
+    }
 }
