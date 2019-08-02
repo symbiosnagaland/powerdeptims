@@ -16,13 +16,13 @@
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd-mm-yy'
+                    dateFormat: 'dd/mm/yy'
                 });
             $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd-mm-yy'
+                    dateFormat: 'dd/mm/yy'
                 });
         });
 
@@ -54,7 +54,7 @@
                         
                         <td>
                             <span style="float: left; width: 55%; padding-left:10px;">
-                                <input type="text" class="form-control" id="etsearch" runat="server" autocomplete ="off" style="height: 22px; width:220px" placeholder="Search Keyword..." />
+                                <input type="text" class="form-control" id="etsearch" runat="server" style="height: 22px; width:220px" placeholder="Search Keyword..." />
                             </span>
                             
                             <span class="input-group-btn" style="float: left; height: 50px; width:10px; padding-left:2px;">
@@ -130,11 +130,11 @@
                         
                         <td>
                             <span style="float: left; padding-left: 10px;">
-                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd-mm-yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
                             
                             <span style="float: left; padding-left: 5px;">
-                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd-mm-yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
                         </td>
                         

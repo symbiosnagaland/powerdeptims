@@ -141,7 +141,7 @@
     
     <div style="margin: 0px auto; padding: 10px">
         <div class="half_w half_left">
-            <div class="h_title">Challan No. / Date(dd-mm-yyyy) </div>
+            <div class="h_title">Challan No. / Date(dd/mm/yyyy) </div>
 
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" autocomplete="off" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
@@ -153,7 +153,7 @@
         </div>
         
         <div class="half_w half_right">
-            <div class="h_title">Indent Number / Date(dd-mm-yyyy)</div>
+            <div class="h_title">Indent Number / Date(dd/mm/yyyy)</div>
 
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbIndentValue" autocomplete="off" placeholder="Indent Number" Width="180px" runat="server"></asp:TextBox>
@@ -295,7 +295,7 @@
             </span>
             
             <span style="float:left; padding-left: 11px;";>   
-                <asp:TextBox CssClass="form-control" autocomplete="off" TextMode ="MultiLine"  ID="tbRemarks"  placeholder="Remarks" Width="280px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" autocomplete="off" TextMode ="MultiLine"  ID="tbRemarks" style="text-transform:capitalize" placeholder="Remarks" Width="280px" runat="server"></asp:TextBox>
             </span> 
         </div>
 
