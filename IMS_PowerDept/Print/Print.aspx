@@ -173,7 +173,7 @@
                 <div style="float: left; width:80px;"> Remarks :-</div>
 
                 <div style="float: left; width:760px; text-align: left; padding-bottom:20px;">
-                    <asp:Repeater ID="Repeater3" runat="server" DataSourceID="_sdsChallan" OnItemCommand="Repeater3_ItemCommand">
+                    <asp:Repeater ID="Repeater3" runat="server" DataSourceID="_sdsChallan">
                         <ItemTemplate>
                             <asp:Label style="height: auto; line-height:20px; padding-bottom:20px;" ID="myRemarks" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.Remarks")%>' ></asp:Label>                           
                         </ItemTemplate> 
