@@ -101,7 +101,7 @@
                 <asp:GridView ID="gvItemsIssued" Width="98%" GridLines="None" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False"  PageSize="20" OnDataBound="gvItemsIssued_DataBound1" OnPageIndexChanged="gvItemsIssued_PageIndexChanged" OnPageIndexChanging="gvItemsIssued_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="DeliveryItemsChallanID" ItemStyle-Width="150px" HeaderText="Challan ID"  />
-                        <asp:BoundField DataField="ChallanDate" ItemStyle-Width="190px" HeaderText="Challan Date" DataFormatString="{0:dd/MM/yyyy}" />
+                        <asp:BoundField DataField="IndentDate" ItemStyle-Width="190px" HeaderText="Indent Date" DataFormatString="{0:dd/MM/yyyy}" />
                         <asp:BoundField DataField="ChargeableHeadName" ItemStyle-Width="199px" HeaderText="Chargeable Head"  />
                         <asp:BoundField DataField="IssueHeadName" HeaderText="Issue Head" ReadOnly="True"  />
                         <asp:BoundField DataField="Unit" HeaderText="Unit"  />

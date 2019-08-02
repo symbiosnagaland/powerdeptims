@@ -283,10 +283,14 @@ namespace IMS_PowerDept.AppCode
         /// </summary>
         /// <param name="RecievedItemsOrderObject"></param>
         /// <param name="sqlstatements"></param>
+<<<<<<< HEAD
         /// 
 
         //SaveReceivedItemsDetails with 5 parameters
         public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements, string sqlRate,string sqlRateSecondary,string sqlRateUpdate)
+=======
+        public void SaveReceivedItemsDetails(properties RecievedItemsOrderObject, string sqlstatements)
+>>>>>>> parent of 3aed0fd... Merge branch 'master' of https://github.com/symbiosnagaland/powerdeptims
         {
 
             SqlTransaction tr = null;
@@ -312,6 +316,7 @@ namespace IMS_PowerDept.AppCode
             SqlCommand cmd2 = conn.CreateCommand();
             cmd2.CommandText = sqlstatements;
 
+<<<<<<< HEAD
            
                 SqlCommand cmd3 = conn.CreateCommand();
                 cmd3.CommandText = sqlRate;
@@ -324,6 +329,8 @@ namespace IMS_PowerDept.AppCode
                 cmd4.CommandText = sqlRateSecondary;
            
         
+=======
+>>>>>>> parent of 3aed0fd... Merge branch 'master' of https://github.com/symbiosnagaland/powerdeptims
             try
             {
               
@@ -331,6 +338,7 @@ namespace IMS_PowerDept.AppCode
                     tr = conn.BeginTransaction();
                     cmd.Transaction = tr;
                     cmd2.Transaction = tr;
+<<<<<<< HEAD
                     cmd3.Transaction = tr;
                    
                     cmd4.Transaction = tr;
@@ -341,6 +349,11 @@ namespace IMS_PowerDept.AppCode
                     cmd3.ExecuteNonQuery();
                     cmd4.ExecuteNonQuery();
                     cmd5.ExecuteNonQuery();
+=======
+
+                    cmd.ExecuteNonQuery();
+                    cmd2.ExecuteNonQuery();
+>>>>>>> parent of 3aed0fd... Merge branch 'master' of https://github.com/symbiosnagaland/powerdeptims
                     tr.Commit();
             }
             catch

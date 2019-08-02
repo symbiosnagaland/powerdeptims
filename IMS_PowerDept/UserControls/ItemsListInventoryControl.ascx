@@ -56,7 +56,7 @@
 
                     <td> 
                         <span style="float: left; padding-left: 10px;">
-                            <asp:TextBox CssClass="form-control" ID="tbDate" autocomplete="off"  placeholder="dd-mm-yyyy" Width="155px" runat="server" OnTextChanged="tbDate_TextChanged"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="tbDate" autocomplete="off"  placeholder="dd/mm/yyyy" Width="155px" runat="server" OnTextChanged="tbDate_TextChanged"></asp:TextBox>
                         </span>
                      <%--    <span style="float: left; padding-left: 5px;">
                             <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="To Date" Width="155px" runat="server"></asp:TextBox>
@@ -79,7 +79,7 @@
       
      <div style="overflow: auto;">
           
-         <asp:GridView ID="gvItemsInventory" Width="99%" GridLines="None" runat="server" AllowPaging="true" AllowSorting="True" AutoGenerateColumns="False"  PageSize="100" OnDataBound="gvItemsInventory_DataBound1" OnPageIndexChanged="gvItemsInventory_PageIndexChanged" OnPageIndexChanging="gvItemsInventory_PageIndexChanging">
+         <asp:GridView ID="gvItemsInventory" Width="99%" GridLines="None" runat="server" AllowPaging="true" AllowSorting="True" AutoGenerateColumns="False"  PageSize="40" OnDataBound="gvItemsInventory_DataBound1" OnPageIndexChanged="gvItemsInventory_PageIndexChanged" OnPageIndexChanging="gvItemsInventory_PageIndexChanging">
 
              <Columns>
                 

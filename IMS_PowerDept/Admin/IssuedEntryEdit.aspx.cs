@@ -517,7 +517,7 @@ namespace IMS_PowerDept.Admin
 
                         ddlIheadRateActualBalance.DataSource = dtIssueheadRateNetActualBalance;
                         ddlIheadRateActualBalance.DataTextField = "IssueheadRateNetActualBalance";
-                        ddlIheadRateActualBalance.DataValueField = "IssueheadRateNetActualBalance";
+                        ddlIheadRateActualBalance.DataValueField = "Rate";
                         ddlIheadRateActualBalance.DataBind();
                         ddlIheadRateActualBalance.Items.Insert(0, new ListItem("Issue Head : Rate : Net Balance", "0"));
                         //when found the right row, then get out of it
@@ -615,11 +615,7 @@ namespace IMS_PowerDept.Admin
                         HiddenField hdnSelectedIssueHead = row.FindControl("hdnSelectedIssueHead") as HiddenField;
                         HiddenField hdnSelectedRate = row.FindControl("hdnSelectedRate") as HiddenField;
                        // TextBox _tbQuantity = row.FindControl("_tbQuantity") as TextBox;   
-                       // hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
-                        hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[1].Trim();
-
-
-
+                        hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
                         hdnSelectedIssueHead.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[0].Trim();
 
                     }
