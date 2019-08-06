@@ -92,6 +92,7 @@
     <Content Include="CentralStore\IssueEntry.aspx" />
     <Content Include="CentralStore\IssuedItemsDetails.aspx" />
     <Content Include="CentralStore\IssueEntriesList.aspx" />
+    <Content Include="CentralStore\IssueEntryTemporary.aspx" />
     <Content Include="CentralStore\IssueHead.aspx" />
     <Content Include="CentralStore\ItemInventory.aspx" />
     <Content Include="CentralStore\ItemsListInventory.aspx" />
@@ -485,6 +486,13 @@
     </Compile>
     <Compile Include="CentralStore\IssueEntriesList.aspx.designer.cs">
       <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntryTemporary.aspx.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntryTemporary.aspx.designer.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
     </Compile>
     <Compile Include="CentralStore\IssueHead.aspx.cs">
       <DependentUpon>IssueHead.aspx</DependentUpon>

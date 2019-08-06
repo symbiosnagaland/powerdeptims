@@ -14,14 +14,14 @@
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
 
         $("#ContentPlaceHolder1_tbEndDateSearch").datepicker(
              {
                  changeMonth: true,
                  changeYear: true,
-                 dateFormat: 'dd/mm/yy'
+                 dateFormat: 'dd-mm-yy'
              });
     });
 </script>
@@ -128,11 +128,11 @@
                         
                         <td>
                             <span style="float: left; padding-left: 10px;">
-                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd-MM-yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
                             
                             <span style="float: left; padding-left: 5px;">
-                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd-MM-yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
                         </td>
                         

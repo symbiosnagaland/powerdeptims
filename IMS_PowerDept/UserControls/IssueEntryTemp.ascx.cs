@@ -16,7 +16,7 @@ namespace IMS_PowerDept.UserControls
     {
         protected static DataTable dtItems = new DataTable();
          double totalAmount = 0;
-        protected  DataSet dst = new DataSet();
+        protected static  DataSet dst = new DataSet();
         SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
         DataTable data;
         DataTable data2;
@@ -241,14 +241,14 @@ namespace IMS_PowerDept.UserControls
                 properties issued = new properties();
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
-                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2 = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
                 //issued.Date = _tbChallanDate.Text;
 
 
                 issued.IndentValue = _tbIndentValue.Text;
 
-                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                 //issued.Date2 = _tbIntendDate.Text;
 
                 issued.Division = _ddIntendDivisions.Text;
@@ -869,11 +869,11 @@ namespace IMS_PowerDept.UserControls
                 //for delivery items challan
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
 
-                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2 = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                 //issued.Date = _tbChallanDate.Text;
                 issued.IndentValue = _tbIndentValue.Text;
 
-                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                // issued.Date2 = _tbIntendDate.Text;
                 issued.Division = _ddIntendDivisions.Text;
                 issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
