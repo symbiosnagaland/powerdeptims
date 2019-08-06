@@ -1,0 +1,24 @@
+D:\Tortoise\Power Dept\PowerDept\trunk\IMS_PowerDept\bin\IMS_PowerDept.dll.config
+D:\Tortoise\Power Dept\PowerDept\trunk\IMS_PowerDept\bin\IMS_PowerDept.dll
+D:\Tortoise\Power Dept\PowerDept\trunk\IMS_PowerDept\bin\IMS_PowerDept.pdb
+D:\Tortoise\Power Dept\PowerDept\trunk\IMS_PowerDept\obj\Debug\IMS_PowerDept.dll
+D:\Tortoise\Power Dept\PowerDept\trunk\IMS_PowerDept\obj\Debug\IMS_PowerDept.pdb
+D:\Tortoise\Power Dept\PowerDept\trunk\IMS_PowerDept\obj\Debug\IMS_PowerDept.csprojResolveAssemblyReference.cache
+E:\office work\powerdeptims-master\IMS_PowerDept\bin\IMS_PowerDept.dll.config
+E:\office work\powerdeptims-master\IMS_PowerDept\bin\IMS_PowerDept.dll
+E:\office work\powerdeptims-master\IMS_PowerDept\bin\IMS_PowerDept.pdb
+E:\office work\powerdeptims-master\IMS_PowerDept\obj\Debug\IMS_PowerDept.dll
+E:\office work\powerdeptims-master\IMS_PowerDept\obj\Debug\IMS_PowerDept.pdb
+E:\office work\powerdeptims-master\IMS_PowerDept\obj\Debug\IMS_PowerDept.csprojResolveAssemblyReference.cache
+E:\office work\tortoise SVN\powerdeptims-master\IMS_PowerDept\bin\IMS_PowerDept.dll.config
+E:\office work\tortoise SVN\powerdeptims-master\IMS_PowerDept\bin\IMS_PowerDept.dll
+E:\office work\tortoise SVN\powerdeptims-master\IMS_PowerDept\bin\IMS_PowerDept.pdb
+E:\office work\tortoise SVN\powerdeptims-master\IMS_PowerDept\obj\Debug\IMS_PowerDept.csprojResolveAssemblyReference.cache
+E:\office work\tortoise SVN\powerdeptims-master\IMS_PowerDept\obj\Debug\IMS_PowerDept.dll
+E:\office work\tortoise SVN\powerdeptims-master\IMS_PowerDept\obj\Debug\IMS_PowerDept.pdb
+C:\GitHub\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.dll.config
+C:\GitHub\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.dll
+C:\GitHub\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.pdb
+C:\GitHub\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.csprojResolveAssemblyReference.cache
+C:\GitHub\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.dll
+C:\GitHub\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.pdb
