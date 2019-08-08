@@ -386,7 +386,7 @@
 
                                                     <asp:TemplateField HeaderText="Amount">
                                                         <ItemTemplate>
-                                                            <asp:TextBox TabIndex="999"  Width="80px" BorderColor="Transparent" BackColor="Transparent"   ID="tbAmount" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox TabIndex="999"  Width="80px" BorderColor="Transparent" BackColor="Transparent"   ID="tbAmount" runat="server" BorderStyle="Solid" AutoComplete="off" BorderWidth="1px">
                                                             </asp:TextBox>                                                     
                                                         </ItemTemplate>
                                                         <FooterStyle HorizontalAlign="Right" />

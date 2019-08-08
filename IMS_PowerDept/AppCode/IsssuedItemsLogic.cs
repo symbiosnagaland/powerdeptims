@@ -144,18 +144,19 @@ namespace IMS_PowerDept.AppCode
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
 
-            string stDate, edDate;
-            stDate = DateTime.ParseExact(issued.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            edDate = DateTime.ParseExact(issued.Date2, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
+            //7-8-2019
+            //string stDate, edDate;
+           // stDate = DateTime.ParseExact(issued.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            //edDate = DateTime.ParseExact(issued.Date2, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+//
             
 
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "Update DeliveryItemsChallan set DeliveryItemsChallanID =@DeliveryItemsChallanID, IndentReference=@IndentReference, IndentDate=@IndentDate, ChallanDate=@ChallanDate, IndentingDivisionName=@IndentingDivisionName, ChargeableHeadName=@ChargeableHeadName,IsDeliveredTemporary=@IsDeliveredTemporary,ModifiedBy=@ModifiedBy, vehiclenumber=@vehiclenumber, receiverdesignation=@receiverdesignation,Remarks=@Remarks1  where DeliveryItemsChallanID =@orginalChallanID";
             cmd.Parameters.AddWithValue("@DeliveryItemsChallanID", issued.ChallanID);
             cmd.Parameters.AddWithValue("@IndentReference", issued.IndentValue);
-            cmd.Parameters.AddWithValue("@IndentDate", edDate);
-            cmd.Parameters.AddWithValue("@ChallanDate", stDate);
+            cmd.Parameters.AddWithValue("@IndentDate", issued.Date2);
+            cmd.Parameters.AddWithValue("@ChallanDate", issued.Date);
             cmd.Parameters.AddWithValue("@IndentingDivisionName", issued.Division);
             cmd.Parameters.AddWithValue("@ChargeableHeadName", issued.ChargeableHeadName);
             cmd.Parameters.AddWithValue("@IsDeliveredTemporary", issued.IsDeliveredTemporary);
