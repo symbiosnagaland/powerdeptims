@@ -6,3 +6,7 @@
 *.cache
 IMS_PowerDept/obj/Debug/IMS_PowerDept.csproj.FileListAbsolute.txt
 .vs/IMS_PowerDept/v14/.suo
+*.config
+*.dll
+*.pdb
+*.cache
