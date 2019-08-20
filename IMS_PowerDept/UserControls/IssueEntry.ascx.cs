@@ -414,13 +414,19 @@ namespace IMS_PowerDept.UserControls
                         //hlItemEnquiry.Visible = true;
                         //hlItemEnquiry.Text = "item enquiry";
                         //populate new destination table                   
-                     //   DataRow[] iheads = dst.Tables["ReceivedItemsDetails"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
-                        DataRow[] iheads = dst.Tables["ItemsEnquiryListTable"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
+                        //   DataRow[] iheads = dst.Tables["ReceivedItemsDetails"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
+                        //when found the right row, then get out of it
+                        string[] splitresult = _ddItems.SelectedValue.Split(' ');
+                        _tbUnit.Text = splitresult[1];
 
+
+                        DataRow[] iheads = dst.Tables["ItemsEnquiryListTable"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "' AND unit= '" + _tbUnit.Text + "'");
                         foreach (DataRow dr in iheads)
                         {
                             dt.ImportRow(dr);
                         }
+
+
                         DataView view = new DataView(dt);
                             DataTable dtIssueheadRateNetActualBalance = view.ToTable(false, "IssueheadRateNetActualBalance", "Rate");
 
@@ -432,9 +438,8 @@ namespace IMS_PowerDept.UserControls
                         ddlIheadRateActualBalance.DataValueField = "IssueheadRateNetActualBalance";
                         ddlIheadRateActualBalance.DataBind();
                         ddlIheadRateActualBalance.Items.Insert(0, new ListItem("Issue Head : Rate : Net Balance", "0"));
-                        //when found the right row, then get out of it
-                        string[] splitresult = _ddItems.SelectedValue.Split(' ');
-                        _tbUnit.Text = splitresult[1];
+                       
+
                         break;
                     }
                 }
@@ -790,12 +795,12 @@ namespace IMS_PowerDept.UserControls
                 //for delivery items challan
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
 
-                issued.Date2 = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2 = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                // issued.Date = _tbChallanDate.Text;
                 issued.IndentValue = _tbIndentValue.Text;
 
-                issued.Date = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 //issued.Date2 = _tbIntendDate.Text;
                 issued.Division = _ddIntendDivisions.Text;

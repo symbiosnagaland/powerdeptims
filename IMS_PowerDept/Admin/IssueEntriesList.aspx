@@ -234,7 +234,7 @@
                         
                         <tr>
                             <td>
-                                <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label>
                             </td>
                             
                             <td>
@@ -251,7 +251,7 @@
                             
                             <td>
                                 <a href='<%# "IssuedEntryEdit.aspx?challanid="+Eval("DeliveryItemsChallanID") %>' class="table-icon edit" style="padding-left:20px;" title="Edit">Edit</a>
-                                <a href='<%# "IssuedItemsDetails.aspx?Id="+Eval("DeliveryItemsChallanID","{0:0}") %>' target="_blank" class="table-icon archive" style="padding-left:20px;" title="View Details">View</a>
+                                <a href='<%# "IssuedItemsDetails.aspx?Id="+Eval("DeliveryItemsChallanID") %>' target="_blank" class="table-icon archive" style="padding-left:20px;" title="View Details">View</a>
                                 
                                 <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("DeliveryItemsChallanID") %>' class="table-icon delete" style="padding-left:20px;" CommandName="Delete" runat="server">Delete</asp:LinkButton>
                             </td>
