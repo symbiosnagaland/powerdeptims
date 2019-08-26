@@ -354,8 +354,8 @@ namespace IMS_PowerDept.AppCode
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -406,8 +406,8 @@ namespace IMS_PowerDept.AppCode
 
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";
