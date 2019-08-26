@@ -112,12 +112,22 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter aa;
                 DataSet bb;
 
-                string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                if((tbStartDateSearch.Text=="") || (tbEndDateSearch.Text =="") )
+                {
+                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemsOTEOID='" + etsearch.Value + "' or SupplyOrderReference='" + etsearch.Value + "'  ", con);
+                }
+                else
+                {
+                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' or SupplyOrderDate between '" + stDate + "' and '" + endDate + "' ", con);
 
-                string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                }
 
-
-                aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' or SupplyOrderDate between '" + stDate + "' and '" + endDate + "' ", con);
+               
+                //aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemsOTEOID='" + etsearch.Value + "' or SupplyOrderReference='" + etsearch.Value + "'  ", con);
+                
+                
                 //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
                 bb = new DataSet();
                 aa.Fill(bb);

@@ -35,48 +35,42 @@
     function SetUnitName(itemid)
     {
 
-        //code for checking repeting items
+        //bisu  script To check if the same item is repeated
+        //alert(itemid+" >>I am ItemID");
+
+       
+
+
 
         var tbl = $("[id$=gvItems]");
         var rows = tbl.find('tr');
-
-        var tblNew = $("[id$=gvItems_Edit]");
-        var newRows = tblNew.find('tr');
-        alert(newRows.length);
+        //alert(rows.length);
 
         for (var i = 1; i < rows.length - 1; i++)
         {
             var row = rows[i];
-            var newRow = newRows[i]
-            alert("i am  " + newRow);
-            for (var k = 1; k < newRows.length - 1; k++)
-            {
-                alert("I am K" + k);
-                var ItemNO1 = $(newRow).find("[id*=lblItem]").val().toString();
-                alert(ItemNO1);
-            }
-
+            //alert("i am  " + row);
             for (var j = i + 1; j < rows.length - 1; j++)
             {
                 var row1 = rows[j];
-                
-               // alert("second for" + j);
-                //below
+                //  alert("second for" + j);
 
                 var ItemNO = $(row).find("[id*=_ddItems]").val().toString();
                 var ItemNO2 = $(row1).find("[id*=_ddItems]").val().toString();
 
-                if ((ItemNO == 0) || (ItemNO2 == 0)) {
-                    
+                if ((ItemNO == 0) || (ItemNO2 == 0))
+                {
+                    // alert("oK");
                 }
                 else
                 {
                     if (ItemNO == ItemNO2)
                     {
-                        alert("Duplicate Items In the List. Cannot Save");
+                        // alert("Duplicate Items In the List. Cannot Save");                       
                         document.getElementById('<%=btnUpdate.ClientID %>').disabled = true;
                         document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
-                        document.getElementById('<%=gvItems.ClientID %>').style.border = "5px solid red"
+                        document.getElementById('<%=gvItems.ClientID %>').style.border = "5px solid red";
+                        document.getElementById('myError1').innerHTML = "Duplicate Items NOt Allowed";
                         return;
                     }
                     else
@@ -84,26 +78,28 @@
                         document.getElementById('<%=btnUpdate.ClientID %>').disabled = false;
                         document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
                         document.getElementById('<%=gvItems.ClientID %>').style.border = "none"
+                        document.getElementById('myError1').innerHTML = "";
                     }
                 }
 
 
 
-                //above
-                         
-               
-             }
-                               
-         }
-       
-        
-            //checking finish
+            }
+        }
+
+        //bisu new scrpt values
+       // alert("Hello");
         var e = document.getElementById(itemid);
-        
+        //alert(e);
         var itemsvalue = e.options[e.selectedIndex].value;
         //alert(itemsvalue);
-        var mySplitResult = itemsvalue.split(" ");
-
+       // alert("hi");
+        var mySplitResult = itemsvalue.split("$");
+        //alert("Hello222");
+        //alert(mySplitResult[0]);
+       // alert(3);
+        //alert(mySplitResult[3]);
+        //alert(mySplitResult);
         /* Store last character of string id of ddlitems */
         // var last_character = itemid[itemid.length - 1];
         var splitItemsID = itemid.split("_");
@@ -112,25 +108,87 @@
         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
         if (typeof mySplitResult[1] === "undefined") {
             document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
          }
          else {
              document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             //SAVING item id for saving to db also
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
+         }
+
+        //Bisu writes the code
+        <%--
+        if (typeof mySplitResult[2] === "undefined")
+        {
+            document.getElementById("<%= gvItems.ClientID%>__tbIssueName_" + dynamicidpart).value = '';            
+         }
+         else
+         {
+            document.getElementById("<%= gvItems.ClientID%>__tbIssueName_" + dynamicidpart).value = mySplitResult[2];            
         }
-        //alert(mySplitResult[3]);
+       --%>
+
         if (typeof mySplitResult[3] === "undefined")
         {
-            document.getElementById("<%= gvItems.ClientID%>_tbOrderNO_" + dynamicidpart).value = '';
+            document.getElementById("<%= gvItems.ClientID%>_tbOrderNo_" + dynamicidpart).value = '';
         }
-        else {
+        else
+        {
+            //alert("near order no");
             document.getElementById("<%= gvItems.ClientID%>_tbOrderNO_" + dynamicidpart).value = mySplitResult[3];
         }
-     }
-     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
+
+
+        //check with old gridview details with new inserts
+        var gridView = document.getElementById("<%=gvItems.ClientID %>");
+        var NewRow = gridView.getElementsByTagName("tr");
+
+        var gridView1 = document.getElementById("<%=gvItems_Edit.ClientID %>");
+        var OldRow = gridView1.getElementsByTagName("tr");
+        //alert("oldRow" + OldRow.length);
+
+        for (var i = 1; i < NewRow.length - 1; i++)
+        {
+            var NR = NewRow[i];
+            var NItem = $(NR).find("[id*=_hdnFieldItemID]").val().toString();
+           // alert(NItem+"New Item");
+            for (var j = 1; j < OldRow.length - 1; j++)
+            {
+                //alert("hi");
+                var OR1 = OldRow[j];
+                //alert("I am or1 "+OR1);
+                var OItem = $(OR1).find("[id*=hdnFieldItemID]").val().toString();
+                //alert(OItem+"Old ITem");
+                if(OItem==NItem)
+                {
+                    OR1.style.backgroundColor = "red";
+                    NR.style.fontweight = "bold";
+                    document.getElementById('<%=btnUpdate.ClientID %>').disabled = true;
+                    document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
+                    document.getElementById('<%=gvItems.ClientID %>').style.border = "5px solid red";
+                    document.getElementById('myError1').innerHTML = "Duplicate Items Already Issued NOt Allowed";
+                    return;
+                }
+                else
+                {
+                    OR1.style.backgroundColor = "white";
+                    NR.style.backgroundColor = "white";
+                    document.getElementById('<%=btnUpdate.ClientID %>').disabled = false;
+                    document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                    document.getElementById('<%=gvItems.ClientID %>').style.border = "none"
+                    document.getElementById('myError1').innerHTML = "";
+
+                }
+            }
+
+        }
+        
+    }
+
+    //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
+
+
+
      function UpdateAmountbyRate(rateid) {
          // var last_character = itemid[itemid.length - 1];
          var splitItemsID = rateid.split("_");
@@ -321,7 +379,7 @@
                                                   
                                                     <asp:TemplateField HeaderText="Item">
                                                         <ItemTemplate>
-                                                              <asp:HiddenField ID="hdnFieldItemID" runat="server" />
+                                                              <asp:HiddenField ID="hdnFieldItemID" value ='<%# Eval("itemid") %>' runat="server" />
                                                      
                                                             <asp:Label ID="lblItem" Text='<%# Eval("itemname") %>' runat="server"></asp:Label>
                                                         </ItemTemplate>
@@ -423,6 +481,7 @@ ItemsRateSecondary.itemid=ReceivedItemsDetails.itemid)" DeleteCommand="DELETE FR
         </div>
         </div>
     <div class="element clear"></div>
+    <div id="myError1" style ="color:red;font-size :x-large; margin-left :15px;"></div>
 
 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                                 <ContentTemplate>

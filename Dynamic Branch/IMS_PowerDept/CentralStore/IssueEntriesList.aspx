@@ -232,7 +232,7 @@
                 
                  <tr>
                      <td>
-                         <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label>
+                         <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label>
                      </td>
                      <td> <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ChallanDate","{0:dd/MM/yyyy}")%>'></asp:Label></td>
                        <td>

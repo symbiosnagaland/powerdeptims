@@ -476,7 +476,7 @@ namespace IMS_PowerDept.Admin
                 else
                 { 
                     RecievedItemsOrderObject.IssueHeadName = lblIssueHeadOld.Text; //same old value populated
-                    IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+                    IssueHeadName = lblIssueHeadOld.Text; 
                 }
 
               
@@ -487,7 +487,11 @@ namespace IMS_PowerDept.Admin
                 //  sb.Append("<root>");
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
 
-                string insertRATEStatement = "INSERT INTO ItemsRateSecondary(ItemId,IssueHeadName, Rate,OrderNo,Quantity,OTEO) values('@ITEMID','@ISSUEHEAD', '@RATE','@ORDERno','@QUANTITY','@OTEO')";
+                string insertRATESecondary = "INSERT INTO ItemsRateSecondary(ItemId,IssueHeadName, Rate,OrderNo,Quantity,OTEO) values('@ITEMID','@ISSUEHEAD', '@RATE','@ORDERno','@QUANTITY','@OTEO')";
+
+                string insertRATEMaster = "INSERT INTO ItemsRateMaster(ItemId,IssueHeadName, Rate,MaxOrderNo,Quantity,OTEO) values('@ITEMID','@ISSUEHEAD', '@RATE','@ORDERno','@QUANTITY','@OTEO')";
+
+                string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@ORDERno' where itemid='@ITEMID'";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -509,7 +513,16 @@ namespace IMS_PowerDept.Admin
                     if (itemName.SelectedValue.ToString() != "0")
                     {
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
-                        sb.Append(insertRATEStatement.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ISSUEHEAD", IssueHeadName).Replace("@RATE", tbRate.Text).Replace("@ORDERno", tbOrderNO.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@OTEO", tbOtEONumber.Text));
+                        sb.Append(insertRATESecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ISSUEHEAD", IssueHeadName).Replace("@RATE", tbRate.Text).Replace("@ORDERno", tbOrderNO.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@OTEO", tbOtEONumber.Text));
+
+                        if(tbOrderNO.Text =="1")
+                        {
+                            sb.Append(insertRATEMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ISSUEHEAD", IssueHeadName).Replace("@RATE", tbRate.Text).Replace("@ORDERno", tbOrderNO.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@OTEO", tbOtEONumber.Text));
+                        }
+                        else
+                        {
+                            sb.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ORDERno", tbOrderNO.Text));
+                         }                        
                     }
                 }
                 //now save it to db

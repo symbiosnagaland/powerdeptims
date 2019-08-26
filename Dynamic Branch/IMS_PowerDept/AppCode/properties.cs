@@ -23,6 +23,7 @@ namespace IMS_PowerDept.AppCode
             set { date = value; }
         }
 
+
         protected string supplyOrderRef;
         public String SupplyOderRef
         {
@@ -36,6 +37,7 @@ namespace IMS_PowerDept.AppCode
             get { return supplyDate; }
             set { supplyDate = value; }
         }
+
 
         protected string supplier;
         public string Supplier

@@ -405,6 +405,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppCode\InventoryListDetails.cs" />
+    <Compile Include="AppCode\IssueNewLogic.cs" />
+    <Compile Include="AppCode\NewProperties.cs" />
     <Compile Include="AppCode\SelectedIssueHeadDetails.cs" />
     <Compile Include="AppCode\TransformerLogic.cs" />
     <Compile Include="AppCode\TransformerReceiptLogic.cs" />

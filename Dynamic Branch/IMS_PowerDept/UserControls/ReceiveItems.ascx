@@ -41,7 +41,7 @@
     {
 
         //bisu  script To check if the same item is repeated
-
+        //alert(itemid);
         var tbl = $("[id$=gvItems]");
         var rows = tbl.find('tr');
         //alert(rows.length);
@@ -66,7 +66,7 @@
                 {
                     if (ItemNO == ItemNO2)
                     {
-                        alert("Duplicate Items In the List. Cannot Save");                       
+                       // alert("Duplicate Items In the List. Cannot Save");                       
                         document.getElementById('<%=save.ClientID %>').disabled = true;
                         document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
 
@@ -137,7 +137,8 @@
     }
 
      //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
-     function UpdateAmountbyRate(rateid) {
+    function UpdateAmountbyRate(rateid)
+    {
          // var last_character = itemid[itemid.length - 1];
          var splitItemsID = rateid.split("_");
          //making sure the last digit is not 0

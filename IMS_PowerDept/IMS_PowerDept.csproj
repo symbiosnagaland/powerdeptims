@@ -211,6 +211,7 @@
     <Content Include="UserControls\BulkItemsUploadControl.ascx" />
     <Content Include="UserControls\ChargeableHeadsControl.ascx" />
     <Content Include="UserControls\IssueEntryTemp.ascx" />
+    <Content Include="UserControls\IssueList.ascx" />
     <Content Include="UserControls\ItemsInventoryControl.ascx" />
     <Content Include="UserControls\ItemsListInventoryControl.ascx" />
     <Content Include="UserControls\TransformerReceiptEntry.ascx" />
@@ -901,6 +902,13 @@
     <Compile Include="UserControls\IssueEntryTemp.ascx.designer.cs">
       <DependentUpon>IssueEntryTemp.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\IssueList.ascx.cs">
+      <DependentUpon>IssueList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\IssueList.ascx.designer.cs">
+      <DependentUpon>IssueList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ItemsInventoryControl.ascx.cs">
       <DependentUpon>ItemsInventoryControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -983,9 +991,9 @@
     <Content Include="Shared\Admin_Master.Master" />
     <Content Include="Shared\CentralStore_Master.Master" />
     <Content Include="Shared\PrintTemplate.Master" />
-    <Content Include="AppContent\ImportItemsTemplate.xlsx" />
+    <Content Include="AppCode\AppContent\ImportItemsTemplate.xlsx" />
     <Content Include="Shared\Transformers_Master.Master" />
-    <Content Include="AppContent\Transformers_MasterData.xlsx" />
+    <Content Include="AppCode\AppContent\Transformers_MasterData.xlsx" />
     <Content Include="Shared\Shared.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -995,7 +1003,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AppContent\UploadFolder\" />
+    <Folder Include="AppCode\AppContent\UploadFolder\" />
     <Folder Include="DBBackup\" />
   </ItemGroup>
   <PropertyGroup>

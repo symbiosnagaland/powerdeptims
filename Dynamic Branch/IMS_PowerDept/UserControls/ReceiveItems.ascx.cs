@@ -295,12 +295,12 @@ namespace IMS_PowerDept.UserControls
 
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
 
-                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
                 //RecievedItemsOrderObject.Date = tbOTEODate.Text;
 
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
 
-                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
 
                 //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
 
@@ -456,11 +456,11 @@ namespace IMS_PowerDept.UserControls
 
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
 
-                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
                // RecievedItemsOrderObject.Date = tbOTEODate.Text;
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
 
-                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
                 
                 //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
 

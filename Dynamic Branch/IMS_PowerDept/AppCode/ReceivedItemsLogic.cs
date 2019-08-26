@@ -127,7 +127,7 @@ namespace IMS_PowerDept.AppCode
            // string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
 
 
-            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' '+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +' '+ " +
+            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + '$' + Items.unit + '$'+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +'$'+ " +
              " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
               " FROM Items left JOIN itemsrateMaster  ON  itemsrateMaster.itemid = items.itemid LEFT JOIN  " +
               "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = itemsrateMaster.IssueHeadName WHERE ITEMS.status='A'";
@@ -211,20 +211,21 @@ namespace IMS_PowerDept.AppCode
             //
             //string cmd = "SELECT ItemID, ItemName, unit, Quantity, Rate, amount, IssueHeadName FROM  view_ReceivedItems_Tables";//v1 
             //v.2 - bringing itemname - rate - netactual balance
-            string cmd = "exec sp_ItemsEnquiryList";
+            //string cmd = "exec sp_ItemsEnquiryList";
             //retrive item names          
-            string cmd2 = "select distinct itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from ReceivedItemsDetails";
+           // string cmd2 = "select distinct itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from ReceivedItemsDetails";
+            string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
             try
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd, conn);
+                //SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
                 //fill 
                //v1-  dst.Tables.Add("ReceivedItemsDetails"); 
-                dst.Tables.Add("ItemsEnquiryListTable"); 
+               // dst.Tables.Add("ItemsEnquiryListTable"); 
                 dst.Tables.Add("Items");
 
+                //adapter.Fill(dst.Tables[0]);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
                 adapter.Fill(dst.Tables[0]);
-                adapter = new SqlDataAdapter(cmd2, conn);
-                adapter.Fill(dst.Tables[1]);
             }
             catch { throw; }
 

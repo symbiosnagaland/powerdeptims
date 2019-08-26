@@ -44,9 +44,7 @@ namespace IMS_PowerDept.Admin
                 if (Request.QueryString["challanid"] != null)
                 {
 
-                   // ChallanID = Request.QueryString["challanid"];
-
-                  //  ChallanID = Convert.ToDecimal  (Request.QueryString["challanid"]);
+                
                     hdnFieldChallanNotoEdit.Value = Request.QueryString["challanid"];
                     //1 based on above oteoid , get the item details to edit
                     GetIssuedItemsDetails(Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
@@ -187,7 +185,7 @@ namespace IMS_PowerDept.Admin
         {
             dst = ReceivedItemsLogic.RetrieveReceivedItemsAndReceivedItemsDetails();
             //second table contains the items names                             
-            dtItems = dst.Tables[1];
+            dtItems = dst.Tables[0];
             
         }
       
@@ -371,23 +369,19 @@ namespace IMS_PowerDept.Admin
           SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
         protected void gvItems_Edit_RowCommand(object sender, GridViewCommandEventArgs e)
         {           
-            //if (e.CommandName == "edit")
-            //{
-            //    GridViewRow gRow;
-            //    gRow = (GridViewRow)e.CommandSource;
-            //    //TextBox txtAbc= (TextBox)gRow.FindControl("txtAbc");
-            //    LinkButton lbtnEdit =(LinkButton)gRow.FindControl("lbtnEdit");
-            //    double amount =Convert.ToDouble(lbtnEdit.ToolTip);              
-            //}
-            //instead of using command name =delete, using amount value
-            //else
-
-
-
+            
              if (e.CommandName != "")
             {
                 double amount = Convert.ToDouble(e.CommandName);
-                string receivedItemID = e.CommandArgument.ToString();
+                string[] receivedItem = e.CommandArgument.ToString().Split(new char[] { ',' });
+                 string receivedItemID = receivedItem[0].ToString ();
+                 string oldRate = receivedItem[1].ToString();
+                 string oldIssueHeadName = receivedItem[2].ToString();
+                 string oldquantity = receivedItem[3].ToString();
+                 
+
+
+
                 SqlTransaction tr = null;
 
                 if (Request.QueryString["challanid"] != null)
@@ -403,6 +397,12 @@ namespace IMS_PowerDept.Admin
                 SqlCommand cmd2 = conn.CreateCommand();
                 cmd2.CommandText = "update DeliveryItemsChallan set totalamount = totalamount-" + amount + " where DeliveryItemsChallanID =@DeliveryItemsChallanID";
                 cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
+
+                SqlCommand cmd3 = conn.CreateCommand();
+                cmd3.CommandText = "update ItemsRateSecondary set quantity = quantity-" + oldquantity + " where DeliveryItemsChallanID =@DeliveryItemsChallanID";
+                cmd3.Parameters.AddWithValue("@DeliveryItemsChallanID", Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
+
+
                 try
                 {
                     conn.Open();
@@ -425,37 +425,7 @@ namespace IMS_PowerDept.Admin
                 {
                     conn.Close();
                 }
-                //SqlConnection conn2 = new SqlConnection(AppConns.GetConnectionString());
-
-                //SqlCommand cmd3 = conn2.CreateCommand();
-                //cmd3.CommandText = "Select count(*) as count from DeliveryItemsDetails where DeliveryItemsChallanID = @DeliveryItemsChallanID";
-                //cmd3.Parameters.AddWithValue("@DeliveryItemsChallanID", ChallanID);
-                //    try
-                //    {
-
-                //        conn2.Open();
-                //        if (cmd3.ExecuteScalar() != DBNull.Value)
-                //        {
-                //            int count = Convert.ToInt32(cmd3.ExecuteScalar());
-                //            if (count < 1)
-                //            {
-                //                _btnDelete.Visible = true;
-                //            }
-                //        }
-                //        else
-                //        {
-                //            _btnDelete.Visible = true;
-                //        }
-                //    }
-                //        catch
-                //    {
-                //            throw;
-                //        }
-                //    finally
-                //    {
-                //        conn2.Close();
-                //    }
-                //}
+                
                 GetIssuedItemsDetails(Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
                 gvItems_Edit.DataBind();
 

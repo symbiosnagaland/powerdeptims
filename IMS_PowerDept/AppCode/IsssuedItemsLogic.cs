@@ -24,12 +24,7 @@ namespace IMS_PowerDept.AppCode
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
 
-           // string stDate, edDate;
-           // stDate = DateTime.ParseExact(issued.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-           // edDate = DateTime.ParseExact(issued.Date2, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-
-
+           
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "Insert into DeliveryItemsChallan(DeliveryItemsChallanID, IndentReference, IndentDate, ChallanDate, IndentingDivisionName, ChargeableHeadName,IsDeliveredTemporary,ModifiedBy, totalamount, vehiclenumber, receiverdesignation,Remarks)values(@DeliveryItemsChallanID, @IndentReference, @IndentDate, @ChallanDate, @IndentingDivisionName, @ChargeableHeadName,@IsDeliveredTemporary, @ModifiedBy, @totalamount, @vehiclenumber, @receiverdesignation,@remarks)";
             //cmd.CommandType = CommandType.StoredProcedure;
@@ -142,13 +137,7 @@ namespace IMS_PowerDept.AppCode
 
             SqlTransaction tr = null;
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-            //this will execute first
-
-            //7-8-2019
-            //string stDate, edDate;
-           // stDate = DateTime.ParseExact(issued.Date, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            //edDate = DateTime.ParseExact(issued.Date2, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-//
+           
             
 
             SqlCommand cmd = conn.CreateCommand();

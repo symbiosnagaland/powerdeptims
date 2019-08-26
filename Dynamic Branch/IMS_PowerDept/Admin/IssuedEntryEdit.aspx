@@ -221,7 +221,8 @@
 
                                                     <asp:TemplateField HeaderText="Item">
                                                         <ItemTemplate>
-                                                              <asp:HiddenField ID="hdnFieldItemID" runat="server" />
+
+                                                              <asp:Label ID="hdnFieldItemID" Text='<%# Eval("ItemId") %>' runat="server" />
                                                      
                                                             <asp:Label ID="lblItem" Text='<%# Eval("ItemName") %>' runat="server"></asp:Label>
                                                         </ItemTemplate>
@@ -256,15 +257,10 @@
                                                     </asp:TemplateField>
 
 
-                                                     <%--    <asp:TemplateField HeaderText="Edit">
-                                                        <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnEdit"  CommandArgument='<%# Eval("DeliveryItemDetailsID") %>' CommandName="edit" ToolTip='<%# Eval("amount") %>' runat="server">Edit Quantity</asp:LinkButton>                                                                                                           
-                                                        </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    --%>
+                                                     
                                                     <asp:TemplateField HeaderText="Action">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("DeliveryItemDetailsID") %>' CommandName='<%# Eval("amount") %>' runat="server">Delete</asp:LinkButton>                                                                                                           
+                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("DeliveryItemDetailsID")+","+ Eval("rate")+","+Eval("IssueHeadName")+","+Eval("quantity")%>' CommandName='<%# Eval("amount") %>' runat="server">Delete</asp:LinkButton>                                                                                                           
                                                         </ItemTemplate>
                                                         </asp:TemplateField>
                                                 </Columns>
