@@ -58,7 +58,7 @@ namespace IMS_PowerDept.UserControls
             try
             {
                 con.Open();
-                str = " select count (IssueHeadName) as Ihead from IssueHeads";
+                str = " select count(IssueHeadName) as Ihead from IssueHeads";
                 com = new SqlCommand(str, con);
                 SqlDataReader reader = com.ExecuteReader();
                 if (reader.Read())

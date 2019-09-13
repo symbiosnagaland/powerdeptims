@@ -2,10 +2,17 @@
 
 <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
 
+
+
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
-
+<style type="text/css">
+  .hiddencol
+  {
+    display: none;
+  }
+</style>
 
  <script type="text/javascript">
         $(function () {
@@ -27,9 +34,6 @@
         });
     </script>
 
-    <%--<link href="../css/style.css" rel="stylesheet" />
-    <link href="../css/navi.css" rel="stylesheet" />
-    <link href="../css/sb-admin.css" rel="stylesheet" />--%>
 
 <style type="text/css">
 .ui-datepicker { font-size:8pt !important}
@@ -387,7 +391,11 @@
 
                         <%--Bisu writes code here for temporary purpose--%>
 
-                         <asp:TemplateField HeaderText="order No">
+
+                       <%-- ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"--%>
+                         <%-- This is the css for hiding the column"--%>
+                        
+                         <asp:TemplateField HeaderText="order No"   >
                             <ItemTemplate>
                                 <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" 
                                     BackColor="Transparent" autocomplete="off"  ID="_tbOrderNo" runat="server"

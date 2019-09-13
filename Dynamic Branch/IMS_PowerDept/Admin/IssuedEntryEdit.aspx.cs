@@ -15,16 +15,25 @@ namespace IMS_PowerDept.Admin
     public partial class IssuedEntryEdit : System.Web.UI.Page
     {
         
+   
+        string stDate, edDate;
+        //
         protected static DataTable dtItems = new DataTable();
-        protected static DataSet dst = new DataSet();
+        protected static DataTable dtIssueHead = new DataTable();
+        protected static DataTable dtRate = new DataTable();
 
-        //protected static string ChallanID;
-       // protected  decimal ChallanID;
+        double totalAmount = 0;
+        protected static DataSet dst = new DataSet();
+        SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
         DataTable data;
         DataTable data2;
-        string stDate, edDate;
 
-       SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
+        string str;
+        SqlCommand com;
+        int count;
+        //
+
+     
         protected void Page_Load(object sender, EventArgs e)
         {
             //for loading print page
@@ -183,9 +192,16 @@ namespace IMS_PowerDept.Admin
 
         private void GetIssueHeadsandItemsForDropDowns()
         {
-            dst = ReceivedItemsLogic.RetrieveReceivedItemsAndReceivedItemsDetails();
+           // dst = ReceivedItemsLogic.RetrieveReceivedItemsAndReceivedItemsDetails();
             //second table contains the items names                             
-            dtItems = dst.Tables[0];
+           // dtItems = dst.Tables[0];
+
+            dst = IssueNewLogic.RetrieveAllItems();
+            //second table contains the items names                             
+            dtItems = dst.Tables["Items"];
+            dtIssueHead = dst.Tables["itemRatesSecondery"];
+            dtRate = dst.Tables["IT2"];
+
             
         }
       
@@ -223,119 +239,63 @@ namespace IMS_PowerDept.Admin
 
         #region update items
    protected void _btnSave_Click(object sender, EventArgs e)
-        {       
-            try   
+        {
+            if (_tbChalanNo.Text.Trim() == "")
             {
+                panelError.Visible = true;
+                lblError.Text = "Challan No./Indent number cannot be NULL.";
+                panelSuccess.Visible = false;
+                return;
+            }
+            if (_tbIndentValue.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Indent number cannot be NULL.";
+                panelSuccess.Visible = false;
+                return;
+            }
+            if (_tbChallanDate.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Challan Date cannot be NULL.";
+                panelSuccess.Visible = false;
 
-                IsssuedItemsLogic akivi = new IsssuedItemsLogic();
-                properties issued = new properties();
-
-                decimal orginalChallanID = Convert.ToDecimal(hdnFieldChallanID.Value);
-
-                issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
-
-               // issued.Date = _tbChallanDate.Text;
-                issued.Date  = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                issued.IndentValue = _tbIndentValue.Text;
-                // issued.Date2 = _tbIntendDate.Text;
-
-                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                //using 2 controls for displaying old value and for givng option to check
-                if (_ddIntendDivisions.SelectedIndex > 0)
-                    issued.Division = _ddIntendDivisions.Text;
-                else
-                    issued.Division = lblDivisionOld.Text; //same old value populated
-
-               //same wiht chargeable head value
-                if (_ddCHead.SelectedIndex > 0)
-                    issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
-                else
-                    issued.ChargeableHeadName = lblChHeadOld.Text;
-
-                issued.IsDeliveredTemporary = istemporary.Checked ? "Yes" : "No";               
-                issued.ModifiedBy = Convert.ToInt16(Session["USERID"]);               
-                //if data is saved in challan table , save into item table
-                StringBuilder sb = new StringBuilder();
-                //  sb.Append("<root>");
-                issued.VehicleNumber = tbVehicleNumberCaps.Text;
-                issued.ReceiverDesignation = tbReceiverDesignation.Text ;
-                issued.Remarks = tbremarks.Text;
-
-                string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
-                for (int i = 0; i < gvItems.Rows.Count; i++)
-                {
-                    //TextBox itemID = gvItems.Rows[i].FindControl("_tbItemID") as TextBox;
-                    DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
-                    TextBox itemUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
-                    TextBox itemQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
-                    //DropDownList itemIHead = gvItems.Rows[i].FindControl("_ddIhead") as DropDownList;
-                    //DropDownList ddlRates = gvItems.Rows[i].FindControl("ddlRates") as DropDownList;
-
-                    HiddenField hdnSelectedIssueHead = gvItems.Rows[i].FindControl("hdnSelectedIssueHead") as HiddenField;
-                    HiddenField hdnSelectedRate = gvItems.Rows[i].FindControl("hdnSelectedRate") as HiddenField;     
-                    //SAVE CODE
-                    if (itemName.SelectedValue.ToString() != "")
-                        sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", hdnSelectedIssueHead.Value).Replace("@QUANTITY", itemQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", hdnSelectedRate.Value));
-                }
-                //now save it to db
-                //making sure sb string is not empty
-                if (sb.ToString() != "")
-                {
-                    //call the method to save both in primary deliverychallan table and delivery details table
-                    akivi.UpdateIssuedItems(issued, orginalChallanID, sb.ToString());
-                }
-                    //what if user doesn't require to add items but to change primary table details only
-
-
-
-                else //else new item(s) not inserted...save only primary table
-                {
-
-                    akivi.UpdateIssuedItems(issued, orginalChallanID);
-                   // panelError.Visible = true;
-                   // lblError.Text = "Error! Select atleast one item to add.";
-                   // panelSuccess.Visible = false;
-
-                }
-                Session["CHALLANNO"] = _tbChalanNo.Text;
-               // Response.Redirect(Request.Url.ToString());
-               Response.Redirect("~/Admin/IssuedEntryEdit.aspx?challanid=" + _tbChalanNo.Text);
-
+                return;
+            }
+            if (lblDivisionOld.Text == "--Select Division Name--")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Division Name Should Be Selected.";
+                panelSuccess.Visible = false;
+                return;
+            }
+            if (lblChHeadOld.Text == "--Select Chargeable Head--")
+            {
+                panelError.Visible = true;
+                lblError.Text = "ChargeableHead Name Should Be Selected.";
+                panelSuccess.Visible = false;
+                return;
             }
 
+            try
+            {
+
+                
+                _Save();
+
+               // double myChallanNo = Convert.ToDouble (_tbChalanNo.Text) - 1;
+
+                Response.Redirect("IssuedItemsDetails.aspx?id=" + _tbChalanNo.Text);              
+
+            }
             catch (System.Threading.ThreadAbortException)
             {
-                //do nothing
 
-            }
-            catch (SqlException ex)
-            {
-                if (ex.Message.Contains("duplicate key"))
-                {
-                    panelError.Visible = true;
-                    lblError.Text = "Error! The challan ID already exists. Please use another ID";
-                    panelSuccess.Visible = false;
-                 
-                }
-                else
-                {
-                    Session["ERRORMSG"] = ex.ToString();
-                    Response.Redirect("Error.aspx");
-                }
             }
             catch (Exception ex)
             {
                 Session["ERRORMSG"] = ex.ToString();
-                Response.Redirect("Error.aspx", true);
-
-
-
+                Response.Redirect("~/Error.aspx");
             }
         }
         #endregion
@@ -374,10 +334,12 @@ namespace IMS_PowerDept.Admin
             {
                 double amount = Convert.ToDouble(e.CommandName);
                 string[] receivedItem = e.CommandArgument.ToString().Split(new char[] { ',' });
-                 string receivedItemID = receivedItem[0].ToString ();
-                 string oldRate = receivedItem[1].ToString();
-                 string oldIssueHeadName = receivedItem[2].ToString();
-                 string oldquantity = receivedItem[3].ToString();
+
+                string DeliveryItemDetailsID = receivedItem[0].ToString();
+                String ItemName = receivedItem[1].ToString();
+                 string oldRate = receivedItem[2].ToString();
+                 string oldIssueHeadName = receivedItem[3].ToString();
+                 string oldquantity = receivedItem[4].ToString();
                  
 
 
@@ -392,15 +354,20 @@ namespace IMS_PowerDept.Admin
                     //this will execute first
                     SqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "DELETE FROM DeliveryItemsDetails WHERE DeliveryItemDetailsID = @DeliveryItemDetailsID";
-                cmd.Parameters.AddWithValue("@DeliveryItemDetailsID", receivedItemID);
+                cmd.Parameters.AddWithValue("@DeliveryItemDetailsID",Convert.ToDecimal (DeliveryItemDetailsID));
 
                 SqlCommand cmd2 = conn.CreateCommand();
-                cmd2.CommandText = "update DeliveryItemsChallan set totalamount = totalamount-" + amount + " where DeliveryItemsChallanID =@DeliveryItemsChallanID";
+                cmd2.CommandText = "update DeliveryItemsChallan set totalamount = totalamount +'"+ amount +"' where DeliveryItemsChallanID =@DeliveryItemsChallanID";
                 cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
 
                 SqlCommand cmd3 = conn.CreateCommand();
-                cmd3.CommandText = "update ItemsRateSecondary set quantity = quantity-" + oldquantity + " where DeliveryItemsChallanID =@DeliveryItemsChallanID";
-                cmd3.Parameters.AddWithValue("@DeliveryItemsChallanID", Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
+                cmd3.CommandText = "update TOP (1) ItemsRateSecondary set quantity = quantity + '" + oldquantity + "' where  ItemName= '" + ItemName + "'and issueheadname='" + oldIssueHeadName + "' and rate='" + oldRate + "' ";
+
+                cmd3.Parameters.AddWithValue("@oldquantity", Convert.ToDecimal(oldquantity));
+                cmd3.Parameters.AddWithValue("@ItemName", ItemName);
+                cmd3.Parameters.AddWithValue("@oldIssueHeadName", oldIssueHeadName);
+                cmd3.Parameters.AddWithValue("@oldRate", Convert.ToDecimal(oldRate));
+
 
 
                 try
@@ -409,8 +376,10 @@ namespace IMS_PowerDept.Admin
                     tr = conn.BeginTransaction();
                     cmd.Transaction = tr;
                     cmd2.Transaction = tr;
+                    cmd3.Transaction = tr;
                     cmd.ExecuteNonQuery();
                     cmd2.ExecuteNonQuery();
+                    cmd3.ExecuteNonQuery();
                     tr.Commit();
                 }
                 catch(Exception ex)
@@ -434,12 +403,123 @@ namespace IMS_PowerDept.Admin
         #endregion
 
         #region on selection of an item inside the gridview
+        protected void _ddlIhead_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Casting sender to Dropdown
+            DropDownList ddl = sender as DropDownList;
+            //Looping through each Gridview row to find exact Row 
+
+            //Boolean ans = Convert.ToBoolean(ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "CheckRepetingItems();", true));
+
+            // Boolean ans=Convert .ToBoolean ( Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "CheckRepetingItems();", true));
+
+            //string confirmValue = Request.Form["confirm_value"];
+
+            foreach (GridViewRow row in gvItems.Rows)
+            {
+                //Finding Dropdown control  
+                Control ctrl = row.FindControl("ddlIhead") as DropDownList;
+
+
+                if (ctrl != null)
+                {
+                    DropDownList ddl1 = (DropDownList)ctrl;
+                    //   Comparing ClientID of the dropdown with sender
+
+                    if (ddl.ClientID == ddl1.ClientID)
+                    {
+
+                        string selected = ddl.SelectedItem.Value;
+
+
+                        DropDownList ddlIhead = row.FindControl("ddlIhead") as DropDownList;
+
+                        TextBox tbRate = row.FindControl("tbRate") as TextBox;
+                        TextBox tbQty = row.FindControl("tbQty") as TextBox;
+                        TextBox tbOrderNO = row.FindControl("tbOrderNO") as TextBox;
+                        TextBox tbAmount = row.FindControl("tbAmount") as TextBox;
+                        TextBox tbMaxQtyAvail = row.FindControl("tbMaxQtyAvail") as TextBox;
+
+
+
+                        TextBox _tbOrderQuantity = row.FindControl("_tbOrderQuantity") as TextBox;
+                        TextBox _tbAmt = row.FindControl("_tbAmt") as TextBox;
+
+                        _tbOrderQuantity.Text = "0";
+                        _tbAmt.Text = "0";
+                        tbRate.Text = "";
+                        tbQty.Text = "";
+                        tbOrderNO.Text = "";
+                        tbAmount.Text = "";
+                        tbMaxQtyAvail.Text = "";
+
+
+                        HiddenField _hdnFieldItemID = row.FindControl("_hdnFieldItemID") as HiddenField;
+
+
+
+                        DataTable dt = dst.Tables["IT2"].Clone();
+                        DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+
+                        DataTable dt2 = dst.Tables["IT3"].Clone();
+                        DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+
+                        foreach (DataRow dr in MaxQty)
+                        {
+                            dt2.ImportRow(dr);
+                        }
+                        DataView v1 = new DataView(dt2);
+                        DataTable myMaxQty = v1.ToTable(true, "TotQtyAvailable");
+
+                        foreach (DataRow dr in rates)
+                        {
+                            dt.ImportRow(dr);
+                        }
+
+                        DataView view = new DataView(dt);
+                        DataTable myRates = view.ToTable(true, "Rate", "Quantity", "OrderNo", "AMT");
+
+                        if (myRates.Rows.Count > 0)
+                        {
+                            tbRate.Text = myRates.Rows[0]["Rate"].ToString();
+                            tbQty.Text = myRates.Rows[0]["Quantity"].ToString();
+                            tbOrderNO.Text = myRates.Rows[0]["OrderNo"].ToString();
+                            tbAmount.Text = myRates.Rows[0]["AMT"].ToString();
+
+                            tbMaxQtyAvail.Text = myMaxQty.Rows[0]["TotQtyAvailable"].ToString();
+
+
+
+
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
+
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
+                        }
+
+
+
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        //end of a function
+
         protected void _ddItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Casting sender to Dropdown
             DropDownList ddl = sender as DropDownList;
             //Looping through each Gridview row to find exact Row 
-            //of the Grid from where the SelectedIndex change event is fired.
+            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
+
             foreach (GridViewRow row in gvItems.Rows)
             {
                 //Finding Dropdown control  
@@ -457,47 +537,107 @@ namespace IMS_PowerDept.Admin
                         //retrive item unit
                         string selected = ddl.SelectedItem.Value;
                         DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
-                        //DropDownList _ddIhead = row.FindControl("_ddIhead") as DropDownList;
 
-                        DropDownList ddlIheadRateActualBalance = row.FindControl("ddlIheadRateActualBalance") as DropDownList;
+                        DropDownList ddlIhead = row.FindControl("ddlIhead") as DropDownList;
+
                         TextBox _tbUnit = row.FindControl("_tbUnit") as TextBox;
 
-                        //   DataTable dt = dst.Tables["ReceivedItemsDetails"].Clone();
-                        DataTable dt = dst.Tables["ItemsEnquiryListTable"].Clone();
+                        TextBox tbRate = row.FindControl("tbRate") as TextBox;
+                        TextBox tbQty = row.FindControl("tbQty") as TextBox;
+                        TextBox tbOrderNO = row.FindControl("tbOrderNO") as TextBox;
+                        TextBox tbAmount = row.FindControl("tbAmount") as TextBox;
 
-                        //putting dynamic item enquiry link v2. not needed now
-                        //HyperLink hlItemEnquiry = row.FindControl("hlinkItemenquiry") as HyperLink;
-                        //string urlEncodedItemName = HttpUtility.UrlEncode(_ddItems.SelectedItem.ToString());
-                        //hlItemEnquiry.NavigateUrl = "/Shared/ItemEnquiry.aspx?item=" + urlEncodedItemName;
-                        //hlItemEnquiry.Visible = true;
-                        //hlItemEnquiry.Text = "item enquiry";
-                        //populate new destination table                   
-                        //   DataRow[] iheads = dst.Tables["ReceivedItemsDetails"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
-                        DataRow[] iheads = dst.Tables["ItemsEnquiryListTable"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
+                        TextBox tbMaxQtyAvail = row.FindControl("tbMaxQtyAvail") as TextBox;
 
-                        foreach (DataRow dr in iheads)
-                        {
-                            dt.ImportRow(dr);
-                        }
-                        DataView view = new DataView(dt);
-                        DataTable dtIssueheadRateNetActualBalance = view.ToTable(false, "IssueheadRateNetActualBalance", "Rate");
 
-                        //_ddIhead.DataSource = distinctValues;
-                        //_ddIhead.DataTextField = "ISSUEHEADNAME";
 
-                        ddlIheadRateActualBalance.DataSource = dtIssueheadRateNetActualBalance;
-                        ddlIheadRateActualBalance.DataTextField = "IssueheadRateNetActualBalance";
-                        ddlIheadRateActualBalance.DataValueField = "IssueheadRateNetActualBalance";
-                        ddlIheadRateActualBalance.DataBind();
-                        ddlIheadRateActualBalance.Items.Insert(0, new ListItem("Issue Head : Rate : Net Balance", "0"));
-                        //when found the right row, then get out of it
+                        TextBox _tbOrderQuantity = row.FindControl("_tbOrderQuantity") as TextBox;
+                        TextBox _tbAmt = row.FindControl("_tbAmt") as TextBox;
+
+
+                        HiddenField _hdnFieldItemID = row.FindControl("_hdnFieldItemID") as HiddenField;
+
+
+
+
+
+
                         string[] splitresult = _ddItems.SelectedValue.Split(' ');
-                        _tbUnit.Text = splitresult[1];
+                        if (splitresult.Length > 1)
+                        {
+                            _tbUnit.Text = splitresult[1];
+                            _hdnFieldItemID.Value = splitresult[0];
+                            DataTable dt = dst.Tables["itemRatesSecondery"].Clone();
+                            DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("ItemId= '" + _hdnFieldItemID.Value + "'");
+
+
+
+
+                            foreach (DataRow dr in rates)
+                            {
+                                dt.ImportRow(dr);
+                            }
+
+                            DataView view = new DataView(dt);
+                            DataTable myIssueHead = view.ToTable(true, "IssueHeadName");
+
+                            ddlIhead.DataSource = myIssueHead;
+                            ddlIhead.DataTextField = "IssueHeadName";
+                            ddlIhead.DataValueField = "IssueHeadName";
+                            ddlIhead.DataBind();
+                            ddlIhead.Items.Insert(0, new ListItem("--Select Issue Heads--", "0"));
+
+                            tbRate.Text = "";
+                            tbQty.Text = "";
+                            tbOrderNO.Text = "";
+                            tbAmount.Text = "";
+                            _tbOrderQuantity.Text = "0";
+                            _tbAmt.Text = "0";
+                            tbMaxQtyAvail.Text = "0";
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
+                        }
+                        else
+                        {
+                            _tbUnit.Text = "";
+                            _hdnFieldItemID.Value = "";
+
+                            tbRate.Text = "";
+                            tbQty.Text = "";
+                            tbOrderNO.Text = "";
+                            tbAmount.Text = "";
+                            _tbOrderQuantity.Text = "";
+                            _tbAmt.Text = "";
+                            tbMaxQtyAvail.Text = "";
+
+                            ddlIhead.Items.Clear();
+                            ddlIhead.Items.Insert(0, new ListItem("--Select Issue Heads--", "0"));
+
+                            _tbOrderQuantity.Text = "";
+
+                            _tbAmt.Text = "";
+                            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
+                            return;
+                        }
+
+
+
+
                         break;
                     }
                 }
             }
         }
+
+        //end of Function
+
+        protected void OnTextChanged(object sender, EventArgs e)
+        {
+            int a = 5;
+
+        }
+       
         #endregion
 
         /*
@@ -604,76 +744,220 @@ namespace IMS_PowerDept.Admin
 
         protected void _btnUpdate_Click(object sender, EventArgs e)
         {
+            if (_tbChalanNo.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Challan No./Indent number cannot be NULL.";
+                panelSuccess.Visible = false;
+                return;
+            }
+            if (_tbIndentValue.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Indent number cannot be NULL.";
+                panelSuccess.Visible = false;
+                return;
+            }
+            if (_tbChallanDate.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Challan Date cannot be NULL.";
+                panelSuccess.Visible = false;
+
+                return;
+            }
+            if (lblDivisionOld.Text  == "--Select Division Name--")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Division Name Should Be Selected.";
+                panelSuccess.Visible = false;
+                return;
+            }
+            if (lblChHeadOld.Text  == "--Select Chargeable Head--")
+            {
+                panelError.Visible = true;
+                lblError.Text = "ChargeableHead Name Should Be Selected.";
+                panelSuccess.Visible = false;
+                return;
+            }
+
             try
             {
-                IsssuedItemsLogic akivi = new IsssuedItemsLogic();
-                properties issued = new properties();
 
-                decimal orginalChallanID = Convert.ToDecimal(hdnFieldChallanID.Value);
-
-                issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
-               // issued.Date = _tbChallanDate.Text;
-                issued.Date =DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                issued.IndentValue = _tbIndentValue.Text;
-               // issued.Date2 = _tbIntendDate.Text;
-
-                issued.Date2=DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
               
-                if (_ddIntendDivisions.SelectedIndex > 0)
-                    issued.Division = _ddIntendDivisions.Text;
-                else
-                    issued.Division = lblDivisionOld.Text; 
+                    _Save();
+            }
+            catch (System.Threading.ThreadAbortException)
+            {
 
-                             if (_ddCHead.SelectedIndex > 0)
-                    issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
+            }
+            catch (Exception ex)
+            {
+                Session["ERRORMSG"] = ex.ToString();
+                Response.Redirect("~/Error.aspx");
+            }
+        }
+
+        private void _Save()
+        {
+            NewProperties issued = new NewProperties();
+            IssueNewLogic enterSave = new IssueNewLogic();
+            try
+            {
+
+                issued.challanNO = Convert.ToDouble(_tbChalanNo.Text);
+                issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                issued.indentNo = _tbIndentValue.Text;
+                issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                issued.TotalAmount = 900;
+
+                if (_ddIntendDivisions.SelectedItem.ToString() != "--Select Division Name--")
+                {
+                    issued.intendingDivision = _ddIntendDivisions.SelectedItem.ToString();
+                }
                 else
+                {
+                    issued.intendingDivision = lblDivisionOld.Text;
+                }
+
+
+                if (_ddCHead.SelectedItem.ToString() != "--Select Chargeable Head--")
+                {
+                    issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
+                }
+                else
+                {
                     issued.ChargeableHeadName = lblChHeadOld.Text;
+                }
+                
 
                 issued.IsDeliveredTemporary = istemporary.Checked ? "Yes" : "No";
                 issued.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 issued.ReceiverDesignation = tbReceiverDesignation.Text;
                 issued.VehicleNumber = tbVehicleNumberCaps.Text.ToUpper();
-                issued.Remarks = tbremarks.Text;
+                issued.Remarks = tbremarks.Text ;
 
-               
                 StringBuilder sb = new StringBuilder();
-                            string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
+                string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,itemid,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
+                string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemid='@ItemID' and issueHeadName=  '@IssueHeadName' and OrderNO='@OrderNO'";
+
+
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
                     DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
                     TextBox itemUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
-                    TextBox itemQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
 
-                    //DropDownList itemIHead = gvItems.Rows[i].FindControl("_ddIhead") as DropDownList;
-                    //DropDownList ddlRates = gvItems.Rows[i].FindControl("ddlRates") as DropDownList;
+                    TextBox tbQty = gvItems.Rows[i].FindControl("tbQty") as TextBox;
 
-                    HiddenField hdnSelectedIssueHead = gvItems.Rows[i].FindControl("hdnSelectedIssueHead") as HiddenField;
-                    HiddenField hdnSelectedRate = gvItems.Rows[i].FindControl("hdnSelectedRate") as HiddenField;     
+                    TextBox _tbOrderQuantity = gvItems.Rows[i].FindControl("_tbOrderQuantity") as TextBox;
+                    DropDownList ddlIhead = gvItems.Rows[i].FindControl("ddlIhead") as DropDownList;
+                    TextBox tbRate = gvItems.Rows[i].FindControl("tbRate") as TextBox;
+                    TextBox _tbAmt = gvItems.Rows[i].FindControl("_tbAmt") as TextBox;
+                    HiddenField _hdnFieldItemID = gvItems.Rows[i].FindControl("_hdnFieldItemID") as HiddenField;
+                    TextBox tbOrderNO = gvItems.Rows[i].FindControl("tbOrderNO") as TextBox;
+
+
+
 
 
                     if (itemName.SelectedValue.ToString() != "")
-                        sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", hdnSelectedIssueHead.Value).Replace("@QUANTITY", itemQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", hdnSelectedRate.Value));
+                    {
+                        //Checking the quantity is null in quantity
+                        if (_tbOrderQuantity.Text == "")
+                        {
+                            panelError.Visible = true;
+                            lblError.Text = "Error! Quantity Cannot be Blank.";
+                            panelSuccess.Visible = false;
+                            return;
+                        }
+
+                        if (tbRate.Text != "")
+                        {
+
+                            totalAmount += Convert.ToDouble(_tbOrderQuantity.Text) * Convert.ToDouble(tbRate.Text);
+
+                            if (Convert.ToDouble(_tbOrderQuantity.Text) > Convert.ToDouble(tbQty.Text))
+                            {
+                                DataTable dt = dst.Tables["IT2"].Clone();
+                                DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+
+                                Double OrderedQty = Convert.ToDouble(_tbOrderQuantity.Text);
+                                double QtyAvailableinRows = Convert.ToDouble(tbQty.Text);
+
+                                foreach (DataRow dr in rates)
+                                {
+                                    dt.ImportRow(dr);
+                                }
+                                DataView view = new DataView(dt);
+                                DataTable myRates = view.ToTable(true, "Rate", "Quantity", "OrderNo", "AMT");
+
+                                int counter = 0;
+                                Double tempQty;
+                                Double tempOrderNo;
+                                Double tempRate;
+
+
+                                while (OrderedQty > 0)
+                                {
+                                    tempQty = Convert.ToDouble(myRates.Rows[counter]["Quantity"]);
+                                    tempOrderNo = Convert.ToDouble(myRates.Rows[counter]["OrderNo"]);
+                                    tempRate = Convert.ToDouble(myRates.Rows[counter]["Rate"]);
+
+                                    if (OrderedQty < tempQty)
+                                    {
+                                        tempQty = OrderedQty;
+                                    }
+
+                                    sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tempOrderNo.ToString()));
+
+                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString()));
+
+                                    OrderedQty = OrderedQty - tempQty;
+                                    counter++;
+                                }
+                            }
+                            else
+                            {
+                                sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tbOrderNO.Text));
+                                sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
+
+                            }
+
+                        }
+                        else
+                        {
+
+                            panelError.Visible = true;
+                            lblError.Text = "Error! One of item's Issue Head and Rate is not selected.";
+                            panelSuccess.Visible = false;
+                            return;
+                        }
+
+                    }
                 }
-                               if (sb.ToString() != "")
-                {
-                    akivi.UpdateIssuedItems(issued, orginalChallanID,sb.ToString());
-                }
-               else 
-                {
-                    akivi.UpdateIssuedItems(issued, orginalChallanID);                   
-                }
-            
-                Response.Redirect("~/Admin/IssueEntriesList.aspx");
+                issued.TotalAmount = totalAmount;
+          
+                    //call the method to save both in primary deliverychallan table and delivery details table
+
+                    enterSave.UpdateNewIssuedItems(issued, sb.ToString());
+
+
+                    lblSuccess.Text = "Challan number " + _tbChalanNo.Text + " details Updated successfully!";
+
+                    GetIssueHeadsandItemsForDropDowns();
+
+
+                   // _tbChalanNo.Text = (Convert.ToDouble(_tbChalanNo.Text) + 1).ToString();
+
+                    panelError.Visible = false;
+                    panelSuccess.Visible = true;                
 
             }
 
             catch (System.Threading.ThreadAbortException)
             {
-               
+                
+
             }
             catch (SqlException ex)
             {
@@ -694,6 +978,8 @@ namespace IMS_PowerDept.Admin
             {
                 Session["ERRORMSG"] = ex.ToString();
                 Response.Redirect("Error.aspx", true);
+
+
 
             }
         }

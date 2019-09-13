@@ -42,12 +42,14 @@ namespace IMS_PowerDept.AppCode
                 adapter.SelectCommand.CommandText = cmd4;
                 dst.Tables.Add("IT3");
                 adapter.Fill(dst.Tables["IT3"]);
+                conn.Close();
             }
             catch { throw; }
 
             return dst;
 
         }
+
         public void SaveNewIssuedItems(NewProperties  issued, string sqlstatements)
         {
             SqlTransaction tr = null;
@@ -93,6 +95,66 @@ namespace IMS_PowerDept.AppCode
             finally
             {
                 conn.Close();
+            }
+        }
+
+        public void UpdateNewIssuedItems(NewProperties issued, string sqlstatements)
+        {
+            SqlTransaction tr = null;
+            SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
+
+            SqlCommand cmd = conn.CreateCommand();
+           // cmd.CommandText = "Insert into DeliveryItemsChallan(DeliveryItemsChallanID, IndentReference, IndentDate, ChallanDate, IndentingDivisionName, ChargeableHeadName,IsDeliveredTemporary,ModifiedBy, totalamount, vehiclenumber, receiverdesignation,Remarks)values(@DeliveryItemsChallanID, @IndentReference, @IndentDate, @ChallanDate, @IndentingDivisionName, @ChargeableHeadName,@IsDeliveredTemporary, @ModifiedBy, @totalamount, @vehiclenumber, @receiverdesignation,@remarks)";
+
+            cmd.CommandText = "Update DeliveryItemsChallan set  IndentReference=@IndentReference, IndentDate=@IndentDate,"+
+                " ChallanDate= @ChallanDate, IndentingDivisionName=@IndentingDivisionName, ChargeableHeadName= @ChargeableHeadName,"+
+                "IsDeliveredTemporary=@IsDeliveredTemporary,ModifiedBy= @ModifiedBy, totalamount=@totalamount, vehiclenumber= @vehiclenumber, "+
+                "receiverdesignation=@receiverdesignation,Remarks=@remarks where DeliveryItemsChallanID=@DeliveryItemsChallanID ";
+
+            
+
+            cmd.Parameters.AddWithValue("@DeliveryItemsChallanID", issued.challanNO);
+            cmd.Parameters.AddWithValue("@IndentReference", issued.indentNo);
+            cmd.Parameters.AddWithValue("@IndentDate", issued.indentDate);
+            cmd.Parameters.AddWithValue("@ChallanDate", issued.challanDate);
+            cmd.Parameters.AddWithValue("@IndentingDivisionName", issued.intendingDivision);
+            cmd.Parameters.AddWithValue("@ChargeableHeadName", issued.ChargeableHeadName);
+            cmd.Parameters.AddWithValue("@IsDeliveredTemporary", issued.IsDeliveredTemporary);
+            cmd.Parameters.AddWithValue("@ModifiedBy", issued.ModifiedBy);
+            cmd.Parameters.AddWithValue("@totalamount", issued.TotalAmount);
+            cmd.Parameters.AddWithValue("@vehiclenumber", issued.VehicleNumber);
+            cmd.Parameters.AddWithValue("@receiverdesignation", issued.ReceiverDesignation);
+            cmd.Parameters.AddWithValue("@remarks", issued.Remarks);
+            SqlCommand cmd2 = conn.CreateCommand();
+
+            cmd2.CommandText = sqlstatements;
+
+            try
+            {
+                using (conn)
+                {
+                    conn.Open();
+                    tr = conn.BeginTransaction();
+                    cmd.Transaction = tr;
+                    cmd2.Transaction = tr;
+
+                    cmd.ExecuteNonQuery();
+                    if(sqlstatements !="")
+                    {
+                        cmd2.ExecuteNonQuery();
+                    }
+                    
+                    tr.Commit();
+                }
+            }
+            catch
+            {
+                //  tr.Rollback();
+                throw;
+            }
+            finally
+            {
+                //conn.Close();
             }
         }
     }

@@ -32,6 +32,11 @@ namespace IMS_PowerDept.Print
         {
 
         }
+
+        protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
     }
 
 }

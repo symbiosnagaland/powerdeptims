@@ -174,7 +174,7 @@ namespace IMS_PowerDept.UserControls
             }
             catch
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error.')", true);
+               // ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error.')", true);
             }
 
         }
@@ -192,13 +192,7 @@ namespace IMS_PowerDept.UserControls
         {
             //Casting sender to Dropdown
             DropDownList ddl = sender as DropDownList;
-            //Looping through each Gridview row to find exact Row 
-
-            //Boolean ans = Convert.ToBoolean(ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "CheckRepetingItems();", true));
-
-            // Boolean ans=Convert .ToBoolean ( Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "CheckRepetingItems();", true));
-
-            //string confirmValue = Request.Form["confirm_value"];
+           
 
             foreach (GridViewRow row in gvItems.Rows)
             {
@@ -276,13 +270,13 @@ namespace IMS_PowerDept.UserControls
 
 
 
-                            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                            //ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
 
                         }
                         else
                         {
-                            ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                            //ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                         }
 
@@ -299,9 +293,7 @@ namespace IMS_PowerDept.UserControls
         {
             //Casting sender to Dropdown
             DropDownList ddl = sender as DropDownList;
-            //Looping through each Gridview row to find exact Row 
-           // ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
-
+         
 
             foreach (GridViewRow row in gvItems.Rows)
             {

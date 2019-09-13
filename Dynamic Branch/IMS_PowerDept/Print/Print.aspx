@@ -75,14 +75,14 @@
                 
                 <h2 style="text-align:center; margin:0px; padding-top:5px;">Delivery Challan</h2>
                 
-                <asp:Repeater ID="Repeater1" runat="server" DataSourceID="_sdsChallan">
+                <asp:Repeater ID="Repeater1" runat="server" DataSourceID="_sdsChallan" OnItemCommand="Repeater1_ItemCommand">
                     <ItemTemplate>
 
                         <div style="height:20px;">
                             <span style="float:right; font-weight:bold; line-height:20px;">
                                 Challan No : 
                             
-                                <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label> 
+                                <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label> 
 
                                 <br />
                             

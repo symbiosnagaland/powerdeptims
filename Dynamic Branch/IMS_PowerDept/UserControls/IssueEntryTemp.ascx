@@ -226,7 +226,7 @@
         </p>
     </asp:Panel>
     
-    <div class="h_title">Issue Entry</div>
+    <div class="h_title">Issue Entry Temporary</div>
     
     <!--First div-->
     <div style="margin: 0px auto; padding: 10px">
@@ -266,7 +266,7 @@
         </div>
 
         <div class="element2">
-            <asp:CheckBox ID="istemporary" Text=" Select if Issued Entry is Temporary" Checked ="True" Visible="false"  runat="server" ForeColor="Red" />
+            <asp:CheckBox ID="istemporary" Text=" Select if Issued Entry is Temporary" Checked ="True" Visible="true"  runat="server" ForeColor="Red" />
         </div>
         
         <div class="element2">

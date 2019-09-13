@@ -100,6 +100,7 @@ namespace IMS_PowerDept.UserControls
                 _ddIntendDivisions.DataTextField = "divisionName";
                 _ddIntendDivisions.DataBind();
                 _ddIntendDivisions.Items.Insert(0, new ListItem("--Select Division Name--", "0"));
+                con.Close();
             }
 
             private void InsertItemsRows(int numberofRows)
@@ -149,9 +150,6 @@ namespace IMS_PowerDept.UserControls
                 dtItems = dst.Tables["Items"];
                 dtIssueHead = dst.Tables["itemRatesSecondery"];
                 dtRate = dst.Tables["IT2"];
-
-               
-
             }
 
             protected void gvItems_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -174,7 +172,7 @@ namespace IMS_PowerDept.UserControls
                 }
                 catch
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error.')", true);
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error.')", true);
                 }
 
             }
@@ -276,13 +274,13 @@ namespace IMS_PowerDept.UserControls
                                 
 
                                 
-                                ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                              //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
 
                             }
                             else
                             {
-                                ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                              //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                             }
                          
@@ -300,7 +298,7 @@ namespace IMS_PowerDept.UserControls
                 //Casting sender to Dropdown
                 DropDownList ddl = sender as DropDownList;
                 //Looping through each Gridview row to find exact Row 
-                ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+              //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                
                 foreach (GridViewRow row in gvItems.Rows)
@@ -377,7 +375,7 @@ namespace IMS_PowerDept.UserControls
                                 _tbOrderQuantity.Text  = "0";
                                 _tbAmt.Text = "0";
                                 tbMaxQtyAvail.Text = "0";
-                                ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                               // ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                             }
                             else
@@ -399,7 +397,7 @@ namespace IMS_PowerDept.UserControls
                                  _tbOrderQuantity.Text  = "";
 
                                 _tbAmt.Text  = "";
-                                ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                                //ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                                 return;
                             }
@@ -585,7 +583,7 @@ namespace IMS_PowerDept.UserControls
                 try
                 {                   
 
-                    issued.challanNO  = Convert.ToInt32 (_tbChalanNo.Text);
+                    issued.challanNO  = Convert.ToDouble  (_tbChalanNo.Text);
                     issued.challanDate  = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                     issued.indentNo  = _tbIndentValue.Text;
                     issued.indentDate  = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");

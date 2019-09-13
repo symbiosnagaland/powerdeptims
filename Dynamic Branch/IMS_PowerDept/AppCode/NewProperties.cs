@@ -7,8 +7,8 @@ namespace IMS_PowerDept.AppCode
 {
     public class NewProperties
     {
-        protected int ChallanNO;
-        public int challanNO
+        protected double ChallanNO;
+        public double  challanNO
         {
             get { return ChallanNO; }
             set { ChallanNO = value; }

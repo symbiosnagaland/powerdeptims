@@ -180,7 +180,7 @@ namespace IMS_PowerDept.UserControls
             }
             catch
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error in loading the items.')", true);
+               // ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error in loading the items.')", true);
             }
         }
 
@@ -295,12 +295,12 @@ namespace IMS_PowerDept.UserControls
 
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
 
-                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
+                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                 //RecievedItemsOrderObject.Date = tbOTEODate.Text;
 
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
 
-                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
+                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
 
@@ -321,12 +321,12 @@ namespace IMS_PowerDept.UserControls
 
                 //  sb.Append("<root>");
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
-                
+
                 string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
 
                 string UpdateRateMaster = "Update  ItemsRateMaster set MaxOrderNO= '@odNo' where itemid= '@ITEMID'";
 
-                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
+                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -353,12 +353,12 @@ namespace IMS_PowerDept.UserControls
                         if (CheckExistingItem == "1")
                         {
                             sb.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
                         }
                         else
                         {
                             sb.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", _tbOrderNo.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
                         } 
                     }
                 }
@@ -456,11 +456,11 @@ namespace IMS_PowerDept.UserControls
 
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
 
-                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
+                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                // RecievedItemsOrderObject.Date = tbOTEODate.Text;
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
 
-                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd/MM/yyyy", null).ToString("yyyy/MM/dd");
+                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                 
                 //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
 
@@ -488,7 +488,7 @@ namespace IMS_PowerDept.UserControls
                 string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemid='@ITEMID'";
 
 
-                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
+                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID', '@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -516,14 +516,14 @@ namespace IMS_PowerDept.UserControls
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
 
                         if (CheckExistingItem == "1")
-                        { 
-                            sb.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace ("@OTEO",tbOtEONumber.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                        {
+                            sb.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
                         }
                         else
                         { 
                             sb.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", tbOrderNo.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
                         } 
                    }
                 }

@@ -186,7 +186,7 @@ namespace IMS_PowerDept.Admin
                 RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
                 RecievedItemsOrderObject.Date  = tbOTEODate.Text;
                 RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
-                RecievedItemsOrderObject.Date2  = tbSupplyDate.Text;
+                RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
                 RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
                
                 

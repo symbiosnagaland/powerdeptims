@@ -45,9 +45,7 @@ namespace IMS_PowerDept.AppCode
              //DataTable dt = new DataTable();
             string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
             
-            //bisu writes cmd4
-
-            //this code is ok
+           
 
 
 
@@ -217,13 +215,10 @@ namespace IMS_PowerDept.AppCode
             string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
             try
             {
-                //SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
-                //fill 
-               //v1-  dst.Tables.Add("ReceivedItemsDetails"); 
-               // dst.Tables.Add("ItemsEnquiryListTable"); 
+                
                 dst.Tables.Add("Items");
 
-                //adapter.Fill(dst.Tables[0]);
+                
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
                 adapter.Fill(dst.Tables[0]);
             }
@@ -246,6 +241,10 @@ namespace IMS_PowerDept.AppCode
                 adapter.Fill(dt);
             }
             catch { throw; }
+            finally
+            {
+                conn.Close();
+            }
 
             return dt;
 
@@ -330,8 +329,8 @@ namespace IMS_PowerDept.AppCode
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date , "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date , "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -382,8 +381,8 @@ namespace IMS_PowerDept.AppCode
 
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date , "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date , "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";

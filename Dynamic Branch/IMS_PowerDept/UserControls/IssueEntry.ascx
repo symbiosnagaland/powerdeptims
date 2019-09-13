@@ -14,14 +14,7 @@
 
 
 
-  <script type="text/javascript">
 
-    $(function () {
-        $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker();
-       $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker();
-    });
-
-</script>
 
 <style type="text/css">
     .ui-datepicker { font-size:8pt !important}
@@ -29,43 +22,6 @@
 
 <script type="text/javascript">
 
-    function SetUnitName(itemid)
-    {
-        alert(itemid);
-
-        var e = document.getElementById(itemid);
-        var itemsvalue = e.options[e.selectedIndex].value;
-        var mySplitResult = itemsvalue.split(" ");
-
-        /* Store last character of string id of ddlitems */
-        // var last_character = itemid[itemid.length - 1];
-
-        var splitItemsID = itemid.split("_"); F
-
-        //making sure the last digit is not 0
-        //fetching the last part of the control id(which is dynamic)
-
-        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-
-        if (typeof mySplitResult[1] === "undefined") {
-
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
-        }
-
-        else
-        {
-            alert(mySplitResult[1]);
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            //SAVING item id for saving to db also
-
-            
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
-        }
-        return true;
-    }
 
     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
     function UpdateAmountbyQTY(QTY)
@@ -112,17 +68,8 @@
             document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "white";
             //alert("OK Quantity");
         }
-
-        //********* for max Quantity Available
-
-
-        
-
-        //alert("hi");
-        //alert(OriginalQuantity);
-
         calculateQtySum();
-     }
+    }
 
     function calculateQtySum()
     {
@@ -144,7 +91,7 @@
              
              
          }
-        // document.getElementById("<%= gvItems.ClientID%>tbtotalAmount").value = sum;
+     
         document.getElementById("ContentPlaceHolder1_IssueEntryer_gvItems__tbTotalQty").value = sum;
 
         calculateTotAmountSum();
@@ -166,16 +113,14 @@
             }
 
         }
-        // document.getElementById("<%= gvItems.ClientID%>tbtotalAmount").value = sum;
+      
         document.getElementById("ContentPlaceHolder1_IssueEntryer_gvItems__tbTotalAmt").value = sum;
     }
 
    function CheckRepetingItems()
    {
        var grid = document.getElementById("<%= gvItems.ClientID%>");
-       var rCount = grid.rows.length;
-
-       
+       var rCount = grid.rows.length;       
       
        for (var rowIdx = 1; rowIdx < rCount - 1; rowIdx++)
        {
@@ -183,8 +128,7 @@
            var IssueHead1 = grid.rows[rowIdx].cells[2].getElementsByTagName("*")[0].value;
            for (var rowIdx1 = rowIdx+1; rowIdx1 < rCount - 1; rowIdx1++)
            {
-               //alert(rowIdx1);
-               var Itemid2 = grid.rows[rowIdx1].cells[0].getElementsByTagName("*")[0].value;
+              var Itemid2 = grid.rows[rowIdx1].cells[0].getElementsByTagName("*")[0].value;
                var IssueHead2 = grid.rows[rowIdx1].cells[2].getElementsByTagName("*")[0].value;
              
 
@@ -199,7 +143,6 @@
                    }
                   
                }
-
                
            }
           

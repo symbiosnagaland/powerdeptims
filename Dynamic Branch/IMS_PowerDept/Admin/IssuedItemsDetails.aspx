@@ -208,7 +208,7 @@
                                 <td>Challan ID :</td>
                                 <td>
                                     <asp:HiddenField ID="HiddenField1" Value='<%#DataBinder.Eval(Container, "DataItem.IsDeliveredTemporary")%>' runat="server" />
-                                    <asp:Label ID="cid" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label></td>
+                                    <asp:Label ID="cid" CssClass="labelet" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label></td>
                             </tr>
                             <tr>
                                 <td>Indent Reference</td>
