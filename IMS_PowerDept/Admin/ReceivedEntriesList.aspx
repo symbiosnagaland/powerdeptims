@@ -124,18 +124,41 @@
                         </th>                        
                     </tr>
                     <tr>
+
+                       
+
                         <td>
-                            <span style="float: left;"><label>Search between OTEO/Supply Order dates </label></span>
+                            <span style="float: left;"><label>Search between OTEO dates </label></span>
                         </td>
                         
                         <td>
                             <span style="float: left; padding-left: 10px;">
-                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO Date (dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
                             
                             <span style="float: left; padding-left: 5px;">
-                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
+
+
+                                      <br /> 
+                         
+                            <br />
+                         
+                            &nbsp; sort by <asp:RadioButtonList ID="rblOrderBy" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                                 <asp:ListItem Selected="True"  Value="ReceivedItemOTEODate">OTEO Date&nbsp;</asp:ListItem>
+                                 
+                                   <asp:ListItem Value="ReceivedItemsOTEOID">OTEO ID &nbsp;</asp:ListItem>
+                             
+                            </asp:RadioButtonList>
+
+                            &nbsp;&nbsp;
+                             <asp:RadioButtonList ID="rblAscOrDesc" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                                <asp:ListItem Selected="True" Value="ASC">Ascending &nbsp;</asp:ListItem>
+                                <asp:ListItem Value="DESC">Descending</asp:ListItem>
+                            </asp:RadioButtonList>
+
+
                         </td>
                         
                         <td>
@@ -162,6 +185,8 @@
                 
                 <thead>                    
                     <tr>
+                        <th scope="col"  style="text-align:center;">Sl.</th>
+
                         <th scope="col"  style="text-align:center;">OTEO ID</th>
                         <th scope="col" style="text-align:center;">OTEO Date</th>             
                         <th scope="col" style="text-align:center;">Chargeable Head</th>
@@ -188,6 +213,13 @@
                                 <ItemTemplate>
                                     
                                     <tr>
+
+                                             <td>
+
+                            <%# Container.DataItemIndex+1 %>.
+                                </td>
+                            <td>
+
                                         <td>
                                             <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label>
                                         </td>

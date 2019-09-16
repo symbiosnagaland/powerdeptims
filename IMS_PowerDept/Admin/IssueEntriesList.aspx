@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Issue Entry - View Details" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="IssueEntriesList.aspx.cs" Inherits="IMS_PowerDept.Admin.IssueEntriesList" %>
+﻿<%@ Page Title="Issue Entry - View Details" Language="C#" EnableEventValidation="false" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="IssueEntriesList.aspx.cs" Inherits="IMS_PowerDept.Admin.IssueEntriesList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
@@ -10,29 +10,12 @@
     <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
     
     
-    <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
-    <link type="text/css" href="../js/sortingfile/jquery-ui.css" rel="stylesheet" />
+ 
     <link type="text/css" href="jquery.datatables.yadcf.css" rel="stylesheet" />    
 
-
-
-    <script>
-
-        $(document).ready(function () {
-            $('#example').dataTable({
-                "aoColumnDefs": [
-                    { 'bSortable': false, 'aTargets': [0] }
-                ]
-            });
-        });
-
-    </script>
+   
     
-    <script type="text/javascript">
-        //  $(function () {
-        //  $("#ContentPlaceHolder1_tbStartDateSearch").datepicker();
-        //  $("#ContentPlaceHolder1_tbEndDateSearch").datepicker();
-        // });
+    <script type="text/javascript">       
 
         $(function () {
             $("#ContentPlaceHolder1_tbStartDateSearch").datepicker(
@@ -70,23 +53,21 @@
                 
                 <table>
                     
+                
+                
                     <tr>
                         <td style="width:200px">
-                            <label for="comments">Select Non-Temporary /Temporary Issued Items</label>
-                        </td>
-                        
-                        <td>
-                            <span style="float: left; padding-left: 10px; width: 47%;">
-                                <asp:DropDownList CssClass="err" ID="_istemp" Width="245px" runat="server" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="_istemp_SelectedIndexChanged" >
-                                    <asp:ListItem Text="All"/>
-                                    <asp:ListItem Text="Regular Issued Items"/>
-                                    <asp:ListItem Text="Temporary Issued Items"/>
-                                </asp:DropDownList>
-                            </span>
-                        </td>
-                        
-                        <td>  </td>
-                        <td>  </td>
+                            <label for="comments">
+                            Select Non-Temporary /Temporary Issued Items</label> </td>
+                        <td><span style="float: left; padding-left: 10px; width: 47%;">
+                            <asp:DropDownList ID="_istemp" runat="server" AppendDataBoundItems="true" AutoPostBack="true" CssClass="err" OnSelectedIndexChanged="_istemp_SelectedIndexChanged" Width="245px">
+                                <asp:ListItem Text="All" />
+                                <asp:ListItem Text="Regular Issued Items" />
+                                <asp:ListItem Text="Temporary Issued Items" />
+                            </asp:DropDownList>
+                            </span></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     
                     <!--Add by khyo -->
@@ -194,7 +175,23 @@
                             
                             <span style="float: left; padding-left:5px;">
                                 <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="dd-mm-yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
+                           
                             </span>
+                            <br />
+
+                             &nbsp;<br /> &nbsp; sort by <asp:RadioButtonList ID="rblOrderBy" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                                 <asp:ListItem Selected="True"  Value="Challandate">Challan Date&nbsp;</asp:ListItem>
+                                 
+                                   <asp:ListItem Value="DeliveryItemsChallanID">Challan ID &nbsp;</asp:ListItem>
+                             
+                            </asp:RadioButtonList>
+
+                            &nbsp;&nbsp;
+                             <asp:RadioButtonList ID="rblAscOrDesc" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                                <asp:ListItem Selected="True" Value="ASC">Ascending &nbsp;</asp:ListItem>
+                                <asp:ListItem Value="DESC">Descending</asp:ListItem>
+                            </asp:RadioButtonList>
+
                         </td>
                         
                         <td>  </td>
@@ -218,11 +215,15 @@
     <div class="box clearfix">
         <div id="yadcf_example">
             
-            <table cellpadding="0" cellspacing="0" border="0" class="datatable" id="example">
+            <table cellpadding="0" cellspacing="0" border="0" class="datatable" id="example" style="width:880px;">
                 <thead>
                     <tr>
-                        <th scope="col">Challan ID</th>
-                        <th scope="col">Challan Date</th>
+                          <th scope="col">
+                            Sl.</th>
+                        <th scope="col">
+                            Challan ID</th>
+                        <th scope="col">
+                          Challan Date</th>
                         <th scope="col">Division</th>
                         <th scope="col">Chargeable Head</th>
                         <th style="text-align:center; color:white; z-index:1000; ">Actions</th>
@@ -233,6 +234,10 @@
                     <ItemTemplate>
                         
                         <tr>
+                            <td>
+
+                            <%# Container.DataItemIndex+1 %>.
+                                </td>
                             <td>
                                 <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label>
                             </td>
@@ -265,11 +270,7 @@
         </div>
     </div>
     <!--/box clearfix-->
-    
-    <script src="../js/sortingfile/jquery.min.js"></script>
-    <script src="../js/sortingfile/jquery-ui.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="../js/sortingfile/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../js/sortingfile/jquery.dataTables.yadcf.js"></script>
+
     
     <asp:SqlDataSource ID="mainsds" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT * FROM [DeliveryItemsChallan] WHERE (([IndentingDivisionName] LIKE '%' + @IndentingDivisionName + '%') AND ([ChargeableHeadName] NOT LIKE '%' + @ChargeableHeadName + '%'))">
         <SelectParameters>
