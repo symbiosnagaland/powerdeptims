@@ -27,7 +27,7 @@ namespace IMS_PowerDept.AppCode
 
         //    return dt;
 
-   
+
 
         //    }
         /// <summary>
@@ -42,18 +42,18 @@ namespace IMS_PowerDept.AppCode
         {
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             DataSet dst = new DataSet();
-             //DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
             string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
-            
-           
+
+
 
 
 
             string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + '$' + Items.unit + '$'+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +'$'+ " +
- " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
-  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid = items.itemid LEFT JOIN  "+
+ " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit,items.itemname " +
+  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemname = items.itemname LEFT JOIN  " +
   "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A'";
-   
+
             SqlCommand cmd3 = conn.CreateCommand();
             cmd3.CommandText = "select max(ReceivedItemsOTEOID) from receiveditemsoteo";
 
@@ -62,16 +62,16 @@ namespace IMS_PowerDept.AppCode
             {
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd, conn);
                 //fill 
-                dst.Tables.Add("IssueHeads"); 
+                dst.Tables.Add("IssueHeads");
                 dst.Tables.Add("Items");
-               // dst.Tables.Add("ItemsRateMaster");
+                // dst.Tables.Add("ItemsRateMaster");
 
                 adapter.Fill(dst.Tables[0]);
                 adapter = new SqlDataAdapter(cmd2, conn);
                 adapter.Fill(dst.Tables[1]);
 
-               // adapter = new SqlDataAdapter(cmd4, conn);
-               // adapter.Fill(dst.Tables[2]);
+                // adapter = new SqlDataAdapter(cmd4, conn);
+                // adapter.Fill(dst.Tables[2]);
 
 
                 conn.Open();
@@ -87,25 +87,25 @@ namespace IMS_PowerDept.AppCode
 
         }
 
-        public static DataSet RetrieveActiveIssueHeadsAndActiveItemsSeperatelyOnIssueItemChanged( string myIssueHead)
+        public static DataSet RetrieveActiveIssueHeadsAndActiveItemsSeperatelyOnIssueItemChanged(string myIssueHead)
         {
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-            DataSet dst = new DataSet();           
-           
-          
+            DataSet dst = new DataSet();
+
+
             string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' ' + " +
- " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
-  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid = items.itemid LEFT JOIN  " +
+ " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit,Items.itemname " +
+  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemname = items.itemname LEFT JOIN  " +
   "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A' and IssueHeads.IssueHeadName='" + myIssueHead + "'";
 
             try
             {
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
-                
+
                 dst.Tables.Add("Items");
-                
-                adapter.Fill(dst.Tables[0]);              
-           
+
+                adapter.Fill(dst.Tables[0]);
+
             }
             catch { throw; }
             finally { conn.Close(); }
@@ -115,21 +115,21 @@ namespace IMS_PowerDept.AppCode
         }
 
         #region get issue heads, items and chargeable heads for edit pirpose
-        public static DataSet   RetrieveActive_IssueHeads_Items_ChargeableHeads()
+        public static DataSet RetrieveActive_IssueHeads_Items_ChargeableHeads()
         {
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             DataSet dst = new DataSet();
             //  DataTable dt = new DataTable();
             string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
             //retrive item names
-           // string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
+            // string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
 
 
             string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + '$' + Items.unit + '$'+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +'$'+ " +
              " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
               " FROM Items left JOIN itemsrateMaster  ON  itemsrateMaster.itemid = items.itemid LEFT JOIN  " +
               "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = itemsrateMaster.IssueHeadName WHERE ITEMS.status='A'";
-            
+
             string cmd3 = "SELECT chargeableheadid, chargeableheadname FROM chargeableheads where status='A'";
             try
             {
@@ -145,7 +145,7 @@ namespace IMS_PowerDept.AppCode
                 adapter = new SqlDataAdapter(cmd3, conn);
                 adapter.Fill(dst.Tables[2]);
 
-               
+
             }
             catch { throw; }
             finally { conn.Close(); }
@@ -166,10 +166,10 @@ namespace IMS_PowerDept.AppCode
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             DataSet dst = new DataSet();
             //  DataTable dt = new DataTable();
-           // string cmd = "SELECT ChargeableHeadName, (CONVERT(VARCHAR(10), chargeableheadid) + '*' + issueheadname + '*' + CONVERT(VARCHAR(10), issueheadid)) as chheadid_issueheadname_id  FROM ChargeableHeads where status='A';";
+            // string cmd = "SELECT ChargeableHeadName, (CONVERT(VARCHAR(10), chargeableheadid) + '*' + issueheadname + '*' + CONVERT(VARCHAR(10), issueheadid)) as chheadid_issueheadname_id  FROM ChargeableHeads where status='A';";
 
             string cmd = "SELECT ChargeableHeadName, chargeableheadid  FROM ChargeableHeads where status='A';";
- 
+
             //retrive item names
             string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
 
@@ -199,26 +199,26 @@ namespace IMS_PowerDept.AppCode
 
         /// <summary>
         /// get all items once received in received entry and not from master data items
-                /// </summary>
+        /// </summary>
         /// <returns></returns>
         public static DataSet RetrieveReceivedItemsAndReceivedItemsDetails()
         {
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-            DataSet dst = new DataSet();    
-            
+            DataSet dst = new DataSet();
+
             //
             //string cmd = "SELECT ItemID, ItemName, unit, Quantity, Rate, amount, IssueHeadName FROM  view_ReceivedItems_Tables";//v1 
             //v.2 - bringing itemname - rate - netactual balance
             //string cmd = "exec sp_ItemsEnquiryList";
             //retrive item names          
-           // string cmd2 = "select distinct itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from ReceivedItemsDetails";
+            // string cmd2 = "select distinct itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from ReceivedItemsDetails";
             string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
             try
             {
-                
+
                 dst.Tables.Add("Items");
 
-                
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
                 adapter.Fill(dst.Tables[0]);
             }
@@ -270,7 +270,7 @@ namespace IMS_PowerDept.AppCode
             cmd.CommandText = "sp_InsertReceivedItemsAfterValidation";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
-            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", RecievedItemsOrderObject.Date );
+            cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", RecievedItemsOrderObject.Date);
             cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
             cmd.Parameters.AddWithValue("@SupplyOrderDate", RecievedItemsOrderObject.SupplyDate);
             cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
@@ -285,20 +285,20 @@ namespace IMS_PowerDept.AppCode
             SqlCommand cmd2 = conn.CreateCommand();
             cmd2.CommandText = sqlstatements;
 
-        
+
             try
             {
-              
-                    conn.Open();
-                    tr = conn.BeginTransaction();
-                    cmd.Transaction = tr;
-                    cmd2.Transaction = tr;
-                   
-                    
-                    cmd.ExecuteNonQuery();
-                    cmd2.ExecuteNonQuery();
-                   
-                    tr.Commit();
+
+                conn.Open();
+                tr = conn.BeginTransaction();
+                cmd.Transaction = tr;
+                cmd2.Transaction = tr;
+
+
+                cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
+
+                tr.Commit();
             }
             catch
             {
@@ -311,8 +311,8 @@ namespace IMS_PowerDept.AppCode
             }
         }
 
-    
-      
+
+
         #endregion
 
 
@@ -322,14 +322,14 @@ namespace IMS_PowerDept.AppCode
         /// </summary>
         /// <param name="RecievedItemsOrderObject"></param>
         /// <param name="sqlstatements"></param>
-        public void UpdateReceivedItemsDetails(properties RecievedItemsOrderObject,  int originaloteoid, string sqlstatements)
+        public void UpdateReceivedItemsDetails(properties RecievedItemsOrderObject, int originaloteoid, string sqlstatements)
         {
 
             SqlTransaction tr = null;
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
             //this will execute first
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date , "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
             edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";
@@ -337,7 +337,7 @@ namespace IMS_PowerDept.AppCode
             cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
             cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", stDate);
             cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
-            cmd.Parameters.AddWithValue("@SupplyOrderDate", edDate );
+            cmd.Parameters.AddWithValue("@SupplyOrderDate", edDate);
             cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
             cmd.Parameters.AddWithValue("@ChargeableHeadName", RecievedItemsOrderObject.ChargeableHeadName);
             cmd.Parameters.AddWithValue("@IssueHeadName", RecievedItemsOrderObject.IssueHeadName);
@@ -349,18 +349,18 @@ namespace IMS_PowerDept.AppCode
 
             try
             {
-                 conn.Open();
-                    tr = conn.BeginTransaction();
-                    cmd.Transaction = tr;
-                    cmd2.Transaction = tr;
+                conn.Open();
+                tr = conn.BeginTransaction();
+                cmd.Transaction = tr;
+                cmd2.Transaction = tr;
 
-                    cmd.ExecuteNonQuery();
-                    cmd2.ExecuteNonQuery();
-                    tr.Commit();
+                cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
+                tr.Commit();
             }
             catch
             {
-             tr.Rollback();
+                tr.Rollback();
                 throw;
             }
             finally
@@ -381,7 +381,7 @@ namespace IMS_PowerDept.AppCode
 
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date , "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
             edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
             SqlCommand cmd = conn.CreateCommand();
@@ -390,7 +390,7 @@ namespace IMS_PowerDept.AppCode
             cmd.Parameters.AddWithValue("@ReceivedItemsOTEOID", RecievedItemsOrderObject.ReceivedItemsOTEOID);
             cmd.Parameters.AddWithValue("@ReceivedItemOTEODate", stDate);
             cmd.Parameters.AddWithValue("@SupplyOrderReference", RecievedItemsOrderObject.SupplyOderRef);
-            cmd.Parameters.AddWithValue("@SupplyOrderDate",edDate);
+            cmd.Parameters.AddWithValue("@SupplyOrderDate", edDate);
             cmd.Parameters.AddWithValue("@Supplier", RecievedItemsOrderObject.Supplier);
             cmd.Parameters.AddWithValue("@ChargeableHeadName", RecievedItemsOrderObject.ChargeableHeadName);
             cmd.Parameters.AddWithValue("@IssueHeadName", RecievedItemsOrderObject.IssueHeadName);
@@ -400,12 +400,12 @@ namespace IMS_PowerDept.AppCode
 
             try
             {
-                 conn.Open();
-                    cmd.ExecuteNonQuery(); 
-                
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
             }
             catch
-            {               
+            {
                 throw;
             }
             finally

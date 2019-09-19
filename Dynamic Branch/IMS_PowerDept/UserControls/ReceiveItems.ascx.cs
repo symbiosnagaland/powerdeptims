@@ -484,11 +484,12 @@ namespace IMS_PowerDept.UserControls
 
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
 
-                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
-                string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemid='@ITEMID'";
+                string insertRateMaster = "INSERT into ItemsRateMaster (itemname,MaxOrderNO,IssueHeadName) values('@ITEMNAME','@odNo','@issueHead')";
+                string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemname='@ITEMNAME' AND IssueHeadName='@issueHead'";
 
 
-                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID', '@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
+                string insertRateSecondary = "INSERT into ItemsRateSecondary (ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead')";
+                //string updateRateSecondary = "update ItemsRateSecondary set ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -517,13 +518,13 @@ namespace IMS_PowerDept.UserControls
 
                         if (CheckExistingItem == "1")
                         {
-                            sb.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb.Append(insertRateMaster.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@odNo", tbOrderNo.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                            sb.Append(insertRateSecondary.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
                         }
                         else
-                        { 
-                            sb.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", tbOrderNo.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                        {
+                            sb.Append(UpdateRateMaster.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@odNo", tbOrderNo.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                            sb.Append(insertRateSecondary.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
                         } 
                    }
                 }

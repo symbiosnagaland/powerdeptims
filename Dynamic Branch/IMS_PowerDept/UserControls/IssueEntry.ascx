@@ -58,9 +58,9 @@
         var OriginalQuantity = document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).value;
         if (parseFloat(EnteredQuantity) > parseFloat(OriginalQuantity))
         {
-            document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).style.backgroundColor = "pink";
-            document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
-            alert("Check Quantity");
+            //document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).style.backgroundColor = "pink";
+            //document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
+            //alert("Check Quantity");
         }
         else
         {
@@ -289,12 +289,15 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
+                          <%--this is css for hiding--%>
+                            <%--FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"--%>
                           
-                            <asp:TemplateField HeaderText="Rate--Quanitity" FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol" >
+                            
+                              <asp:TemplateField HeaderText="Rate--Quanitity"  >
                                     <ItemTemplate>
                                        <%-- <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
                                     --%>
-                                        <asp:TextBox ID="tbRate" runat="server" Text="Rate"></asp:TextBox>&nbsp;&nbsp;&nbsp;
+                                        <asp:TextBox ID="tbRate" runat="server" Text="0"></asp:TextBox>&nbsp;&nbsp;&nbsp;
                                         <asp:TextBox ID="tbQty" runat="server" Text="Qty"></asp:TextBox>&nbsp;&nbsp;&nbsp;
                                         <asp:TextBox ID="tbOrderNO" runat="server" Text="ONO"></asp:TextBox>
                                         <asp:TextBox ID="tbAmount" runat="server" Text="Amt"></asp:TextBox>

@@ -16,13 +16,13 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
 
             //reterive issue HEadNames
-            string cmd = "select distinct itemid,issueheadname from ItemsRateSecondary ";
+            string cmd = "select distinct ItemName,issueheadname from ItemsRateSecondary ";
             //retrive item names          
             string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
 
-            string cmd3 = "select itemid,issueheadname,Rate,OrderNo,Quantity,cast((Rate*Quantity)as decimal(10,2))  AS AMT from ItemsRateSecondary IT2 where quantity>0 order by rate,OrderNo";
+            string cmd3 = "select itemname,issueheadname,Rate,OrderNo,Quantity,cast((Rate*Quantity)as decimal(10,2))  AS AMT from ItemsRateSecondary IT2 where quantity>0 order by OrderNo,rate";
 
-            string cmd4 = "select sum(quantity) TotQtyAvailable, itemid,IssueHeadName  from ItemsRateSecondary group by itemid,IssueHeadName";
+            string cmd4 = "select sum(quantity) TotQtyAvailable, itemname,IssueHeadName  from ItemsRateSecondary group by itemname,IssueHeadName";
 
             try
             {

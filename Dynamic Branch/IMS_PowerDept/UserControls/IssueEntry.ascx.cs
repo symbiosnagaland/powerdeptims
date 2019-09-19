@@ -216,6 +216,8 @@ namespace IMS_PowerDept.UserControls
                            
 
                             DropDownList ddlIhead = row.FindControl("ddlIhead") as DropDownList;
+                            DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
+
 
                             TextBox tbRate = row.FindControl("tbRate") as TextBox ;
                             TextBox tbQty = row.FindControl("tbQty") as TextBox;
@@ -242,10 +244,10 @@ namespace IMS_PowerDept.UserControls
 
 
                             DataTable dt = dst.Tables["IT2"].Clone();
-                            DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                            DataRow[] rates = dst.Tables["IT2"].Select("ItemName= '" + _ddItems.SelectedItem.ToString () + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                             DataTable dt2 = dst.Tables["IT3"].Clone();
-                            DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                            DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemName= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                             foreach (DataRow dr in MaxQty )
                             {
@@ -349,7 +351,7 @@ namespace IMS_PowerDept.UserControls
                                 _tbUnit.Text = splitresult[1];
                                 _hdnFieldItemID.Value    = splitresult[0];
                                 DataTable dt = dst.Tables["itemRatesSecondery"].Clone();
-                                DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("ItemId= '" + _hdnFieldItemID.Value + "'");
+                                DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("Itemname= '" + _ddItems.SelectedItem.ToString () + "'");
 
 
 
@@ -598,7 +600,7 @@ namespace IMS_PowerDept.UserControls
 
                     StringBuilder sb = new StringBuilder();
                     string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,itemid,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
-                    string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemid='@ItemID' and issueHeadName=  '@IssueHeadName' and OrderNO='@OrderNO'";
+                    string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemname='@ItemName' and issueHeadName='@IssueHeadName' and OrderNO='@OrderNO'";
 
 
                     for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -638,7 +640,7 @@ namespace IMS_PowerDept.UserControls
                                 if (Convert.ToDouble(_tbOrderQuantity.Text) > Convert.ToDouble(tbQty.Text))
                                 {
                                     DataTable dt = dst.Tables["IT2"].Clone();
-                                    DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                                    DataRow[] rates = dst.Tables["IT2"].Select("itemName= '" + itemName.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                                     Double OrderedQty = Convert.ToDouble(_tbOrderQuantity.Text);
                                     double QtyAvailableinRows = Convert.ToDouble(tbQty.Text);
@@ -667,7 +669,7 @@ namespace IMS_PowerDept.UserControls
                                             tempQty = OrderedQty;
                                         }
 
-                                        sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", tempQty.ToString ()).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tempOrderNo.ToString ()));
+                                        sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tempOrderNo.ToString()));
 
                                         sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString ()));
                                         
@@ -677,7 +679,7 @@ namespace IMS_PowerDept.UserControls
                                 }
                                 else
                                 {
-                                    sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tbOrderNO.Text));
+                                    sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tbOrderNO.Text));
                                     sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
 
                                 }

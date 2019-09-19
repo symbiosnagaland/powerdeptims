@@ -162,7 +162,7 @@
     <Content Include="Reports\DivisionsList.aspx" />
     <Content Include="Reports\IssueHeadsList.aspx" />
     <Content Include="Reports\ItemsList.aspx" />
-    <Content Include="Shared\ItemEnquiry.aspx" />
+    <Content Include="templates\Shared\ItemEnquiry.aspx" />
     <Content Include="Transformers\Reports.aspx" />
     <Content Include="templates\css\login.css" />
     <Content Include="templates\css\navi.css" />
@@ -748,18 +748,18 @@
     <Compile Include="Reports\ItemsList.aspx.designer.cs">
       <DependentUpon>ItemsList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Shared\ItemEnquiry.aspx.cs">
+    <Compile Include="templates\Shared\ItemEnquiry.aspx.cs">
       <DependentUpon>ItemEnquiry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shared\ItemEnquiry.aspx.designer.cs">
+    <Compile Include="templates\Shared\ItemEnquiry.aspx.designer.cs">
       <DependentUpon>ItemEnquiry.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Shared.Master.cs">
+    <Compile Include="templates\Shared\Shared.Master.cs">
       <DependentUpon>Shared.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shared\Shared.Master.designer.cs">
+    <Compile Include="templates\Shared\Shared.Master.designer.cs">
       <DependentUpon>Shared.Master</DependentUpon>
     </Compile>
     <Compile Include="Transformers\Reports.aspx.cs">
@@ -769,32 +769,32 @@
     <Compile Include="Transformers\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Admin_Master.Master.cs">
+    <Compile Include="templates\Shared\Admin_Master.Master.cs">
       <DependentUpon>Admin_Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shared\Admin_Master.Master.designer.cs">
+    <Compile Include="templates\Shared\Admin_Master.Master.designer.cs">
       <DependentUpon>Admin_Master.Master</DependentUpon>
     </Compile>
-    <Compile Include="Shared\CentralStore_Master.Master.cs">
+    <Compile Include="templates\Shared\CentralStore_Master.Master.cs">
       <DependentUpon>CentralStore_Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shared\CentralStore_Master.Master.designer.cs">
+    <Compile Include="templates\Shared\CentralStore_Master.Master.designer.cs">
       <DependentUpon>CentralStore_Master.Master</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Transformers_Master.Master.cs">
+    <Compile Include="templates\Shared\Transformers_Master.Master.cs">
       <DependentUpon>Transformers_Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shared\Transformers_Master.Master.designer.cs">
+    <Compile Include="templates\Shared\Transformers_Master.Master.designer.cs">
       <DependentUpon>Transformers_Master.Master</DependentUpon>
     </Compile>
-    <Compile Include="Shared\PrintTemplate.Master.cs">
+    <Compile Include="templates\Shared\PrintTemplate.Master.cs">
       <DependentUpon>PrintTemplate.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shared\PrintTemplate.Master.designer.cs">
+    <Compile Include="templates\Shared\PrintTemplate.Master.designer.cs">
       <DependentUpon>PrintTemplate.Master</DependentUpon>
     </Compile>
     <Compile Include="Transformers\IssueEntryDetails.aspx.cs">
@@ -981,13 +981,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Shared\Admin_Master.Master" />
-    <Content Include="Shared\CentralStore_Master.Master" />
-    <Content Include="Shared\PrintTemplate.Master" />
+    <Content Include="templates\Shared\Admin_Master.Master" />
+    <Content Include="templates\Shared\CentralStore_Master.Master" />
+    <Content Include="templates\Shared\PrintTemplate.Master" />
     <Content Include="AppContent\ImportItemsTemplate.xlsx" />
-    <Content Include="Shared\Transformers_Master.Master" />
+    <Content Include="templates\Shared\Transformers_Master.Master" />
     <Content Include="AppContent\Transformers_MasterData.xlsx" />
-    <Content Include="Shared\Shared.Master" />
+    <Content Include="templates\Shared\Shared.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
