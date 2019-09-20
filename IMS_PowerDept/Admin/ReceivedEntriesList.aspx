@@ -218,8 +218,7 @@
 
                             <%# Container.DataItemIndex+1 %>.
                                 </td>
-                            <td>
-
+                        
                                         <td>
                                             <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label>
                                         </td>

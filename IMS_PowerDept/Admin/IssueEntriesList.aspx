@@ -235,7 +235,6 @@
                         
                         <tr>
                             <td>
-
                             <%# Container.DataItemIndex+1 %>.
                                 </td>
                             <td>
