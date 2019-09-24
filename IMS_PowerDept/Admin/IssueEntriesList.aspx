@@ -291,8 +291,8 @@
     <script src="../js/sortingfile/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf8" src="../js/sortingfile/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../js/sortingfile/jquery.dataTables.yadcf.js"></script>--%>  
-
-    <script src="../js/sortingfile/jquery-ui.min.js"></script>
+    
+        <script src="../js/sortingfile/jquery-ui.min.js"></script>
 
     <asp:SqlDataSource ID="mainsds" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT * FROM [DeliveryItemsChallan] WHERE (([IndentingDivisionName] LIKE '%' + @IndentingDivisionName + '%') AND ([ChargeableHeadName] NOT LIKE '%' + @ChargeableHeadName + '%'))">
         <SelectParameters>
