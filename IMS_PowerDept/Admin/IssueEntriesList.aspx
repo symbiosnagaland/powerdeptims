@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="Issue Entry - View Details" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Shared/Admin_Master.Master" AutoEventWireup="true" CodeBehind="IssueEntriesList.aspx.cs" Inherits="IMS_PowerDept.Admin.IssueEntriesList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+<%--  <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/sb-admin.css" rel="stylesheet" />
     <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
 
@@ -12,20 +12,41 @@
     
     <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
     <link type="text/css" href="../js/sortingfile/jquery-ui.css" rel="stylesheet" />
-    <link type="text/css" href="jquery.datatables.yadcf.css" rel="stylesheet" />    
+    <link type="text/css" href="jquery.datatables.yadcf.css" rel="stylesheet" />      
+--%>
+    <%--    <link href="../js/sortingfile/jquery.dataTables.css" rel="stylesheet" type="text/css" />--%>
 
+    
+    <!--New links for DataTable sorting and Calender-->
 
+    <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
+    <link type="text/css" href="../js/sortingfile/jquery-ui.css" rel="stylesheet" />
+
+    <link href="../css/jquery.dataTables.min.css" rel="stylesheet"/>   
+    <link href="../css/dataTables.bootstrap.min.css" rel="stylesheet"/> 
+    
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script src="../js/dataTables.bootstrap.min.js"></script>
+  
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="../js/jquery.dataTables.js"></script>
 
     <script>
-
         $(document).ready(function () {
-            $('#example').dataTable({
-                "aoColumnDefs": [
-                    { 'bSortable': false, 'aTargets': [0] }
-                ]
+
+            var table = $('#example').DataTable({
+                'aoColumnDefs': [{
+                    'bSortable': false,
+                    'aTargets': -1
+                }]
             });
         });
-
     </script>
     
     <script type="text/javascript">
@@ -218,7 +239,7 @@
     <div class="box clearfix">
         <div id="yadcf_example">
             
-            <table cellpadding="0" cellspacing="0" border="0" class="datatable" id="example">
+            <table border="0" class="table table-striped table-bordered table-hover" id="example">
                 <thead>
                     <tr>
                         <th scope="col">Challan ID</th>
@@ -266,11 +287,13 @@
     </div>
     <!--/box clearfix-->
     
-    <script src="../js/sortingfile/jquery.min.js"></script>
+    <%-- <script src="../js/sortingfile/jquery.min.js"></script>
     <script src="../js/sortingfile/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf8" src="../js/sortingfile/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../js/sortingfile/jquery.dataTables.yadcf.js"></script>
-    
+    <script type="text/javascript" src="../js/sortingfile/jquery.dataTables.yadcf.js"></script>--%>  
+
+    <script src="../js/sortingfile/jquery-ui.min.js"></script>
+
     <asp:SqlDataSource ID="mainsds" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT * FROM [DeliveryItemsChallan] WHERE (([IndentingDivisionName] LIKE '%' + @IndentingDivisionName + '%') AND ([ChargeableHeadName] NOT LIKE '%' + @ChargeableHeadName + '%'))">
         <SelectParameters>
             <asp:ControlParameter ControlID="_ddldivname" Name="IndentingDivisionName" PropertyName="SelectedValue" Type="String" />

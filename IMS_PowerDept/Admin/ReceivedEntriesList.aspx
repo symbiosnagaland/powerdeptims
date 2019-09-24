@@ -2,12 +2,49 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<%-- <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/sb-admin.css" rel="stylesheet" />
     <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
     
     <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
+
+
+    <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
+     <link href="../css/sb-admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>--%>
+    <%--    <link href="../js/sortingfile/jquery.dataTables.css" rel="stylesheet" type="text/css" />--%>
+   
+
+    <!--New links for DataTable sorting-->
+     
+    <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
+    <link type="text/css" href="../js/sortingfile/jquery-ui.css" rel="stylesheet" />
+
+    <link href="../css/jquery.dataTables.min.css" rel="stylesheet"/>   
+    <link href="../css/dataTables.bootstrap.min.css" rel="stylesheet"/> 
+    
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script src="../js/dataTables.bootstrap.min.js"></script>
+
+
+  
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="../js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example').DataTable({
+                'aoColumnDefs': [{
+                    'bSortable': false,
+                    'aTargets': -1
+                }]
+            });
+        });
+    </script>
+
     
     <script type="text/javascript">
 
@@ -158,7 +195,7 @@
         <!--table-->
         <div style="overflow: auto;">
             
-            <table  class="table table-striped table-bordered table-hover" style="width:790px; text-align:center;">
+            <table  class="table table-striped table-bordered table-hover" id="example">
                 
                 <thead>                    
                     <tr>
@@ -231,5 +268,5 @@
         <!--/table-->
     </div>
     <!--/full_w-->
-        
+          <script src="../js/sortingfile/jquery-ui.min.js"></script>
 </asp:Content>

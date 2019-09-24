@@ -101,6 +101,12 @@
     <Content Include="CentralStore\Reports.aspx" />
     <Content Include="CentralStore\SearchByItem.aspx" />
     <Content Include="CentralStore\User_Setting.aspx" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\components.css" />
+    <Content Include="css\dataTables.bootstrap.min.css" />
+    <Content Include="css\icons\icomoon\fonts\icomoon.svg" />
+    <Content Include="css\icons\icomoon\styles.css" />
+    <Content Include="css\jquery.dataTables.min.css" />
     <Content Include="css\login.css" />
     <Content Include="css\navi.css" />
     <Content Include="css\sb-admin.css" />
@@ -131,10 +137,18 @@
     <Content Include="img\i_warning.png" />
     <Content Include="img\Power-Transformer.jpg" />
     <Content Include="img\print.png" />
+    <Content Include="js\core\jquery.min.js" />
+    <Content Include="js\dataTables.bootstrap.min.js" />
     <Content Include="js\fancybox\jquery-1.4.2.min.js" />
     <Content Include="js\highcharts.js" />
     <Content Include="js\highcharts_init.js" />
     <Content Include="js\jquery-1.7.2.min.js" />
+    <Content Include="js\jquery.dataTables.js" />
+    <Content Include="js\jquery.dataTables.min.js" />
+    <Content Include="js\pages\form_select2.js" />
+    <Content Include="js\plugins\selects\select2.min.js" />
+    <Content Include="js\sortingfile\jquery-ui.css" />
+    <Content Include="js\sortingfile\jquery.dataTables.css" />
     <Content Include="Login.aspx" />
     <Content Include="PrintReports\Transformer_Issue.aspx" />
     <Content Include="PrintReports\Transformer_Jobs.aspx" />
@@ -978,6 +992,10 @@
     <Content Include="Shared\Transformers_Master.Master" />
     <Content Include="AppContent\Transformers_MasterData.xlsx" />
     <Content Include="Shared\Shared.Master" />
+    <Content Include="css\icons\icomoon\fonts\icomoon.eot" />
+    <Content Include="css\icons\icomoon\fonts\icomoon.ttf" />
+    <Content Include="css\icons\icomoon\fonts\icomoon.woff" />
+    <Content Include="js\bootstrap.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
