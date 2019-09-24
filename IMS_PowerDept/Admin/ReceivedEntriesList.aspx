@@ -202,6 +202,8 @@
                             <asp:Button ID="Button2" CssClass="btn btn-primary" runat="server" Text="Search" OnClick="btnSearch_Click" />
                             <asp:Button ID="Button3" CssClass="btn btn-warning" runat="server" Text="Cancel" OnClick="btnCancel_Click"/>
                         </td>
+
+                      
                     </tr>
 
                 </table>

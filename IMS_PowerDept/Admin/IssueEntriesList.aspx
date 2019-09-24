@@ -216,6 +216,20 @@
                             <span style="float: left; padding-left:5px;">
                                 <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" placeholder="dd-mm-yyyy" autocomplete="off" Width="100px" runat="server"></asp:TextBox>
                             </span>
+                                  <br />
+
+                             &nbsp;<br /> &nbsp; sort by <asp:RadioButtonList ID="rblOrderBy" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                                 <asp:ListItem Selected="True"  Value="Challandate">Challan Date&nbsp;</asp:ListItem>
+                                 
+                                   <asp:ListItem Value="DeliveryItemsChallanID">Challan ID &nbsp;</asp:ListItem>
+                             
+                            </asp:RadioButtonList>
+
+                            &nbsp;&nbsp;
+                             <asp:RadioButtonList ID="rblAscOrDesc" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                                <asp:ListItem Selected="True" Value="ASC">Ascending &nbsp;</asp:ListItem>
+                                <asp:ListItem Value="DESC">Descending</asp:ListItem>
+                            </asp:RadioButtonList>
                         </td>
                         
                         <td>  </td>
@@ -242,6 +256,8 @@
             <table border="0" class="table table-striped table-bordered table-hover" id="example">
                 <thead>
                     <tr>
+                        
+                        <th scope="col">Sl.</th>
                         <th scope="col">Challan ID</th>
                         <th scope="col">Challan Date</th>
                         <th scope="col">Division</th>
@@ -254,6 +270,12 @@
                     <ItemTemplate>
                         
                         <tr>
+
+                                 <td>
+
+                            <%# Container.DataItemIndex+1 %>.
+                                </td>
+
                             <td>
                                 <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label>
                             </td>

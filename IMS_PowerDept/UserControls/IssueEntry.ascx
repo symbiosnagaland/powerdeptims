@@ -5,16 +5,16 @@
 <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
 
+<style type="text/css">
+  .hiddencol
+  {
+    display: none;
+  }
+</style>
 
 
-  <script type="text/javascript">
 
-    $(function () {
-        $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker();
-       $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker();
-    });
 
-</script>
 
 <style type="text/css">
     .ui-datepicker { font-size:8pt !important}
@@ -22,90 +22,147 @@
 
 <script type="text/javascript">
 
-    function SetUnitName(itemid) {
-
-        var e = document.getElementById(itemid);
-        var itemsvalue = e.options[e.selectedIndex].value;
-        var mySplitResult = itemsvalue.split(" ");
-
-        /* Store last character of string id of ddlitems */
-        // var last_character = itemid[itemid.length - 1];
-
-        var splitItemsID = itemid.split("_"); F
-
-        //making sure the last digit is not 0
-        //fetching the last part of the control id(which is dynamic)
-
-        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-
-        if (typeof mySplitResult[1] === "undefined") {
-
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
-        }
-
-        else {
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            //SAVING item id for saving to db also
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
-        }
-        return true;
-    }
 
     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
-    function UpdateAmountbyRate(rateid) {
-
-        // var last_character = itemid[itemid.length - 1];
-
-        var splitItemsID = rateid.split("_");
-        //making sure the last digit is not 0
-        //fetching the last part of the control id(which is dynamic)
+    function UpdateAmountbyQTY(QTY)
+    {
+       
+        var splitItemsID = QTY.split("_");
         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-        //update amount textbox for this row
-        //amount =rate * quantity
-        document.getElementById("<%= gvItems.ClientID%>_tbtotalAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
-        calculateSum();
-     }
+        
+      
+        document.getElementById("<%= gvItems.ClientID%>__tbAmt_" + dynamicidpart).value = document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value * document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).value;
+        //alert("hi");
 
-    function calculateSum() {
+        var EnteredQuantity = document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).value;
+        var OriginalMaxQuantity = document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).value;
+        if (parseFloat(EnteredQuantity) > parseFloat(OriginalMaxQuantity)) {
+            document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).style.backgroundColor = "pink";
+            document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
+            document.getElementById("<%= gvItems.ClientID%>").style.border = "red 2px outset";
+            document.getElementById('<%=save.ClientID %>').disabled = true;
+            document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
+
+        }
+        else {
+            document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).style.backgroundColor = "white";
+            document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "white";
+            document.getElementById("<%= gvItems.ClientID%>").style.border = "none";
+            document.getElementById('<%=save.ClientID %>').disabled = false;
+            document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+        }
+
+
+
+        var EnteredQuantity = document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).value;
+        var OriginalQuantity = document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).value;
+        if (parseFloat(EnteredQuantity) > parseFloat(OriginalQuantity))
+        {
+            //document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).style.backgroundColor = "pink";
+            //document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
+            //alert("Check Quantity");
+        }
+        else
+        {
+            document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).style.backgroundColor = "white";
+            document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "white";
+            //alert("OK Quantity");
+        }
+        calculateQtySum();
+    }
+
+    function calculateQtySum()
+    {
         var sum = 0;
-        // Get the gridview
         var grid = document.getElementById("<%= gvItems.ClientID%>");
-         //ContentPlaceHolder1_ReceiveItems_gvItems
-         // Get all the input controls (can be any DOM element you would like)
+ 
          var inputs = grid.getElementsByTagName("input");
          // Loop through all the DOM elements we grabbed
-         for (var i = 0; i < inputs.length; i++) {
-             // In this case we are looping through all the Dek Volume and then the Mcf volume boxes in the grid and not an individual one and totalling them
-             if (inputs[i].name.indexOf("tbtotalAmount") > 1) {
-                 if (inputs[i].value != "") {
-                     sum = sum + parseInt(inputs[i].value);
+         for (var i = 0; i < inputs.length; i++)
+         {
+            
+             if (inputs[i].name.indexOf("_tbOrderQuantity") > 1)
+             {
+                 if (inputs[i].value != "")
+                 {
+                     sum = sum + parseFloat(inputs[i].value);
                  }
              }
+             
+             
          }
-        // document.getElementById("<%= gvItems.ClientID%>tbtotalAmount").value = sum;
-        document.getElementById("ContentPlaceHolder1_IssueEntryer_gvItems_tbtotalAmount").value = sum;      
+     
+        document.getElementById("ContentPlaceHolder1_IssueEntryer_gvItems__tbTotalQty").value = sum;
+
+        calculateTotAmountSum();
+    }
+
+
+    function calculateTotAmountSum() {
+        var sum = 0;
+        var grid = document.getElementById("<%= gvItems.ClientID%>");
+
+        var inputs = grid.getElementsByTagName("input");
+        // Loop through all the DOM elements we grabbed
+        for (var i = 0; i < inputs.length; i++) {
+
+            if (inputs[i].name.indexOf("_tbAmt") > 1) {
+                if (inputs[i].value != "") {
+                    sum = sum + parseFloat(inputs[i].value);
+                }
+            }
+
+        }
+      
+        document.getElementById("ContentPlaceHolder1_IssueEntryer_gvItems__tbTotalAmt").value = sum;
+    }
+
+   function CheckRepetingItems()
+   {
+       var grid = document.getElementById("<%= gvItems.ClientID%>");
+       var rCount = grid.rows.length;       
+      
+       for (var rowIdx = 1; rowIdx < rCount - 1; rowIdx++)
+       {
+           var Itemid1 = grid.rows[rowIdx].cells[0].getElementsByTagName("*")[0].value;
+           var IssueHead1 = grid.rows[rowIdx].cells[2].getElementsByTagName("*")[0].value;
+           for (var rowIdx1 = rowIdx+1; rowIdx1 < rCount - 1; rowIdx1++)
+           {
+              var Itemid2 = grid.rows[rowIdx1].cells[0].getElementsByTagName("*")[0].value;
+               var IssueHead2 = grid.rows[rowIdx1].cells[2].getElementsByTagName("*")[0].value;
+             
+
+               if ((Itemid1!="") && (IssueHead1!=0))
+               {
+                   if ((Itemid1 == Itemid2) && (IssueHead1 == IssueHead2))
+                   {
+                      // alert("Same Item and same Issue Head Not Allowed");
+                       document.getElementById('<%=save.ClientID %>').disabled = true;
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = true;                      
+                       grid.style.border = "2px solid red";                      
+                       return true ;
+                   }
+                   else
+                   {
+                       document.getElementById('<%=save.ClientID %>').disabled = false;
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                       grid.style.border = "none";
+                   }
+                 
+                  
+               }
+               
+           }
+          
+       }
+
+       return false;
     }
 
 </script>
 
 
-<!--<script type="text/javascript">
-    $(function () {
-        $("#ContentPlaceHolder1_IssueEntryer__tbIntendDate").datepicker(            
-            {
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'dd-mm-yy'
-    });
-        $("#ContentPlaceHolder1_IssueEntryer__tbChallanDate").datepicker(
-            {                changeMonth: true,
-            changeYear: true
-            });
-    });
-</script>-->
+
 
 <asp:SqlDataSource ID="_sdsSaveDIChallan" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" DeleteCommand="DELETE FROM [DeliveryItemsChallan] WHERE [DeliveryItemsChallanID] = @original_DeliveryItemsChallanID AND [IndentReference] = @original_IndentReference AND [IndentDate] = @original_IndentDate AND [IndentingDivisionName] = @original_IndentingDivisionName AND [ChargeableHeadName] = @original_ChargeableHeadName AND [TotalAmount] = @original_TotalAmount AND [IsDeliveredTemporary] = @original_IsDeliveredTemporary AND [ModifiedOn] = @original_ModifiedOn AND [ModifiedBy] = @original_ModifiedBy" InsertCommand="INSERT INTO [DeliveryItemsChallan] ([DeliveryItemsChallanID], [IndentReference], [IndentDate], [IndentingDivisionName], [ChargeableHeadName], [TotalAmount], [IsDeliveredTemporary], [ModifiedOn], [ModifiedBy]) VALUES (@DeliveryItemsChallanID, @IndentReference, @IndentDate, @IndentingDivisionName, @ChargeableHeadName, @TotalAmount, @IsDeliveredTemporary, @ModifiedOn, @ModifiedBy)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [DeliveryItemsChallan]" UpdateCommand="UPDATE [DeliveryItemsChallan] SET [IndentReference] = @IndentReference, [IndentDate] = @IndentDate, [IndentingDivisionName] = @IndentingDivisionName, [ChargeableHeadName] = @ChargeableHeadName, [TotalAmount] = @TotalAmount, [IsDeliveredTemporary] = @IsDeliveredTemporary, [ModifiedOn] = @ModifiedOn, [ModifiedBy] = @ModifiedBy WHERE [DeliveryItemsChallanID] = @original_DeliveryItemsChallanID AND [IndentReference] = @original_IndentReference AND [IndentDate] = @original_IndentDate AND [IndentingDivisionName] = @original_IndentingDivisionName AND [ChargeableHeadName] = @original_ChargeableHeadName AND [TotalAmount] = @original_TotalAmount AND [IsDeliveredTemporary] = @original_IsDeliveredTemporary AND [ModifiedOn] = @original_ModifiedOn AND [ModifiedBy] = @original_ModifiedBy">
     <InsertParameters>
@@ -144,7 +201,7 @@
             <div class="h_title">Challan No. / Date(dd-mm-yyyy) </div>
             
             <div style="margin: 0px auto; padding: 10px">
-                <asp:TextBox CssClass="form-control" AutoComplete="false" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass="form-control" AutoComplete="off" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
                 
                 <br />
                 
@@ -189,8 +246,8 @@
             </span>
             
             <span style="float: left;padding-left: 10px;"> 
-                <asp:Button ID="btnRowsAdd" class="btn btn-outline btn-primary" ToolTip="This will create the total number of rows to be used for adding items. By default, 10 rows are always displayed." runat="server" Text="CREATE ROWS" OnClick="btnRowsAdd_Click" />
-                <asp:Button ID="_btnCancel" CssClass="btn btn-danger" runat="server" Text="RESET PAGE" OnClick="_btnCancel_Click" />
+                <asp:Button ID="btnRowsAdd" class="btn btn-outline btn-primary" ToolTip="This will create the total number of rows to be used for adding items. By default, 10 rows are always displayed." runat="server" Text="CREATE ROWS" OnClick="btnRowsAdd_Click"  />
+                <asp:Button ID="_btnCancel" CssClass="btn btn-danger" runat="server" Text="RESET PAGE" OnClick="_btnCancel_Click"  />
             </span>        
         </div>
 
@@ -208,11 +265,12 @@
             
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <asp:GridView ShowFooter="true" EmptyDataText="Empty Rows" ShowHeader="true" ID="gvItems" OnRowDataBound="gvItems_RowDataBound" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" BackColor="White" OnSelectedIndexChanged="gvItems_SelectedIndexChanged">
+                    <asp:GridView ShowFooter="true" EmptyDataText="Empty Rows" ShowHeader="true" ID="gvItems" OnRowDataBound="gvItems_RowDataBound" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" BackColor="White"  >
                         <Columns>
                             <asp:TemplateField HeaderText="Items">
                                 <ItemTemplate>
-                                    <asp:DropDownList ID="_ddItems"  OnSelectedIndexChanged="_ddItems_SelectedIndexChanged"  AutoPostBack="true" AppendDataBoundItems="false" CssClass="err" Width="300px" Height="25px" runat="server"></asp:DropDownList>
+                                    <asp:HiddenField ID="_hdnFieldItemID" runat="server" />
+                                    <asp:DropDownList ID="_ddItems" OnSelectedIndexChanged="_ddItems_SelectedIndexChanged" onchange="calculateQtySum();"    AutoPostBack="true" AppendDataBoundItems="false" CssClass="err" Width="300px" Height="25px" runat="server"></asp:DropDownList>
                                                </ItemTemplate>
 
                                 <FooterStyle HorizontalAlign="Right" />
@@ -228,36 +286,59 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             
-                            <asp:TemplateField HeaderText="Issue Head : Rate : Net Balance">
+                            <asp:TemplateField HeaderText="Issue Head">
                                 <ItemTemplate>
-                                       <asp:DropDownList ID="ddlIheadRateActualBalance"  OnSelectedIndexChanged="ddlIheadRateActualBalance_SelectedIndexChanged" AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
+                                     <%--onchange="calculateQtySum();CheckRepetingItems();"--%>
+                                       <asp:DropDownList ID="ddlIhead"  OnSelectedIndexChanged="_ddlIhead_SelectedIndexChanged" onchange="if (CheckRepetingItems()) return false; calculateQtySum();" AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
 
                                     </asp:DropDownList>
                                     
-                                    <asp:HiddenField ID="hdnSelectedIssueHead" runat="server" />
-                                    <asp:HiddenField ID="hdnSelectedRate" runat="server" />
-
-
-                                   
+                                  <%--  <asp:HiddenField ID="hdnSelectedIssueHead" runat="server" />
+                                    <asp:HiddenField ID="hdnSelectedRate" runat="server" />--%>
 
                                 </ItemTemplate>
                             </asp:TemplateField>
 
+                          <%--this is css for hiding--%>
+                            <%--FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"--%>
+                          
                             
-                            <%--<asp:TemplateField HeaderText="Rate">
+                              <asp:TemplateField HeaderText="Rate--Quanitity" FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"  >
                                     <ItemTemplate>
-                                        <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
+                                       <%-- <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
+                                    --%>
+                                        <asp:TextBox ID="tbRate" runat="server" Text="0"></asp:TextBox>&nbsp;&nbsp;&nbsp;
+                                        <asp:TextBox ID="tbQty" runat="server" Text="Qty"></asp:TextBox>&nbsp;&nbsp;&nbsp;
+                                        <asp:TextBox ID="tbOrderNO" runat="server" Text="ONO"></asp:TextBox>
+                                        <asp:TextBox ID="tbAmount" runat="server" Text="Amt"></asp:TextBox>
+                                        <asp:TextBox ID="tbMaxQtyAvail" runat="server" Text="Max QTY"></asp:TextBox>
+
+
                                     </ItemTemplate>
                                     
-                                    <FooterTemplate>
-                                        <asp:TextBox ID="tbtotalAmount" Visible="false" CssClass="form-control" Width="80px" BorderColor="White" Text="0" runat="server"></asp:TextBox>
+                                    <FooterTemplate >
+                                        <asp:TextBox ID="tbtotalAmount"  CssClass="form-control" Width="80px" BorderColor="White" Text="0" runat="server"></asp:TextBox>
                                     </FooterTemplate>
-                                </asp:TemplateField>--%>
+
+                                </asp:TemplateField>
                             
                             <asp:TemplateField HeaderText="Quantity">
                                 <ItemTemplate>
-                                    <asp:TextBox Width="60px" autocomplete="off"  CssClass="form-control" ID="_tbQuantity" runat="server" BorderStyle="Solid" BorderWidth="1px"> </asp:TextBox>
+                                    <asp:TextBox Width="60px" autocomplete="off"  CssClass="form-control" ID="_tbOrderQuantity"  onchange="UpdateAmountbyQTY(this.id);"  runat="server" BorderStyle="Solid" BorderWidth="1px"> </asp:TextBox>
                                 </ItemTemplate>
+                                    
+                                <FooterTemplate >
+                                    <asp:TextBox Width="60px" autocomplete="off"  CssClass="form-control" ID="_tbTotalQty" OnTextChanged = "OnTextChanged"  onchange="UpdateAmountbyQTY(this.id);"  runat="server"  BorderStyle="Solid"  BorderWidth="1px" > </asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+
+                             <asp:TemplateField HeaderText="Amount" FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol">
+                                <ItemTemplate>
+                                    <asp:TextBox Width="60px" autocomplete="off"  CssClass="form-control" ID="_tbAmt" runat="server" BorderStyle="Solid" BorderWidth="1px"> </asp:TextBox>
+                                </ItemTemplate>
+                                 <FooterTemplate >
+                                     <asp:TextBox Width="60px" autocomplete="off" BackColor ="pink"  CssClass="form-control" ID="_tbTotalAmt" runat="server" BorderStyle="Solid" BorderWidth="1px"> </asp:TextBox>
+                                 </FooterTemplate>
                             </asp:TemplateField>
 
                         </Columns>
@@ -299,7 +380,7 @@
             </span>     
             
             <span style="float:left; padding-left: 11px;";> 
-               <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbRemarks" style="text-transform:uppercase"  placeholder="Remarks" TextMode ="MultiLine"   Width="280px" runat="server"></asp:TextBox>
+               <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbRemarks"   placeholder="Remarks" TextMode ="MultiLine"   Width="280px" runat="server"></asp:TextBox>
             </span>
         </div>
         
@@ -310,8 +391,8 @@
         <div class="entry">
             <p>
                 <asp:Button ID="save" CssClass="btn btn-primary" runat="server" Text="SAVE" OnClick="Save_Click" />
-                <asp:Button ID="_btnSave" CssClass="btn btn-primary" runat="server" Text="SAVE & PRINT ISSUED ENTRY" OnClick="_btnSave_Click" />
-                <asp:Button ID="btnReset" CssClass="btn btn-danger"  runat="server" Text="RESET PAGE" OnClick="_btnCancel_Click" />
+                <asp:Button ID="_btnSave" CssClass="btn btn-primary" runat="server" Text="SAVE & PRINT ISSUED ENTRY" OnClick ="_btnSave_Click" />
+                <asp:Button ID="btnReset" CssClass="btn btn-danger"  runat="server" Text="RESET PAGE" />
             </p>
         </div>
 

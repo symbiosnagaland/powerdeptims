@@ -145,6 +145,7 @@
     <Content Include="js\highcharts.js" />
     <Content Include="js\highcharts_init.js" />
     <Content Include="js\jquery-1.7.2.min.js" />
+    <Content Include="js\jquery-1.9.1.min.js" />
     <Content Include="js\jquery.dataTables.js" />
     <Content Include="js\jquery.dataTables.min.js" />
     <Content Include="js\pages\form_select2.js" />
@@ -421,6 +422,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppCode\InventoryListDetails.cs" />
+    <Compile Include="AppCode\IssueNewLogic.cs" />
+    <Compile Include="AppCode\NewProperties.cs" />
+    <Compile Include="AppCode\ReceiveItemsNewLogic.cs" />
     <Compile Include="AppCode\SelectedIssueHeadDetails.cs" />
     <Compile Include="AppCode\TransformerLogic.cs" />
     <Compile Include="AppCode\TransformerReceiptLogic.cs" />
