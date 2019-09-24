@@ -20,11 +20,7 @@
 
 
     <script type="text/javascript">
-        /*$(function () {
-            $("#ContentPlaceHolder1_tbSupplyDate").datepicker();
-            $("#ContentPlaceHolder1_tbOTEODate").datepicker();
-        });*/
-
+       
         $(function () {
            
             $("#ContentPlaceHolder1__tbChallanDate").datepicker(
@@ -48,41 +44,7 @@
 </style> 
 
 <script type="text/javascript">
-    function SetUnitName(itemid) {
-        alert(itemid);
-
-        var e = document.getElementById(itemid);
-        var itemsvalue = e.options[e.selectedIndex].value;
-        var mySplitResult = itemsvalue.split(" ");
-
-        /* Store last character of string id of ddlitems */
-        // var last_character = itemid[itemid.length - 1];
-
-        var splitItemsID = itemid.split("_"); F
-
-        //making sure the last digit is not 0
-        //fetching the last part of the control id(which is dynamic)
-
-        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-
-        if (typeof mySplitResult[1] === "undefined") {
-
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-            // document.getElementById('ContentPlaceHolder1_gvItems_Edit_lblUnit_' + dynamicidpart).textContent = '';
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
-        }
-
-        else {
-            alert(mySplitResult[1]);
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            //SAVING item id for saving to db also
-
-
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
-        }
-        return true;
-    }
+   
 
     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
     function UpdateAmountbyQTY(QTY) {
@@ -99,7 +61,7 @@
         if (parseFloat(EnteredQuantity) > parseFloat(OriginalMaxQuantity)) {
             document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).style.backgroundColor = "pink";
             document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
-            document.getElementById("<%= gvItems.ClientID%>").style.border = "red 5px outset";
+            document.getElementById("<%= gvItems.ClientID%>").style.border = "red 2px outset";
             document.getElementById('<%=_btnUpdate.ClientID %>').disabled = true;
             document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
 
@@ -119,7 +81,7 @@
         if (parseFloat(EnteredQuantity) > parseFloat(OriginalQuantity)) {
             document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).style.backgroundColor = "pink";
             document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
-            alert("Check Quantity");
+           // alert("Check Quantity");
         }
         else {
             document.getElementById("<%= gvItems.ClientID%>_tbQty_" + dynamicidpart).style.backgroundColor = "white";
@@ -127,14 +89,7 @@
             //alert("OK Quantity");
         }
 
-        //********* for max Quantity Available
-
-
-
-
-        //alert("hi");
-        //alert(OriginalQuantity);
-
+       
         calculateQtySum();
     }
 
@@ -180,7 +135,8 @@
         document.getElementById("ContentPlaceHolder1_gvItems__tbTotalAmt").value = sum;
     }
 
-    function CheckRepetingItems() {
+    function CheckRepetingItems()
+    {
         var grid = document.getElementById("<%= gvItems.ClientID%>");
        var rCount = grid.rows.length;
 
@@ -197,10 +153,18 @@
 
                if ((Itemid1 != "") && (IssueHead1 != 0)) {
                    if ((Itemid1 == Itemid2) && (IssueHead1 == IssueHead2)) {
-                       alert("Same Item and same Issue Head Not Allowed");
-                       grid.style.border = "5px solid red";
+                       //alert("Same Item and same Issue Head Not Allowed");
+                       document.getElementById('<%=_btnUpdate.ClientID %>').disabled = true;
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = true;   
+                       grid.style.border = "2px solid red";
 
-                       return;
+                       return true;
+                   }
+                   else
+                   {
+                       document.getElementById('<%=_btnUpdate.ClientID %>').disabled = false;
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                       grid.style.border = "none";
                    }
 
                }
@@ -209,6 +173,7 @@
            }
 
        }
+       return false;
 
    }
 
@@ -367,7 +332,7 @@
                                                         </asp:TemplateField>
                                                 </Columns>
                                             </asp:GridView>
-        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" ProviderName="System.Data.SqlClient" SelectCommand="SELECT [DeliveryItemDetailsID],[DeliveryItemsChallanID],[ItemId], [ItemName], [IssueHeadName], [Quantity], [Unit], [Rate],(quantity* rate) as amount FROM [DeliveryItemsDetails] WHERE ([DeliveryItemsChallanID] = @DeliveryItemsChallanID)" >
+        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSV2ConnectionString3 %>" SelectCommand="SELECT [DeliveryItemDetailsID],[DeliveryItemsChallanID],[ItemId], [ItemName], [IssueHeadName], [Quantity], [Unit], [Rate],(quantity* rate) as amount FROM [DeliveryItemsDetails] WHERE ([DeliveryItemsChallanID] = @DeliveryItemsChallanID)" >
     
             <SelectParameters>
                 <asp:QueryStringParameter Name="DeliveryItemsChallanID" QueryStringField="challanid" Type="Decimal" />
@@ -415,7 +380,7 @@
                             
                             <asp:TemplateField HeaderText="Issue Head">
                                 <ItemTemplate>
-                                       <asp:DropDownList ID="ddlIhead"  OnSelectedIndexChanged="_ddlIhead_SelectedIndexChanged" onchange="calculateQtySum();CheckRepetingItems();"  AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
+                                       <asp:DropDownList ID="ddlIhead"  OnSelectedIndexChanged="_ddlIhead_SelectedIndexChanged" onchange="if (CheckRepetingItems()) return false;calculateQtySum();"  AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
 
                                     </asp:DropDownList>
                                     
@@ -425,8 +390,10 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
+                            <%--FOR HIDING COL--%>
+                           <%-- FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"--%>
                           
-                            <asp:TemplateField HeaderText="Rate--Quanitity" FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol" >
+                            <asp:TemplateField HeaderText="Rate--Quanitity"  >
                                     <ItemTemplate>
                                        <%-- <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
                                     --%>

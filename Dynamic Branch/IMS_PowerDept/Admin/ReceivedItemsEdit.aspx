@@ -366,7 +366,10 @@
            <div class="element clear"></div>
         <h2>Added Items</h2>
 
-        <asp:GridView ID="gvItems_Edit" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="True" CssClass="table table-bordered" BackColor="White" DataSourceID="sds_gvitemsedit"  OnRowCommand="gvItems_Edit_RowCommand" OnSelectedIndexChanged="gvItems_Edit_SelectedIndexChanged" >
+        <%-- OnRowDataBound="gvItems_RowDataBound"
+         OnRowCommand="gvItems_Edit_RowCommand" OnSelectedIndexChanged="gvItems_Edit_SelectedIndexChanged" --%>
+
+        <asp:GridView ID="gvItems_Edit" runat="server"  AutoGenerateColumns="False" ShowFooter="True" CssClass="table table-bordered" BackColor="White" DataSourceID="sds_gvitemsedit" >
                                                 <Columns>
 
                                                      <asp:TemplateField HeaderText="Sl."> 
@@ -417,11 +420,11 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="Order No"   >
+                                                  <%--  <asp:TemplateField HeaderText="Order No"   >
                                                         <ItemTemplate>
                                                            <asp:Label ID="lblOrderNo" Text='<%# Eval("OrderNo") %>' runat="server"></asp:Label>          
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                     
                                                     <asp:TemplateField HeaderText="Action">
@@ -447,24 +450,18 @@
                </tr></table>
       
 
-        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" ProviderName="System.Data.SqlClient" SelectCommand="SELECT ReceivedItemsDetails.ReceivedItemID, ReceivedItemsDetails.ItemID,
+        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSV2ConnectionString2 %>" SelectCommand="SELECT ReceivedItemsDetails.ReceivedItemID, ReceivedItemsDetails.ItemID,
  ReceivedItemsDetails.ItemName, ReceivedItemsDetails.Quantity, ReceivedItemsDetails.unit,
-  ReceivedItemsDetails.Rate, ReceivedItemsDetails.amount,
-   ReceivedItemsOTEO.TotalAmount, isNULL(ItemsRateSecondary.orderNo,1) as OrderNo
-   FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON
-    ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID 
- left join ItemsRateSecondary on 
-ReceivedItemsOTEO.ReceivedItemsOTEOID=ItemsRateSecondary.OTEO
-WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID =  @ReceivedItemsOTEOID and 
-ItemsRateSecondary.itemid=ReceivedItemsDetails.itemid)" DeleteCommand="DELETE FROM [ReceivedItemsDetails] WHERE [ReceivedItemID] = @ReceivedItemID" >
+  ReceivedItemsDetails.Rate, ReceivedItemsDetails.amount
+   FROM ReceivedItemsDetails where ReceivedItemsOTEOID=@ReceivedItemsOTEOID" DeleteCommand="DELETE FROM [ReceivedItemsDetails] WHERE [ReceivedItemID] = @ReceivedItemID" >
             <DeleteParameters>
                 <asp:Parameter Name="ReceivedItemID" Type="Int32" />
             </DeleteParameters>
     
             <SelectParameters>
-                <asp:QueryStringParameter Name="ReceivedItemsOTEOID" QueryStringField="oteoid" Type="Int32" />
+                <asp:Parameter Name="ReceivedItemsOTEOID" />
             </SelectParameters>
-     
+    
         </asp:SqlDataSource>
         <h2> Insert New Items</h2>
 
@@ -566,7 +563,7 @@ ItemsRateSecondary.itemid=ReceivedItemsDetails.itemid)" DeleteCommand="DELETE FR
           <asp:Button ID="_btnSave" EnableViewState="true" Visible="false" OnClick="_btnSave_Click" CssClass="btn btn-primary" runat="server" Text="UPDATE & PRINT RECEIVED ITEMS" />
            
                                     <asp:Button ID="_btnCancel" Visible="false" CssClass="btn btn-danger" runat="server" Text="RESET PAGE" OnClick="_btnCancel_Click" />
-            <asp:Button ID="_btnDelete" Visible="false" CssClass="btn btn-danger" runat="server" Text="Delete" OnClick="_btnDelete_Click" />
+            <asp:Button ID="_btnDelete" Visible="false" CssClass="btn btn-danger" runat="server" Text="Delete"  />
 
     </div>
     <asp:HiddenField ID="hdnFieldOTEOID" runat="server" />

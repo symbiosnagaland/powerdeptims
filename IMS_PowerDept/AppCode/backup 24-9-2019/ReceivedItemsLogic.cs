@@ -11,7 +11,31 @@ namespace IMS_PowerDept.AppCode
     {
 
 
-      
+
+        //public static DataTable RetrieveActiveIssueHeads()
+        //{
+        //    SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
+        //    DataTable dt = new DataTable();
+        //    string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
+        //    try
+        //    {
+
+        //        SqlDataAdapter adapter = new SqlDataAdapter(cmd, conn);
+        //        adapter.Fill(dt);
+        //    }
+        //    catch { throw; }
+
+        //    return dt;
+
+
+
+        //    }
+        /// <summary>
+        /// retrieving the named values seperately
+        /// </summary>
+        /// <returns></returns>
+        ///  public static void RetrieveActiveIssueHeadsAndActiveItemsSeperately(out int maxOTEOID)
+        ///  
         string stDate, edDate;
 
         public static DataSet RetrieveActiveIssueHeadsAndActiveItemsSeperately(out int maxOTEOID)
@@ -20,15 +44,47 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
             //DataTable dt = new DataTable();
             string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
+            //retrive item names
+            //commented by bisu
+            string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
+
+
+            //bisu writes cmd4
+
+            //this code is ok
 
 
 
+            //this code is tested and is ok
+
+            /* string cmd2 = "SELECT  CONVERT(VARCHAR(10), Items.itemid) + ' ' + unit + ' ' + " +
+             " CONVERT(VARCHAR(10),  ISNULL((OrderNo)+1,1)) as itemid_unit, itemname " +
+             " FROM Items LEFT JOIN ItemsRateMaster ON  Items.itemid=ItemsRateMaster.itemId WHERE status='A' " +
+             " order by Items.itemid,OrderNo";
+           */
+
+            /*  string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' ' + "+  
+   " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname "+
+    " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemid ="+
+     "  (select distinct    ItemsRateMaster.itemid  from "+
+     " ItemsRateMaster where items.itemid =ItemsRateMaster.itemid)  ";
+             
+             * */
 
 
-            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + '$' + Items.unit + '$'+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +'$'+ " +
- " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit,items.itemname " +
-  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemname = items.itemname LEFT JOIN  " +
-  "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A'";
+            // string cmd2 = "SELECT  CONVERT(VARCHAR(10), Items.ItemID) + ' ' + unit + ' ' + " +
+            //    " CONVERT(VARCHAR(10), ISNULL((OrderNo)+1,1)) as itemid_unit,itemname " +
+            //" FROM Items LEFT JOIN (select  OrderNo from ItemsRateMaster) " +
+            //"  AS ItemsRateMaster ON  (Items.ItemID=ItemsRateMaster.ItemId) WHERE status='A' ";
+
+
+            // commented by bisu
+            // string cmd4 = "SELECT ItemId,IssueHeadNo,OrderNo from ItemsRateMaster";
+
+            //string cmd4 = "SELECT ItemsRateMaster.ItemId,IssueHeadNo,OrderNo as order1 from ItemsRateMaster,Items,issueheads  where  Items.itemid=ItemsRateMaster.ItemId and issueheads.issueheadid=ItemsRateMaster.IssueHeadNo and issueheads.status='A' and Items.status='A'";
+
+            // string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit  as itemid_unit, itemname " +
+            // FROM Items WHERE ITEMS.status='A'";
 
             SqlCommand cmd3 = conn.CreateCommand();
             cmd3.CommandText = "select max(ReceivedItemsOTEOID) from receiveditemsoteo";
@@ -69,10 +125,7 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
 
 
-            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit + ' ' + " +
- " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit,Items.itemname " +
-  " FROM Items LEFT JOIN ItemsRateMaster  ON  ItemsRateMaster.itemname = items.itemname LEFT JOIN  " +
-  "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = ItemsRateMaster.IssueHeadName WHERE ITEMS.status='A' and IssueHeads.IssueHeadName='" + myIssueHead + "'";
+            string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + ' ' + Items.unit  from items WHERE ITEMS.status='A' ";
 
             try
             {
@@ -98,24 +151,15 @@ namespace IMS_PowerDept.AppCode
             //  DataTable dt = new DataTable();
             string cmd = "SELECT issueheadid, issueheadname FROM issueheads where status='A';";
             //retrive item names
-            // string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
+            string cmd2 = "SELECT CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit,itemname FROM Items where status='A'";
 
-
-            //string cmd2 = "	 select DISTINCT  Items.itemid,CONVERT(VARCHAR(10), Items.itemid) + '$' + Items.unit + '$'+ ISNULL(ItemsRateMaster.IssueHeadName,'NOT') +'$'+ " +
-            // " CONVERT(VARCHAR(10),  ISNULL((MaxOrderNo)+1,1)) as itemid_unit, itemname " +
-          //    " FROM Items left JOIN itemsrateMaster  ON  itemsrateMaster.itemid = items.itemid LEFT JOIN  " +
-           //   "  ISSUEHEADS ON ISSUEHEADS.IssueHeadName = itemsrateMaster.IssueHeadName WHERE ITEMS.status='A'";
-
-            string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
 
             string cmd3 = "SELECT chargeableheadid, chargeableheadname FROM chargeableheads where status='A'";
             try
             {
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd, conn);
                 //fill 
-                dst.Tables.Add("IssueHeads"); 
-                dst.Tables.Add("Items"); 
-                dst.Tables.Add("ChargeableHeads");
+                dst.Tables.Add("IssueHeads"); dst.Tables.Add("Items"); dst.Tables.Add("ChargeableHeads");
 
                 adapter.Fill(dst.Tables[0]);
                 //2nd table
@@ -189,18 +233,20 @@ namespace IMS_PowerDept.AppCode
             //
             //string cmd = "SELECT ItemID, ItemName, unit, Quantity, Rate, amount, IssueHeadName FROM  view_ReceivedItems_Tables";//v1 
             //v.2 - bringing itemname - rate - netactual balance
-            //string cmd = "exec sp_ItemsEnquiryList";
+            string cmd = "exec sp_ItemsEnquiryList";
             //retrive item names          
-            // string cmd2 = "select distinct itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from ReceivedItemsDetails";
-            string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
+            string cmd2 = "select distinct itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from ReceivedItemsDetails";
             try
             {
-
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd, conn);
+                //fill 
+                //v1-  dst.Tables.Add("ReceivedItemsDetails"); 
+                dst.Tables.Add("ItemsEnquiryListTable");
                 dst.Tables.Add("Items");
 
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd2, conn);
                 adapter.Fill(dst.Tables[0]);
+                adapter = new SqlDataAdapter(cmd2, conn);
+                adapter.Fill(dst.Tables[1]);
             }
             catch { throw; }
 
@@ -208,7 +254,23 @@ namespace IMS_PowerDept.AppCode
 
         }
 
-       
+        public static DataTable RetrieveCorrespondingActiveChargeableHeads(int intIssueHead)
+        {
+            SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
+            DataTable dt = new DataTable();
+            string cmdText = "SELECT chargeableheadid, chargeableheadname FROM chargeableheads where  issueheadid=@issueheadid and status='A'";
+            try
+            {
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmdText, conn);
+                adapter.SelectCommand.Parameters.Add("@issueheadid", SqlDbType.SmallInt).Value = intIssueHead;
+                adapter.Fill(dt);
+            }
+            catch { throw; }
+
+            return dt;
+
+        }
 
         #region save to db received item oteo and received items details
         /// <summary>
@@ -246,6 +308,9 @@ namespace IMS_PowerDept.AppCode
             cmd2.CommandText = sqlstatements;
 
 
+
+
+
             try
             {
 
@@ -271,7 +336,7 @@ namespace IMS_PowerDept.AppCode
             }
         }
 
-
+        // SaveReceivedItemsDetails with 4 parameters
 
         #endregion
 

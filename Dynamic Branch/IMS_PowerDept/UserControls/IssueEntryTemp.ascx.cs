@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using IMS_PowerDept.AppCode;
 using System.Web;
-using System.Web.UI;
+
 
 
 //using IMS_PowerDept.Dataset_Report;
@@ -100,6 +100,7 @@ namespace IMS_PowerDept.UserControls
             _ddIntendDivisions.DataTextField = "divisionName";
             _ddIntendDivisions.DataBind();
             _ddIntendDivisions.Items.Insert(0, new ListItem("--Select Division Name--", "0"));
+            con.Close();
         }
 
         private void InsertItemsRows(int numberofRows)
@@ -147,11 +148,8 @@ namespace IMS_PowerDept.UserControls
             dst = IssueNewLogic.RetrieveAllItems();
             //second table contains the items names                             
             dtItems = dst.Tables["Items"];
-            dtIssueHead = dst.Tables["itemRatesSecondery"];
-            dtRate = dst.Tables["IT2"];
-
-
-
+            //   dtIssueHead = dst.Tables["itemRatesSecondery"];
+            //  dtRate = dst.Tables["IT2"];
         }
 
         protected void gvItems_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -174,7 +172,7 @@ namespace IMS_PowerDept.UserControls
             }
             catch
             {
-               // ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error.')", true);
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "alertmessage", "javascript:alert(' There was some error.')", true);
             }
 
         }
@@ -192,7 +190,13 @@ namespace IMS_PowerDept.UserControls
         {
             //Casting sender to Dropdown
             DropDownList ddl = sender as DropDownList;
-           
+            //Looping through each Gridview row to find exact Row 
+
+            //Boolean ans = Convert.ToBoolean(ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "CheckRepetingItems();", true));
+
+            // Boolean ans=Convert .ToBoolean ( Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "CheckRepetingItems();", true));
+
+            //string confirmValue = Request.Form["confirm_value"];
 
             foreach (GridViewRow row in gvItems.Rows)
             {
@@ -212,6 +216,8 @@ namespace IMS_PowerDept.UserControls
 
 
                         DropDownList ddlIhead = row.FindControl("ddlIhead") as DropDownList;
+                        DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
+
 
                         TextBox tbRate = row.FindControl("tbRate") as TextBox;
                         TextBox tbQty = row.FindControl("tbQty") as TextBox;
@@ -238,10 +244,10 @@ namespace IMS_PowerDept.UserControls
 
 
                         DataTable dt = dst.Tables["IT2"].Clone();
-                        DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                        DataRow[] rates = dst.Tables["IT2"].Select("ItemName= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                         DataTable dt2 = dst.Tables["IT3"].Clone();
-                        DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                        DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemName= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                         foreach (DataRow dr in MaxQty)
                         {
@@ -270,13 +276,13 @@ namespace IMS_PowerDept.UserControls
 
 
 
-                            //ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                            //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
 
                         }
                         else
                         {
-                            //ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                            //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                         }
 
@@ -293,7 +299,9 @@ namespace IMS_PowerDept.UserControls
         {
             //Casting sender to Dropdown
             DropDownList ddl = sender as DropDownList;
-         
+            //Looping through each Gridview row to find exact Row 
+            //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
 
             foreach (GridViewRow row in gvItems.Rows)
             {
@@ -343,7 +351,7 @@ namespace IMS_PowerDept.UserControls
                             _tbUnit.Text = splitresult[1];
                             _hdnFieldItemID.Value = splitresult[0];
                             DataTable dt = dst.Tables["itemRatesSecondery"].Clone();
-                            DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("ItemId= '" + _hdnFieldItemID.Value + "'");
+                            DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("Itemname= '" + _ddItems.SelectedItem.ToString() + "'");
 
 
 
@@ -354,10 +362,10 @@ namespace IMS_PowerDept.UserControls
                             }
 
                             DataView view = new DataView(dt);
-                            DataTable myIssueHead = view.ToTable(true, "IssueHeadName");
+                            DataTable myIssueHead = view.ToTable(true, "IssueHeadName", "issuableQuantity");
 
                             ddlIhead.DataSource = myIssueHead;
-                            ddlIhead.DataTextField = "IssueHeadName";
+                            ddlIhead.DataTextField = "issuableQuantity";
                             ddlIhead.DataValueField = "IssueHeadName";
                             ddlIhead.DataBind();
                             ddlIhead.Items.Insert(0, new ListItem("--Select Issue Heads--", "0"));
@@ -369,7 +377,7 @@ namespace IMS_PowerDept.UserControls
                             _tbOrderQuantity.Text = "0";
                             _tbAmt.Text = "0";
                             tbMaxQtyAvail.Text = "0";
-                           // ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+                            // ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                         }
                         else
@@ -430,6 +438,37 @@ namespace IMS_PowerDept.UserControls
 
                 return;
             }
+
+            if (_tbIntendDate.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Indent Date cannot be NULL.";
+                panelSuccess.Visible = false;
+
+                return;
+            }
+
+            // converting stirng to date and compare indent date and challan date
+
+            DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+            DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+            if (ChallanDate < IndentDate)
+            {
+                panelError.Visible = true;
+                lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                panelSuccess.Visible = false;
+                _tbChallanDate.Style.Add("background", "Pink");
+                _tbChallanDate.Focus();
+                return;
+            }
+            else
+            {
+                _tbChallanDate.Style.Add("background", "White");
+            }
+
+
+
             if (_ddIntendDivisions.SelectedItem.ToString() == "--Select Division Name--")
             {
                 panelError.Visible = true;
@@ -448,12 +487,13 @@ namespace IMS_PowerDept.UserControls
             try
             {
 
-                con.Open();
                 SqlCommand cmdd = new SqlCommand("select * from DeliveryItemsChallan where DeliveryItemsChallanID = @DeliveryItemsChallanID", con);
                 SqlParameter param = new SqlParameter();
                 param.ParameterName = "@DeliveryItemsChallanID";
                 param.Value = _tbChalanNo.Text;
                 cmdd.Parameters.Add(param);
+
+                con.Open();
                 SqlDataReader reader = cmdd.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -511,6 +551,37 @@ namespace IMS_PowerDept.UserControls
 
                 return;
             }
+
+            if (_tbIntendDate.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Indent Date cannot be NULL.";
+                panelSuccess.Visible = false;
+
+                return;
+            }
+
+            // converting stirng to date and compare indent date and challan date
+
+            DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+            DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+            if (ChallanDate < IndentDate)
+            {
+                panelError.Visible = true;
+                lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                panelSuccess.Visible = false;
+                _tbChallanDate.Style.Add("background", "Pink");
+                _tbChallanDate.Focus();
+                return;
+            }
+            else
+            {
+                _tbChallanDate.Style.Add("background", "White");
+            }
+
+
+
             if (_ddIntendDivisions.SelectedItem.ToString() == "--Select Division Name--")
             {
                 panelError.Visible = true;
@@ -549,10 +620,13 @@ namespace IMS_PowerDept.UserControls
                 {
                     reader.Close();
                     con.Close();
-                    _Save();
-                    double myId = Convert.ToDouble(_tbChalanNo.Text) - 1;
+                    Boolean Reply = _Save();
+                    if (Reply == true)
+                    {
+                        double myId = Convert.ToDouble(_tbChalanNo.Text) - 1;
+                        Response.Redirect("IssuedItemsDetails.aspx?id=" + myId);
+                    }
 
-                    Response.Redirect("IssuedItemsDetails.aspx?id=" + myId);
                 }
 
             }
@@ -570,18 +644,18 @@ namespace IMS_PowerDept.UserControls
 
 
 
-        private void _Save()
+        private Boolean _Save()
         {
             NewProperties issued = new NewProperties();
             IssueNewLogic enterSave = new IssueNewLogic();
             try
             {
 
-                issued.challanNO = Convert.ToInt32(_tbChalanNo.Text);
+                issued.challanNO = Convert.ToDouble(_tbChalanNo.Text);
                 issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                 issued.indentNo = _tbIndentValue.Text;
                 issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                issued.TotalAmount = 900;
+                //  issued.TotalAmount = 900;
                 issued.intendingDivision = _ddIntendDivisions.SelectedItem.ToString();
                 issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
                 issued.IsDeliveredTemporary = istemporary.Checked ? "Yes" : "No";
@@ -592,7 +666,7 @@ namespace IMS_PowerDept.UserControls
 
                 StringBuilder sb = new StringBuilder();
                 string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,itemid,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
-                string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemid='@ItemID' and issueHeadName=  '@IssueHeadName' and OrderNO='@OrderNO'";
+                string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemname='@ItemName' and issueHeadName='@IssueHeadName' and OrderNO='@OrderNO'";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
@@ -616,12 +690,29 @@ namespace IMS_PowerDept.UserControls
                     if (itemName.SelectedValue.ToString() != "")
                     {
                         //Checking the quantity is null in quantity
-                        if (_tbOrderQuantity.Text == "")
+                        double result;
+                        if (!double.TryParse(_tbOrderQuantity.Text, out result))
                         {
                             panelError.Visible = true;
-                            lblError.Text = "Error! Quantity Cannot be Blank.";
+                            lblError.Text = "Error! Quantity Should Be Numeric.";
                             panelSuccess.Visible = false;
-                            return;
+                            _tbOrderQuantity.Style.Add("background", "Pink");
+                            return false;
+                        }
+
+
+                        Double result1 = Convert.ToDouble(_tbOrderQuantity.Text);
+                        if (result1 <= 0)
+                        {
+                            panelError.Visible = true;
+                            lblError.Text = "Error! Quantity Should be Greater than Zero.";
+                            panelSuccess.Visible = false;
+                            _tbOrderQuantity.Style.Add("background", "Pink");
+                            return false;
+                        }
+                        else
+                        {
+                            _tbOrderQuantity.Style.Add("background", "White");
                         }
 
                         if (tbRate.Text != "")
@@ -632,7 +723,7 @@ namespace IMS_PowerDept.UserControls
                             if (Convert.ToDouble(_tbOrderQuantity.Text) > Convert.ToDouble(tbQty.Text))
                             {
                                 DataTable dt = dst.Tables["IT2"].Clone();
-                                DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                                DataRow[] rates = dst.Tables["IT2"].Select("itemName= '" + itemName.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                                 Double OrderedQty = Convert.ToDouble(_tbOrderQuantity.Text);
                                 double QtyAvailableinRows = Convert.ToDouble(tbQty.Text);
@@ -661,9 +752,9 @@ namespace IMS_PowerDept.UserControls
                                         tempQty = OrderedQty;
                                     }
 
-                                    sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tempOrderNo.ToString()));
+                                    sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedValue ).Replace("@OrderNO", tempOrderNo.ToString()));
 
-                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString()));
+                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString()));
 
                                     OrderedQty = OrderedQty - tempQty;
                                     counter++;
@@ -671,8 +762,8 @@ namespace IMS_PowerDept.UserControls
                             }
                             else
                             {
-                                sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tbOrderNO.Text));
-                                sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
+                                sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@OrderNO", tbOrderNO.Text));
+                                sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
 
                             }
 
@@ -683,7 +774,7 @@ namespace IMS_PowerDept.UserControls
                             panelError.Visible = true;
                             lblError.Text = "Error! One of item's Issue Head and Rate is not selected.";
                             panelSuccess.Visible = false;
-                            return;
+                            return false;
                         }
 
                     }
@@ -749,6 +840,7 @@ namespace IMS_PowerDept.UserControls
 
 
             }
+            return true;
         }
     }
 }

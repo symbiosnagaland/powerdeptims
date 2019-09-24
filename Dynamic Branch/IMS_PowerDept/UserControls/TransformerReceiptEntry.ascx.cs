@@ -26,7 +26,7 @@ namespace IMS_PowerDept.UserControls
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["USERID"] = 1;//setting user id temp here
+          //  Session["USERID"] = 1;//setting user id temp here
 
 
             //if (Session["CHALLANNO"] != null)

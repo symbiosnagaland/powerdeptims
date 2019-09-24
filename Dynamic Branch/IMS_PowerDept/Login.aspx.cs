@@ -39,7 +39,7 @@ namespace IMS_PowerDept
                     if (temp == 1)
                     {
                         //check username and password in the database
-                        using (SqlCommand cmd = new SqlCommand("Select Role,username,password from Users where username=@username", con))
+                        using (SqlCommand cmd = new SqlCommand("Select Role,username,password,userid from Users where username=@username", con))
                         {
                             cmd.Parameters.AddWithValue("@username", inputUsername.Text);
 
@@ -49,6 +49,7 @@ namespace IMS_PowerDept
                             string roleEt = dt.Rows[0]["Role"].ToString();
                             string userid = dt.Rows[0]["username"].ToString();
                             string password = dt.Rows[0]["password"].ToString();
+                            Session["USERID"] = dt.Rows[0]["userid"].ToString();
 
                             bool flag = Helper.VerifyHash(inputPassword.Text, "SHA512", password);
 

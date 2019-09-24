@@ -39,7 +39,7 @@
         if (parseFloat(EnteredQuantity) > parseFloat(OriginalMaxQuantity)) {
             document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).style.backgroundColor = "pink";
             document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
-            document.getElementById("<%= gvItems.ClientID%>").style.border = "red 5px outset";
+            document.getElementById("<%= gvItems.ClientID%>").style.border = "red 2px outset";
             document.getElementById('<%=save.ClientID %>').disabled = true;
             document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
 
@@ -136,18 +136,27 @@
                {
                    if ((Itemid1 == Itemid2) && (IssueHead1 == IssueHead2))
                    {
-                       alert("Same Item and same Issue Head Not Allowed");
-                       grid.style.border = "5px solid red";
-                      
-                       return ;
+                      // alert("Same Item and same Issue Head Not Allowed");
+                       document.getElementById('<%=save.ClientID %>').disabled = true;
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = true;                      
+                       grid.style.border = "2px solid red";                      
+                       return true ;
                    }
+                   else
+                   {
+                       document.getElementById('<%=save.ClientID %>').disabled = false;
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                       grid.style.border = "none";
+                   }
+                 
                   
                }
                
            }
           
        }
-     
+
+       return false;
     }
 
 </script>
@@ -279,7 +288,8 @@
                             
                             <asp:TemplateField HeaderText="Issue Head">
                                 <ItemTemplate>
-                                       <asp:DropDownList ID="ddlIhead"  OnSelectedIndexChanged="_ddlIhead_SelectedIndexChanged" onchange="calculateQtySum();CheckRepetingItems();"  AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
+                                     <%--onchange="calculateQtySum();CheckRepetingItems();"--%>
+                                       <asp:DropDownList ID="ddlIhead"  OnSelectedIndexChanged="_ddlIhead_SelectedIndexChanged" onchange="if (CheckRepetingItems()) return false; calculateQtySum();" AppendDataBoundItems="false" AutoPostBack="true" CssClass="err" Width="220px" runat="server">
 
                                     </asp:DropDownList>
                                     
@@ -293,7 +303,7 @@
                             <%--FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"--%>
                           
                             
-                              <asp:TemplateField HeaderText="Rate--Quanitity"  >
+                              <asp:TemplateField HeaderText="Rate--Quanitity" FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"  >
                                     <ItemTemplate>
                                        <%-- <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
                                     --%>

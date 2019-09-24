@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using IMS_PowerDept.AppCode;
 using System.Web;
-using System.Web.UI;
+
 
 
 //using IMS_PowerDept.Dataset_Report;
@@ -148,8 +148,8 @@ namespace IMS_PowerDept.UserControls
                 dst = IssueNewLogic.RetrieveAllItems();
                 //second table contains the items names                             
                 dtItems = dst.Tables["Items"];
-                dtIssueHead = dst.Tables["itemRatesSecondery"];
-                dtRate = dst.Tables["IT2"];
+             //   dtIssueHead = dst.Tables["itemRatesSecondery"];
+              //  dtRate = dst.Tables["IT2"];
             }
 
             protected void gvItems_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -362,10 +362,10 @@ namespace IMS_PowerDept.UserControls
                                 }
 
                                 DataView view = new DataView(dt);
-                                DataTable myIssueHead = view.ToTable(true, "IssueHeadName");
+                                DataTable myIssueHead = view.ToTable(true, "IssueHeadName", "issuableQuantity");
 
                                 ddlIhead.DataSource = myIssueHead;
-                                ddlIhead.DataTextField = "IssueHeadName";
+                                ddlIhead.DataTextField = "issuableQuantity";
                                 ddlIhead.DataValueField = "IssueHeadName";
                                 ddlIhead.DataBind();
                                 ddlIhead.Items.Insert(0, new ListItem("--Select Issue Heads--", "0"));
@@ -438,6 +438,37 @@ namespace IMS_PowerDept.UserControls
 
                     return;
                 }
+
+                if (_tbIntendDate.Text.Trim() == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Indent Date cannot be NULL.";
+                    panelSuccess.Visible = false;
+
+                    return;
+                }
+
+                // converting stirng to date and compare indent date and challan date
+
+                DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+                DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+                if (ChallanDate < IndentDate)
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                    panelSuccess.Visible = false;
+                    _tbChallanDate.Style.Add("background", "Pink");
+                    _tbChallanDate.Focus();
+                    return;
+                }
+                else
+                {
+                    _tbChallanDate.Style.Add("background", "White");
+                }
+
+
+
                 if (_ddIntendDivisions.SelectedItem.ToString() == "--Select Division Name--")
                 {
                     panelError.Visible = true;
@@ -456,12 +487,13 @@ namespace IMS_PowerDept.UserControls
                 try
                 {
 
-                    con.Open();
                     SqlCommand cmdd = new SqlCommand("select * from DeliveryItemsChallan where DeliveryItemsChallanID = @DeliveryItemsChallanID", con);
                     SqlParameter param = new SqlParameter();
                     param.ParameterName = "@DeliveryItemsChallanID";
                     param.Value = _tbChalanNo.Text;
                     cmdd.Parameters.Add(param);
+
+                    con.Open();
                     SqlDataReader reader = cmdd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -519,6 +551,37 @@ namespace IMS_PowerDept.UserControls
 
                     return;
                 }
+
+                if (_tbIntendDate.Text.Trim() == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Indent Date cannot be NULL.";
+                    panelSuccess.Visible = false;
+
+                    return;
+                }
+
+                // converting stirng to date and compare indent date and challan date
+
+                DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+                DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+                if (ChallanDate < IndentDate)
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                    panelSuccess.Visible = false;
+                    _tbChallanDate.Style.Add("background", "Pink");
+                    _tbChallanDate.Focus();
+                    return;
+                }
+                else
+                {
+                    _tbChallanDate.Style.Add("background", "White");
+                }
+
+
+
                 if (_ddIntendDivisions.SelectedItem.ToString() == "--Select Division Name--")
                 {
                     panelError.Visible = true;
@@ -557,10 +620,13 @@ namespace IMS_PowerDept.UserControls
                     {
                         reader.Close();
                         con.Close();
-                        _Save();
-                        double myId=Convert.ToDouble (_tbChalanNo.Text)-1;
-
-                        Response.Redirect("IssuedItemsDetails.aspx?id=" + myId );
+                        Boolean Reply= _Save();
+                        if(Reply==true)
+                        {
+                            double myId = Convert.ToDouble(_tbChalanNo.Text) - 1;
+                            Response.Redirect("IssuedItemsDetails.aspx?id=" + myId);
+                        }
+                       
                     }
 
                 }
@@ -578,7 +644,7 @@ namespace IMS_PowerDept.UserControls
 
 
 
-            private void _Save()
+            private Boolean  _Save()
             {
                  NewProperties issued = new NewProperties();
                  IssueNewLogic enterSave=new IssueNewLogic ();                   
@@ -589,7 +655,7 @@ namespace IMS_PowerDept.UserControls
                     issued.challanDate  = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                     issued.indentNo  = _tbIndentValue.Text;
                     issued.indentDate  = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                    issued.TotalAmount = 900;
+                  //  issued.TotalAmount = 900;
                     issued.intendingDivision  = _ddIntendDivisions.SelectedItem .ToString ();
                     issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
                     issued.IsDeliveredTemporary  = istemporary.Checked ? "Yes" : "No";
@@ -624,12 +690,29 @@ namespace IMS_PowerDept.UserControls
                         if (itemName.SelectedValue.ToString() != "")
                         {
                             //Checking the quantity is null in quantity
-                            if (_tbOrderQuantity.Text == "")
+                            double result;
+                            if (!double.TryParse(_tbOrderQuantity.Text, out result))
                             {
                                 panelError.Visible = true;
-                                lblError.Text = "Error! Quantity Cannot be Blank.";
+                                lblError.Text = "Error! Quantity Should Be Numeric.";
                                 panelSuccess.Visible = false;
-                                return;
+                                _tbOrderQuantity.Style.Add("background", "Pink");
+                                return false;
+                            }
+
+                            
+                            Double result1 = Convert.ToDouble(_tbOrderQuantity.Text);
+                            if (result1 <=0)
+                            {
+                                panelError.Visible = true;
+                                lblError.Text = "Error! Quantity Should be Greater than Zero.";
+                                panelSuccess.Visible = false;
+                                _tbOrderQuantity.Style.Add("background", "Pink");
+                                return false;
+                            }
+                            else
+                            {
+                                _tbOrderQuantity.Style.Add("background", "White");
                             }
 
                             if (tbRate.Text  != "")
@@ -669,9 +752,9 @@ namespace IMS_PowerDept.UserControls
                                             tempQty = OrderedQty;
                                         }
 
-                                        sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tempOrderNo.ToString()));
+                                        sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@OrderNO", tempOrderNo.ToString()));
 
-                                        sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString ()));
+                                        sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedValue ).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString ()));
                                         
                                         OrderedQty = OrderedQty - tempQty;
                                         counter++;
@@ -679,8 +762,8 @@ namespace IMS_PowerDept.UserControls
                                 }
                                 else
                                 {
-                                    sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tbOrderNO.Text));
-                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
+                                    sb.Append(updateItemRateSecondary.Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedValue ).Replace("@OrderNO", tbOrderNO.Text));
+                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedValue ).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
 
                                 }
                                
@@ -691,7 +774,7 @@ namespace IMS_PowerDept.UserControls
                                 panelError.Visible = true;
                                 lblError.Text = "Error! One of item's Issue Head and Rate is not selected.";
                                 panelSuccess.Visible = false;
-                                return;
+                                return false;
                             }
                       
                         }
@@ -703,7 +786,7 @@ namespace IMS_PowerDept.UserControls
                     {
                         // //call the method to save both in primary deliverychallan table and delivery details table
                        
-                         enterSave .SaveNewIssuedItems (issued ,sb.ToString ());
+                         enterSave.SaveNewIssuedItems (issued ,sb.ToString ());
                      
 
                         lblSuccess.Text = "Challan number " + _tbChalanNo.Text + " details entered successfully!";
@@ -757,6 +840,7 @@ namespace IMS_PowerDept.UserControls
 
 
                 }
+                return true;
             }
     }
 }

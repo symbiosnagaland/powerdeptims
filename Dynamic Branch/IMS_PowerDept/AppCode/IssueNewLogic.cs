@@ -16,7 +16,8 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
 
             //reterive issue HEadNames
-            string cmd = "select distinct ItemName,issueheadname from ItemsRateSecondary ";
+            string cmd = "select  ItemName,issueheadname,sum(quantity) as QTY,RTRIM (issueheadname)+ ' ==> '+ CONVERT(VARCHAR(8),sum(quantity)) "+
+                         "as issuableQuantity from ItemsRateSecondary group by itemname,issueheadname order by itemname,issueheadname";
             //retrive item names          
             string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
 

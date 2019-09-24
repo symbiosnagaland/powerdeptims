@@ -56,17 +56,11 @@ namespace IMS_PowerDept.Admin
                 
                     hdnFieldChallanNotoEdit.Value = Request.QueryString["challanid"];
                     //1 based on above oteoid , get the item details to edit
-                    GetIssuedItemsDetails(Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
-
-                    //first get data from db
+                    GetIssuedItemsDetails(Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));                  
                     _retriveCheadDivsion();
 
-                    //the items inserted before in save is displayed in gridview using datasource
-
-
-                    //first keep the items and ihead for gridview read by fetching only once
                     GetIssueHeadsandItemsForDropDowns();
-                    //then when rows are created below , in rowdata bound the above fetched values can be used to populate it
+                   
                     InsertItemsRows(Convert.ToInt32(tbItemsRows.Text));
 
                     _btnSave.Visible = _btnCancel.Visible = btnReset.Visible= true;
@@ -75,7 +69,9 @@ namespace IMS_PowerDept.Admin
         }
 
         #region Get Issued Items Details from DB 
-        //1 primary table content
+
+
+
         private void GetIssuedItemsDetails(decimal challanID)  //string challanID
         {
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
@@ -97,22 +93,16 @@ namespace IMS_PowerDept.Admin
                         _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("dd/MM/yyyy");
                         _tbIndentValue.Text = dr["IndentReference"].ToString();
                         _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("dd/MM/yyyy");
-                       
-                       // _ddIntendDivisions.SelectedValue = dr["ChargeableHeadID"].ToString(); instead of using ddl using label to display old data and giving option ddl seperately to change if user wants to
                         lblDivisionOld.Text = dr["IndentingDivisionName"].ToString();
-                        
                         lblChHeadOld.Text = dr["ChargeableHeadName"].ToString();
-                        _tbtotalAmount.Text = dr["TotalAmount"].ToString();
-
+                        totalAmount = Convert.ToDouble(dr["TotalAmount"]);
+                        _tbtotalAmount.Text = dr["TotalAmount"].ToString ();
                         tbVehicleNumberCaps.Text = dr["vehiclenumber"].ToString();
                         tbReceiverDesignation.Text = dr["receiverdesignation"].ToString();
                         tbremarks .Text  = dr["Remarks"].ToString();
-                         
                             string isdelivered= dr["IsDeliveredTemporary"].ToString();
-                            if (isdelivered == "Yes") //1 is for true
+                            if (isdelivered == "Yes") 
                                 istemporary.Checked = true;
-
-
                     }
                 }
             }
@@ -357,7 +347,7 @@ namespace IMS_PowerDept.Admin
                 cmd.Parameters.AddWithValue("@DeliveryItemDetailsID",Convert.ToDecimal (DeliveryItemDetailsID));
 
                 SqlCommand cmd2 = conn.CreateCommand();
-                cmd2.CommandText = "update DeliveryItemsChallan set totalamount = totalamount +'"+ amount +"' where DeliveryItemsChallanID =@DeliveryItemsChallanID";
+                cmd2.CommandText = "update DeliveryItemsChallan set totalamount = totalamount -'"+ amount +"' where DeliveryItemsChallanID =@DeliveryItemsChallanID";
                 cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", Convert.ToDecimal(hdnFieldChallanNotoEdit.Value));
 
                 SqlCommand cmd3 = conn.CreateCommand();
@@ -453,16 +443,18 @@ namespace IMS_PowerDept.Admin
                         tbAmount.Text = "";
                         tbMaxQtyAvail.Text = "";
 
+                        DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
+
 
                         HiddenField _hdnFieldItemID = row.FindControl("_hdnFieldItemID") as HiddenField;
 
 
 
                         DataTable dt = dst.Tables["IT2"].Clone();
-                        DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                        DataRow[] rates = dst.Tables["IT2"].Select("ItemName= '" + _ddItems.SelectedItem .ToString () + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                         DataTable dt2 = dst.Tables["IT3"].Clone();
-                        DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                        DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemName= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                         foreach (DataRow dr in MaxQty)
                         {
@@ -487,23 +479,14 @@ namespace IMS_PowerDept.Admin
                             tbAmount.Text = myRates.Rows[0]["AMT"].ToString();
 
                             tbMaxQtyAvail.Text = myMaxQty.Rows[0]["TotQtyAvailable"].ToString();
-
-
-
-
                             ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
-
-
+                            
                         }
                         else
                         {
                             ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
 
                         }
-
-
-
-
                         break;
                     }
                 }
@@ -568,7 +551,7 @@ namespace IMS_PowerDept.Admin
                             _tbUnit.Text = splitresult[1];
                             _hdnFieldItemID.Value = splitresult[0];
                             DataTable dt = dst.Tables["itemRatesSecondery"].Clone();
-                            DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("ItemId= '" + _hdnFieldItemID.Value + "'");
+                            DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
 
 
 
@@ -579,10 +562,10 @@ namespace IMS_PowerDept.Admin
                             }
 
                             DataView view = new DataView(dt);
-                            DataTable myIssueHead = view.ToTable(true, "IssueHeadName");
+                            DataTable myIssueHead = view.ToTable(true, "IssueHeadName", "issuableQuantity");
 
                             ddlIhead.DataSource = myIssueHead;
-                            ddlIhead.DataTextField = "IssueHeadName";
+                            ddlIhead.DataTextField = "issuableQuantity";
                             ddlIhead.DataValueField = "IssueHeadName";
                             ddlIhead.DataBind();
                             ddlIhead.Items.Insert(0, new ListItem("--Select Issue Heads--", "0"));
@@ -620,10 +603,6 @@ namespace IMS_PowerDept.Admin
 
                             return;
                         }
-
-
-
-
                         break;
                     }
                 }
@@ -640,61 +619,6 @@ namespace IMS_PowerDept.Admin
        
         #endregion
 
-        /*
-        #region on selection of ihead inside the gridview
-        /// <summary>
-        /// when ihead is selected from a row of data grid then this event is fired and the rates specific to it are populated
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void _ddIhead_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Casting sender to Dropdown
-            DropDownList ddl = sender as DropDownList;
-            //Looping through each Gridview row to find exact Row 
-            //of the Grid from where the SelectedIndex change event is fired.
-            foreach (GridViewRow row in gvItems.Rows)
-            {
-                //Finding Dropdown control  
-                Control ctrl = row.FindControl("_ddIhead") as DropDownList;
-
-                if (ctrl != null)
-                {
-                    DropDownList ddlIssuehead = (DropDownList)ctrl;
-                    //   Comparing ClientID of the dropdown with sender
-                    if (ddl.ClientID == ddlIssuehead.ClientID)
-                    {
-                        //ClientID is match so find the Textbox 
-                        //control bind it with  dropdown data.
-                        // TextBox txt = row.FindControl("_tbUnit") as TextBox;
-
-                        //retrive item unit
-
-                        DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
-                        DropDownList ddlRates = row.FindControl("ddlRates") as DropDownList;
-
-                        DataTable dt = dst.Tables["ReceivedItemsDetails"].Clone();
-                        //populate new destination table 
-                        DataRow[] rates = dst.Tables["ReceivedItemsDetails"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "' and issueheadname= '" + ddlIssuehead.SelectedItem.ToString() + "'");
-                        foreach (DataRow dr in rates)
-                        {
-                            dt.ImportRow(dr);
-                        }
-                        DataView view = new DataView(dt);
-                        DataTable distinctValues = view.ToTable(true, "Rate");
-
-                        ddlRates.DataSource = distinctValues;
-                        ddlRates.DataTextField = "Rate";
-                        ddlRates.DataBind();
-                        ddlRates.Items.Insert(0, new ListItem("--Select Rate--", "0"));
-                        //when found the right row, then get out of it
-                        //break;
-                    }
-                }
-            }
-        }
-        #endregion
-        */
 
         #region
         /// <summary>
@@ -766,6 +690,24 @@ namespace IMS_PowerDept.Admin
 
                 return;
             }
+            DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+            DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+            if (ChallanDate < IndentDate)
+            {
+                panelError.Visible = true;
+                lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                panelSuccess.Visible = false;
+                _tbChallanDate.Style.Add("background", "Pink");
+                _tbChallanDate.Focus();
+                return;
+            }
+            else
+            {
+                _tbChallanDate.Style.Add("background", "White");
+            }
+
+
             if (lblDivisionOld.Text  == "--Select Division Name--")
             {
                 panelError.Visible = true;
@@ -809,7 +751,7 @@ namespace IMS_PowerDept.Admin
                 issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                 issued.indentNo = _tbIndentValue.Text;
                 issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                issued.TotalAmount = 900;
+                issued.TotalAmount = Convert .ToDouble(_tbtotalAmount.Text);
 
                 if (_ddIntendDivisions.SelectedItem.ToString() != "--Select Division Name--")
                 {
@@ -839,12 +781,12 @@ namespace IMS_PowerDept.Admin
 
                 StringBuilder sb = new StringBuilder();
                 string insertStatement = "INSERT INTO DeliveryItemsDetails(DeliveryItemsChallanID,itemid,ItemName, IssueHeadName,QUANTITY,UNIT,RATE) values('@DeliveryItemsChallanID','@ItemID','@ItemName', '@IssueHeadName', '@QUANTITY', '@UNIT', '@RATE')";
-                string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemid='@ItemID' and issueHeadName=  '@IssueHeadName' and OrderNO='@OrderNO'";
+                string updateItemRateSecondary = "update ItemsRateSecondary set quantity=quantity-'@QUANTITY' where itemname='@itemname' and issueHeadName=  '@IssueHeadName' and OrderNO='@OrderNO'";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
-                    DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
+                    DropDownList _ddItems = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
                     TextBox itemUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
 
                     TextBox tbQty = gvItems.Rows[i].FindControl("tbQty") as TextBox;
@@ -860,7 +802,7 @@ namespace IMS_PowerDept.Admin
 
 
 
-                    if (itemName.SelectedValue.ToString() != "")
+                    if (_ddItems.SelectedValue.ToString() != "")
                     {
                         //Checking the quantity is null in quantity
                         if (_tbOrderQuantity.Text == "")
@@ -879,7 +821,7 @@ namespace IMS_PowerDept.Admin
                             if (Convert.ToDouble(_tbOrderQuantity.Text) > Convert.ToDouble(tbQty.Text))
                             {
                                 DataTable dt = dst.Tables["IT2"].Clone();
-                                DataRow[] rates = dst.Tables["IT2"].Select("ItemId= '" + _hdnFieldItemID.Value + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                                DataRow[] rates = dst.Tables["IT2"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                                 Double OrderedQty = Convert.ToDouble(_tbOrderQuantity.Text);
                                 double QtyAvailableinRows = Convert.ToDouble(tbQty.Text);
@@ -908,9 +850,9 @@ namespace IMS_PowerDept.Admin
                                         tempQty = OrderedQty;
                                     }
 
-                                    sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tempOrderNo.ToString()));
+                                    sb.Append(updateItemRateSecondary.Replace("@itemname", _ddItems.SelectedItem.ToString()).Replace("@QUANTITY", tempQty.ToString()).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@OrderNO", tempOrderNo.ToString()));
 
-                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString()));
+                                    sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(_ddItems.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@QUANTITY", tempQty.ToString()).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tempRate.ToString()));
 
                                     OrderedQty = OrderedQty - tempQty;
                                     counter++;
@@ -918,8 +860,8 @@ namespace IMS_PowerDept.Admin
                             }
                             else
                             {
-                                sb.Append(updateItemRateSecondary.Replace("@ItemID", _hdnFieldItemID.Value).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@OrderNO", tbOrderNO.Text));
-                                sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedItem.ToString()).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
+                                sb.Append(updateItemRateSecondary.Replace("@itemname", _ddItems.SelectedItem.ToString()).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@OrderNO", tbOrderNO.Text));
+                                sb.Append(insertStatement.Replace("@DeliveryItemsChallanID", _tbChalanNo.Text).Replace("@ItemID", _hdnFieldItemID.Value).Replace("@ItemName", Utilities.ValidSql(_ddItems.SelectedItem.ToString())).Replace("@IssueHeadName", ddlIhead.SelectedValue).Replace("@QUANTITY", _tbOrderQuantity.Text).Replace("@UNIT", itemUnit.Text).Replace("@RATE", tbRate.Text));
 
                             }
 
@@ -935,7 +877,7 @@ namespace IMS_PowerDept.Admin
 
                     }
                 }
-                issued.TotalAmount = totalAmount;
+                issued.TotalAmount += totalAmount;
           
                     //call the method to save both in primary deliverychallan table and delivery details table
 

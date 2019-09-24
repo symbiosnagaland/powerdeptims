@@ -18,22 +18,31 @@ namespace IMS_PowerDept.UserControls
         protected static DataTable dtItems = new DataTable();
         protected static DataTable gridviewItemsDataTable = new DataTable();
         string CheckExistingItem;
+       
+        protected static DataTable dtIssueHead = new DataTable();
+        protected static DataTable dtRate = new DataTable();
+
+        double totalAmount = 0;
+        protected static DataSet dst = new DataSet();
+        SqlConnection con = new SqlConnection(AppConns.GetConnectionString());
+        DataTable data;
+        DataTable data2;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             
             /*for the purpose of opening new print page if saved */ 
-            if (Session["OTEONUMBER"] != null)            
+         /*   if (Session["OTEONUMBER"] != null)            
             {              
                 //temp code to display properly in local as well as in hosting environment 
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if(appPath !="/")                
                 ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open(' "+appPath + "/Print/ePrint.aspx?Id=" + Session["OTEONUMBER"].ToString() + "');", true);
                  else                
-                  ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('/Print/ePrint.aspx?Id=" + Session["OTEONUMBER"].ToString() + "');", true);
+                 ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('/Print/ePrint.aspx?Id=" + Session["OTEONUMBER"].ToString() + "');", true);
            Session["OTEONUMBER"] = null;
-            }
+            }*/
             /*for the purpose of opening new print page if saved */ 
              
 
@@ -49,43 +58,63 @@ namespace IMS_PowerDept.UserControls
 
                 ddlChargeableHead.Enabled = false;
                 gvItems.Enabled = false;
+                _RetriveOTEOID();
+                _RetriveIssueHeads();
+              
                 
 
             }
             
         }
 
-
-        //trying to call a code befhind function using java script
-        [WebMethod]  
-        public static string ProcessIT(string issueHead, string itemId)
+        private void _RetriveIssueHeads()
         {
-            int a=5;
-            int b=7;
-            int c = a + b;
-            
-            return "hello world "+c;
-        }
-
-
-       // do not delete till final deployment 
-        private void GetIssueHeadsandItemsForDropDowns()
-        {
-            int maxOTEOID;
-            DataSet dst = new DataSet();
-            dst = ReceivedItemsLogic.RetrieveActiveIssueHeadsAndActiveItemsSeperately(out maxOTEOID);//using the out parameter to receive the max +1 oteoid from db
-            ddlIssueHead.DataSource = dst.Tables[0]; //first table contains the issue heads
-            ddlIssueHead.DataValueField = "ISSUEHEADID";
-            ddlIssueHead.DataTextField = "ISSUEHEADNAME";
+            //retrive CHead
+            string cmdText2 = "select IssueHeadId,IssueHeadName from issueheads order by IssueHeadName;";
+            data2 = new DataTable();
+            SqlDataAdapter adapter2 = new SqlDataAdapter(cmdText2, con);
+            adapter2.Fill(data2);
+            ddlIssueHead.DataSource = data2;
+            ddlIssueHead.DataTextField = "IssueHeadName";
+            ddlIssueHead.DataValueField = "IssueHeadId";
             ddlIssueHead.DataBind();
             ddlIssueHead.Items.Insert(0, new ListItem("--Select Issue Head--", ""));
-            //second table contains the items names
-            dtItems = dst.Tables[1];
-
-            //auto populating the max +1 oteoid
-            tbOtEONumber.Text = maxOTEOID.ToString();
-
+       
+            con.Close();
         }
+        
+
+        private void _RetriveOTEOID()
+        {
+            string str = "select max(ReceivedItemsOTEOID) from ReceivedItemsOTEO";
+            SqlCommand com = new SqlCommand(str, con);
+            con.Open();
+            int count;
+            if (com.ExecuteScalar() != DBNull.Value)
+            {
+                count = Convert.ToInt32(com.ExecuteScalar()) + 1;
+            }
+            else
+            {
+                count = 1;
+            }
+            tbOtEONumber.Text = count.ToString();
+            con.Close();
+        }
+     
+  
+         private void GetIssueHeadsandItemsForDropDowns()
+         {
+
+             dst = ReceiveItemsNewLogic.RetrieveAllItems();
+             //second table contains the items names                             
+             dtItems = dst.Tables["Items"];
+            // dtIssueHead = dst.Tables["itemRatesSecondery"];
+            // dtRate = dst.Tables["IT2"];
+         }
+
+
+        
 
         //insert row in gridview 
         private void InsertEmptyRow(int numberofRows)
@@ -129,13 +158,13 @@ namespace IMS_PowerDept.UserControls
             {
                 ddlChargeableHead.Enabled = true;
                 gvItems.Enabled = true;
-                
 
-                ddlChargeableHead.DataSource = ReceivedItemsLogic.RetrieveCorrespondingActiveChargeableHeads(Convert.ToInt32(ddlIssueHead.SelectedValue));
+
+                ddlChargeableHead.DataSource = ReceiveItemsNewLogic.RetrieveCorrespondingActiveChargeableHeads(Convert.ToInt32(ddlIssueHead.SelectedValue));
                 ddlChargeableHead.DataValueField = "CHARGEABLEHEADID";
                 ddlChargeableHead.DataTextField = "CHARGEABLEHEADNAME";
                 ddlChargeableHead.DataBind();
-                ddlChargeableHead.Items.Insert(0, new ListItem("--Select ChargeableHead Head--", ""));
+                ddlChargeableHead.Items.Insert(0, new ListItem("--Select Chargeable Head--", ""));
 
                 ReceivedItemsLogic.RetrieveActiveIssueHeadsAndActiveItemsSeperatelyOnIssueItemChanged(ddlIssueHead.SelectedValue);
 
@@ -293,73 +322,179 @@ namespace IMS_PowerDept.UserControls
                 ReceivedItemsLogic ameh = new ReceivedItemsLogic();
                 properties RecievedItemsOrderObject = new properties();
 
-                RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
+                if (tbOtEONumber.Text == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "OTEO Number Cannot be Blank.";
+                    panelSuccess.Visible = false;
+                    return;
+                }
+                else
+                {
+                    RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
+                }
 
-                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                //RecievedItemsOrderObject.Date = tbOTEODate.Text;
 
-                RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
+
+                RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+
+                if (tbSupplyOrderReference.Text == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Supply Order Reference Cannot be Blank.";
+                    panelSuccess.Visible = false;
+                    tbSupplyOrderReference.Focus();
+                    return;
+                }
+                else
+                {
+                    RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
+                }
+
+
 
                 RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
-                //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
 
-                RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
-                RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
-               RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
-            
+
+                if (tbSupplierName.Text == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Supplier Name  Cannot be Blank.";
+                    panelSuccess.Visible = false;
+                    tbSupplierName.Focus();
+                    return;
+                }
+                else
+                {
+                    RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
+                }
+
+
+                if (ddlIssueHead.SelectedValue == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Should Select Issue Heads.";
+                    panelSuccess.Visible = false;
+                    return;
+
+                }
+                else
+                {
+                    RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+                }
+
+                if (ddlChargeableHead.SelectedItem.ToString() == "--Select Chargeable Head--")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Should Select Chargeable Heads.";
+                    panelSuccess.Visible = false;
+                    return;
+
+                }
+                else
+                {
+                    RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
+                }
+
+
+
+
+
+
 
 
                 TextBox tbtotalAmount = gvItems.FooterRow.FindControl("tbtotalAmount") as TextBox;
                 RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);
                 //setting user id temp here
-                Session["USERID"] = 1;
+                // Session["USERID"] = 1;
                 RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 //getting all the values of controls values inside gridview control
+
                 StringBuilder sb = new StringBuilder();
-  
+
 
                 //  sb.Append("<root>");
+
                 string insertStatement = "INSERT INTO ReceivedItemsDetails(RECEIVEDITEMSOTEOID,ITEMID, ITEMNAME,QUANTITY,UNIT,RATE, AMOUNT) values('@RECEIVEDITEMSOTEOID','@ITEMID', '@ITEMNAME', '@QUANTITY', '@UNIT', '@RATE', '@AMOUNT')";
 
-                string insertRateMaster = "INSERT into ItemsRateMaster (itemid,Rate,MaxOrderNO,Quantity,IssueHeadName) values('@ITEMID','@RATE','@odNo','@QUANTITY','@issueHead')";
+                string insertRateMaster = "INSERT into ItemsRateMaster (itemname,MaxOrderNO,IssueHeadName) values('@ITEMNAME','@odNo','@issueHead')";
+                string UpdateRateMaster = "update ItemsRateMaster set MaxOrderNO='@odNo' where itemname='@ITEMNAME' AND IssueHeadName='@issueHead'";
 
-                string UpdateRateMaster = "Update  ItemsRateMaster set MaxOrderNO= '@odNo' where itemid= '@ITEMID'";
 
-                string insertRateSecondary = "INSERT into ItemsRateSecondary (itemid,ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName,OTEO) values('@ITEMID','@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead','@OTEO')";
+                string insertRateSecondary = "INSERT into ItemsRateSecondary (ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead')";
+                //string updateRateSecondary = "update ItemsRateSecondary set ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead')";
 
 
                 for (int i = 0; i < gvItems.Rows.Count; i++)
                 {
                     // TextBox tbItemID = gvItems.Rows[i].FindControl("tbItemID") as TextBox;
-                    HiddenField hdnFieldItemID = gvItems.Rows[i].FindControl("hdnFieldItemID") as HiddenField;
+
+                    HiddenField hdnFieldItemID = gvItems.Rows[i].FindControl("_hdnFieldItemID") as HiddenField;
                     DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
                     TextBox _tbUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
                     // Label lblUnit = gvItems.Rows[i].FindControl("lblUnit") as Label;
+
+                    TextBox tbOrderNo = gvItems.Rows[i].FindControl("_tbOrderNo") as TextBox;
+
                     TextBox tbQuantity = gvItems.Rows[i].FindControl("_tbQuantity") as TextBox;
                     TextBox tbRate = gvItems.Rows[i].FindControl("tbRate") as TextBox;
                     TextBox tbAmount = gvItems.Rows[i].FindControl("tbAmount") as TextBox;
-                    TextBox _tbOrderNo = gvItems.Rows[i].FindControl("_tbOrderNo") as TextBox;
                     // Label lblAmount = gvItems.Rows[i].FindControl("lblAmount") as Label;
 
                     //CODE TO CHECK NULL VALUES
-
+                    CheckExistingItem = tbOrderNo.Text;
                     //SAVE CODE
-                    CheckExistingItem = _tbOrderNo.Text;
                     if (itemName.SelectedValue.ToString() != "0")
                     {
+
+
+                        double result;
+                        if (!double.TryParse(tbQuantity.Text, out result))
+                        {
+
+                            panelError.Visible = true;
+                            lblError.Text = "Should Be Numeric";
+                            panelSuccess.Visible = false;
+                            tbQuantity.Focus();
+                            tbQuantity.Style.Add("background", "Pink");
+                            return;
+                        }
+                        else
+                        {
+                            tbQuantity.Style.Add("background", "White");
+                        }
+
+                        double result1;
+                        if (!double.TryParse(tbRate.Text, out result1))
+                        {
+
+                            panelError.Visible = true;
+                            lblError.Text = "Should Be Numeric";
+                            panelSuccess.Visible = false;
+                            tbRate.Focus();
+                            tbRate.Style.Add("background", "Pink");
+                            return;
+                        }
+                        else
+                        {
+                            tbRate.Style.Add("background", "White");
+                        }
+
+
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
 
                         if (CheckExistingItem == "1")
                         {
-                            sb.Append(insertRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
+                            sb.Append(insertRateMaster.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@odNo", tbOrderNo.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                            sb.Append(insertRateSecondary.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
                         }
                         else
                         {
-                            sb.Append(UpdateRateMaster.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@odNo", _tbOrderNo.Text));
-                            sb.Append(insertRateSecondary.Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", _tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()).Replace("@OTEO", tbOtEONumber.Text));
-                        } 
+                            sb.Append(UpdateRateMaster.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@odNo", tbOrderNo.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                            sb.Append(insertRateSecondary.Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@RATE", tbRate.Text).Replace("@odNo", tbOrderNo.Text).Replace("@QUANTITY", tbQuantity.Text).Replace("@issueHead", ddlIssueHead.SelectedItem.ToString()));
+                        }
                     }
                 }
                 //now save it to db
@@ -454,26 +589,93 @@ namespace IMS_PowerDept.UserControls
                 ReceivedItemsLogic ameh = new ReceivedItemsLogic();
                 properties RecievedItemsOrderObject = new properties();
 
-                RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
+                if (tbOtEONumber.Text=="")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "OTEO Number Cannot be Blank.";
+                    panelSuccess.Visible = false;
+                    return;
+                }
+                else
+                {
+                    RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
+                }
+
+                
 
                 RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-               // RecievedItemsOrderObject.Date = tbOTEODate.Text;
-                RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
+
+
+                if (tbSupplyOrderReference.Text == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Supply Order Reference Cannot be Blank.";
+                    panelSuccess.Visible = false;
+                    tbSupplyOrderReference.Focus();
+                    return;
+                }
+                else
+                {
+                    RecievedItemsOrderObject.SupplyOderRef = tbSupplyOrderReference.Text;
+                }
+                
+                
 
                 RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                
-                //RecievedItemsOrderObject.SupplyDate = tbSupplyDate.Text;
 
-                RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
-                RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
-                RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+
+
+                if (tbSupplierName.Text == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Supplier Name  Cannot be Blank.";
+                    panelSuccess.Visible = false;
+                    tbSupplierName.Focus();
+                    return;
+                }
+                else
+                {
+                    RecievedItemsOrderObject.Supplier = tbSupplierName.Text;
+                }
+
+
+                if (ddlIssueHead.SelectedValue == "")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Should Select Issue Heads.";
+                    panelSuccess.Visible = false;
+                    return;
+
+                }
+                else
+                {
+                    RecievedItemsOrderObject.IssueHeadName = ddlIssueHead.SelectedItem.ToString();
+                }
+
+                if (ddlChargeableHead.SelectedItem.ToString() == "--Select Chargeable Head--")
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Should Select Chargeable Heads.";
+                    panelSuccess.Visible = false;
+                    return;
+
+                }
+                else
+                {
+                    RecievedItemsOrderObject.ChargeableHeadName = ddlChargeableHead.SelectedItem.ToString();
+                }
+
+
+                
+                
+               
 
 
 
                 TextBox tbtotalAmount = gvItems.FooterRow.FindControl("tbtotalAmount") as TextBox;
                 RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);
                 //setting user id temp here
-                Session["USERID"] = 1;
+               // Session["USERID"] = 1;
                 RecievedItemsOrderObject.ModifiedBy = Convert.ToInt16(Session["USERID"]);
                 //getting all the values of controls values inside gridview control
 
@@ -496,7 +698,7 @@ namespace IMS_PowerDept.UserControls
                 {
                     // TextBox tbItemID = gvItems.Rows[i].FindControl("tbItemID") as TextBox;
 
-                    HiddenField hdnFieldItemID = gvItems.Rows[i].FindControl("hdnFieldItemID") as HiddenField;
+                    HiddenField hdnFieldItemID = gvItems.Rows[i].FindControl("_hdnFieldItemID") as HiddenField;
                     DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
                     TextBox _tbUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
                     // Label lblUnit = gvItems.Rows[i].FindControl("lblUnit") as Label;
@@ -513,6 +715,40 @@ namespace IMS_PowerDept.UserControls
                     //SAVE CODE
                     if (itemName.SelectedValue.ToString() != "0")
                     {
+                       
+
+                            double result;
+                            if  (!double.TryParse(tbQuantity.Text, out result))
+                            {
+
+                                panelError.Visible = true;
+                                lblError.Text = "Should Be Numeric";
+                                panelSuccess.Visible = false;
+                                tbQuantity.Focus();
+                                tbQuantity.Style.Add("background", "Pink");
+                                return;
+                            }
+                            else
+                            {
+                                tbQuantity.Style.Add("background", "White");
+                            }
+
+                            double result1;
+                            if (!double.TryParse(tbRate.Text, out result1))
+                            {
+
+                                panelError.Visible = true;
+                                lblError.Text = "Should Be Numeric";
+                                panelSuccess.Visible = false;
+                                tbRate.Focus();
+                                tbRate.Style.Add("background", "Pink");
+                                return;
+                            }
+                            else
+                            {
+                                tbRate.Style.Add("background", "White");
+                            }
+                           
 
                         sb.Append(insertStatement.Replace("@RECEIVEDITEMSOTEOID", tbOtEONumber.Text).Replace("@ITEMID", hdnFieldItemID.Value).Replace("@ITEMNAME", Utilities.ValidSql(itemName.SelectedItem.ToString())).Replace("@QUANTITY", tbQuantity.Text).Replace("@UNIT", _tbUnit.Text).Replace("@RATE", tbRate.Text).Replace("@AMOUNT", tbAmount.Text));
 
@@ -535,7 +771,7 @@ namespace IMS_PowerDept.UserControls
                     
                         ameh.SaveReceivedItemsDetails(RecievedItemsOrderObject, sb.ToString());
                      
-                    //Session["OTEONUMBER"] = tbOtEONumber.Text;
+                    Session["OTEONUMBER"] = tbOtEONumber.Text;
                     Response.Redirect("ReceivedEntriesList.aspx");
                 }
 
@@ -589,9 +825,92 @@ namespace IMS_PowerDept.UserControls
 
         }
 
-        protected void gvItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
+      
 
+        protected void _ddItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Casting sender to Dropdown
+            DropDownList ddl = sender as DropDownList;
+            //Looping through each Gridview row to find exact Row 
+            //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
+
+
+            foreach (GridViewRow row in gvItems.Rows)
+            {
+                //Finding Dropdown control  
+                Control ctrl = row.FindControl("_ddItems") as DropDownList;
+
+                if (ctrl != null)
+                {
+                    DropDownList ddl1 = (DropDownList)ctrl;
+                    //   Comparing ClientID of the dropdown with sender
+                    if (ddl.ClientID == ddl1.ClientID)
+                    {
+                        
+                        string selected = ddl.SelectedItem.Value;
+                        DropDownList _ddItems = row.FindControl("_ddItems") as DropDownList;
+
+                     
+
+                        TextBox _tbUnit = row.FindControl("_tbUnit") as TextBox;
+
+                   
+
+                          TextBox tbOrderNO = row.FindControl("_tbOrderNo") as TextBox;
+
+                  
+
+                        HiddenField _hdnFieldItemID = row.FindControl("_hdnFieldItemID") as HiddenField;
+
+
+
+
+
+
+                        string[] splitresult = _ddItems.SelectedValue.Split(' ');
+                        if (splitresult.Length > 1)
+                        {
+                            _tbUnit.Text = splitresult[1];
+                            _hdnFieldItemID.Value = splitresult[0];
+                            DataTable dt = dst.Tables["IT2"].Clone();
+                            DataRow[] myOrderNo = dst.Tables["IT2"].Select("Itemname= '" + _ddItems.SelectedItem.ToString() + "' and issueheadname='" + ddlIssueHead.SelectedItem.Text  + "'");
+
+                            foreach (DataRow dr in myOrderNo)
+                           {
+                                dt.ImportRow(dr);
+                           }
+                           
+                            DataView view = new DataView(dt);
+                            DataTable myRates = view.ToTable(true, "MaxOrderNo");
+
+                            if (myRates.Rows.Count > 0)
+                            {
+
+                                 int myOrder =Convert.ToInt32 ( myRates.Rows[0]["MaxOrderNo"].ToString());
+                                 myOrder = myOrder + 1;
+                                tbOrderNO.Text = myOrder.ToString() ;
+
+                            }
+                            else
+                            {
+                                tbOrderNO.Text = "1";
+                            }
+                        }
+                        else
+                        {
+                            _tbUnit.Text = "";
+                            _hdnFieldItemID.Value = "";
+                        
+                            return;
+                        }
+
+
+
+
+                        break;
+                    }
+                }
+            }
         }
 
         
