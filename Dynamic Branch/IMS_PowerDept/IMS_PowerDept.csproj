@@ -1,0 +1,1034 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5097BDD2-E9B3-4A5A-873F-0BE33CE4C384}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IMS_PowerDept</RootNamespace>
+    <AssemblyName>IMS_PowerDept</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\BackUp.aspx" />
+    <Content Include="Admin\BulkItemUpload.aspx" />
+    <Content Include="Admin\ChargeableHeads.aspx" />
+    <Content Include="Admin\IssueEntryTemporary.aspx" />
+    <Content Include="Admin\SearchByItem.aspx" />
+    <Content Include="Admin\User_SettingDeveloper.aspx" />
+    <Content Include="Admin\IssuedEntryEdit.aspx" />
+    <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Divisions.aspx" />
+    <Content Include="Admin\Error.aspx" />
+    <Content Include="Admin\IssuedItemsDetails.aspx" />
+    <Content Include="Admin\IssueEntriesList.aspx" />
+    <Content Include="Admin\IssueEntry.aspx" />
+    <Content Include="Admin\IssueHead.aspx" />
+    <Content Include="Admin\ItemInventory.aspx" />
+    <Content Include="Admin\ItemsListInventory.aspx" />
+    <Content Include="Admin\ManageItems.aspx" />
+    <Content Include="Admin\ReceivedEntriesList.aspx" />
+    <Content Include="Admin\ReceivedItems.aspx" />
+    <Content Include="Admin\ReceivedItemsDetails.aspx" />
+    <Content Include="Admin\ReceivedItemsEdit.aspx" />
+    <Content Include="Admin\Reports.aspx" />
+    <Content Include="Admin\Report_HeadWiseValuation.aspx" />
+    <Content Include="Admin\User_New.aspx" />
+    <Content Include="Admin\User_Setting.aspx" />
+    <Content Include="CentralStore\BackUp.aspx" />
+    <Content Include="CentralStore\BulkItemUpload.aspx" />
+    <Content Include="CentralStore\ChargeableHeads.aspx" />
+    <Content Include="CentralStore\Dashboard.aspx" />
+    <Content Include="CentralStore\Divisions.aspx" />
+    <Content Include="CentralStore\Error.aspx" />
+    <Content Include="CentralStore\IssueEntry.aspx" />
+    <Content Include="CentralStore\IssuedItemsDetails.aspx" />
+    <Content Include="CentralStore\IssueEntriesList.aspx" />
+    <Content Include="CentralStore\IssueEntryTemporary.aspx" />
+    <Content Include="CentralStore\IssueHead.aspx" />
+    <Content Include="CentralStore\ItemInventory.aspx" />
+    <Content Include="CentralStore\ItemsListInventory.aspx" />
+    <Content Include="CentralStore\ManageItems.aspx" />
+    <Content Include="CentralStore\ReceivedItems.aspx" />
+    <Content Include="CentralStore\ReceivedItemsDetails.aspx" />
+    <Content Include="CentralStore\ReceivedEntriesList.aspx" />
+    <Content Include="CentralStore\Reports.aspx" />
+    <Content Include="CentralStore\SearchByItem.aspx" />
+    <Content Include="CentralStore\User_Setting.aspx" />
+    <Content Include="css\login.css" />
+    <Content Include="css\navi.css" />
+    <Content Include="css\sb-admin.css" />
+    <Content Include="css\style.css" />
+    <Content Include="Error.aspx" />
+    <Content Include="img\bg_arr_left.png" />
+    <Content Include="img\bg_arr_nav.png" />
+    <Content Include="img\bg_box_head.jpg" />
+    <Content Include="img\bg_login_top.jpg" />
+    <Content Include="img\bg_top.jpg" />
+    <Content Include="img\i_add.png" />
+    <Content Include="img\i_add_page.png" />
+    <Content Include="img\i_add_user.png" />
+    <Content Include="img\i_archive.png" />
+    <Content Include="img\i_block_users.png" />
+    <Content Include="img\i_category.png" />
+    <Content Include="img\i_config.png" />
+    <Content Include="img\i_contact.png" />
+    <Content Include="img\i_delete.png" />
+    <Content Include="img\i_edit.png" />
+    <Content Include="img\i_error.png" />
+    <Content Include="img\i_ok.png" />
+    <Content Include="img\i_page.png" />
+    <Content Include="img\i_photo.png" />
+    <Content Include="img\i_report.png" />
+    <Content Include="img\i_users.png" />
+    <Content Include="img\i_view_page.png" />
+    <Content Include="img\i_warning.png" />
+    <Content Include="img\Power-Transformer.jpg" />
+    <Content Include="img\print.png" />
+    <Content Include="js\fancybox\jquery-1.4.2.min.js" />
+    <Content Include="js\highcharts.js" />
+    <Content Include="js\highcharts_init.js" />
+    <Content Include="js\jquery-1.7.2.min.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="PrintReports\Transformer_Issue.aspx" />
+    <Content Include="PrintReports\Transformer_Jobs.aspx" />
+    <Content Include="PrintReports\Transformer_Receipts.aspx" />
+    <Content Include="PrintReports\Reports_SummaryOfIndents.aspx" />
+    <Content Include="PrintReports\Report_BalanceSheet.aspx" />
+    <Content Include="PrintReports\Report_BalanceSheet2.aspx" />
+    <Content Include="PrintReports\Report_ChallanAll.aspx" />
+    <Content Include="PrintReports\Report_ChallanWiseValuationPrint.aspx" />
+    <Content Include="PrintReports\Report_Division-wiseIssueofMaterials.aspx" />
+    <Content Include="PrintReports\Report_DivisionIssueHead2.aspx" />
+    <Content Include="PrintReports\Report_HeadWiseValuation.aspx" />
+    <Content Include="PrintReports\Report_HeadWiseValuation2.aspx" />
+    <Content Include="PrintReports\Report_ReceiptValuation.aspx" />
+    <Content Include="PrintReports\Report_style.css" />
+    <Content Include="PrintReports\Report_SupplierSummaryOfReciepts.aspx" />
+    <Content Include="PrintReports\Report_TempIssuedItems.aspx" />
+    <Content Include="PrintReports\Report_TempIssuedItems2.aspx" />
+    <Content Include="Print\ePrint.aspx" />
+    <Content Include="Print\Print.aspx" />
+    <Content Include="Print\Print_ItemsInventory.aspx" />
+    <Content Include="Reports\ChallanWiseValuation.aspx" />
+    <Content Include="Reports\ChargeableHeadsList.aspx" />
+    <Content Include="Reports\DivisionsList.aspx" />
+    <Content Include="Reports\IssueHeadsList.aspx" />
+    <Content Include="Reports\ItemsList.aspx" />
+    <Content Include="templates\Shared\ItemEnquiry.aspx" />
+    <Content Include="Transformers\Reports.aspx" />
+    <Content Include="templates\css\login.css" />
+    <Content Include="templates\css\navi.css" />
+    <Content Include="templates\css\style.css" />
+    <Content Include="templates\img\bg_arr_left.png" />
+    <Content Include="templates\img\bg_arr_nav.png" />
+    <Content Include="templates\img\bg_box_head.jpg" />
+    <Content Include="templates\img\bg_login_top.jpg" />
+    <Content Include="templates\img\bg_top.jpg" />
+    <Content Include="templates\img\i_add.png" />
+    <Content Include="templates\img\i_add_page.png" />
+    <Content Include="templates\img\i_add_user.png" />
+    <Content Include="templates\img\i_archive.png" />
+    <Content Include="templates\img\i_block_users.png" />
+    <Content Include="templates\img\i_category.png" />
+    <Content Include="templates\img\i_config.png" />
+    <Content Include="templates\img\i_contact.png" />
+    <Content Include="templates\img\i_delete.png" />
+    <Content Include="templates\img\i_edit.png" />
+    <Content Include="templates\img\i_error.png" />
+    <Content Include="templates\img\i_ok.png" />
+    <Content Include="templates\img\i_page.png" />
+    <Content Include="templates\img\i_photo.png" />
+    <Content Include="templates\img\i_report.png" />
+    <Content Include="templates\img\i_users.png" />
+    <Content Include="templates\img\i_view_page.png" />
+    <Content Include="templates\img\i_warning.png" />
+    <Content Include="templates\index.html" />
+    <Content Include="templates\js\highcharts.js" />
+    <Content Include="templates\js\highcharts_init.js" />
+    <Content Include="templates\js\jquery-1.7.2.min.js" />
+    <Content Include="templates\login.html" />
+    <Content Include="Transformers\IssueEntryDetails.aspx" />
+    <Content Include="Transformers\JobEntriesList.aspx" />
+    <Content Include="Transformers\IssueEntry.aspx" />
+    <Content Include="Transformers\JobEntryDetails.aspx" />
+    <Content Include="Transformers\IssueEntriesList.aspx" />
+    <Content Include="Transformers\JobEntry.aspx" />
+    <Content Include="Transformers\Dashboard.aspx" />
+    <Content Include="Transformers\ReceiptEntriesList.aspx" />
+    <Content Include="Transformers\ReceiptEntry.aspx" />
+    <Content Include="Transformers\ReceiptEntryDetails.aspx" />
+    <Content Include="Transformers\User_Setting.aspx" />
+    <Content Include="UserControls\BackUp.ascx" />
+    <Content Include="UserControls\BulkItemsUploadControl.ascx" />
+    <Content Include="UserControls\ChargeableHeadsControl.ascx" />
+    <Content Include="UserControls\IssueEntryTemp.ascx" />
+    <Content Include="UserControls\ItemsInventoryControl.ascx" />
+    <Content Include="UserControls\ItemsListInventoryControl.ascx" />
+    <Content Include="UserControls\TransformerReceiptEntry.ascx" />
+    <Content Include="UserControls\Dash.ascx" />
+    <Content Include="UserControls\DivisionsControl.ascx" />
+    <Content Include="UserControls\ErrorControl.ascx" />
+    <Content Include="UserControls\IssueEntry.ascx" />
+    <Content Include="UserControls\IssueHeadsControl.ascx" />
+    <Content Include="UserControls\ItemsControl.ascx" />
+    <Content Include="UserControls\menuPartial.ascx" />
+    <Content Include="UserControls\ReceiveItems.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\BackUp.aspx.cs">
+      <DependentUpon>BackUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\BackUp.aspx.designer.cs">
+      <DependentUpon>BackUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\BulkItemUpload.aspx.cs">
+      <DependentUpon>BulkItemUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\BulkItemUpload.aspx.designer.cs">
+      <DependentUpon>BulkItemUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ChargeableHeads.aspx.cs">
+      <DependentUpon>ChargeableHeads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ChargeableHeads.aspx.designer.cs">
+      <DependentUpon>ChargeableHeads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssueEntryTemporary.aspx.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssueEntryTemporary.aspx.designer.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SearchByItem.aspx.cs">
+      <DependentUpon>SearchByItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SearchByItem.aspx.designer.cs">
+      <DependentUpon>SearchByItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User_SettingDeveloper.aspx.cs">
+      <DependentUpon>User_SettingDeveloper.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User_SettingDeveloper.aspx.designer.cs">
+      <DependentUpon>User_SettingDeveloper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssuedEntryEdit.aspx.cs">
+      <DependentUpon>IssuedEntryEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssuedEntryEdit.aspx.designer.cs">
+      <DependentUpon>IssuedEntryEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Divisions.aspx.cs">
+      <DependentUpon>Divisions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Divisions.aspx.designer.cs">
+      <DependentUpon>Divisions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssuedItemsDetails.aspx.cs">
+      <DependentUpon>IssuedItemsDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssuedItemsDetails.aspx.designer.cs">
+      <DependentUpon>IssuedItemsDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssueEntriesList.aspx.cs">
+      <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssueEntriesList.aspx.designer.cs">
+      <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssueEntry.aspx.cs">
+      <DependentUpon>IssueEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssueEntry.aspx.designer.cs">
+      <DependentUpon>IssueEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\IssueHead.aspx.cs">
+      <DependentUpon>IssueHead.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\IssueHead.aspx.designer.cs">
+      <DependentUpon>IssueHead.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ItemInventory.aspx.cs">
+      <DependentUpon>ItemInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ItemInventory.aspx.designer.cs">
+      <DependentUpon>ItemInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ItemsListInventory.aspx.cs">
+      <DependentUpon>ItemsListInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ItemsListInventory.aspx.designer.cs">
+      <DependentUpon>ItemsListInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageItems.aspx.cs">
+      <DependentUpon>ManageItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageItems.aspx.designer.cs">
+      <DependentUpon>ManageItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ReceivedEntriesList.aspx.cs">
+      <DependentUpon>ReceivedEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ReceivedEntriesList.aspx.designer.cs">
+      <DependentUpon>ReceivedEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ReceivedItems.aspx.cs">
+      <DependentUpon>ReceivedItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ReceivedItems.aspx.designer.cs">
+      <DependentUpon>ReceivedItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ReceivedItemsDetails.aspx.cs">
+      <DependentUpon>ReceivedItemsDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ReceivedItemsDetails.aspx.designer.cs">
+      <DependentUpon>ReceivedItemsDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ReceivedItemsEdit.aspx.cs">
+      <DependentUpon>ReceivedItemsEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ReceivedItemsEdit.aspx.designer.cs">
+      <DependentUpon>ReceivedItemsEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Report_HeadWiseValuation.aspx.cs">
+      <DependentUpon>Report_HeadWiseValuation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Report_HeadWiseValuation.aspx.designer.cs">
+      <DependentUpon>Report_HeadWiseValuation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User_New.aspx.cs">
+      <DependentUpon>User_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User_New.aspx.designer.cs">
+      <DependentUpon>User_New.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\User_Setting.aspx.cs">
+      <DependentUpon>User_Setting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\User_Setting.aspx.designer.cs">
+      <DependentUpon>User_Setting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AppCode\AppConns.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppCode\InventoryListDetails.cs" />
+    <Compile Include="AppCode\IssueNewLogic.cs" />
+    <Compile Include="AppCode\NewProperties.cs" />
+    <Compile Include="AppCode\SelectedIssueHeadDetails.cs" />
+    <Compile Include="AppCode\TransformerLogic.cs" />
+    <Compile Include="AppCode\TransformerReceiptLogic.cs" />
+    <Compile Include="AppCode\Helper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppCode\IsssuedItemsLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppCode\properties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppCode\ReceivedItemsLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppCode\Utilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CentralStore\BackUp.aspx.cs">
+      <DependentUpon>BackUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\BackUp.aspx.designer.cs">
+      <DependentUpon>BackUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\BulkItemUpload.aspx.cs">
+      <DependentUpon>BulkItemUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\BulkItemUpload.aspx.designer.cs">
+      <DependentUpon>BulkItemUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ChargeableHeads.aspx.cs">
+      <DependentUpon>ChargeableHeads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ChargeableHeads.aspx.designer.cs">
+      <DependentUpon>ChargeableHeads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\Divisions.aspx.cs">
+      <DependentUpon>Divisions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\Divisions.aspx.designer.cs">
+      <DependentUpon>Divisions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntry.aspx.cs">
+      <DependentUpon>IssueEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntry.aspx.designer.cs">
+      <DependentUpon>IssueEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssuedItemsDetails.aspx.cs">
+      <DependentUpon>IssuedItemsDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssuedItemsDetails.aspx.designer.cs">
+      <DependentUpon>IssuedItemsDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntriesList.aspx.cs">
+      <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntriesList.aspx.designer.cs">
+      <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntryTemporary.aspx.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntryTemporary.aspx.designer.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssueHead.aspx.cs">
+      <DependentUpon>IssueHead.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssueHead.aspx.designer.cs">
+      <DependentUpon>IssueHead.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ItemInventory.aspx.cs">
+      <DependentUpon>ItemInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ItemInventory.aspx.designer.cs">
+      <DependentUpon>ItemInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ItemsListInventory.aspx.cs">
+      <DependentUpon>ItemsListInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ItemsListInventory.aspx.designer.cs">
+      <DependentUpon>ItemsListInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ManageItems.aspx.cs">
+      <DependentUpon>ManageItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ManageItems.aspx.designer.cs">
+      <DependentUpon>ManageItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ReceivedItems.aspx.cs">
+      <DependentUpon>ReceivedItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ReceivedItems.aspx.designer.cs">
+      <DependentUpon>ReceivedItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ReceivedItemsDetails.aspx.cs">
+      <DependentUpon>ReceivedItemsDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ReceivedItemsDetails.aspx.designer.cs">
+      <DependentUpon>ReceivedItemsDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\ReceivedEntriesList.aspx.cs">
+      <DependentUpon>ReceivedEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\ReceivedEntriesList.aspx.designer.cs">
+      <DependentUpon>ReceivedEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\SearchByItem.aspx.cs">
+      <DependentUpon>SearchByItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\SearchByItem.aspx.designer.cs">
+      <DependentUpon>SearchByItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\User_Setting.aspx.cs">
+      <DependentUpon>User_Setting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\User_Setting.aspx.designer.cs">
+      <DependentUpon>User_Setting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Transformer_Issue.aspx.cs">
+      <DependentUpon>Transformer_Issue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Transformer_Issue.aspx.designer.cs">
+      <DependentUpon>Transformer_Issue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Transformer_Jobs.aspx.cs">
+      <DependentUpon>Transformer_Jobs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Transformer_Jobs.aspx.designer.cs">
+      <DependentUpon>Transformer_Jobs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Transformer_Receipts.aspx.cs">
+      <DependentUpon>Transformer_Receipts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Transformer_Receipts.aspx.designer.cs">
+      <DependentUpon>Transformer_Receipts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Reports_SummaryOfIndents.aspx.cs">
+      <DependentUpon>Reports_SummaryOfIndents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Reports_SummaryOfIndents.aspx.designer.cs">
+      <DependentUpon>Reports_SummaryOfIndents.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_BalanceSheet.aspx.cs">
+      <DependentUpon>Report_BalanceSheet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_BalanceSheet.aspx.designer.cs">
+      <DependentUpon>Report_BalanceSheet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_BalanceSheet2.aspx.cs">
+      <DependentUpon>Report_BalanceSheet2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_BalanceSheet2.aspx.designer.cs">
+      <DependentUpon>Report_BalanceSheet2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_ChallanAll.aspx.cs">
+      <DependentUpon>Report_ChallanAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_ChallanAll.aspx.designer.cs">
+      <DependentUpon>Report_ChallanAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_ChallanWiseValuationPrint.aspx.cs">
+      <DependentUpon>Report_ChallanWiseValuationPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_ChallanWiseValuationPrint.aspx.designer.cs">
+      <DependentUpon>Report_ChallanWiseValuationPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_Division-wiseIssueofMaterials.aspx.cs">
+      <DependentUpon>Report_Division-wiseIssueofMaterials.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_Division-wiseIssueofMaterials.aspx.designer.cs">
+      <DependentUpon>Report_Division-wiseIssueofMaterials.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_DivisionIssueHead2.aspx.cs">
+      <DependentUpon>Report_DivisionIssueHead2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_DivisionIssueHead2.aspx.designer.cs">
+      <DependentUpon>Report_DivisionIssueHead2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_HeadWiseValuation.aspx.cs">
+      <DependentUpon>Report_HeadWiseValuation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_HeadWiseValuation.aspx.designer.cs">
+      <DependentUpon>Report_HeadWiseValuation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_HeadWiseValuation2.aspx.cs">
+      <DependentUpon>Report_HeadWiseValuation2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_HeadWiseValuation2.aspx.designer.cs">
+      <DependentUpon>Report_HeadWiseValuation2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_ReceiptValuation.aspx.cs">
+      <DependentUpon>Report_ReceiptValuation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_ReceiptValuation.aspx.designer.cs">
+      <DependentUpon>Report_ReceiptValuation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_SupplierSummaryOfReciepts.aspx.cs">
+      <DependentUpon>Report_SupplierSummaryOfReciepts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_SupplierSummaryOfReciepts.aspx.designer.cs">
+      <DependentUpon>Report_SupplierSummaryOfReciepts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_TempIssuedItems.aspx.cs">
+      <DependentUpon>Report_TempIssuedItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_TempIssuedItems.aspx.designer.cs">
+      <DependentUpon>Report_TempIssuedItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_TempIssuedItems2.aspx.cs">
+      <DependentUpon>Report_TempIssuedItems2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_TempIssuedItems2.aspx.designer.cs">
+      <DependentUpon>Report_TempIssuedItems2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Print\ePrint.aspx.cs">
+      <DependentUpon>ePrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Print\ePrint.aspx.designer.cs">
+      <DependentUpon>ePrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Print\Print.aspx.cs">
+      <DependentUpon>Print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Print\Print.aspx.designer.cs">
+      <DependentUpon>Print.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Print\Print_ItemsInventory.aspx.cs">
+      <DependentUpon>Print_ItemsInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Print\Print_ItemsInventory.aspx.designer.cs">
+      <DependentUpon>Print_ItemsInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ChallanWiseValuation.aspx.cs">
+      <DependentUpon>ChallanWiseValuation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ChallanWiseValuation.aspx.designer.cs">
+      <DependentUpon>ChallanWiseValuation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ChargeableHeadsList.aspx.cs">
+      <DependentUpon>ChargeableHeadsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ChargeableHeadsList.aspx.designer.cs">
+      <DependentUpon>ChargeableHeadsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DivisionsList.aspx.cs">
+      <DependentUpon>DivisionsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DivisionsList.aspx.designer.cs">
+      <DependentUpon>DivisionsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\IssueHeadsList.aspx.cs">
+      <DependentUpon>IssueHeadsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\IssueHeadsList.aspx.designer.cs">
+      <DependentUpon>IssueHeadsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ItemsList.aspx.cs">
+      <DependentUpon>ItemsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ItemsList.aspx.designer.cs">
+      <DependentUpon>ItemsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Shared\ItemEnquiry.aspx.cs">
+      <DependentUpon>ItemEnquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="templates\Shared\ItemEnquiry.aspx.designer.cs">
+      <DependentUpon>ItemEnquiry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Shared\Shared.Master.cs">
+      <DependentUpon>Shared.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="templates\Shared\Shared.Master.designer.cs">
+      <DependentUpon>Shared.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Shared\Admin_Master.Master.cs">
+      <DependentUpon>Admin_Master.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="templates\Shared\Admin_Master.Master.designer.cs">
+      <DependentUpon>Admin_Master.Master</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Shared\CentralStore_Master.Master.cs">
+      <DependentUpon>CentralStore_Master.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="templates\Shared\CentralStore_Master.Master.designer.cs">
+      <DependentUpon>CentralStore_Master.Master</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Shared\Transformers_Master.Master.cs">
+      <DependentUpon>Transformers_Master.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="templates\Shared\Transformers_Master.Master.designer.cs">
+      <DependentUpon>Transformers_Master.Master</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Shared\PrintTemplate.Master.cs">
+      <DependentUpon>PrintTemplate.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="templates\Shared\PrintTemplate.Master.designer.cs">
+      <DependentUpon>PrintTemplate.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\IssueEntryDetails.aspx.cs">
+      <DependentUpon>IssueEntryDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\IssueEntryDetails.aspx.designer.cs">
+      <DependentUpon>IssueEntryDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\JobEntriesList.aspx.cs">
+      <DependentUpon>JobEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\JobEntriesList.aspx.designer.cs">
+      <DependentUpon>JobEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\IssueEntry.aspx.cs">
+      <DependentUpon>IssueEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\IssueEntry.aspx.designer.cs">
+      <DependentUpon>IssueEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\JobEntryDetails.aspx.cs">
+      <DependentUpon>JobEntryDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\JobEntryDetails.aspx.designer.cs">
+      <DependentUpon>JobEntryDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\IssueEntriesList.aspx.cs">
+      <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\IssueEntriesList.aspx.designer.cs">
+      <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\JobEntry.aspx.cs">
+      <DependentUpon>JobEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\JobEntry.aspx.designer.cs">
+      <DependentUpon>JobEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\ReceiptEntriesList.aspx.cs">
+      <DependentUpon>ReceiptEntriesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\ReceiptEntriesList.aspx.designer.cs">
+      <DependentUpon>ReceiptEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\ReceiptEntry.aspx.cs">
+      <DependentUpon>ReceiptEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\ReceiptEntry.aspx.designer.cs">
+      <DependentUpon>ReceiptEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\ReceiptEntryDetails.aspx.cs">
+      <DependentUpon>ReceiptEntryDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\ReceiptEntryDetails.aspx.designer.cs">
+      <DependentUpon>ReceiptEntryDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transformers\User_Setting.aspx.cs">
+      <DependentUpon>User_Setting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transformers\User_Setting.aspx.designer.cs">
+      <DependentUpon>User_Setting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BackUp.ascx.cs">
+      <DependentUpon>BackUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\BackUp.ascx.designer.cs">
+      <DependentUpon>BackUp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BulkItemsUploadControl.ascx.cs">
+      <DependentUpon>BulkItemsUploadControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\BulkItemsUploadControl.ascx.designer.cs">
+      <DependentUpon>BulkItemsUploadControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ChargeableHeadsControl.ascx.cs">
+      <DependentUpon>ChargeableHeadsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ChargeableHeadsControl.ascx.designer.cs">
+      <DependentUpon>ChargeableHeadsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IssueEntryTemp.ascx.cs">
+      <DependentUpon>IssueEntryTemp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\IssueEntryTemp.ascx.designer.cs">
+      <DependentUpon>IssueEntryTemp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ItemsInventoryControl.ascx.cs">
+      <DependentUpon>ItemsInventoryControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ItemsInventoryControl.ascx.designer.cs">
+      <DependentUpon>ItemsInventoryControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ItemsListInventoryControl.ascx.cs">
+      <DependentUpon>ItemsListInventoryControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ItemsListInventoryControl.ascx.designer.cs">
+      <DependentUpon>ItemsListInventoryControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TransformerReceiptEntry.ascx.cs">
+      <DependentUpon>TransformerReceiptEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\TransformerReceiptEntry.ascx.designer.cs">
+      <DependentUpon>TransformerReceiptEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dash.ascx.cs">
+      <DependentUpon>Dash.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Dash.ascx.designer.cs">
+      <DependentUpon>Dash.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DivisionsControl.ascx.cs">
+      <DependentUpon>DivisionsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\DivisionsControl.ascx.designer.cs">
+      <DependentUpon>DivisionsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ErrorControl.ascx.cs">
+      <DependentUpon>ErrorControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ErrorControl.ascx.designer.cs">
+      <DependentUpon>ErrorControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IssueEntry.ascx.cs">
+      <DependentUpon>IssueEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\IssueEntry.ascx.designer.cs">
+      <DependentUpon>IssueEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IssueHeadsControl.ascx.cs">
+      <DependentUpon>IssueHeadsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\IssueHeadsControl.ascx.designer.cs">
+      <DependentUpon>IssueHeadsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ItemsControl.ascx.cs">
+      <DependentUpon>ItemsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ItemsControl.ascx.designer.cs">
+      <DependentUpon>ItemsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\menuPartial.ascx.cs">
+      <DependentUpon>menuPartial.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\menuPartial.ascx.designer.cs">
+      <DependentUpon>menuPartial.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReceiveItems.ascx.cs">
+      <DependentUpon>ReceiveItems.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ReceiveItems.ascx.designer.cs">
+      <DependentUpon>ReceiveItems.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="templates\Shared\Admin_Master.Master" />
+    <Content Include="templates\Shared\CentralStore_Master.Master" />
+    <Content Include="templates\Shared\PrintTemplate.Master" />
+    <Content Include="AppContent\ImportItemsTemplate.xlsx" />
+    <Content Include="templates\Shared\Transformers_Master.Master" />
+    <Content Include="AppContent\Transformers_MasterData.xlsx" />
+    <Content Include="templates\Shared\Shared.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AppContent\UploadFolder\" />
+    <Folder Include="DBBackup\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61111</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/IMS_PowerDept</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -299,7 +299,7 @@
             </span>     
             
             <span style="float:left; padding-left: 11px;";> 
-               <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbRemarks"   placeholder="Remarks" TextMode ="MultiLine"   Width="280px" runat="server"></asp:TextBox>
+               <asp:TextBox CssClass="form-control" autocomplete="off"  ID="tbRemarks" style="text-transform:uppercase"  placeholder="Remarks" TextMode ="MultiLine"   Width="280px" runat="server"></asp:TextBox>
             </span>
         </div>
         

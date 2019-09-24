@@ -87,9 +87,9 @@ namespace IMS_PowerDept.Admin
                       // hdnFieldChallanID.Value= _tbChalanNo.Text = challanID;
                         hdnFieldChallanID.Value = _tbChalanNo.Text = challanID.ToString();
                        
-                        _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("dd/MM/yyyy");
+                        _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("dd-MM-yyyy");
                         _tbIndentValue.Text = dr["IndentReference"].ToString();
-                        _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("dd/MM/yyyy");
+                        _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("dd-MM-yyyy");
                        
                        // _ddIntendDivisions.SelectedValue = dr["ChargeableHeadID"].ToString(); instead of using ddl using label to display old data and giving option ddl seperately to change if user wants to
                         lblDivisionOld.Text = dr["IndentingDivisionName"].ToString();
@@ -237,16 +237,16 @@ namespace IMS_PowerDept.Admin
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
 
                // issued.Date = _tbChallanDate.Text;
-                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
-                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 issued.IndentValue = _tbIndentValue.Text;
                 // issued.Date2 = _tbIntendDate.Text;
 
-                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
-                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 //using 2 controls for displaying old value and for givng option to check
                 if (_ddIntendDivisions.SelectedIndex > 0)
@@ -614,12 +614,10 @@ namespace IMS_PowerDept.Admin
 
                         HiddenField hdnSelectedIssueHead = row.FindControl("hdnSelectedIssueHead") as HiddenField;
                         HiddenField hdnSelectedRate = row.FindControl("hdnSelectedRate") as HiddenField;
-                       // TextBox _tbQuantity = row.FindControl("_tbQuantity") as TextBox;   
-                       // hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
+                       // TextBox _tbQuantity = row.FindControl("_tbQuantity") as TextBox; 
+                        // hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedValue;
+
                         hdnSelectedRate.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[1].Trim();
-
-
-
                         hdnSelectedIssueHead.Value = ddlIssueheadRateActualBalance.SelectedItem.ToString().Split(':')[0].Trim();
 
                     }
@@ -643,15 +641,15 @@ namespace IMS_PowerDept.Admin
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
                // issued.Date = _tbChallanDate.Text;
-                issued.Date=DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date=DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                stDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 issued.IndentValue = _tbIndentValue.Text;
                // issued.Date2 = _tbIntendDate.Text;
 
-                issued.Date2=DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2=DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
-                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                edDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
               
                 if (_ddIntendDivisions.SelectedIndex > 0)
                     issued.Division = _ddIntendDivisions.Text;

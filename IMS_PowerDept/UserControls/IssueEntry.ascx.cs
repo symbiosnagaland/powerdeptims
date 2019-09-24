@@ -241,14 +241,14 @@ namespace IMS_PowerDept.UserControls
                 properties issued = new properties();
 
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
-                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2 = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 //issued.Date = _tbChallanDate.Text;
 
 
                 issued.IndentValue = _tbIndentValue.Text;
 
-                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
                 //issued.Date2 = _tbIntendDate.Text;
 
                 issued.Division = _ddIntendDivisions.Text;
@@ -414,13 +414,19 @@ namespace IMS_PowerDept.UserControls
                         //hlItemEnquiry.Visible = true;
                         //hlItemEnquiry.Text = "item enquiry";
                         //populate new destination table                   
-                     //   DataRow[] iheads = dst.Tables["ReceivedItemsDetails"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
-                        DataRow[] iheads = dst.Tables["ItemsEnquiryListTable"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
+                        //   DataRow[] iheads = dst.Tables["ReceivedItemsDetails"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "'");
+                        //when found the right row, then get out of it
+                        string[] splitresult = _ddItems.SelectedValue.Split(' ');
+                        _tbUnit.Text = splitresult[1];
 
+
+                        DataRow[] iheads = dst.Tables["ItemsEnquiryListTable"].Select("itemname= '" + _ddItems.SelectedItem.ToString() + "' AND unit= '" + _tbUnit.Text + "'");
                         foreach (DataRow dr in iheads)
                         {
                             dt.ImportRow(dr);
                         }
+
+
                         DataView view = new DataView(dt);
                             DataTable dtIssueheadRateNetActualBalance = view.ToTable(false, "IssueheadRateNetActualBalance", "Rate");
 
@@ -432,9 +438,8 @@ namespace IMS_PowerDept.UserControls
                         ddlIheadRateActualBalance.DataValueField = "IssueheadRateNetActualBalance";
                         ddlIheadRateActualBalance.DataBind();
                         ddlIheadRateActualBalance.Items.Insert(0, new ListItem("Issue Head : Rate : Net Balance", "0"));
-                        //when found the right row, then get out of it
-                        string[] splitresult = _ddItems.SelectedValue.Split(' ');
-                        _tbUnit.Text = splitresult[1];
+                       
+
                         break;
                     }
                 }
@@ -678,83 +683,7 @@ namespace IMS_PowerDept.UserControls
                 Response.Redirect("~/Error.aspx");
             }
 
-            //old codes has been comment my multi line comments. only save code has been copied
-            //done by biswajit
-
-           /* //checking in there is any null value b4 saving 2 challan table
-            if (_tbChalanNo.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Challan No./Indent number cannot be NULL.";
-                return;
-            }
-            if (_tbIndentValue.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Indent number cannot be NULL.";
-                return;
-            }
-            //_tbChallanDate _ddIntendDivisions _ddCHead
-            if (_tbChallanDate.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Challan Date cannot be NULL.";
-                return;
-            }
-            if (_ddIntendDivisions.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "Division Name cannot be NULL.";
-                return;
-            }
-            if (_ddCHead.Text.Trim() == "")
-            {
-                panelError.Visible = true;
-                lblError.Text = "ChargeableHead Name cannot be NULL.";
-                return;
-            }
-
-            try
-            {
-
-                con.Open();
-                SqlCommand cmdd = new SqlCommand("select * from DeliveryItemsChallan where DeliveryItemsChallanID = @DeliveryItemsChallanID", con);
-                SqlParameter param = new SqlParameter();
-                //SqlParameter param1 = new SqlParameter();
-                param.ParameterName = "@DeliveryItemsChallanID";
-                param.Value = _tbChalanNo.Text;
-                cmdd.Parameters.Add(param);
-                //cmdd.Parameters.Add(param1);
-                SqlDataReader reader = cmdd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    panelError.Visible = true;
-                    lblError.Text = "This Delivery ItemsChallanID already exists.Please choose another ID.";
-
-                    reader.Close();
-                    con.Close();
-                    return;
-                }
-                else
-                {
-                    reader.Close();
-                    con.Close();
-                    _SaveDeliveryItemDetails();
-
-
-                }
-
-
-            }
-            catch (System.Threading.ThreadAbortException)
-            {
-                //do nothing
-            }
-            catch (Exception ex)
-            {
-                Session["ERRORMSG"] = ex.ToString();
-                Response.Redirect("~/Error.aspx");
-            }*/
+            
         }
 
         protected void btnRowsAdd_Click(object sender, EventArgs e)
@@ -762,8 +691,6 @@ namespace IMS_PowerDept.UserControls
             InsertItemsRows(Convert.ToInt32(tbItemsRows.Text));
 
 
-            //not enabling for now below cos it creates a new css which removes the default css. fix this and will use below line of code 
-            //btnRowsAdd.Enabled = false;
         }
 
         protected void _btnCancel_Click(object sender, EventArgs e)
@@ -868,12 +795,12 @@ namespace IMS_PowerDept.UserControls
                 //for delivery items challan
                 issued.ChallanID = Convert.ToDecimal(_tbChalanNo.Text);
 
-                issued.Date = DateTime.ParseExact(_tbChallanDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date2 = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                // issued.Date = _tbChallanDate.Text;
                 issued.IndentValue = _tbIndentValue.Text;
 
-                issued.Date2 = DateTime.ParseExact(_tbIntendDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                issued.Date = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
                 //issued.Date2 = _tbIntendDate.Text;
                 issued.Division = _ddIntendDivisions.Text;

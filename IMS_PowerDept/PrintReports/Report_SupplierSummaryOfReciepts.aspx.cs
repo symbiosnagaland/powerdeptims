@@ -34,7 +34,7 @@ namespace IMS_PowerDept.PrintReports
         {
             try
             {
-                dadapter = new SqlDataAdapter("select Supplier,SupplyOrderReference,SupplyOrderDate,ReceivedItemsOTEOID,ReceivedItemOTEODate,ChargeableHeadName from ReceivedItemsOTEO where SupplyOrderDate between '" + stDate + "' and '" + edDate + "'  order by Supplier", con);
+                dadapter = new SqlDataAdapter("select Supplier,SupplyOrderReference,SupplyOrderDate,ReceivedItemsOTEOID,ReceivedItemOTEODate,ChargeableHeadName from ReceivedItemsOTEO where ReceivedItemOTEODate between '" + stDate + "' and '" + edDate + "'  order by ReceivedItemOTEODate", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 _gridChEdit.DataSource = dset.Tables[0];

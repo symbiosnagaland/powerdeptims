@@ -185,16 +185,22 @@ namespace IMS_PowerDept.UserControls
                 TextBox itemunitET = e.Item.FindControl("_tbunit") as TextBox;
 
                 //upodate logic
-                SqlDataAdapter adp = new SqlDataAdapter("Update Items set itemname= @itemname,unit=@unit where itemid ='" + Convert.ToInt32(lbl.Text) + "'", con);
-                adp.SelectCommand.Parameters.AddWithValue("@itemname", aa.Text);
-                adp.SelectCommand.Parameters.AddWithValue("@unit", itemunitET.Text);
+                // SqlDataAdapter adp = new SqlDataAdapter("Update Items set itemname=@itemname,unit=@unit where itemid ='" + Convert.ToInt32(lbl.Text) + "'", con);
+                SqlCommand cmd = new SqlCommand("Update Items set itemname=@itemname,unit=@unit where itemid ='" + Convert.ToInt32(lbl.Text) + "'",  con);
+                con.Open();
 
-                DataSet ds = new DataSet();
-                adp.Fill(ds);
+                SqlParameter param = new SqlParameter("@itemname", SqlDbType.NVarChar, 200);
+                param.Value = aa.Text;
+                cmd.Parameters.Add(param);
+                cmd.Parameters.AddWithValue("@unit", itemunitET.Text);
+                cmd.ExecuteScalar();
+                con.Close();
+                //   DataSet ds = new DataSet();
+                // adp.Fill(ds);
                 panelSuccess.Visible = true;
                 lblSuccess.Text = "Item Details Successfully updated.";
 
-                Response.Redirect("ManageItems.aspx");
+               // Response.Redirect("ManageItems.aspx");
             }
 
         }

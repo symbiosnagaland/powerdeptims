@@ -18,7 +18,7 @@
 <body onload="javascript:window.print()">
 
     <form id="form1" runat="server">
-          <asp:SqlDataSource ID="_sdsoteo" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT * FROM [ReceivedItemsOTEO] WHERE ([ReceivedItemsOTEOID] = @ReceivedItemsOTEOID)">
+          <asp:SqlDataSource ID="_sdsoteo" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT top 1 * FROM [ReceivedItemsOTEO] WHERE ([ReceivedItemsOTEOID] = @ReceivedItemsOTEOID)">
         <SelectParameters>
             <asp:QueryStringParameter Name="ReceivedItemsOTEOID" QueryStringField="Id" Type="Int32" />
         </SelectParameters>
@@ -44,7 +44,7 @@
             <h2 style="text-align:center; margin:0px">O.T.E.O</h2>
 
 
-        <asp:Repeater ID="Repeater1" runat="server" DataSourceID="_sdsoteo" >  
+        <asp:Repeater ID="Repeater1" runat="server"  DataSourceID="_sdsoteo"  >  
             <ItemTemplate>
                  <span style="float:right; font-weight:bold">OTEO No/Date : 
 
@@ -104,8 +104,23 @@
             <SortedDescendingHeaderStyle BackColor="#242121" /><RowStyle HorizontalAlign="Left" VerticalAlign="Middle" />
         </asp:GridView>
 
+
+
+<asp:Repeater ID="Repeater2" runat="server"  DataSourceID="_sdsoteo"  >  
+            <ItemTemplate>
+
+        <span style="margin:8px;font-weight:bold; float: right; padding-right:88px">
+           Total : <asp:Label ID="Label4" Font-Size="18px"  Font-Bold="true" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.TotalAmount")%>'></asp:Label>
+        </span>
+            </ItemTemplate>
+        </asp:Repeater>
     </div>
-        <div style="padding-top:158px; margin:0px auto; width: 562px;">
+
+        <div>
+            
+
+        </div>
+        <div style="padding-top:144px; margin:0px auto; width: 562px;">
             <span style="float:right">
                 Sub-Divisional Officer<br />
                 Electrical Store Sub-Division<br />

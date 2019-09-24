@@ -1,0 +1,134 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Transformers_Master.Master.cs" Inherits="IMS_PowerDept.Shared.Transformers_Master" %>
+
+<%@ Register Src="~/UserControls/menuPartial.ascx" TagPrefix="uc1" TagName="menuPartial" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+     <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/navi.css" media="screen" />
+<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".box .h_title").not(this).next("ul").hide("normal");
+        $(".box .h_title").not(this).next("#home").show("normal");
+        $(".box").children(".h_title").click(function () { $(this).next("ul").slideToggle(); });
+    });
+</script>
+    <style type="text/css">
+        .stats {
+            height: 188px;
+            width: 330px;
+        }
+    </style>
+
+       <script type="text/javascript">
+           $(document).ready(function () {
+
+               //get all ids ending with _panelSuccess. obviously, i know before hand only one is there
+               $("[id$=_panelSuccess]").fadeOut(10000);
+               //same for panelerror
+               $("[id$=_panelError").fadeOut(10000);
+           });
+        </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+   <div class="wrap">
+	<div id="header">
+		<div id="top">
+			<div class="left">
+			<h2 style="color:#fff; ">POWER DEPARTMENT NAGALAND  - Transformer Management</h2>
+			</div>
+			<div class="right">
+				<div class="align-right">
+				</div>
+			</div>
+		</div>
+		<div id="nav">
+           
+			<ul>
+                
+               <li class="upp"><a href="Dashboard.aspx">Dashboard</a>
+					<ul>
+                        <li>&#8250;<asp:LinkButton ID="lbMainDashBoard" runat="server" OnClick="lbMainDashBoard_Click">Main Dashboard</asp:LinkButton></li>
+                        <li>&#8250; <a href="Dashboard.aspx">Transformer</a></li>
+						
+					</ul>
+				</li>
+                 <li class="upp"><a href="#">Receipt</a>
+					<ul>
+                        <li>&#8250; <a href="ReceiptEntry.aspx">New Receipt Entry</a></li>
+                        <li>&#8250; <a href="ReceiptEntriesList.aspx">Receipt Entries List</a></li>						
+					</ul>
+				</li>
+
+                 <li class="upp"><a href="#">Job</a>
+					<ul>
+                        <li>&#8250; <a href="JobEntry.aspx">New Job Entry</a></li>
+                        <li>&#8250; <a href="JobEntriesList.aspx">Job Entries List</a></li>						
+					</ul>
+				</li>
+                
+                 <li class="upp"><a href="#">Issue</a>
+					<ul>
+                        <li>&#8250; <a href="IssueEntry.aspx">New Issue Entry</a></li>
+                        <li>&#8250; <a href="IssueEntriesList.aspx">Issue Entries List</a></li>						
+					</ul>
+				</li>
+
+                 <li class="upp"><a href="Reports.aspx">Reports</a>
+                     	<%--<ul>
+                        <li>&#8250; <a href="../PrintReports/Transformer_Reciepts.aspx" target="_blank">Receipts</a></li>
+                        <li>&#8250; <a href="../PrintReports/Transformer_Reciepts.aspx" target="_blank">Jobs</a></li>
+                               <li>&#8250; <a href="../PrintReports/Transformer_Reciepts.aspx" target="_blank">Issues</a></li>						
+					</ul>--%>
+
+
+                 </li>
+
+				<li style="float:right" class="upp">Hello :
+                    <asp:Label ID="Label1" runat="server"  Font-Bold="true" Text="User"></asp:Label>
+					<ul>
+						
+						
+							<li>&#8250; <a href="User_Setting.aspx">Change Password</a></li>
+                        <li>&#8250; <a href="../Login.aspx">Logout</a></li>
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+       <%--breadcrumbs--%>
+                 
+	
+	<div id="content">
+	
+		<div id="main">
+			<div class="clear"></div>
+			
+<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+			
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div id="footer" style="width:872px;">
+		<div class="left"></div>
+			<p>Powered by <a href="http://symbiostech.in" target="_blank">SymBios Soft Tech Pvt. Ltd.</a>	<span style="float:right">
+			<a href="#"> Power Department Nagaland IMS 2014</a>
+		</span>  </p>
+		
+	
+	</div>
+</div>
+    </form>
+</body>
+</html>

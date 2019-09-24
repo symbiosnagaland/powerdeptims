@@ -14,11 +14,12 @@
     <RootNamespace>IMS_PowerDept</RootNamespace>
     <AssemblyName>IMS_PowerDept</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -91,6 +92,7 @@
     <Content Include="CentralStore\IssueEntry.aspx" />
     <Content Include="CentralStore\IssuedItemsDetails.aspx" />
     <Content Include="CentralStore\IssueEntriesList.aspx" />
+    <Content Include="CentralStore\IssueEntryTemporary.aspx" />
     <Content Include="CentralStore\IssueHead.aspx" />
     <Content Include="CentralStore\ItemInventory.aspx" />
     <Content Include="CentralStore\ItemsListInventory.aspx" />
@@ -223,6 +225,7 @@
     <Content Include="UserControls\BulkItemsUploadControl.ascx" />
     <Content Include="UserControls\ChargeableHeadsControl.ascx" />
     <Content Include="UserControls\IssueEntryTemp.ascx" />
+    <Content Include="UserControls\IssueList.ascx" />
     <Content Include="UserControls\ItemsInventoryControl.ascx" />
     <Content Include="UserControls\ItemsListInventoryControl.ascx" />
     <Content Include="UserControls\TransformerReceiptEntry.ascx" />
@@ -498,6 +501,13 @@
     </Compile>
     <Compile Include="CentralStore\IssueEntriesList.aspx.designer.cs">
       <DependentUpon>IssueEntriesList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntryTemporary.aspx.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CentralStore\IssueEntryTemporary.aspx.designer.cs">
+      <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
     </Compile>
     <Compile Include="CentralStore\IssueHead.aspx.cs">
       <DependentUpon>IssueHead.aspx</DependentUpon>
@@ -906,6 +916,13 @@
     <Compile Include="UserControls\IssueEntryTemp.ascx.designer.cs">
       <DependentUpon>IssueEntryTemp.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\IssueList.ascx.cs">
+      <DependentUpon>IssueList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\IssueList.ascx.designer.cs">
+      <DependentUpon>IssueList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ItemsInventoryControl.ascx.cs">
       <DependentUpon>ItemsInventoryControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -988,9 +1005,9 @@
     <Content Include="Shared\Admin_Master.Master" />
     <Content Include="Shared\CentralStore_Master.Master" />
     <Content Include="Shared\PrintTemplate.Master" />
-    <Content Include="AppContent\ImportItemsTemplate.xlsx" />
+    <Content Include="AppCode\AppContent\ImportItemsTemplate.xlsx" />
     <Content Include="Shared\Transformers_Master.Master" />
-    <Content Include="AppContent\Transformers_MasterData.xlsx" />
+    <Content Include="AppCode\AppContent\Transformers_MasterData.xlsx" />
     <Content Include="Shared\Shared.Master" />
     <Content Include="css\icons\icomoon\fonts\icomoon.eot" />
     <Content Include="css\icons\icomoon\fonts\icomoon.ttf" />
@@ -1004,7 +1021,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AppContent\UploadFolder\" />
+    <Folder Include="AppCode\AppContent\UploadFolder\" />
     <Folder Include="DBBackup\" />
   </ItemGroup>
   <PropertyGroup>
@@ -1018,11 +1035,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61111</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/IMS_PowerDept</IISUrl>
+          <IISUrl>http://localhost:61112/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

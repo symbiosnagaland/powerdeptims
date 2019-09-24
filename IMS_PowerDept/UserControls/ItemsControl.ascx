@@ -21,7 +21,7 @@
 
    
 
-     <table class="table table-striped table-bordered table-hover" style="width:750px; "  >
+     <table class="table table-striped table-bordered table-hover" style="width:860px; "  >
           <thead>
                                                <tr>
                                                     <td>Item ID</td>
@@ -35,8 +35,8 @@
                                                 <asp:TextBox ID="_tbchID" placeholder="Item ID" CssClass="form-control" Width="60px"  runat="server" Text=""></asp:TextBox>
 
                                                  </td>
-                                         <td> <asp:TextBox ID="_tbHeadName" Width="180px" placeholder="Add ItemName" CssClass="form-control"  runat="server" Text=""></asp:TextBox></td>
-                                         <td> <asp:TextBox ID="_tbItemUnit" Width="100px" placeholder="Add Item Unit" CssClass="form-control"  runat="server" Text=""></asp:TextBox></td>
+                                         <td> <asp:TextBox ID="_tbHeadName" Width="220px" placeholder="Add ItemName" CssClass="form-control"  runat="server" Text=""></asp:TextBox></td>
+                                         <td> <asp:TextBox ID="_tbItemUnit" Width="80px" placeholder="Add Item Unit" CssClass="form-control"  runat="server" Text=""></asp:TextBox></td>
                                          <td>
                                            <button type="submit" runat="server" id="saveItems" onserverclick="saveItems_ServerClick" class="add">Save Item</button>  
                                          </td>
@@ -51,11 +51,11 @@
                                                 </td>
                                             <td>
                                                 <asp:Label ID="cHEad" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.itemname")%>'></asp:Label>
-                                                <asp:TextBox ID="_tbHead" CssClass="form-control" Width="180px"  runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "itemname")%>' Visible="false"></asp:TextBox>
+                                                <asp:TextBox ID="_tbHead" CssClass="form-control" Width="220px"  runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "itemname")%>' Visible="false"></asp:TextBox>
                                                  </td>
                                                <td>
                                                 <asp:Label ID="_lblunit" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.unit")%>'></asp:Label>
-                                                    <asp:TextBox ID="_tbunit" CssClass="form-control" Width="100px"  runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "unit")%>' Visible="false"></asp:TextBox>
+                                                    <asp:TextBox ID="_tbunit" CssClass="form-control" Width="80px"  runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "unit")%>' Visible="false"></asp:TextBox>
                                                </td>
                                             <td>
                                              <asp:Button ID="edirBt" CommandName="edit" CssClass="btn btn-success" runat="server" Text="Edit" />  

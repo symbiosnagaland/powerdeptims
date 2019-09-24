@@ -48,24 +48,24 @@
                                 <asp:Repeater ID="_gridChEdit" runat="server" >
                                     <ItemTemplate>
                                            <tr>
-                                                 <td style="text-align:left; width:200px">                                                   
-                                                    <asp:Label ID="aa" runat="server" Width="90px" Text=' <%#DataBinder.Eval(Container, "DataItem.Supplier")%>'></asp:Label>
+                                                 <td style="text-align:left; width:300px">                                                   
+                                                    <asp:Label ID="aa" runat="server"  Text=' <%#DataBinder.Eval(Container, "DataItem.Supplier")%>'></asp:Label>
                                                 </td>
-                                            <td style="text-align:left; width:180px"> 
+                                            <td style="text-align:left; width:170px"> 
                                                 <asp:Label ID="cHEad" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.SupplyOrderReference")%>'></asp:Label>
                                                
                                                  </td>
-                                                  <td style="text-align:left; width:120px">                                                   
+                                                  <td style="text-align:left; width:110px">                                                   
                                                     <asp:Label ID="Label1" runat="server" Width="90px" Text=' <%#DataBinder.Eval(Container, "DataItem.SupplyOrderDate","{0:dd/MM/yyyy}")%>'></asp:Label>
                                                 </td>
-                                            <td style="text-align:left; width:120px"> 
+                                            <td style="text-align:left; width:110px"> 
                                                 <asp:Label ID="Label2" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label>
                                                
                                                  </td>
-                                                  <td style="text-align:left; width:120px">                                                   
-                                                    <asp:Label ID="Label3" runat="server" Width="90px" Text=' <%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:dd/MM/yyyy}")%>'></asp:Label>
+                                                  <td style="text-align:left; width:110px">                                                   
+                                                    <asp:Label ID="Label3" runat="server"  Text=' <%#DataBinder.Eval(Container, "DataItem.ReceivedItemOTEODate","{0:dd/MM/yyyy}")%>'></asp:Label>
                                                 </td>
-                                            <td style="text-align:left; width:160px"> 
+                                            <td style="text-align:left; width:150px"> 
                                                 <asp:Label ID="Label4" runat="server" Text='  <%#DataBinder.Eval(Container, "DataItem.ChargeableHeadName")%>'></asp:Label>
                                                
                                                  </td>

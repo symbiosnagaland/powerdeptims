@@ -44,26 +44,26 @@
         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
         if (typeof mySplitResult[1] === "undefined") {
             document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
-         }
-         else {
-             document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             //SAVING item id for saving to db also
-             document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
-         }
-     }
-     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
-     function UpdateAmountbyRate(rateid) {
-         // var last_character = itemid[itemid.length - 1];
-         var splitItemsID = rateid.split("_");
-         //making sure the last digit is not 0
-         //fetching the last part of the control id(which is dynamic)
-         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-         //update amount textbox for this row
-         //amount =rate * quantity
-         document.getElementById("<%= gvItems.ClientID%>_tbAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
+            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
+        }
+        else {
+            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
+            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+            //SAVING item id for saving to db also
+            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
+        }
+    }
+    //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
+    function UpdateAmountbyRate(rateid) {
+        // var last_character = itemid[itemid.length - 1];
+        var splitItemsID = rateid.split("_");
+        //making sure the last digit is not 0
+        //fetching the last part of the control id(which is dynamic)
+        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
+        //update amount textbox for this row
+        //amount =rate * quantity
+        document.getElementById("<%= gvItems.ClientID%>_tbAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
          calculateSum();
      }
 
@@ -101,12 +101,12 @@
              }
          }
          document.getElementById("<%= gvItems.ClientID%>_tbtotalAmount").value = parseFloat(document.getElementById("ContentPlaceHolder1_tbtotalAmountAddedItems").value) + sum;
-      }
+     }
 
 
-      function SetTarget() {
-          document.forms[0].target = "_blank";
-      }
+     function SetTarget() {
+         document.forms[0].target = "_blank";
+     }
     </script>
 <%--content starts   here--%> 
      <div class="full_w">
@@ -232,7 +232,7 @@
            <div class="element clear"></div>
         <h2>Added Items</h2>
 
-        <asp:GridView ID="gvItems_Edit" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="True" CssClass="table table-bordered" BackColor="White" DataSourceID="sds_gvitemsedit"  OnRowCommand="gvItems_Edit_RowCommand" >
+        <asp:GridView ID="gvItems_Edit" runat="server" OnRowDataBound="gvItems_RowDataBound"  AutoGenerateColumns="False" ShowFooter="True" CssClass="table table-bordered" BackColor="White" DataSourceID="sds_gvitemsedit"  OnRowCommand="gvItems_Edit_RowCommand" OnSelectedIndexChanged="gvItems_Edit_SelectedIndexChanged" >
                                                 <Columns>
 
                                                      <asp:TemplateField HeaderText="Sl."> 
@@ -297,7 +297,7 @@
                                                     
                                                     <asp:TemplateField HeaderText="Action">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") %>' CommandName='<%# Eval("amount") %>' runat="server">Delete</asp:LinkButton>                                                                                                           
+                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") +","+ Eval("ItemId") %>' CommandName='<%# Eval("amount") %>'  runat="server">Delete</asp:LinkButton>                                                                                                           
                                                         </ItemTemplate>
                                                         </asp:TemplateField>
 
@@ -386,7 +386,7 @@
 
                                                     <asp:TemplateField HeaderText="Amount">
                                                         <ItemTemplate>
-                                                            <asp:TextBox TabIndex="999"  Width="80px" BorderColor="Transparent" BackColor="Transparent"   ID="tbAmount" runat="server" BorderStyle="Solid" BorderWidth="1px">
+                                                            <asp:TextBox TabIndex="999"  Width="80px" BorderColor="Transparent" BackColor="Transparent"   ID="tbAmount" runat="server" BorderStyle="Solid" AutoComplete="off" BorderWidth="1px">
                                                             </asp:TextBox>                                                     
                                                         </ItemTemplate>
                                                         <FooterStyle HorizontalAlign="Right" />

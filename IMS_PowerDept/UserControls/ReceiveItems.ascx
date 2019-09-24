@@ -8,25 +8,23 @@
 
 
  <script type="text/javascript">
-        $(function () {
-           // $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker();
-           // $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker();
+     $(function () {
 
-            $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker(
-             {
-                 changeMonth: true,
-                 changeYear: true,
-                 dateFormat: 'dd-mm-yy'
-             });
+         $("#ContentPlaceHolder1_ReceiveItems_tbSupplyDate").datepicker(
+          {
+              changeMonth: true,
+              changeYear: true,
+              dateFormat: 'dd-mm-yy'
+          });
 
-            $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker(
-                 {
-                     changeMonth: true,
-                     changeYear: true,
-                     dateFormat: 'dd-mm-yy'
-                 });
-        
-        });
+         $("#ContentPlaceHolder1_ReceiveItems_tbOTEODate").datepicker(
+              {
+                  changeMonth: true,
+                  changeYear: true,
+                  dateFormat: 'dd-mm-yy'
+              });
+
+     });
     </script>
 
     <%--<link href="../css/style.css" rel="stylesheet" />
@@ -39,38 +37,53 @@
 
 <script type="text/javascript">
 
-     function SetUnitName(itemid) {
-         var e = document.getElementById(itemid);
-         var itemsvalue = e.options[e.selectedIndex].value;
-         var mySplitResult = itemsvalue.split(" ");
-         /* Store last character of string id of ddlitems */
-         // var last_character = itemid[itemid.length - 1];
-         var splitItemsID = itemid.split("_");
-         //making sure the last digit is not 0
-         //fetching the last part of the control id(which is dynamic)
-         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-         if (typeof mySplitResult[1] === "undefined") {
-             document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
+    function SetUnitName(itemid) {
+        var e = document.getElementById(itemid);
+        var itemsvalue = e.options[e.selectedIndex].value;
+        //alert(itemsvalue);
+        var mySplitResult = itemsvalue.split(" ");
+        //alert(mySplitResult);
+        /* Store last character of string id of ddlitems */
+        // var last_character = itemid[itemid.length - 1];
+        var splitItemsID = itemid.split("_");
+        //making sure the last digit is not 0
+        //fetching the last part of the control id(which is dynamic)
+        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
+        if (typeof mySplitResult[1] === "undefined") {
+            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
+
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
          }
          else {
              document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-             // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-             //SAVING item id for saving to db also
              document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
          }
-     }
-     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
-     function UpdateAmountbyRate(rateid) {
-         // var last_character = itemid[itemid.length - 1];
-         var splitItemsID = rateid.split("_");
-         //making sure the last digit is not 0
-         //fetching the last part of the control id(which is dynamic)
-         var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-         //update amount textbox for this row
-         //amount =rate * quantity
-         document.getElementById("<%= gvItems.ClientID%>_tbAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
+
+        //Bisu writes the code
+        <%--
+        if (typeof mySplitResult[2] === "undefined")
+        {
+            document.getElementById("<%= gvItems.ClientID%>__tbIssueName_" + dynamicidpart).value = '';            
+         }
+         else
+         {
+            document.getElementById("<%= gvItems.ClientID%>__tbIssueName_" + dynamicidpart).value = mySplitResult[2];            
+        }
+        --%>
+
+
+    }
+
+    //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
+    function UpdateAmountbyRate(rateid) {
+        // var last_character = itemid[itemid.length - 1];
+        var splitItemsID = rateid.split("_");
+        //making sure the last digit is not 0
+        //fetching the last part of the control id(which is dynamic)
+        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
+        //update amount textbox for this row
+        //amount =rate * quantity
+        document.getElementById("<%= gvItems.ClientID%>_tbAmount_" + dynamicidpart).value = (document.getElementById("<%= gvItems.ClientID%>_tbRate_" + dynamicidpart).value) * (document.getElementById("<%= gvItems.ClientID%>__tbQuantity_" + dynamicidpart).value);
          calculateSum();
      }
 
@@ -93,36 +106,35 @@
          var grid = document.getElementById("<%= gvItems.ClientID%>");
          //ContentPlaceHolder1_ReceiveItems_gvItems
 
-          // Get all the input controls (can be any DOM element you would like)
-          var inputs = grid.getElementsByTagName("input");
+         // Get all the input controls (can be any DOM element you would like)
+         var inputs = grid.getElementsByTagName("input");
 
-          // Loop through all the DOM elements we grabbed
-          for (var i = 0; i < inputs.length; i++) {
+         // Loop through all the DOM elements we grabbed
+         for (var i = 0; i < inputs.length; i++) {
 
-              // In this case we are looping through all the Dek Volume and then the Mcf volume boxes in the grid and not an individual one and totalling them
-              if (inputs[i].name.indexOf("tbAmount") > 1) {
-                  if (inputs[i].value != "") {
-                      sum = sum + parseInt(inputs[i].value);
-                  }
+             // In this case we are looping through all the Dek Volume and then the Mcf volume boxes in the grid and not an individual one and totalling them
+             if (inputs[i].name.indexOf("tbAmount") > 1) {
+                 if (inputs[i].value != "") {
+                     sum = sum + parseInt(inputs[i].value);
+                 }
 
-              }
-          }
-          document.getElementById("<%= gvItems.ClientID%>_tbtotalAmount").value = sum;
-     }
+             }
+         }
+         document.getElementById("<%= gvItems.ClientID%>_tbtotalAmount").value = sum;
+      }
 
-    //this is bisu function
+      //this is bisu function
 
-    
 
-    function getOrder(orderId)
-    {
-        //alert(orderId.selectedIndex );
 
-     }
+      function getOrder(orderId) {
+          //alert(orderId.selectedIndex );
 
-    function SetTarget() {
-        document.forms[0].target = "_blank";
-    }
+      }
+
+      function SetTarget() {
+          document.forms[0].target = "_blank";
+      }
 
 </script>
 
@@ -187,11 +199,12 @@
                     <div class="form-group ">
                         <div style="float:left;">
                             <span class="singleLineLeft">
-                                <label> Issue Head(Ledger) </label>
+                                <label> Issue Head </label>
                             </span>
                             
                             <span class="singleLineRight">
-                                <asp:DropDownList  CssClass="form-control" ID="ddlIssueHead" Height="30px" Width="200px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
+                                <asp:DropDownList  CssClass="form-control" ID="ddlIssueHead" Height="30px" Width="200px"
+                                     runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
                                     <asp:ListItem Value="">Select Issue Head</asp:ListItem>
                                 </asp:DropDownList>
                             </span>
@@ -247,9 +260,9 @@
                         <asp:TemplateField HeaderText="Item">
                             
                             <ItemTemplate>
-                                <asp:HiddenField ID="hdnFieldItemID" runat="server" />
-                                <asp:DropDownList AppendDataBoundItems="true" onchange="SetUnitName(this.id);getOrder(this.id);" 
-                                    CssClass="err" Width="280px" ID="_ddItems" runat="server">
+                                <asp:HiddenField ID="hdnFieldItemID" runat="server"  />
+                                <asp:DropDownList AppendDataBoundItems="true"  onchange="SetUnitName(this.id)" 
+                                    CssClass="err" Width="280px" ID="_ddItems" runat="server" >
 
                                 </asp:DropDownList>
                             </ItemTemplate>
@@ -310,15 +323,20 @@
 
                         <%--Bisu writes code here for temporary purpose--%>
 
-                         <%--<asp:TemplateField HeaderText="order No">
+                        
+
+                        <%-- 
+                        <asp:TemplateField HeaderText="Issue Name">
                             <ItemTemplate>
-                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" onchange ="getOrder(this.id)"
-                                    BackColor="Transparent" autocomplete="off"  ID="tbOrderNo" runat="server"
+                                <asp:TextBox TabIndex="999"  Width="120px" BorderColor="Transparent" 
+                                    BackColor="Transparent" autocomplete="off"  ID="_tbIssueName" runat="server"
                                      BorderStyle="Solid" BorderWidth="1px">
 
                                 </asp:TextBox>
                             </ItemTemplate>                        
-                        </asp:TemplateField>--%>
+                        </asp:TemplateField>
+                        --%>
+                       <%-- Bisu Ends his code here--%>
                     </Columns>                                      
                 </asp:GridView>
             </ContentTemplate>

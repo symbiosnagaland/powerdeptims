@@ -25,21 +25,28 @@ namespace IMS_PowerDept.PrintReports
         //int grQtyTotal = 0;
         int storid = 0;
         int rowIndex = 1;
-        string stDate, edDate;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            DivisionName.Text = Session["DivisionName"].ToString();
+            DivisionName.Text = Session["DivisionName"].ToString();  
+
+
             st.Text = Session["BeginDate"].ToString();
+            st.Text = DateTime.ParseExact(st.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
             ed.Text = Session["EndingDate"].ToString();
+            ed.Text = DateTime.ParseExact(ed.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+
+
+           // st.Text = Session["BeginDate"].ToString();
+           // ed.Text = Session["EndingDate"].ToString();
             Label3.Text = Session["ChHead"].ToString();
-            //dddd.Value = Session["ChHead"].ToString();
-
-            stDate = DateTime.ParseExact(Session["BeginDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            edDate = DateTime.ParseExact(Session["EndingDate"].ToString(), "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+        
 
 
-            // dddd.Value = Request.QueryString["CHead"];
+
 
             if (!IsPostBack)
             {
@@ -53,7 +60,7 @@ namespace IMS_PowerDept.PrintReports
         {
             try
             {
-                dadapter = new SqlDataAdapter("SELECT DISTINCT DeliveryItemsChallanID, ChargeableHeadName FROM DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChargeableHeadName='" + Label3.Text + "' and ChallanDate between '" + stDate + "' and '" + edDate + "' AND IsDeliveredTemporary = 'No'", con);
+                dadapter = new SqlDataAdapter("SELECT DISTINCT DeliveryItemsChallanID, ChargeableHeadName FROM DeliveryItemsChallan WHERE (IndentingDivisionName ='" + DivisionName.Text + "') and ChargeableHeadName='" + Label3.Text + "' and ChallanDate between '" + st.Text + "' and '" + ed.Text + "' AND IsDeliveredTemporary = 'No'", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 gvChargeableHead.DataSource = dset.Tables[0];

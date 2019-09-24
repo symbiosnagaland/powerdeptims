@@ -79,7 +79,7 @@
       
      <div style="overflow: auto;">
           
-         <asp:GridView ID="gvItemsInventory" Width="99%" GridLines="None" runat="server" AllowPaging="true" AllowSorting="True" AutoGenerateColumns="False"  PageSize="100" OnDataBound="gvItemsInventory_DataBound1" OnPageIndexChanged="gvItemsInventory_PageIndexChanged" OnPageIndexChanging="gvItemsInventory_PageIndexChanging">
+         <asp:GridView ID="gvItemsInventory" Width="99%" GridLines="None" runat="server" AllowPaging="true" AllowSorting="True" AutoGenerateColumns="False"  PageSize="40" OnDataBound="gvItemsInventory_DataBound1" OnPageIndexChanged="gvItemsInventory_PageIndexChanged" OnPageIndexChanging="gvItemsInventory_PageIndexChanging">
 
              <Columns>
                 
