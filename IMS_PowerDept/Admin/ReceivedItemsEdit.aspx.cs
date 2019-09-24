@@ -386,6 +386,10 @@ namespace IMS_PowerDept.Admin
 
                 string receivedItemID = MyArraryOfCommand[0];
                 string ItemID = MyArraryOfCommand[1];
+                string itemname = MyArraryOfCommand[2];
+                string rate=MyArraryOfCommand[3];
+                string issueheadname = MyArraryOfCommand[4];
+                string quantity = MyArraryOfCommand[5];
 
                 SqlTransaction tr = null;
                 SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
@@ -404,10 +408,18 @@ namespace IMS_PowerDept.Admin
                 cmd3.CommandText = "SELECT COUNT (*) FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)";
                 cmd3.Parameters.AddWithValue("@ReceivedItemsOTEOID", OTEOID);
 
-                //SqlCommand cmd4 = conn.CreateCommand();
-                //cmd4.CommandText = "DELETE FROM [Itemsratesecondary] WHERE [ItemID] = @ItemID and OTEO=@receiveditemsoteoid";
-                //cmd4.Parameters.AddWithValue("@ItemID", ItemID);
-                // cmd4.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
+                SqlCommand cmd4 = conn.CreateCommand();
+                //cmd4.CommandText = "DELETE FROM [Itemsratesecondary] WHERE [id] = @id ";
+
+                cmd4.CommandText = "update top(1) [Itemsratesecondary] set quantity=quantity-@quantity WHERE [itemname] = @itemname and "+
+                    "[rate] = @rate and [issueheadname] = @issueheadname";
+
+                cmd4.Parameters.AddWithValue("@ItemID", ItemID);
+                cmd4.Parameters.AddWithValue("@quantity", quantity);
+                cmd4.Parameters.AddWithValue("@itemname", itemname);
+                cmd4.Parameters.AddWithValue("@rate", rate);
+                cmd4.Parameters.AddWithValue("@issueheadname", issueheadname);
+                 cmd4.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
 
 
 
@@ -419,12 +431,20 @@ namespace IMS_PowerDept.Admin
                         tr = conn.BeginTransaction();
                         cmd.Transaction = tr;
                         cmd2.Transaction = tr;
-                        // cmd4.Transaction = tr;
+                        cmd4.Transaction = tr;
 
                         cmd.ExecuteNonQuery();
                         cmd2.ExecuteNonQuery();
-                        // cmd4.ExecuteNonQuery();
-                        tr.Commit();
+                        int rowsAffected =cmd4.ExecuteNonQuery();
+                        if(rowsAffected ==0)
+                        {
+                            tr.Rollback();
+                        }
+                        else
+                        {
+                            tr.Commit();
+                        }
+                       
                         int count = Convert.ToInt32(cmd3.ExecuteScalar());
                         if (count < 1)
                         {

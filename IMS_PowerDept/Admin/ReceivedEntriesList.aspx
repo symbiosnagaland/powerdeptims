@@ -2,49 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
-<%-- <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/sb-admin.css" rel="stylesheet" />
     <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
     
     <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>
-
-
-    <link type="text/css" href="../calender/jquery-ui-1.8.19.custom.css" rel="stylesheet" />
-     <link href="../css/sb-admin.css" rel="stylesheet" />
-    <script type="text/javascript" src="../calender/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../calender/jquery-ui-1.8.19.custom.min.js"></script>--%>
-    <%--    <link href="../js/sortingfile/jquery.dataTables.css" rel="stylesheet" type="text/css" />--%>
-   
-
-    <!--New links for DataTable sorting-->
-     
-    <link rel="stylesheet" type="text/css" href="../js/sortingfile/jquery.dataTables.css"/>
-    <link type="text/css" href="../js/sortingfile/jquery-ui.css" rel="stylesheet" />
-
-    <link href="../css/jquery.dataTables.min.css" rel="stylesheet"/>   
-    <link href="../css/dataTables.bootstrap.min.css" rel="stylesheet"/> 
-    
-    <script src="../js/jquery.dataTables.min.js"></script>
-    <script src="../js/dataTables.bootstrap.min.js"></script>
-
-
-  
-		<script src="../js/jquery-1.9.1.min.js"></script>
-		<script src="../js/jquery.dataTables.js"></script>
-
-    <script>
-        $(document).ready(function () {
-
-            var table = $('#example').DataTable({
-                'aoColumnDefs': [{
-                    'bSortable': false,
-                    'aTargets': -1
-                }]
-            });
-        });
-    </script>
-
     
     <script type="text/javascript">
 
@@ -91,7 +54,7 @@
                         
                         <td>
                             <span style="float: left; width: 55%; padding-left:10px;">
-                                <input type="text" class="form-control" id="etsearch" runat="server" style="height: 22px; width:220px" placeholder="Search Keyword..." />
+                                <input type="text" class="form-control" id="etsearch" runat="server" autocomplete ="off" style="height: 22px; width:220px" placeholder="Search Keyword..." />
                             </span>
                             
                             <span class="input-group-btn" style="float: left; height: 50px; width:10px; padding-left:2px;">
@@ -161,49 +124,24 @@
                         </th>                        
                     </tr>
                     <tr>
-
-                       
-
                         <td>
-                            <span style="float: left;"><label>Search between OTEO dates </label></span>
+                            <span style="float: left;"><label>Search between OTEO/Supply Order dates </label></span>
                         </td>
                         
                         <td>
                             <span style="float: left; padding-left: 10px;">
-                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO Date (dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="OTEO/Supply Order Date(dd-mm-yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
                             
                             <span style="float: left; padding-left: 5px;">
-                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO Date(dd/MM/yyyy)" Width="155px" runat="server"></asp:TextBox>
+                                <asp:TextBox CssClass="form-control" ID="tbEndDateSearch" autocomplete="off" placeholder="OTEO/Supply Order Date(dd-mm-yyyy)" Width="155px" runat="server"></asp:TextBox>
                             </span>
-
-
-                                      <br /> 
-                         
-                            <br />
-                         
-                            &nbsp; sort by <asp:RadioButtonList ID="rblOrderBy" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                                 <asp:ListItem Selected="True"  Value="ReceivedItemOTEODate">OTEO Date&nbsp;</asp:ListItem>
-                                 
-                                   <asp:ListItem Value="ReceivedItemsOTEOID">OTEO ID &nbsp;</asp:ListItem>
-                             
-                            </asp:RadioButtonList>
-
-                            &nbsp;&nbsp;
-                             <asp:RadioButtonList ID="rblAscOrDesc" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                                <asp:ListItem Selected="True" Value="ASC">Ascending &nbsp;</asp:ListItem>
-                                <asp:ListItem Value="DESC">Descending</asp:ListItem>
-                            </asp:RadioButtonList>
-
-
                         </td>
                         
                         <td>
                             <asp:Button ID="Button2" CssClass="btn btn-primary" runat="server" Text="Search" OnClick="btnSearch_Click" />
                             <asp:Button ID="Button3" CssClass="btn btn-warning" runat="server" Text="Cancel" OnClick="btnCancel_Click"/>
                         </td>
-
-                      
                     </tr>
 
                 </table>
@@ -220,12 +158,10 @@
         <!--table-->
         <div style="overflow: auto;">
             
-            <table  class="table table-striped table-bordered table-hover" id="example">
+            <table  class="table table-striped table-bordered table-hover" style="width:790px; text-align:center;">
                 
                 <thead>                    
                     <tr>
-                        <th scope="col"  style="text-align:center;">Sl.</th>
-
                         <th scope="col"  style="text-align:center;">OTEO ID</th>
                         <th scope="col" style="text-align:center;">OTEO Date</th>             
                         <th scope="col" style="text-align:center;">Chargeable Head</th>
@@ -252,12 +188,6 @@
                                 <ItemTemplate>
                                     
                                     <tr>
-
-                                             <td>
-
-                            <%# Container.DataItemIndex+1 %>.
-                                </td>
-                        
                                         <td>
                                             <asp:Label ID="Label1" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.ReceivedItemsOTEOID")%>'></asp:Label>
                                         </td>
@@ -301,5 +231,5 @@
         <!--/table-->
     </div>
     <!--/full_w-->
-          <script src="../js/sortingfile/jquery-ui.min.js"></script>
+        
 </asp:Content>

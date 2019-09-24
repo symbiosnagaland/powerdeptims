@@ -11,37 +11,37 @@ namespace IMS_PowerDept.Admin
     public partial class ReceivedEntriesList : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-            retriveData();              
+                retriveData();
             }
-           
+
         }
-       
+
 
         //retrive data in rptr
         private void retriveData()
         {
             try
-                {
-                    SqlDataAdapter dadapter;
-                    DataSet dset;
-                    dadapter = new SqlDataAdapter("exec [sp_GetReceivedOTEOsList]", con);
-                    dset = new DataSet();
-                    dadapter.Fill(dset);
-                    _rprt.DataSource = dset.Tables[0];
-                    _rprt.DataBind();
-                }
-                catch
-                {
-                    throw;
-                }
-           
+            {
+                SqlDataAdapter dadapter;
+                DataSet dset;
+                dadapter = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] ORDER BY [ReceivedItemsOTEOID] DESC", con);
+                dset = new DataSet();
+                dadapter.Fill(dset);
+                _rprt.DataSource = dset.Tables[0];
+                _rprt.DataBind();
+            }
+            catch
+            {
+                throw;
+            }
+
         }
-     
+
 
 
         protected void btnAdvancedSearchFilters_Click(object sender, EventArgs e)
@@ -112,19 +112,23 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter aa;
                 DataSet bb;
 
-                if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
+                if ((tbStartDateSearch.Text == "") || (tbEndDateSearch.Text == ""))
                 {
-                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-
-
-                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' order by " + rblOrderBy.SelectedValue + " " + rblAscOrDesc.SelectedValue, con);
+                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemsOTEOID='" + etsearch.Value + "' or SupplyOrderReference='" + etsearch.Value + "'  ", con);
                 }
                 else
                 {
-                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO]  order by " + rblOrderBy.SelectedValue + " " + rblAscOrDesc.SelectedValue, con);
+                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' or SupplyOrderDate between '" + stDate + "' and '" + endDate + "' ", con);
+
                 }
+
+
+                //aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemsOTEOID='" + etsearch.Value + "' or SupplyOrderReference='" + etsearch.Value + "'  ", con);
+
+
+                //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
                 bb = new DataSet();
                 aa.Fill(bb);
                 _rprt.DataSource = bb.Tables[0];
@@ -197,60 +201,64 @@ namespace IMS_PowerDept.Admin
                 SqlCommand cmd1 = conn.CreateCommand();
                 cmd1.CommandText = "SELECT COUNT (*) FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)";
                 cmd1.Parameters.AddWithValue("@ReceivedItemsOTEOID", index);
+
                 SqlCommand cmd2 = conn.CreateCommand();
                 cmd2.CommandText = "DELETE FROM [ReceivedItemsOTEO]  WHERE [ReceivedItemsOTEOID]  = @ReceivedItemsOTEOID";
-                cmd2.Parameters.AddWithValue("@ReceivedItemsOTEOID", index);               
+                cmd2.Parameters.AddWithValue("@ReceivedItemsOTEOID", index);
+
+
+
                 conn.Open();
 
                 int count = Convert.ToInt32(cmd1.ExecuteScalar());
-               
-                    if (count < 1)
-                    {
-                          cmd2.ExecuteNonQuery();
-                          conn.Close();
 
-                          if (ddlIssueHead.Text != "%")
-                          {
-                              SqlDataAdapter s;
-                              DataSet d;
-                              s = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ChargeableHeadName='" + ddlIssueHead.SelectedItem + "' ", con);
-                              d = new DataSet();
-                              s.Fill(d);
-                              _rprt.DataSource = d.Tables[0];
-                              _rprt.DataBind();
-                          }
-                          else if (ddlChargeableHead.Text != "%")
-                          {
-                              SqlDataAdapter g;
-                              DataSet fd;
-                              g = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ChargeableHeadName='" + ddlChargeableHead.SelectedItem + "' ", con);
-                              fd = new DataSet();
-                              g.Fill(fd);
-                              _rprt.DataSource = fd.Tables[0];
-                              _rprt.DataBind();
-                          }
-                          else if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
-                          {
-                              SqlDataAdapter aa;
-                              DataSet bb;
-                              aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or SupplyOrderDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
-                              //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
-                              bb = new DataSet();
-                              aa.Fill(bb);
-                              _rprt.DataSource = bb.Tables[0];
-                              _rprt.DataBind();
-                          }
-                          else
-                          {
-                              retriveData();
-                          }
-                       
-                        //DeleteData(index);
+                if (count < 1)
+                {
+                    cmd2.ExecuteNonQuery();
+                    conn.Close();
+
+                    if (ddlIssueHead.Text != "%")
+                    {
+                        SqlDataAdapter s;
+                        DataSet d;
+                        s = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ChargeableHeadName='" + ddlIssueHead.SelectedItem + "' ", con);
+                        d = new DataSet();
+                        s.Fill(d);
+                        _rprt.DataSource = d.Tables[0];
+                        _rprt.DataBind();
+                    }
+                    else if (ddlChargeableHead.Text != "%")
+                    {
+                        SqlDataAdapter g;
+                        DataSet fd;
+                        g = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ChargeableHeadName='" + ddlChargeableHead.SelectedItem + "' ", con);
+                        fd = new DataSet();
+                        g.Fill(fd);
+                        _rprt.DataSource = fd.Tables[0];
+                        _rprt.DataBind();
+                    }
+                    else if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
+                    {
+                        SqlDataAdapter aa;
+                        DataSet bb;
+                        aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or SupplyOrderDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
+                        //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
+                        bb = new DataSet();
+                        aa.Fill(bb);
+                        _rprt.DataSource = bb.Tables[0];
+                        _rprt.DataBind();
                     }
                     else
                     {
-                        Response.Redirect("ReceivedItemsEdit.aspx?oteoid=" + index);
+                        retriveData();
                     }
+
+                    //DeleteData(index);
+                }
+                else
+                {
+                    Response.Redirect("ReceivedItemsEdit.aspx?oteoid=" + index);
+                }
 
             }
 

@@ -280,24 +280,13 @@
                                                     <asp:TemplateField HeaderText="Amount">
                                                         <ItemTemplate>
                                                            <asp:Label ID="lblAmount" Text='<%# Eval("amount") %>' runat="server"></asp:Label>
-                                                         
-                                                                                                          
+                                                                                                                                                                  
                                                         </ItemTemplate>
-
-                                                       
-
-                                                     <%--   <FooterStyle HorizontalAlign="Right" />
-                                                        <FooterTemplate>
-                                                            <asp:TextBox ID="tbtotalAmount" TabIndex="999" Text='<%# Eval("totalamount") %>'   Width="80px" BorderColor="Transparent" BackColor="Transparent"   runat="server"></asp:TextBox>
-                                                             
-                                                        </FooterTemplate>--%>
-
-                                                    </asp:TemplateField>
-
+                                                        </asp:TemplateField>                                                   
                                                     
                                                     <asp:TemplateField HeaderText="Action">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") +","+ Eval("ItemId") %>' CommandName='<%# Eval("amount") %>'  runat="server">Delete</asp:LinkButton>                                                                                                           
+                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") +","+ Eval("ItemId")+","+ Eval("itemname")+","+ Eval("rate")+","+ Eval("issueheadname")+","+ Eval("quantity") %>' CommandName='<%# Eval("amount") %>'  runat="server">Delete</asp:LinkButton>                                                                                                           
                                                         </ItemTemplate>
                                                         </asp:TemplateField>
 
@@ -318,7 +307,15 @@
                </tr></table>
       
 
-        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" ProviderName="System.Data.SqlClient" SelectCommand="SELECT ReceivedItemsDetails.ReceivedItemID, ReceivedItemsDetails.ItemID, ReceivedItemsDetails.ItemName, ReceivedItemsDetails.Quantity, ReceivedItemsDetails.unit, ReceivedItemsDetails.Rate, ReceivedItemsDetails.amount, ReceivedItemsOTEO.TotalAmount FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON ReceivedItemsDetails.ReceivedItemsOTEOID = ReceivedItemsOTEO.ReceivedItemsOTEOID WHERE (ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)" DeleteCommand="DELETE FROM [ReceivedItemsDetails] WHERE [ReceivedItemID] = @ReceivedItemID" >
+        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSV2ConnectionString5 %>" SelectCommand="SELECT ReceivedItemsDetails.ReceivedItemID, ReceivedItemsDetails.ItemID,ReceivedItemsOTEO.IssueHeadName,
+ ReceivedItemsDetails.ItemName, ReceivedItemsDetails.Quantity,
+  ReceivedItemsDetails.unit, ReceivedItemsDetails.Rate,
+   ReceivedItemsDetails.amount, ReceivedItemsOTEO.TotalAmount
+   FROM ReceivedItemsDetails INNER JOIN ReceivedItemsOTEO ON
+    ReceivedItemsDetails.ReceivedItemsOTEOID = 
+	ReceivedItemsOTEO.ReceivedItemsOTEOID	
+	 WHERE 
+	(ReceivedItemsDetails.ReceivedItemsOTEOID = @ReceivedItemsOTEOID)" DeleteCommand="DELETE FROM [ReceivedItemsDetails] WHERE [ReceivedItemID] = @ReceivedItemID" >
             <DeleteParameters>
                 <asp:Parameter Name="ReceivedItemID" Type="Int32" />
             </DeleteParameters>

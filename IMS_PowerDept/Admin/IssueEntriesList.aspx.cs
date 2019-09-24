@@ -34,7 +34,7 @@ namespace IMS_PowerDept.Admin
         {
             try
             {
-                dadapter = new SqlDataAdapter("exec sp_GetIssuedChallansList",  con);
+                dadapter = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] ORDER BY [DeliveryItemsChallanID] DESC", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 _rprt.DataSource = dset.Tables[0];
@@ -42,57 +42,10 @@ namespace IMS_PowerDept.Admin
             }
             catch
             {
-                //throw;
+                throw;
             }
         }
-
-        private void retriveData(string sortExpression)
-        {
-            try
-            {
-                dadapter = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] " + sortExpression, con);
-                dset = new DataSet();
-                dadapter.Fill(dset);
-                _rprt.DataSource = dset.Tables[0];
-                _rprt.DataBind();
-            }
-            catch
-            {
-                //throw;
-            }
-        }
-
-
-
-
-        protected void lv_Sorting(object sender, ListViewSortEventArgs e)
-        {
-
-            LinkButton _lbChallanid = _rprt.FindControl("_lbChallanid") as LinkButton;
-            LinkButton _lbChallandDate = _rprt.FindControl("_lbChallandDate") as LinkButton;
-            string SortDirection = "ASC";
-
-            if (ViewState["SortExpression"] != null)
-            {
-                if (ViewState["SortExpression"].ToString() == e.SortExpression)
-                {
-                    ViewState["SortExpression"] = null;
-                    SortDirection = "DESC";
-                }
-                else
-                {
-                    ViewState["SortExpression"] = e.SortExpression;
-                }
-            }
-            else
-            {
-                ViewState["SortExpression"] = e.SortExpression;
-            }
-            retriveData(" order by " + e.SortExpression + " " + SortDirection);
-        }
-
-
-
+      
         protected void btnAdvancedSearchFilters_Click(object sender, EventArgs e)
         {
 
@@ -111,21 +64,20 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter aa;
                 DataSet bb;
 
-                //for converting date to MM/dd/yyyy again 
-                if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
-                {
-                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+               
 
-                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                
-                    
-                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where ChallanDate between '" + stDate + "' and '" + endDate + "' order by " + rblOrderBy.SelectedValue.ToString() + " " + rblAscOrDesc.SelectedValue , con);
+                if((tbStartDateSearch.Text =="")||(tbEndDateSearch.Text=="" ))
+                {
+                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where DeliveryItemsChallanID='" + _txtsearch.Value + "' or IndentReference='" + _txtsearch.Value + "'  ", con);
+                   
                 }
                 else
                 {
-                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan]  order by  " + rblOrderBy.SelectedValue.ToString() + " " + rblAscOrDesc.SelectedValue, con);
-                }
+                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + stDate + "' and '" + endDate + "' and  ChallanDate between '" + stDate + "' and '" + endDate + "' ", con);
 
+                }              
                 bb = new DataSet();
                 aa.Fill(bb);
                 _rprt.DataSource = bb.Tables[0];
@@ -242,7 +194,6 @@ namespace IMS_PowerDept.Admin
                 xx.Message.ToString();
             }
         }
-
         protected void _rprt_OnItemDeleting(object sender, ListViewDeleteEventArgs e)
         {
             //
