@@ -450,8 +450,11 @@ namespace IMS_PowerDept.UserControls
 
                 // converting stirng to date and compare indent date and challan date
 
-                DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
-                DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+               // DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);                
+               // DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+                DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
+                DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
 
                 if (ChallanDate < IndentDate)
                 {
@@ -561,29 +564,26 @@ namespace IMS_PowerDept.UserControls
                     return;
                 }
 
-            // converting stirng to date and compare indent date and challan date
-            //DateTime ChallanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+               // DateTime challanDate = Convert.ToDateTime(_tbChallanDate.Text);
+               // DateTime IndentDate = Convert.ToDateTime(_tbChallanDate.Text);
 
 
-       
+                DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
+                DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
 
-            //DateTime IndentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-
-            //    if (ChallanDate < IndentDate)
-            //    {
-            //        panelError.Visible = true;
-            //        lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
-            //        panelSuccess.Visible = false;
-            //        _tbChallanDate.Style.Add("background", "Pink");
-            //        _tbChallanDate.Focus();
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        _tbChallanDate.Style.Add("background", "White");
-            //    }
-
-
+                if (ChallanDate < IndentDate)
+                {
+                    panelError.Visible = true;
+                    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                    panelSuccess.Visible = false;
+                  _tbChallanDate.Style.Add("background", "Pink");
+                    _tbChallanDate.Focus();
+                    return;
+                }
+               else
+                {
+                  _tbChallanDate.Style.Add("background", "White");
+               }
 
                 if (_ddIntendDivisions.SelectedItem.ToString() == "--Select Division Name--")
                 {

@@ -399,12 +399,6 @@ namespace IMS_PowerDept.UserControls
                 }
 
 
-
-
-
-
-
-
                 TextBox tbtotalAmount = gvItems.FooterRow.FindControl("tbtotalAmount") as TextBox;
                 RecievedItemsOrderObject.TotalAmount = Convert.ToDouble(tbtotalAmount.Text);
                 //setting user id temp here
@@ -691,6 +685,8 @@ namespace IMS_PowerDept.UserControls
 
 
                 string insertRateSecondary = "INSERT into ItemsRateSecondary (ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead')";
+                
+                
                 //string updateRateSecondary = "update ItemsRateSecondary set ITEMNAME,Rate,OrderNO,Quantity,IssueHeadName) values('@ITEMNAME','@RATE','@odNo','@QUANTITY','@issueHead')";
 
 

@@ -450,8 +450,12 @@ namespace IMS_PowerDept.UserControls
 
             // converting stirng to date and compare indent date and challan date
 
-            DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
-            DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+           // DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+            //DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+            DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
+            DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
+
 
             if (ChallanDate < IndentDate)
             {
@@ -563,8 +567,12 @@ namespace IMS_PowerDept.UserControls
 
             // converting stirng to date and compare indent date and challan date
 
-            DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
-            DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+           // DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+           // DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+
+            DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
+            DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
+
 
             if (ChallanDate < IndentDate)
             {

@@ -393,7 +393,7 @@
                             <%--FOR HIDING COL--%>
                            <%-- FooterStyle-CssClass="hiddencol"  ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"--%>
                           
-                            <asp:TemplateField HeaderText="Rate--Quanitity"  >
+                            <asp:TemplateField HeaderText="Rate--Quanitity" ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"  >
                                     <ItemTemplate>
                                        <%-- <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
                                     --%>

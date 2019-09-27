@@ -33,26 +33,48 @@
 <script type="text/javascript">
 
     function SetUnitName(itemid) {
-        var e = document.getElementById(itemid);
-        var itemsvalue = e.options[e.selectedIndex].value;
-        var mySplitResult = itemsvalue.split(" ");
-        /* Store last character of string id of ddlitems */
-        // var last_character = itemid[itemid.length - 1];
-        var splitItemsID = itemid.split("_");
-        //making sure the last digit is not 0
-        //fetching the last part of the control id(which is dynamic)
-        var dynamicidpart = splitItemsID[splitItemsID.length - 1];
-        if (typeof mySplitResult[1] === "undefined") {
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = '';
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = '';
+
+
+        // alert(itemid);
+        var tbl = $("[id$=gvItems]");
+        var rows = tbl.find('tr');
+        //alert(rows.length);
+
+        for (var i = 1; i < rows.length - 1; i++) {
+            var row = rows[i];
+            //alert("i am  " + row);
+            for (var j = i + 1; j < rows.length - 1; j++) {
+                var row1 = rows[j];
+                //  alert("second for" + j);
+
+                var ItemNO = $(row).find("[id*=_ddItems]").val().toString();
+                var ItemNO2 = $(row1).find("[id*=_ddItems]").val().toString();
+
+                if ((ItemNO == 0) || (ItemNO2 == 0)) {
+                    // alert("oK");
+                }
+                else {
+                    if (ItemNO == ItemNO2) {
+                        // alert("Duplicate Items In the List. Cannot Save");                       
+                        document.getElementById('<%=btnUpdate.ClientID %>').disabled = true;
+                        document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
+                        document.getElementById('<%=gvItems.ClientID %>').style.border = "2px solid red"
+                        return true;
+
+                    }
+                    else {
+                        document.getElementById('<%=btnUpdate.ClientID %>').disabled = false;
+                        document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                        document.getElementById('<%=gvItems.ClientID %>').style.border = "none"
+
+
+                    }
+                }
+            }
+
         }
-        else {
-            document.getElementById("<%= gvItems.ClientID%>__tbUnit_" + dynamicidpart).value = mySplitResult[1];
-            // document.getElementById('ContentPlaceHolder1_gvItems_lblUnit_' + dynamicidpart).textContent = '';
-            //SAVING item id for saving to db also
-            document.getElementById("<%= gvItems.ClientID%>_hdnFieldItemID_" + dynamicidpart).value = mySplitResult[0];
-        }
+        return false;
+
     }
     //NOW MAKE SURE CONTROL IDs in the page are not changed since all these are dependent on them
     function UpdateAmountbyRate(rateid) {
@@ -108,6 +130,13 @@
          document.forms[0].target = "_blank";
      }
     </script>
+
+    <style type="text/css">
+  .hiddencol
+  {
+    display: none;
+  }
+</style>
 <%--content starts   here--%> 
      <div class="full_w">
           <asp:Panel ID="panelSuccess" Visible="false"   CssClass="n_ok" runat="server">
@@ -196,7 +225,7 @@
                                             <label>Select New only if you require update </label></span>
 
                                         <span class="singleLineRight">  
-                                              <asp:DropDownList  CssClass="form-control" ID="ddlIssueHead" Height="30px" Width="200px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
+                                              <asp:DropDownList  CssClass="form-control" ID="ddlIssueHead" Height="30px" Enabled ="false"  Width="200px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlIssueHead_SelectedIndexChanged">
                                                 <asp:ListItem Value="">Select Issue Head</asp:ListItem>
                                             </asp:DropDownList>
                                         </span>                                 
@@ -209,7 +238,7 @@
                                             <label>Select New only if you require update </label></span>
                                         <span class="singleLineRight">
                                      
-                                                  <asp:DropDownList  Height="30px" Width="200px" CssClass="form-control" ID="ddlChargeableHead" runat="server" >
+                                                  <asp:DropDownList  Height="30px" Width="200px" Enabled ="false"  CssClass="form-control" ID="ddlChargeableHead" runat="server" >
                                                 <asp:ListItem Value="">Chargeable Head</asp:ListItem>
                                             </asp:DropDownList>
                                               <asp:UpdateProgress ID="UpdateProgress3" DynamicLayout="false"  runat="server">
@@ -348,9 +377,9 @@
                                                   
                                                     <asp:TemplateField HeaderText="Item">
                                                         <ItemTemplate>
-                                                              <asp:HiddenField ID="hdnFieldItemID" runat="server" />
+                                                              <asp:HiddenField ID="_hdnFieldItemID" runat="server" />
                                                      
-                                                            <asp:DropDownList AppendDataBoundItems="true" Height="30px" onchange="SetUnitName(this.id)" CssClass="form-control" Width="250px" ID="_ddItems" runat="server">
+                                                            <asp:DropDownList AppendDataBoundItems="true" Height="30px" OnSelectedIndexChanged="_ddItems_SelectedIndexChanged" onchange="if (SetUnitName(this.id)) return false;"  AutoPostBack ="true"  CssClass="form-control" Width="250px" ID="_ddItems" runat="server">
                                                             </asp:DropDownList>
                                                         </ItemTemplate>
                                                            <FooterStyle HorizontalAlign="Right" />
@@ -390,7 +419,14 @@
                                                         <FooterTemplate>
                                                             <asp:TextBox ID="tbtotalAmount" TabIndex="999"   Width="80px" BorderColor="Transparent" BackColor="Transparent"  Text="0" runat="server"></asp:TextBox>              
                                                         </FooterTemplate>
+                                                    </asp:TemplateField> 
 
+                                                     <asp:TemplateField HeaderText="Order NO" ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol" >
+                                                        <ItemTemplate>
+                                                            <asp:TextBox TabIndex="999"  Width="80px" BorderColor="Transparent" BackColor="Transparent"   ID="_tbOrderNo" runat="server" BorderStyle="Solid" AutoComplete="off" BorderWidth="1px">
+                                                            </asp:TextBox>                                                     
+                                                        </ItemTemplate>
+                                                       
                                                     </asp:TemplateField> 
 
                                                 </Columns>

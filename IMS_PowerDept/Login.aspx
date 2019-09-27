@@ -29,7 +29,7 @@
                         <br />
                         
                         <label for="pass">Password:</label>
-                        <asp:TextBox ID="inputPassword" Width="180px" placeholder="Password" autocomplete="off" Text="tingten"  CssClass="form-control"  runat="server"></asp:TextBox>
+                        <asp:TextBox ID="inputPassword" Width="180px" placeholder="Password" autocomplete="off" Text="tingten" TextMode="Password"   CssClass="form-control"  runat="server"></asp:TextBox>
                         <!-- TextMode="Password" -->
                         <div class="sep"></div>
                         
