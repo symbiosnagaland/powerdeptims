@@ -690,22 +690,22 @@ namespace IMS_PowerDept.Admin
 
                 return;
             }
-            DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
-            DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
+            //DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);
+            //DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
 
-            if (ChallanDate < IndentDate)
-            {
-                panelError.Visible = true;
-                lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
-                panelSuccess.Visible = false;
-                _tbChallanDate.Style.Add("background", "Pink");
-                _tbChallanDate.Focus();
-                return;
-            }
-            else
-            {
-                _tbChallanDate.Style.Add("background", "White");
-            }
+            //if (ChallanDate < IndentDate)
+            //{
+            //    panelError.Visible = true;
+            //    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+            //    panelSuccess.Visible = false;
+            //    _tbChallanDate.Style.Add("background", "Pink");
+            //    _tbChallanDate.Focus();
+            //    return;
+            //}
+            //else
+            //{
+            //    _tbChallanDate.Style.Add("background", "White");
+            //}
 
 
             if (lblDivisionOld.Text  == "--Select Division Name--")
@@ -748,10 +748,24 @@ namespace IMS_PowerDept.Admin
             {
 
                 issued.challanNO = Convert.ToDouble(_tbChalanNo.Text);
-                issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+       
                 issued.indentNo = _tbIndentValue.Text;
-                issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+                // issued.challanDate = DateTime.ParseExact(, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
+                // issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
+
+
+                issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
                 issued.TotalAmount = Convert .ToDouble(_tbtotalAmount.Text);
+
+
+
+                //stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+               // edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+
 
                 if (_ddIntendDivisions.SelectedItem.ToString() != "--Select Division Name--")
                 {

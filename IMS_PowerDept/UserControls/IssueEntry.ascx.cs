@@ -453,22 +453,22 @@ namespace IMS_PowerDept.UserControls
                // DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);                
                // DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
 
-                DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
-                DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
+              //  DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
+              //  DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
 
-                if (ChallanDate < IndentDate)
-                {
-                    panelError.Visible = true;
-                    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
-                    panelSuccess.Visible = false;
-                    _tbChallanDate.Style.Add("background", "Pink");
-                    _tbChallanDate.Focus();
-                    return;
-                }
-                else
-                {
-                    _tbChallanDate.Style.Add("background", "White");
-                }
+                //if (ChallanDate < IndentDate)
+                //{
+                //    panelError.Visible = true;
+                //    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+                //    panelSuccess.Visible = false;
+                //    _tbChallanDate.Style.Add("background", "Pink");
+                //    _tbChallanDate.Focus();
+                //    return;
+                //}
+                //else
+                //{
+                //    _tbChallanDate.Style.Add("background", "White");
+                //}
 
 
 
@@ -568,22 +568,22 @@ namespace IMS_PowerDept.UserControls
                // DateTime IndentDate = Convert.ToDateTime(_tbChallanDate.Text);
 
 
-                DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
-                DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
+               // DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
+               // DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
 
-                if (ChallanDate < IndentDate)
-                {
-                    panelError.Visible = true;
-                    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
-                    panelSuccess.Visible = false;
-                  _tbChallanDate.Style.Add("background", "Pink");
-                    _tbChallanDate.Focus();
-                    return;
-                }
-               else
-                {
-                  _tbChallanDate.Style.Add("background", "White");
-               }
+               // if (ChallanDate < IndentDate)
+               // {
+               //     panelError.Visible = true;
+               //     lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
+               //     panelSuccess.Visible = false;
+               //   _tbChallanDate.Style.Add("background", "Pink");
+               //     _tbChallanDate.Focus();
+               //     return;
+               // }
+               //else
+               // {
+               //   _tbChallanDate.Style.Add("background", "White");
+               //}
 
                 if (_ddIntendDivisions.SelectedItem.ToString() == "--Select Division Name--")
                 {
