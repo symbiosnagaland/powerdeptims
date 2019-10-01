@@ -21,6 +21,11 @@ namespace IMS_PowerDept.Admin
 
         }
 
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            panelAdvancedSearchFilters.Visible = false;
+        }
+
 
         //retrive data in rptr
         private void retriveData()
@@ -29,7 +34,7 @@ namespace IMS_PowerDept.Admin
             {
                 SqlDataAdapter dadapter;
                 DataSet dset;
-                dadapter = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] ORDER BY [ReceivedItemsOTEOID] DESC", con);
+                dadapter = new SqlDataAdapter("exec [sp_GetReceivedOTEOsList]", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 _rprt.DataSource = dset.Tables[0];
@@ -112,23 +117,19 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter aa;
                 DataSet bb;
 
-                if ((tbStartDateSearch.Text == "") || (tbEndDateSearch.Text == ""))
+                if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
                 {
-                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemsOTEOID='" + etsearch.Value + "' or SupplyOrderReference='" + etsearch.Value + "'  ", con);
+                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+
+                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' order by " + rblOrderBy.SelectedValue + " " + rblAscOrDesc.SelectedValue, con);
                 }
                 else
                 {
-                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' or SupplyOrderDate between '" + stDate + "' and '" + endDate + "' ", con);
-
+                    aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO]  order by " + rblOrderBy.SelectedValue + " " + rblAscOrDesc.SelectedValue, con);
                 }
-
-
-                //aa = new SqlDataAdapter("SELECT * FROM [ReceivedItemsOTEO] where ReceivedItemsOTEOID='" + etsearch.Value + "' or SupplyOrderReference='" + etsearch.Value + "'  ", con);
-
-
-                //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
                 bb = new DataSet();
                 aa.Fill(bb);
                 _rprt.DataSource = bb.Tables[0];

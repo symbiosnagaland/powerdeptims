@@ -34,7 +34,7 @@ namespace IMS_PowerDept.Admin
         {
             try
             {
-                dadapter = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] ORDER BY [DeliveryItemsChallanID] DESC", con);
+                dadapter = new SqlDataAdapter("exec sp_GetIssuedChallansList", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 _rprt.DataSource = dset.Tables[0];
@@ -42,10 +42,57 @@ namespace IMS_PowerDept.Admin
             }
             catch
             {
-                throw;
+                //throw;
             }
         }
-      
+
+        private void retriveData(string sortExpression)
+        {
+            try
+            {
+                dadapter = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] " + sortExpression, con);
+                dset = new DataSet();
+                dadapter.Fill(dset);
+                _rprt.DataSource = dset.Tables[0];
+                _rprt.DataBind();
+            }
+            catch
+            {
+                //throw;
+            }
+        }
+
+
+
+
+        protected void lv_Sorting(object sender, ListViewSortEventArgs e)
+        {
+
+            LinkButton _lbChallanid = _rprt.FindControl("_lbChallanid") as LinkButton;
+            LinkButton _lbChallandDate = _rprt.FindControl("_lbChallandDate") as LinkButton;
+            string SortDirection = "ASC";
+
+            if (ViewState["SortExpression"] != null)
+            {
+                if (ViewState["SortExpression"].ToString() == e.SortExpression)
+                {
+                    ViewState["SortExpression"] = null;
+                    SortDirection = "DESC";
+                }
+                else
+                {
+                    ViewState["SortExpression"] = e.SortExpression;
+                }
+            }
+            else
+            {
+                ViewState["SortExpression"] = e.SortExpression;
+            }
+            retriveData(" order by " + e.SortExpression + " " + SortDirection);
+        }
+
+
+
         protected void btnAdvancedSearchFilters_Click(object sender, EventArgs e)
         {
 
@@ -64,20 +111,21 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter aa;
                 DataSet bb;
 
-               
-
-                if((tbStartDateSearch.Text =="")||(tbEndDateSearch.Text=="" ))
+                //for converting date to MM/dd/yyyy again 
+                if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
                 {
-                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where DeliveryItemsChallanID='" + _txtsearch.Value + "' or IndentReference='" + _txtsearch.Value + "'  ", con);
-                   
+                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+
+                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where ChallanDate between '" + stDate + "' and '" + endDate + "' order by " + rblOrderBy.SelectedValue.ToString() + " " + rblAscOrDesc.SelectedValue, con);
                 }
                 else
                 {
-                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + stDate + "' and '" + endDate + "' and  ChallanDate between '" + stDate + "' and '" + endDate + "' ", con);
+                    aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan]  order by  " + rblOrderBy.SelectedValue.ToString() + " " + rblAscOrDesc.SelectedValue, con);
+                }
 
-                }              
                 bb = new DataSet();
                 aa.Fill(bb);
                 _rprt.DataSource = bb.Tables[0];
@@ -194,79 +242,80 @@ namespace IMS_PowerDept.Admin
                 xx.Message.ToString();
             }
         }
+
         protected void _rprt_OnItemDeleting(object sender, ListViewDeleteEventArgs e)
         {
             //
         }
 
-        
-      protected void _rprt_ItemCommand(object sender, ListViewCommandEventArgs e)
+
+        protected void _rprt_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
 
 
             if (e.CommandName == "Delete")
             {
-                decimal index = Convert.ToDecimal(e.CommandArgument);             
-                    SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
-                    
-                    SqlCommand cmd1 = conn.CreateCommand();
-                    cmd1.CommandText = "Select count(*) as count from DeliveryItemsDetails where DeliveryItemsChallanID = @DeliveryItemsChallanID";
-                    cmd1.Parameters.AddWithValue("@DeliveryItemsChallanID", index);
+                decimal index = Convert.ToDecimal(e.CommandArgument);
+                SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
 
-                    SqlCommand cmd2 = conn.CreateCommand();
-                    cmd2.CommandText = "DELETE FROM [DeliveryItemsChallan]  WHERE [DeliveryItemsChallanID]  = @DeliveryItemsChallanID";
-                    cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", index);
+                SqlCommand cmd1 = conn.CreateCommand();
+                cmd1.CommandText = "Select count(*) as count from DeliveryItemsDetails where DeliveryItemsChallanID = @DeliveryItemsChallanID";
+                cmd1.Parameters.AddWithValue("@DeliveryItemsChallanID", index);
+
+                SqlCommand cmd2 = conn.CreateCommand();
+                cmd2.CommandText = "DELETE FROM [DeliveryItemsChallan]  WHERE [DeliveryItemsChallanID]  = @DeliveryItemsChallanID";
+                cmd2.Parameters.AddWithValue("@DeliveryItemsChallanID", index);
 
 
-                    conn.Open();
-              
-                 int count  = Convert.ToInt32(cmd1.ExecuteScalar());
-                
+                conn.Open();
 
-                      if (count < 1)
-                      {
-                          cmd2.ExecuteNonQuery();
-                          conn.Close();
-                        
-                         // DeleteData(index);
-                          if (_ddldivname.Text != "%")
-                          {
-                              dadapter = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentingDivisionName='" + _ddldivname.SelectedItem + "' ", con);
-                              dset = new DataSet();
-                              dadapter.Fill(dset);
-                              _rprt.DataSource = dset.Tables[0];
-                              _rprt.DataBind();
-                          }
-                          else if (ddlChargeableHead.Text != "%")
-                          {
-                              dadaptera = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where ChargeableHeadName='" + ddlChargeableHead.SelectedItem + "' ", con);
-                              dseta = new DataSet();
-                              dadaptera.Fill(dseta);
-                              _rprt.DataSource = dseta.Tables[0];
-                              _rprt.DataBind();
-                          }
-                          else if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
-                          {
-                              SqlDataAdapter aa;
-                              DataSet bb;
-                              aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or ChallanDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
-                              //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
-                              bb = new DataSet();
-                              aa.Fill(bb);
-                              _rprt.DataSource = bb.Tables[0];
-                              _rprt.DataBind();
-                          }
-                          else
-                          {
-                              retriveData();
-                          }
-                      }
-                      else
-                      {
-                          Response.Redirect("IssuedEntryEdit.aspx?challanid=" + index);
-                      }  
-                
-                                    
+                int count = Convert.ToInt32(cmd1.ExecuteScalar());
+
+
+                if (count < 1)
+                {
+                    cmd2.ExecuteNonQuery();
+                    conn.Close();
+
+                    // DeleteData(index);
+                    if (_ddldivname.Text != "%")
+                    {
+                        dadapter = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentingDivisionName='" + _ddldivname.SelectedItem + "' ", con);
+                        dset = new DataSet();
+                        dadapter.Fill(dset);
+                        _rprt.DataSource = dset.Tables[0];
+                        _rprt.DataBind();
+                    }
+                    else if (ddlChargeableHead.Text != "%")
+                    {
+                        dadaptera = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where ChargeableHeadName='" + ddlChargeableHead.SelectedItem + "' ", con);
+                        dseta = new DataSet();
+                        dadaptera.Fill(dseta);
+                        _rprt.DataSource = dseta.Tables[0];
+                        _rprt.DataBind();
+                    }
+                    else if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
+                    {
+                        SqlDataAdapter aa;
+                        DataSet bb;
+                        aa = new SqlDataAdapter("SELECT * FROM [DeliveryItemsChallan] where IndentDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' or ChallanDate between '" + tbStartDateSearch.Text + "' and '" + tbEndDateSearch.Text + "' ", con);
+                        //'%" + _txtsearch.Value.ToString() + "%' and IndentRefernce '%" + _txtsearch.Value.ToString() + "%'
+                        bb = new DataSet();
+                        aa.Fill(bb);
+                        _rprt.DataSource = bb.Tables[0];
+                        _rprt.DataBind();
+                    }
+                    else
+                    {
+                        retriveData();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("IssuedEntryEdit.aspx?challanid=" + index);
+                }
+
+
             }
 
         }
