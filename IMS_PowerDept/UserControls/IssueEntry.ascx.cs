@@ -655,14 +655,28 @@ namespace IMS_PowerDept.UserControls
                 {                   
 
                     issued.challanNO  = Convert.ToDouble  (_tbChalanNo.Text);
-                    issued.challanDate  = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                   // issued.challanDate  = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
 
                     issued.indentNo  = _tbIndentValue.Text;
 
-                    issued.indentDate  = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                  //  issued.TotalAmount = 900;
-                    issued.intendingDivision  = _ddIntendDivisions.SelectedItem .ToString ();
+                  //  issued.indentDate  = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+                if (_tbChallanDate.Text.Contains("/"))
+                    issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                    issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+                if (_tbIntendDate.Text.Contains("/"))
+                    issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                    issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+
+
+
+
+                issued.intendingDivision  = _ddIntendDivisions.SelectedItem .ToString ();
                     issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();
                     issued.IsDeliveredTemporary  = istemporary.Checked ? "Yes" : "No";
                     issued.ModifiedBy = Convert.ToInt16(Session["USERID"]);

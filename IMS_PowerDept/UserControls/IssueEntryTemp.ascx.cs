@@ -660,9 +660,14 @@ namespace IMS_PowerDept.UserControls
             {
 
                 issued.challanNO = Convert.ToDouble(_tbChalanNo.Text);
-                issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-                issued.indentNo = _tbIndentValue.Text;
-                issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                //issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                //issued.indentNo = _tbIndentValue.Text;
+                //issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+
+
+
+
                 //  issued.TotalAmount = 900;
                 issued.intendingDivision = _ddIntendDivisions.SelectedItem.ToString();
                 issued.ChargeableHeadName = _ddCHead.SelectedItem.ToString();

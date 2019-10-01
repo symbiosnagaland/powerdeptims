@@ -27,13 +27,13 @@
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd-mm-yy'
+                    dateFormat: 'dd/mm/yy'
                 });
             $("#ContentPlaceHolder1__tbIntendDate").datepicker(
                 {
                     changeMonth: true,
                     changeYear: true,
-                    dateFormat: 'dd-mm-yy'
+                    dateFormat: 'dd/mm/yy'
                 });
         });
 
@@ -332,7 +332,7 @@
                                                         </asp:TemplateField>
                                                 </Columns>
                                             </asp:GridView>
-        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSV2ConnectionString3 %>" SelectCommand="SELECT [DeliveryItemDetailsID],[DeliveryItemsChallanID],[ItemId], [ItemName], [IssueHeadName], [Quantity], [Unit], [Rate],(quantity* rate) as amount FROM [DeliveryItemsDetails] WHERE ([DeliveryItemsChallanID] = @DeliveryItemsChallanID)" >
+        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT [DeliveryItemDetailsID],[DeliveryItemsChallanID],[ItemId], [ItemName], [IssueHeadName], [Quantity], [Unit], [Rate],(quantity* rate) as amount FROM [DeliveryItemsDetails] WHERE ([DeliveryItemsChallanID] = @DeliveryItemsChallanID)" >
     
             <SelectParameters>
                 <asp:QueryStringParameter Name="DeliveryItemsChallanID" QueryStringField="challanid" Type="Decimal" />

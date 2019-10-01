@@ -90,9 +90,9 @@ namespace IMS_PowerDept.Admin
                       // hdnFieldChallanID.Value= _tbChalanNo.Text = challanID;
                         hdnFieldChallanID.Value = _tbChalanNo.Text = challanID.ToString();
                        
-                        _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("dd/MM/yyyy");
+                        _tbChallanDate.Text = Convert.ToDateTime(dr["ChallanDate"]).ToString("dd-MM-yyyy");
                         _tbIndentValue.Text = dr["IndentReference"].ToString();
-                        _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("dd/MM/yyyy");
+                        _tbIntendDate.Text = Convert.ToDateTime(dr["IndentDate"]).ToString("dd-MM-yyyy");
                         lblDivisionOld.Text = dr["IndentingDivisionName"].ToString();
                         lblChHeadOld.Text = dr["ChargeableHeadName"].ToString();
                         totalAmount = Convert.ToDouble(dr["TotalAmount"]);
@@ -754,9 +754,15 @@ namespace IMS_PowerDept.Admin
                 // issued.challanDate = DateTime.ParseExact(, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
                 // issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
 
-
+                if(_tbChallanDate.Text.Contains("/"))
                 issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-                issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+               else
+                    issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+                if (_tbIntendDate.Text.Contains("/"))
+                    issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
 
                 issued.TotalAmount = Convert .ToDouble(_tbtotalAmount.Text);
 
@@ -905,8 +911,9 @@ namespace IMS_PowerDept.Admin
 
                    // _tbChalanNo.Text = (Convert.ToDouble(_tbChalanNo.Text) + 1).ToString();
 
-                    panelError.Visible = false;
-                    panelSuccess.Visible = true;                
+                   // panelError.Visible = false;
+                //  panelSuccess.Visible = true; 
+                Response.Redirect("/Admin/IssueEntriesList.aspx");               
 
             }
 
