@@ -22,6 +22,6 @@
 DeliveryItemsChallan.IndentDate, DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,
 DeliveryItemsDetails.IssueHeadName, DeliveryItemsChallan.ChargeableHeadName, DeliveryItemsChallan.TotalAmount
 FROM DeliveryItemsChallan
-INNER JOIN DeliveryItemsDetails ON DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID;"></asp:SqlDataSource>
+INNER JOIN DeliveryItemsDetails ON DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID order by itemname, challandate;"></asp:SqlDataSource>
 &nbsp;
 </asp:Content>

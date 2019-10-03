@@ -23,5 +23,5 @@ ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,
 itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit
  from ReceivedItemsOTEO,ReceivedItemsDetails where 
 (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order
-by ReceivedItemsOTEOID"></asp:SqlDataSource>
+by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>
 </asp:Content>
