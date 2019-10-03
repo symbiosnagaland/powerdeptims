@@ -62,6 +62,8 @@
     <Content Include="Admin\BulkItemUpload.aspx" />
     <Content Include="Admin\ChargeableHeads.aspx" />
     <Content Include="Admin\IssueEntryTemporary.aspx" />
+    <Content Include="Admin\Itemwise_Received.aspx" />
+    <Content Include="Admin\ITEM_WISEISSUED.aspx" />
     <Content Include="Admin\SearchByItem.aspx" />
     <Content Include="Admin\User_SettingDeveloper.aspx" />
     <Content Include="Admin\IssuedEntryEdit.aspx" />
@@ -270,6 +272,20 @@
     </Compile>
     <Compile Include="Admin\IssueEntryTemporary.aspx.designer.cs">
       <DependentUpon>IssueEntryTemporary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Itemwise_Received.aspx.cs">
+      <DependentUpon>Itemwise_Received.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Itemwise_Received.aspx.designer.cs">
+      <DependentUpon>Itemwise_Received.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ITEM_WISEISSUED.aspx.cs">
+      <DependentUpon>ITEM_WISEISSUED.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ITEM_WISEISSUED.aspx.designer.cs">
+      <DependentUpon>ITEM_WISEISSUED.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\SearchByItem.aspx.cs">
       <DependentUpon>SearchByItem.aspx</DependentUpon>
