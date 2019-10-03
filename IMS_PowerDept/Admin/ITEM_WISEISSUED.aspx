@@ -6,9 +6,9 @@
 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" DataSourceID="SqlDataSource1">
         <Columns>
             <asp:BoundField DataField="DeliveryItemsChallanID" HeaderText="Challan ID" ReadOnly="True" SortExpression="DeliveryItemsChallanID" />
-            <asp:BoundField DataField="ChallanDate" HeaderText="Challan Date" SortExpression="ChallanDate" dataformatstring="{0:MM/dd/yyyy}" />
+            <asp:BoundField DataField="ChallanDate" HeaderText="Challan Date" SortExpression="ChallanDate" dataformatstring="{0:dd/MM/yyyy}" />
             <asp:BoundField DataField="IndentReference" HeaderText="Indent Ref" SortExpression="IndentReference" />
-            <asp:BoundField DataField="IndentDate" HeaderText="Indent Date" SortExpression="IndentDate" dataformatstring="{0:MM/dd/yyyy}" />
+            <asp:BoundField DataField="IndentDate" HeaderText="Indent Date" SortExpression="IndentDate" dataformatstring="{0:dd/MM/yyyy}" />
             <asp:BoundField DataField="ItemName" HeaderText="Item Name" SortExpression="ItemName" />
             <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
             <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />

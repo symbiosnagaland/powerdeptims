@@ -6,9 +6,9 @@
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ReceivedItemsOTEOID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEOID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />
-            <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEODate" SortExpression="ReceivedItemOTEODate" />
+            <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEODate" SortExpression="ReceivedItemOTEODate" dataformatstring="{0:dd/MM/yyyy}"/>
             <asp:BoundField DataField="SupplyOrderReference" HeaderText="SupplyReference" SortExpression="SupplyOrderReference" />
-            <asp:BoundField DataField="SupplyOrderDate" HeaderText="SupplyOrderDate" SortExpression="SupplyOrderDate" />
+            <asp:BoundField DataField="SupplyOrderDate" HeaderText="SupplyOrderDate" SortExpression="SupplyOrderDate" dataformatstring="{0:dd/MM/yyyy}" />
             <asp:BoundField DataField="itemname" HeaderText="item" SortExpression="itemname" />
             <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
             <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
