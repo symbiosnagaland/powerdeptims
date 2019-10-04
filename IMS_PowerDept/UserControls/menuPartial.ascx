@@ -55,8 +55,8 @@
             
                   <li class="upp"><a href="Reports.aspx">Reports</a>
 					<ul>
-						<li>&#8250; <a href="ITEM_WISEISSUED.aspx">Issued ITEM_WISE Master</a></li>
-                        <li>&#8250; <a href="Itemwise_Received.aspx">Received ITEM_WISE Master</a></li>
+						<li>&#8250; <a href="ITEM_WISEISSUED.aspx">Issued Items</a></li>
+                        <li>&#8250; <a href="Itemwise_Received.aspx">Received Items</a></li>
 				
 					</ul>
 				</li>
