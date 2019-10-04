@@ -26,7 +26,7 @@
 
         <table class="table">
 
-            <tr style="w">
+            <tr>
                 <td>
                     <span style="float: right; text-align:right;">
                             <asp:Button ID="Button1" CssClass="btn btn-primary" runat="server" Text="Export to excel"  OnClick="btnExportToExcel_Click" />
@@ -37,7 +37,7 @@
 
             <tr>
                 <td>
-                    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" DataSourceID="SqlDataSource1">
+                    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" DataSourceID="SqlDataSource1" pagesize=25>
                             <pagersettings mode="Numeric" position="Bottom" PageButtonCount="20"/>
                              <pagerstyle backcolor="LightBlue" height="30px" verticalalign="Bottom" horizontalalign="left"/> 
                         
@@ -55,7 +55,7 @@
                                 <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity"  />
                                 <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
                                 <asp:BoundField DataField="IssueHeadName" HeaderText="Issue Head" SortExpression="IssueHeadName" />
-                                <asp:BoundField DataField="ChargeableHeadName" HeaderText="C H" SortExpression="ChargeableHeadName" />
+                                <asp:BoundField DataField="ChargeableHeadName" HeaderText="Ch. Head" SortExpression="ChargeableHeadName" />
                                 <asp:BoundField DataField="TotalAmount" HeaderText="Amount" SortExpression="TotalAmount" />
                             </Columns>
                         </asp:GridView>

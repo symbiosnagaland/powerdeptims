@@ -34,7 +34,7 @@
                 <tr>
                     <td>
    
-                        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ReceivedItemsOTEOID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" >
+                        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ReceivedItemsOTEOID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" pagesize=25 >
                              
                             <Columns>
                                 <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEO ID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />
@@ -51,7 +51,7 @@
                                 <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
                                 <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
                                 <asp:BoundField DataField="IssueHeadName" HeaderText="Issue Head" SortExpression="IssueHeadName" />
-                                <asp:BoundField DataField="ChargeableHeadName" HeaderText="C Head" SortExpression="ChargeableHeadName" />
+                                <asp:BoundField DataField="ChargeableHeadName" HeaderText="Ch. Head" SortExpression="ChargeableHeadName" />
                                 <asp:BoundField DataField="amount" HeaderText="Amount" SortExpression="amount" />
                             </Columns>
 
