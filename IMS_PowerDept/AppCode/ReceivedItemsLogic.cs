@@ -357,8 +357,21 @@ namespace IMS_PowerDept.AppCode
             // stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
             //edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+          //  stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+           // edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+
+
+            if (RecievedItemsOrderObject.Date.Contains("/"))
+                stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            else
+                stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+            if (RecievedItemsOrderObject.SupplyDate.Contains("/"))
+                edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            else
+                edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
 
 
 
@@ -412,8 +425,21 @@ namespace IMS_PowerDept.AppCode
 
             SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
 
-            stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-            edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            //  stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            //   edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+
+            if (RecievedItemsOrderObject.Date.Contains("/"))
+                stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            else
+                stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+            if (RecievedItemsOrderObject.SupplyDate.Contains("/"))
+                edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            else
+                edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+
 
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = "sp_UpdateReceivedItemsOTEO";

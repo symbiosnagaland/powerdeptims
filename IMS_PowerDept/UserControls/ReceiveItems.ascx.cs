@@ -336,7 +336,15 @@ namespace IMS_PowerDept.UserControls
 
 
 
-                RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                //  RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+
+                if (tbOTEODate.Text.Contains("/"))
+                    RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                    RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+            
+
 
 
                 if (tbSupplyOrderReference.Text == "")
@@ -354,8 +362,12 @@ namespace IMS_PowerDept.UserControls
 
 
 
-                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+                //  RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
+                if (tbSupplyDate.Text.Contains("/"))
+                    RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                    RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
 
 
                 if (tbSupplierName.Text == "")
@@ -595,9 +607,15 @@ namespace IMS_PowerDept.UserControls
                     RecievedItemsOrderObject.ReceivedItemsOTEOID = Convert.ToInt32(tbOtEONumber.Text);
                 }
 
-                
+                if (tbOTEODate.Text.Contains("/"))
+                    RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                    RecievedItemsOrderObject.Date = DateTime.ParseExact(tbOTEODate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
 
-                RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+            
+
+
+                //  RecievedItemsOrderObject.Date  = DateTime.ParseExact(tbOTEODate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
 
                 if (tbSupplyOrderReference.Text == "")
@@ -615,8 +633,12 @@ namespace IMS_PowerDept.UserControls
                 
                 
 
-                RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
+               // RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
 
+                if (tbSupplyDate.Text.Contains("/"))
+                    RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                else
+                    RecievedItemsOrderObject.SupplyDate = DateTime.ParseExact(tbSupplyDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
 
 
                 if (tbSupplierName.Text == "")
