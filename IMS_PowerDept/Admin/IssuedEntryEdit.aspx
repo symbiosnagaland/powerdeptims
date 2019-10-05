@@ -203,7 +203,7 @@
             <div class="h_title">Challan No. / Date(dd-mm-yyyy) </div>
             <div style="margin: 0px auto; padding: 10px">
                 <asp:TextBox CssClass="form-control" ID="_tbChalanNo" placeholder="Challan No" Width="280px" runat="server"></asp:TextBox>
-                <asp:HiddenField ID="hdnFieldChallanNotoEdit" runat="server" />
+                <asp:HiddenField ID="hdnFieldChallanNotoEdit" runat="server" OnValueChanged="hdnFieldChallanNotoEdit_ValueChanged" />
                 <br />
                 <asp:TextBox CssClass="form-control" ID="_tbChallanDate" placeholder="Challan Date" Width="280px" runat="server"></asp:TextBox>
 

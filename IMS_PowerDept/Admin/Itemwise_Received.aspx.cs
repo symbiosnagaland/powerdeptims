@@ -25,7 +25,7 @@ namespace IMS_PowerDept.Admin
             GridView1.DataBind();
             // DisableControls(_gvActiveBroadBandUsers);// comment out if there are any asp.net controls
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename=Received_Items.xls");
+            Response.AddHeader("content-disposition", "attachment;filename=Received_Items" + DateTime.Now.ToString("dd/MM/yyy_hh:mm:ss") + ".xls");
             Response.Charset = "";
 
             // If you want the option to open the Excel file without saving then

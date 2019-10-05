@@ -947,6 +947,11 @@ namespace IMS_PowerDept.Admin
             }
         }
 
+        protected void hdnFieldChallanNotoEdit_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
         protected void _btnDelete_Click(object sender, EventArgs e)
         {
             decimal index = Convert.ToDecimal(Request.QueryString["challanid"]);             

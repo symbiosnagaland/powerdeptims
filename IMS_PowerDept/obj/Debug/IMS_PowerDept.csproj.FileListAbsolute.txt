@@ -28,3 +28,9 @@ C:\Users\intel\Documents\GitHub\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.pdb
 C:\Users\intel\Documents\GitHub\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.csprojResolveAssemblyReference.cache
 C:\Users\intel\Documents\GitHub\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.dll
 C:\Users\intel\Documents\GitHub\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.pdb
+C:\Users\admin\Desktop\POWER DEPARTMENT\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.dll.config
+C:\Users\admin\Desktop\POWER DEPARTMENT\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.dll
+C:\Users\admin\Desktop\POWER DEPARTMENT\powerdeptims\IMS_PowerDept\bin\IMS_PowerDept.pdb
+C:\Users\admin\Desktop\POWER DEPARTMENT\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.csprojResolveAssemblyReference.cache
+C:\Users\admin\Desktop\POWER DEPARTMENT\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.dll
+C:\Users\admin\Desktop\POWER DEPARTMENT\powerdeptims\IMS_PowerDept\obj\Debug\IMS_PowerDept.pdb
