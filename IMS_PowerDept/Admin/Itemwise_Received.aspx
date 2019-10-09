@@ -35,8 +35,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:SqlDataSource ID="sdschead" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT DISTINCT ChargeableHeadName FROM ReceivedItemsOTEO"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="sdsihead" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT DISTINCT IssueHeadName FROM ReceivedItemsOTEO"></asp:SqlDataSource>
     
     <div class="full_w">
 
@@ -99,7 +97,7 @@
                         
                         <td>
                             <span style="float: left; text-align:left;">
-                                <asp:Button ID="Button3" CssClass="btn btn-primary" runat="server" Text="Search"/>
+                                <asp:Button ID="Btn_Search" CssClass="btn btn-primary" runat="server" Text="Search" OnClick="Btn_Search_Click"/>
                                 <asp:Button ID="Button4" CssClass="btn btn-warning" runat="server" Text="Cancel"/>
                             </span>
                         </td>
@@ -131,7 +129,7 @@
                
                <tr>
                    <td>
-                       <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ReceivedItemsOTEOID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" pagesize=25 Font-Size="8pt" >
+                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="true" PageSize="10" ID="GridView1" runat="server" AutoGenerateColumns="true" Font-Size ="8pt">
                              
                             <Columns>
                                 <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEOID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />

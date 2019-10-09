@@ -13,24 +13,6 @@ namespace IMS_PowerDept.Admin {
     public partial class Itemwise_Received {
         
         /// <summary>
-        /// sdschead control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sdschead;
-        
-        /// <summary>
-        /// sdsihead control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sdsihead;
-        
-        /// <summary>
         /// panelAdvancedSearchFilters control.
         /// </summary>
         /// <remarks>
@@ -67,13 +49,13 @@ namespace IMS_PowerDept.Admin {
         protected global::System.Web.UI.WebControls.TextBox tbEndDateSearch;
         
         /// <summary>
-        /// Button3 control.
+        /// Btn_Search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button Btn_Search;
         
         /// <summary>
         /// Button4 control.
