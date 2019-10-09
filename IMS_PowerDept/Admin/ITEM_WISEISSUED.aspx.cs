@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,6 +12,8 @@ namespace IMS_PowerDept.Admin
 {
     public partial class ITEM_WISEISSUED : System.Web.UI.Page
     {
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -43,6 +48,16 @@ namespace IMS_PowerDept.Admin
         public override void VerifyRenderingInServerForm(Control control)
         {
             //
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            panelAdvancedSearchFilters.Visible = false;
         }
     }
 }
