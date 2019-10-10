@@ -107,7 +107,7 @@
                
                <tr>
                    <td>
-                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="True" PageSize="25" ID="GridView1" runat="server" AutoGenerateColumns="False" Font-Size ="8pt" DataKeyNames="ReceivedItemsOTEOID" DataSourceID="SqlDataSource1">
+                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="True" PageSize="25" ID="GridView1" runat="server" AutoGenerateColumns="False" Font-Size ="8pt" DataKeyNames="ReceivedItemsOTEOID">
                              
                             <Columns>
                                 <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEOID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />
@@ -129,7 +129,7 @@
 
                        </asp:GridView>
                         
-                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails where (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>
+                       <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails where (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>--%>
 
                    </td>
                </tr>

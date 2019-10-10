@@ -106,7 +106,7 @@
 
                 <tr>
                     <td>
-                        <asp:GridView  OnPageIndexChanging="GridView1_PageIndexChanging" ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" pagesize=25 Font-Size="8pt" DataSourceID="SqlDataSource1">
+                        <asp:GridView  OnPageIndexChanging="GridView1_PageIndexChanging" ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" pagesize=25 Font-Size="8pt">
                             <pagersettings mode="Numeric" position="Bottom" PageButtonCount="20"/>
                             <pagerstyle backcolor="LightBlue" height="30px" verticalalign="Bottom" horizontalalign="left"/> 
                         
@@ -131,7 +131,7 @@
                                 </Columns>
                             </asp:GridView>
                             
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate, DeliveryItemsChallan.IndentReference,DeliveryItemsChallan.IndentDate, DeliveryItemsChallan.IndentingDivisionName, DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,DeliveryItemsDetails.IssueHeadName, DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.UNIT,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount FROM DeliveryItemsChallan INNER JOIN DeliveryItemsDetails ON DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID order by itemname, challandate asc"></asp:SqlDataSource>
+                        <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate, DeliveryItemsChallan.IndentReference,DeliveryItemsChallan.IndentDate, DeliveryItemsChallan.IndentingDivisionName, DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,DeliveryItemsDetails.IssueHeadName, DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.UNIT,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount FROM DeliveryItemsChallan INNER JOIN DeliveryItemsDetails ON DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID order by itemname, challandate asc"></asp:SqlDataSource>--%>
                     </td>
                 </tr>
 
