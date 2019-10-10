@@ -36,44 +36,17 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:SqlDataSource ID="sdschead" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT DISTINCT ChargeableHeadName FROM ReceivedItemsOTEO"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="sdsihead" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString %>" SelectCommand="SELECT DISTINCT IssueHeadName FROM ReceivedItemsOTEO"></asp:SqlDataSource>
-    
+  
     <div class="full_w">
 
-        <div class="h_title">List Received Entries</div>
+        <div class="h_title">List Issued Entries</div>
         
         <asp:Panel ID="panelAdvancedSearchFilters"  runat="server">
             <div class="element2">
 
                 <table>
                     
-                    <tr>
-                        <td style="width:200px">
-                            <label for="comments"> Search by OTEO No., Supply Order No. or Supplier</label>
-                        </td>
-                        
-                        <td>
-                            <span style="float: left; width: 55%; padding-left:10px;">
-                                <input type="text" class="form-control" id="etsearch" runat="server" autocomplete ="off" style="height: 22px; width:220px" placeholder="Search Keyword..." />
-                            </span>
-                            
-                            <span class="input-group-btn" style="float: left; height: 50px; width:10px; padding-left:2px;">
-                                <%--<button runat="server" id="btnSearchImage" class="btn btn-default" title="click to search" onserverclick="btnSearchImage_ServerClick" type="button"  style="height: 36px; width:30px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;"><i class="fa fa-search"></i></button>--%>
-                            </span>
-                        </td>
-                        
-                        <td></td>
-                    </tr>
                     
-                    <!--Add by khyo -->
-                    <tr>                        
-                        <th style="text-align:center; background-color:#fff; color: black;"></th>
-                        <th style="background-color:#fff; color: black;">
-                            <span style="text-align:center; margin-left:120px;">OR</span>
-
-                        </th>                        
-                    </tr>
                     
                     <!--Add by khyo -->
                     
@@ -133,7 +106,7 @@
 
                 <tr>
                     <td>
-                        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" DataSourceID="SqlDataSource1" pagesize=25 Font-Size="8pt">
+                        <asp:GridView  OnPageIndexChanging="GridView1_PageIndexChanging" ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" pagesize=25 Font-Size="8pt">
                             <pagersettings mode="Numeric" position="Bottom" PageButtonCount="20"/>
                             <pagerstyle backcolor="LightBlue" height="30px" verticalalign="Bottom" horizontalalign="left"/> 
                         

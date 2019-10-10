@@ -11,18 +11,23 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace IMS_PowerDept.Admin
 {
+    
     public partial class Itemwise_Received : System.Web.UI.Page
     {
         SqlDataAdapter SqlDataAdapter;
         DataSet myDataSet;
+     
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack )
             {
                 _reteriveData();
+             
             }
+            
         }
 
         protected void _reteriveData()
@@ -39,6 +44,7 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter.Fill(myDataSet);
                 GridView1.DataSource = myDataSet.Tables[0];
                 GridView1.DataBind();
+                
 
 
             }
@@ -52,26 +58,37 @@ namespace IMS_PowerDept.Admin
         protected void GridView1_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            bindGridView(); //bindgridview will get the data source and bind it again
 
+            if (tbStartDateSearch.Text == "" || tbEndDateSearch.Text == "")
+            {
+                _reteriveData();
+            }
+            else
+            {
+                _reteriveDataSearch();
+            }
         }
 
-        private void bindGridView()
-        {
-            GridView1.DataSource = myDataSet.Tables[0];
-            GridView1.DataBind();
-        }
+       
 
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
             GridView1.PageIndex = 0;
             GridView1.AllowPaging = false;
-            GridView1.DataBind();
+            //GridView1.DataBind();
+            if (tbStartDateSearch.Text == "" || tbEndDateSearch.Text =="")
+            {
+                _reteriveData();
+            }
+            else
+            {
+                _reteriveDataSearch();
+            }
+           
             // DisableControls(_gvActiveBroadBandUsers);// comment out if there are any asp.net controls
             Response.Clear();
             Response.AddHeader("content-disposition", "attachment;filename=Received_Items" + DateTime.Now.ToString("dd/MM/yyy_hh:mm:ss") + ".xls");
             Response.Charset = "";
-
             // If you want the option to open the Excel file without saving then
             // comment out the line below
             // Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -79,14 +96,8 @@ namespace IMS_PowerDept.Admin
             System.IO.StringWriter stringWrite = new System.IO.StringWriter();
             System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
             GridView1.RenderControl(htmlWrite);
-
-
-
             Response.Write(stringWrite.ToString());
             Response.End();
-
-
-
         }
 
         public override void VerifyRenderingInServerForm(Control control)
@@ -96,10 +107,16 @@ namespace IMS_PowerDept.Admin
 
         protected void Btn_Search_Click(object sender, EventArgs e)
         {
+            
+            _reteriveDataSearch();
+        }
+
+        protected void _reteriveDataSearch()
+        {
             try
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["PowerDeptNagalandIMSConnectionString"].ConnectionString);
-              
+
                 if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
                 {
                     string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
@@ -108,9 +125,9 @@ namespace IMS_PowerDept.Admin
 
 
                     SqlDataAdapter = new SqlDataAdapter("select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate," +
-                        " Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails "+
-                        " where ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID and "+
-                        " ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' order by itemname,ReceivedItemsOTEOID",con);
+                        " Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails " +
+                        " where ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID and " +
+                        " ReceivedItemOTEODate between '" + stDate + "' and '" + endDate + "' order by itemname,ReceivedItemsOTEOID", con);
                 }
                 else
                 {
@@ -120,6 +137,7 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter.Fill(myDataSet);
                 GridView1.DataSource = myDataSet.Tables[0];
                 GridView1.DataBind();
+               
 
 
             }
@@ -128,6 +146,9 @@ namespace IMS_PowerDept.Admin
                 throw;
             }
         }
+
+
+
 
        
     }

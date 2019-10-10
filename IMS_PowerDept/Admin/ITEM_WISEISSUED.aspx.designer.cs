@@ -13,24 +13,6 @@ namespace IMS_PowerDept.Admin {
     public partial class ITEM_WISEISSUED {
         
         /// <summary>
-        /// sdschead control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sdschead;
-        
-        /// <summary>
-        /// sdsihead control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource sdsihead;
-        
-        /// <summary>
         /// panelAdvancedSearchFilters control.
         /// </summary>
         /// <remarks>
@@ -38,15 +20,6 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelAdvancedSearchFilters;
-        
-        /// <summary>
-        /// etsearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText etsearch;
         
         /// <summary>
         /// tbStartDateSearch control.

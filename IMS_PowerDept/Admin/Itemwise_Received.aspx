@@ -45,32 +45,10 @@
 
                 <table>
                     
-                    <tr>
-                        <td style="width:200px">
-                            <label for="comments"> Search by OTEO No., Supply Order No. or Supplier</label>
-                        </td>
-                        
-                        <td>
-                            <span style="float: left; width: 55%; padding-left:10px;">
-                                <input type="text" class="form-control" id="etsearch" runat="server" autocomplete ="off" style="height: 22px; width:220px" placeholder="Search Keyword..." />
-                            </span>
-                            
-                            <span class="input-group-btn" style="float: left; height: 50px; width:10px; padding-left:2px;">
-                                <%--<button runat="server" id="btnSearchImage" class="btn btn-default" title="click to search" onserverclick="btnSearchImage_ServerClick" type="button"  style="height: 36px; width:30px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;"><i class="fa fa-search"></i></button>--%>
-                            </span>
-                        </td>
-                        
-                        <td></td>
-                    </tr>
+                   
                     
                     <!--Add by khyo -->
-                    <tr>                        
-                        <th style="text-align:center; background-color:#fff; color: black;"></th>
-                        <th style="background-color:#fff; color: black;">
-                            <span style="text-align:center; margin-left:120px;">OR</span>
-
-                        </th>                        
-                    </tr>
+                   
                     
                     <!--Add by khyo -->
                     
@@ -129,7 +107,7 @@
                
                <tr>
                    <td>
-                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="true" PageSize="10" ID="GridView1" runat="server" AutoGenerateColumns="true" Font-Size ="8pt">
+                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="true" PageSize="25" ID="GridView1" runat="server" AutoGenerateColumns="false" Font-Size ="8pt">
                              
                             <Columns>
                                 <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEOID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />
@@ -161,7 +139,7 @@
 
                        </asp:GridView>
                         
-                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails where (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>
+                       <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails where (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>--%>
 
                    </td>
                </tr>
