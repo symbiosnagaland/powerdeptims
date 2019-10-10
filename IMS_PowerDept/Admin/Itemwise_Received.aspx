@@ -107,31 +107,21 @@
                
                <tr>
                    <td>
-                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="true" PageSize="25" ID="GridView1" runat="server" AutoGenerateColumns="false" Font-Size ="8pt">
+                       <asp:GridView OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="True" PageSize="25" ID="GridView1" runat="server" AutoGenerateColumns="False" Font-Size ="8pt" DataKeyNames="ReceivedItemsOTEOID" DataSourceID="SqlDataSource1">
                              
                             <Columns>
                                 <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEOID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />
-                                <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEODate" SortExpression="ReceivedItemOTEODate" dataformatstring="{0:dd/MM/yyyy}"/>
-                                <asp:BoundField DataField="SupplyOrderReference" HeaderText="Supply Order" SortExpression="SupplyOrderReference"  />
-                                
-
-                                <asp:BoundField DataField="SupplyOrderDate" HeaderText="Supply Order Date" SortExpression="SupplyOrderDate" dataformatstring="{0:dd/MM/yyyy}" />
-                                
-                                <asp:BoundField DataField="Supplier" HeaderText="Supplier" SortExpression="Supplier" ItemStyle-CssClass="product" >
-                                    <ItemStyle CssClass="product"></ItemStyle>
-
-                                </asp:BoundField>
-
-                                <asp:BoundField DataField="itemname" HeaderText="Item" SortExpression="itemname" ItemStyle-CssClass="product">
-                                <ItemStyle CssClass="product"></ItemStyle>
-                                </asp:BoundField>
-
-
-                                <asp:BoundField DataField="Quantity" HeaderText="Qty." SortExpression="Quantity" />
+                                <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEODate" SortExpression="ReceivedItemOTEODate" />
+                                <asp:BoundField DataField="SupplyOrderReference" HeaderText="Supply Order Ref. " SortExpression="SupplyOrderReference" />
+                                <asp:BoundField DataField="SupplyOrderDate" HeaderText="Supply Order Date" SortExpression="SupplyOrderDate" />
+                                <asp:BoundField DataField="Supplier" HeaderText="Supplier" SortExpression="Supplier" />
+                                <asp:BoundField DataField="itemname" HeaderText="Item" SortExpression="itemname" />
+                                <asp:BoundField DataField="Quantity" HeaderText="QTY." SortExpression="Quantity" />
                                 <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
                                 <asp:BoundField DataField="IssueHeadName" HeaderText="Issue Head" SortExpression="IssueHeadName" />
                                 <asp:BoundField DataField="ChargeableHeadName" HeaderText="Ch. Head" SortExpression="ChargeableHeadName" />
-                                <asp:BoundField DataField="amount" HeaderText="amount" SortExpression="amount" />
+                                <asp:BoundField DataField="amount" HeaderText="Amount" SortExpression="amount" />
+                                <asp:BoundField DataField="unit" HeaderText="unit" SortExpression="unit" />
                             </Columns>
 
                             <pagersettings mode="Numeric" position="Bottom" PageButtonCount="20"/>
@@ -139,7 +129,7 @@
 
                        </asp:GridView>
                         
-                       <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails where (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>--%>
+                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="select ReceivedItemsOTEO.ReceivedItemsOTEOID,ReceivedItemOTEODate,SupplyOrderReference,SupplyOrderDate,Supplier, itemname,Quantity,Rate,IssueHeadName,ChargeableHeadName,amount,unit from ReceivedItemsOTEO,ReceivedItemsDetails where (ReceivedItemsOTEO.ReceivedItemsOTEOID=ReceivedItemsDetails.ReceivedItemsOTEOID) order by itemname,ReceivedItemsOTEOID"></asp:SqlDataSource>
 
                    </td>
                </tr>

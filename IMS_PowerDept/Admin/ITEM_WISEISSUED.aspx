@@ -106,32 +106,32 @@
 
                 <tr>
                     <td>
-                        <asp:GridView  OnPageIndexChanging="GridView1_PageIndexChanging" ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" pagesize=25 Font-Size="8pt">
+                        <asp:GridView  OnPageIndexChanging="GridView1_PageIndexChanging" ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="DeliveryItemsChallanID" pagesize=25 Font-Size="8pt" DataSourceID="SqlDataSource1">
                             <pagersettings mode="Numeric" position="Bottom" PageButtonCount="20"/>
                             <pagerstyle backcolor="LightBlue" height="30px" verticalalign="Bottom" horizontalalign="left"/> 
                         
                             <Columns>
                                     <asp:BoundField DataField="DeliveryItemsChallanID" HeaderText="ChallanID" ReadOnly="True" SortExpression="DeliveryItemsChallanID" />
-                                    <asp:BoundField DataField="ChallanDate" HeaderText="ChallanDate" SortExpression="ChallanDate" dataformatstring="{0:dd/MM/yyyy}" />
-                                    <asp:BoundField DataField="IndentReference" HeaderText="IndentRef" SortExpression="IndentReference" />
-                                    <asp:BoundField DataField="IndentDate" HeaderText="Indent Date" SortExpression="IndentDate" dataformatstring="{0:dd/MM/yyyy}" />
+                                    <asp:BoundField DataField="ChallanDate" HeaderText="ChallanDate" SortExpression="ChallanDate" />
+                                    <asp:BoundField DataField="IndentReference" HeaderText="Indent Ref" SortExpression="IndentReference" />
+                                    <asp:BoundField DataField="IndentDate" HeaderText="Indent Date" SortExpression="IndentDate" />
             
                                     <asp:BoundField DataField="IndentingDivisionName" HeaderText="Division" SortExpression="IndentingDivisionName"/>            
                               
             
                                     <asp:BoundField DataField="ItemName" HeaderText="Item" SortExpression="ItemName" ItemStyle-CssClass="product" >
-                                        <ItemStyle CssClass="product"></ItemStyle>
                                     </asp:BoundField>
 
-                                    <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" />
+                                    <asp:BoundField DataField="Quantity" HeaderText="QTY" SortExpression="Quantity" />
                                     <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
-                                    <asp:BoundField DataField="IssueHeadName" HeaderText="IssueHead" SortExpression="IssueHeadName" />
+                                    <asp:BoundField DataField="IssueHeadName" HeaderText="Issue HD" SortExpression="IssueHeadName" />
                                     <asp:BoundField DataField="ChargeableHeadName" HeaderText="Ch. Head" SortExpression="ChargeableHeadName" />
-                                    <asp:BoundField DataField="TotalAmount" HeaderText="Amount" SortExpression="TotalAmount" />
+                                    <asp:BoundField DataField="UNIT" HeaderText="UNIT" SortExpression="UNIT" />
+                                    <asp:BoundField DataField="TotalAmount" HeaderText="Total" ReadOnly="True" SortExpression="TotalAmount" />
                                 </Columns>
                             </asp:GridView>
                             
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate, DeliveryItemsChallan.IndentReference,DeliveryItemsChallan.IndentDate, DeliveryItemsChallan.IndentingDivisionName, DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,DeliveryItemsDetails.IssueHeadName, DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount FROM DeliveryItemsChallan INNER JOIN DeliveryItemsDetails ON DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID order by itemname, challandate asc"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate, DeliveryItemsChallan.IndentReference,DeliveryItemsChallan.IndentDate, DeliveryItemsChallan.IndentingDivisionName, DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,DeliveryItemsDetails.IssueHeadName, DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.UNIT,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount FROM DeliveryItemsChallan INNER JOIN DeliveryItemsDetails ON DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID order by itemname, challandate asc"></asp:SqlDataSource>
                     </td>
                 </tr>
 

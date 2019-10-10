@@ -35,7 +35,7 @@ namespace IMS_PowerDept.Admin
                 SqlDataAdapter = new SqlDataAdapter("SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate,"+
                     "DeliveryItemsChallan.IndentReference,DeliveryItemsChallan.IndentDate, DeliveryItemsChallan.IndentingDivisionName, "+
                     "DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,DeliveryItemsDetails.IssueHeadName, "+
-                    "DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount "+
+                    "DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.UNIT,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount " +
                     " FROM DeliveryItemsChallan INNER JOIN DeliveryItemsDetails ON "+
                     "DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID order by itemname, challandate asc", con);
 
@@ -159,7 +159,7 @@ namespace IMS_PowerDept.Admin
                     SqlDataAdapter = new SqlDataAdapter("SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate,"+
                     "DeliveryItemsChallan.IndentReference,DeliveryItemsChallan.IndentDate, DeliveryItemsChallan.IndentingDivisionName, "+
                     "DeliveryItemsDetails.ItemName, DeliveryItemsDetails.Quantity,DeliveryItemsDetails.Rate,DeliveryItemsDetails.IssueHeadName, "+
-                    "DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount "+
+                    "DeliveryItemsChallan.ChargeableHeadName,DeliveryItemsDetails.UNIT,DeliveryItemsDetails.Rate*DeliveryItemsDetails.Quantity as TotalAmount " +
                     " FROM DeliveryItemsChallan INNER JOIN DeliveryItemsDetails ON "+
                     "DeliveryItemsChallan.DeliveryItemsChallanID=DeliveryItemsDetails.DeliveryItemsChallanID  and " +
                         " ChallanDate between '" + stDate + "' and '" + endDate + "' order by itemname, challandate asc ", con);
