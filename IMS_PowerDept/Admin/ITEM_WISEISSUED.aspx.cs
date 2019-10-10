@@ -151,9 +151,24 @@ namespace IMS_PowerDept.Admin
 
                 if (tbStartDateSearch.Text != "" && tbEndDateSearch.Text != "")
                 {
-                    string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    //string stDate = DateTime.ParseExact(tbStartDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
-                    string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    //string endDate = DateTime.ParseExact(tbEndDateSearch.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+                    string stDate;  string endDate;
+
+                    if (tbStartDateSearch.Text.Contains("/"))
+                         stDate = DateTime.ParseExact(tbStartDateSearch.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                    else
+                        stDate = DateTime.ParseExact(tbStartDateSearch.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+                    if (tbEndDateSearch.Text.Contains("/"))
+                         endDate = DateTime.ParseExact(tbEndDateSearch.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+                    else
+                        endDate = DateTime.ParseExact(tbEndDateSearch.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+
+
+
+
 
 
                     SqlDataAdapter = new SqlDataAdapter("SELECT DeliveryItemsChallan.DeliveryItemsChallanID, DeliveryItemsChallan.ChallanDate,"+
