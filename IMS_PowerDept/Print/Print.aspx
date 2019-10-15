@@ -82,7 +82,7 @@
                             <span style="float:right; font-weight:bold; line-height:20px;">
                                 Challan No : 
                             
-                                <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID","{0:0}")%>'></asp:Label> 
+                                <asp:Label ID="cno" runat="server" Text='<%#DataBinder.Eval(Container, "DataItem.DeliveryItemsChallanID")%>'></asp:Label> 
 
                                 <br />
                             
