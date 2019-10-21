@@ -66,6 +66,8 @@ namespace IMS_PowerDept.UserControls
                 str = "select max(deliveryitemschallanid) from DeliveryItemsChallan";
                 com = new SqlCommand(str, con);
                 con.Open();
+               
+                
                 if (com.ExecuteScalar() != DBNull.Value)
                 {
                     count = Convert.ToInt32(com.ExecuteScalar()) + 1;
@@ -74,8 +76,10 @@ namespace IMS_PowerDept.UserControls
                 {
                     count = 1;
                 }
-                _tbChalanNo.Text =count.ToString();
                 con.Close();
+                _tbChalanNo.Text =count.ToString();
+               
+                
             }
 
             private void _retriveCheadDivsion()
@@ -84,23 +88,26 @@ namespace IMS_PowerDept.UserControls
                 string cmdText2 = "SELECT DISTINCT ChargeableHeadName FROM ChargeableHeads;";
                 data2 = new DataTable();
                 SqlDataAdapter adapter2 = new SqlDataAdapter(cmdText2, con);
+                con.Close();
                 adapter2.Fill(data2);
                 _ddCHead.DataSource = data2;
                 _ddCHead.DataTextField = "ChargeableHeadName";
                 _ddCHead.DataBind();
                 _ddCHead.Items.Insert(0, new ListItem("--Select Chargeable Head--", "0"));
 
+               
                 //retrive divisions
                 string cmdText = "SELECT DISTINCT divisionName FROM Divisions";
               
                 data = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmdText, con);
+                con.Close();
                 adapter.Fill(data);
                 _ddIntendDivisions.DataSource = data;
                 _ddIntendDivisions.DataTextField = "divisionName";
                 _ddIntendDivisions.DataBind();
                 _ddIntendDivisions.Items.Insert(0, new ListItem("--Select Division Name--", "0"));
-                con.Close();
+                
             }
 
             private void InsertItemsRows(int numberofRows)
@@ -246,15 +253,15 @@ namespace IMS_PowerDept.UserControls
                             DataTable dt = dst.Tables["IT2"].Clone();
                             DataRow[] rates = dst.Tables["IT2"].Select("ItemName= '" + _ddItems.SelectedItem.ToString () + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
-                            DataTable dt2 = dst.Tables["IT3"].Clone();
-                            DataRow[] MaxQty = dst.Tables["IT3"].Select("ItemName= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
+                            DataTable dt2 = dst.Tables["itemRatesSecondery"].Clone();
+                            DataRow[] MaxQty = dst.Tables["itemRatesSecondery"].Select("ItemName= '" + _ddItems.SelectedItem.ToString() + "' and IssueHeadName='" + ddlIhead.SelectedValue.ToString() + "'");
 
                             foreach (DataRow dr in MaxQty )
                             {
                                 dt2.ImportRow(dr);
                             }
                             DataView v1 = new DataView(dt2);
-                            DataTable myMaxQty = v1.ToTable(true, "TotQtyAvailable");
+                            DataTable myMaxQty = v1.ToTable(true, "QTY");
 
                             foreach (DataRow dr in rates)
                             {
@@ -271,24 +278,16 @@ namespace IMS_PowerDept.UserControls
                                 tbOrderNO.Text = myRates.Rows[0]["OrderNo"].ToString();
                                 tbAmount.Text = myRates.Rows[0]["AMT"].ToString();
 
-                                tbMaxQtyAvail.Text = myMaxQty.Rows[0]["TotQtyAvailable"].ToString();
-
-                                
-
+                                tbMaxQtyAvail.Text = myMaxQty.Rows[0]["QTY"].ToString();
                                 
                               //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
-
 
                             }
                             else
                             {
                               //  ScriptManager.RegisterStartupScript(this, GetType(), "alertmessage", "calculateQtySum();", true);
-
                             }
                          
-                          
-                            
-                           
                             break;
                         }
                     }
@@ -329,20 +328,10 @@ namespace IMS_PowerDept.UserControls
                             TextBox tbQty = row.FindControl("tbQty") as TextBox ;
                             TextBox  tbOrderNO = row.FindControl("tbOrderNO") as TextBox ;
                             TextBox  tbAmount = row.FindControl("tbAmount") as TextBox ;
-
-                            TextBox tbMaxQtyAvail = row.FindControl("tbMaxQtyAvail") as TextBox;
-
-                            
-
+                            TextBox tbMaxQtyAvail = row.FindControl("tbMaxQtyAvail") as TextBox;  
                             TextBox _tbOrderQuantity = row.FindControl("_tbOrderQuantity") as TextBox;
-                            TextBox _tbAmt = row.FindControl("_tbAmt") as TextBox; 
-
-                            
+                            TextBox _tbAmt = row.FindControl("_tbAmt") as TextBox;                             
                             HiddenField  _hdnFieldItemID = row.FindControl("_hdnFieldItemID") as HiddenField ;
-
-                            
-
-
                             
                           
                             string[] splitresult = _ddItems.SelectedValue.Split(' ');
@@ -353,9 +342,7 @@ namespace IMS_PowerDept.UserControls
                                 DataTable dt = dst.Tables["itemRatesSecondery"].Clone();
                                 DataRow[] rates = dst.Tables["itemRatesSecondery"].Select("Itemname= '" + _ddItems.SelectedItem.ToString () + "'");
 
-
-
-
+                                
                                 foreach (DataRow dr in rates)
                                 {
                                     dt.ImportRow(dr);
@@ -403,9 +390,6 @@ namespace IMS_PowerDept.UserControls
 
                                 return;
                             }
-                            
-
-
 
                            break;
                         }
@@ -450,25 +434,6 @@ namespace IMS_PowerDept.UserControls
 
                 // converting stirng to date and compare indent date and challan date
 
-               // DateTime ChallanDate = Convert.ToDateTime(_tbChallanDate.Text);                
-               // DateTime IndentDate = Convert.ToDateTime(_tbIntendDate.Text);
-
-              //  DateTime ChallanDate = DateTime.Parse(_tbChallanDate.Text);
-              //  DateTime IndentDate = DateTime.Parse(_tbIntendDate.Text);
-
-                //if (ChallanDate < IndentDate)
-                //{
-                //    panelError.Visible = true;
-                //    lblError.Text = "Challan date Should be Greater or Equal to Indent Date.";
-                //    panelSuccess.Visible = false;
-                //    _tbChallanDate.Style.Add("background", "Pink");
-                //    _tbChallanDate.Focus();
-                //    return;
-                //}
-                //else
-                //{
-                //    _tbChallanDate.Style.Add("background", "White");
-                //}
 
 
 
@@ -713,20 +678,9 @@ namespace IMS_PowerDept.UserControls
                             double result;
                             if (!double.TryParse(_tbOrderQuantity.Text, out result))
                             {
-                                panelError.Visible = true;
-                                lblError.Text = "Error! Quantity Should Be Numeric.";
-                                panelSuccess.Visible = false;
-                                _tbOrderQuantity.Style.Add("background", "Pink");
-                                return false;
-                            }
-
-                            
-                            Double result1 = Convert.ToDouble(_tbOrderQuantity.Text);
-                            if (result1 <=0)
-                            {
-                                panelError.Visible = true;
-                                lblError.Text = "Error! Quantity Should be Greater than Zero.";
-                                panelSuccess.Visible = false;
+                               // panelError.Visible = true;
+                               // lblError.Text = "Error! Quantity Should Be Numeric.";
+                              //  panelSuccess.Visible = false;
                                 _tbOrderQuantity.Style.Add("background", "Pink");
                                 return false;
                             }
@@ -734,6 +688,40 @@ namespace IMS_PowerDept.UserControls
                             {
                                 _tbOrderQuantity.Style.Add("background", "White");
                             }
+
+                            
+                            Double result1 = Convert.ToDouble(_tbOrderQuantity.Text);
+                            if (result1 <=0)
+                            {
+                               // panelError.Visible = true;
+                               // lblError.Text = "Error! Quantity Should be Greater than Zero.";
+                               // panelSuccess.Visible = false;
+                                _tbOrderQuantity.Style.Add("background", "Pink");
+                                return false;
+                            }
+                            else
+                            {
+                                _tbOrderQuantity.Style.Add("background", "White");
+                            }
+
+
+                            Double Oquantity = Convert.ToDouble(_tbOrderQuantity.Text);
+                            Double Availquantity=Convert.ToDouble(tbQty.Text);
+                           
+                            if(Oquantity>Availquantity)
+                            {
+                                //panelError.Visible = true;
+                              //  lblError.Text = "Error! Quantity Should Be Available.";
+                             //   panelSuccess.Visible = false;
+                                  ErrLabel.Text = "Error! Quantity Not Available! Check Quantity.";
+                                _tbOrderQuantity.Style.Add("background", "Pink");
+                                return false;
+                            }
+                            else
+                            {
+                                _tbOrderQuantity.Style.Add("background", "White");
+                            }
+
 
                             if (tbRate.Text  != "")
                             {
@@ -791,9 +779,10 @@ namespace IMS_PowerDept.UserControls
                             else
                             {
 
-                                panelError.Visible = true;
-                                lblError.Text = "Error! One of item's Issue Head and Rate is not selected.";
-                                panelSuccess.Visible = false;
+                                //panelError.Visible = true;
+                               // lblError.Text = "Error! One of item's Issue Head and Rate is not selected.";
+                               // panelSuccess.Visible = false;
+                                ErrLabel.Text = "Error! One of item's Issue Head and Rate is not selected.";
                                 return false;
                             }
                       

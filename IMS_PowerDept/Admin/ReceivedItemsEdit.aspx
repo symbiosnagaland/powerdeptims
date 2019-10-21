@@ -315,7 +315,7 @@
                                                     
                                                     <asp:TemplateField HeaderText="Action">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") +","+ Eval("ItemId")+","+ Eval("itemname")+","+ Eval("rate")+","+ Eval("issueheadname")+","+ Eval("quantity") %>' CommandName='<%# Eval("amount") %>'  runat="server">Delete</asp:LinkButton>                                                                                                           
+                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("ReceivedItemID") +"`"+ Eval("ItemId")+"`"+ Eval("itemname")+"`"+ Eval("rate")+"`"+ Eval("issueheadname")+"`"+ Eval("quantity") %>' CommandName='<%# Eval("amount") %>'  runat="server">Delete</asp:LinkButton>                                                                                                           
                                                         </ItemTemplate>
                                                         </asp:TemplateField>
 
@@ -336,7 +336,7 @@
                </tr></table>
       
 
-        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSV2ConnectionString5 %>" SelectCommand="SELECT ReceivedItemsDetails.ReceivedItemID, ReceivedItemsDetails.ItemID,ReceivedItemsOTEO.IssueHeadName,
+        <asp:SqlDataSource ID="sds_gvitemsedit" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSV2ConnectionString2 %>" SelectCommand="SELECT ReceivedItemsDetails.ReceivedItemID, ReceivedItemsDetails.ItemID,ReceivedItemsOTEO.IssueHeadName,
  ReceivedItemsDetails.ItemName, ReceivedItemsDetails.Quantity,
   ReceivedItemsDetails.unit, ReceivedItemsDetails.Rate,
    ReceivedItemsDetails.amount, ReceivedItemsOTEO.TotalAmount

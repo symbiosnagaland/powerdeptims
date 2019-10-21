@@ -323,7 +323,7 @@ namespace IMS_PowerDept.Admin
              if (e.CommandName != "")
             {
                 double amount = Convert.ToDouble(e.CommandName);
-                string[] receivedItem = e.CommandArgument.ToString().Split(new char[] { ',' });
+                string[] receivedItem = e.CommandArgument.ToString().Split(new char[] { '`' });
 
                 string DeliveryItemDetailsID = receivedItem[0].ToString();
                 String ItemName = receivedItem[1].ToString();
@@ -751,9 +751,6 @@ namespace IMS_PowerDept.Admin
        
                 issued.indentNo = _tbIndentValue.Text;
 
-                // issued.challanDate = DateTime.ParseExact(, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
-                // issued.indentDate = DateTime.ParseExact(_tbIntendDate.Text, "dd-MM-yyyy", null).ToString("MM-dd-yyyy");
-
                 if(_tbChallanDate.Text.Contains("/"))
                 issued.challanDate = DateTime.ParseExact(_tbChallanDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
                else
@@ -767,12 +764,7 @@ namespace IMS_PowerDept.Admin
                 issued.TotalAmount = Convert .ToDouble(_tbtotalAmount.Text);
 
 
-
-                //stDate = DateTime.ParseExact(RecievedItemsOrderObject.Date, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-               // edDate = DateTime.ParseExact(RecievedItemsOrderObject.SupplyDate, "dd-MM-yyyy", null).ToString("yyyy-MM-dd");
-
-
-
+                
                 if (_ddIntendDivisions.SelectedItem.ToString() != "--Select Division Name--")
                 {
                     issued.intendingDivision = _ddIntendDivisions.SelectedItem.ToString();

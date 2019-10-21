@@ -441,7 +441,7 @@ namespace IMS_PowerDept.Admin
             {
                 //Label lblAmount = (Label) gvItems_Edit.FindControl(e.
                 double amount = Convert.ToDouble(e.CommandName);
-                string[] MyArraryOfCommand = e.CommandArgument.ToString().Split(new char[] { ',' });
+                string[] MyArraryOfCommand = e.CommandArgument.ToString().Split(new char[] { '`' });
 
                 string receivedItemID = MyArraryOfCommand[0];
                 string ItemID = MyArraryOfCommand[1];
@@ -449,6 +449,8 @@ namespace IMS_PowerDept.Admin
                 string rate=MyArraryOfCommand[3];
                 string issueheadname = MyArraryOfCommand[4];
                 string quantity = MyArraryOfCommand[5];
+                
+                
 
                 SqlTransaction tr = null;
                 SqlConnection conn = new SqlConnection(AppConns.GetConnectionString());
@@ -479,9 +481,7 @@ namespace IMS_PowerDept.Admin
                 cmd4.Parameters.AddWithValue("@rate", rate);
                 cmd4.Parameters.AddWithValue("@issueheadname", issueheadname);
                  cmd4.Parameters.AddWithValue("@receiveditemsoteoid", OTEOID);
-
-
-
+                
                 try
                 {
                     using (conn)
@@ -502,8 +502,7 @@ namespace IMS_PowerDept.Admin
                         else
                         {
                             tr.Commit();
-                        }
-                       
+                        }                       
                         int count = Convert.ToInt32(cmd3.ExecuteScalar());
                         if (count < 1)
                         {

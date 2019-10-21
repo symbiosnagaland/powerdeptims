@@ -40,6 +40,7 @@
             document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).style.backgroundColor = "pink";
             document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "pink";
             document.getElementById("<%= gvItems.ClientID%>").style.border = "red 2px outset";
+            document.getElementById('<%= ErrLabel.ClientID %>').innerHTML = 'Check Item available Quantity';
             document.getElementById('<%=save.ClientID %>').disabled = true;
             document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
 
@@ -48,6 +49,7 @@
             document.getElementById("<%= gvItems.ClientID%>_tbMaxQtyAvail_" + dynamicidpart).style.backgroundColor = "white";
             document.getElementById("<%= gvItems.ClientID%>__tbOrderQuantity_" + dynamicidpart).style.backgroundColor = "white";
             document.getElementById("<%= gvItems.ClientID%>").style.border = "none";
+            document.getElementById('<%= ErrLabel.ClientID %>').innerHTML = '';
             document.getElementById('<%=save.ClientID %>').disabled = false;
             document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
         }
@@ -138,7 +140,8 @@
                    {
                       // alert("Same Item and same Issue Head Not Allowed");
                        document.getElementById('<%=save.ClientID %>').disabled = true;
-                       document.getElementById('<%=_btnSave.ClientID %>').disabled = true;                      
+                       document.getElementById('<%=_btnSave.ClientID %>').disabled = true;   
+                       document.getElementById('<%= ErrLabel.ClientID %>').innerHTML = 'Check Item Name and Issue Head Name';
                        grid.style.border = "2px solid red";                      
                        return true ;
                    }
@@ -146,11 +149,30 @@
                    {
                        document.getElementById('<%=save.ClientID %>').disabled = false;
                        document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                       document.getElementById('<%= ErrLabel.ClientID %>').innerHTML = '';
                        grid.style.border = "none";
                    }
                  
                   
                }
+
+               if ((Itemid1!="") && (IssueHead1==0))
+               {
+                   document.getElementById('<%=save.ClientID %>').disabled = true;
+                   document.getElementById('<%=_btnSave.ClientID %>').disabled = true;
+                   document.getElementById('<%= ErrLabel.ClientID %>').innerHTML = 'Select Issue Head Name';     
+                   grid.style.border = "2px solid red";
+                   return true;
+               }
+               else
+               {
+                   document.getElementById('<%=save.ClientID %>').disabled = false;
+                   document.getElementById('<%=_btnSave.ClientID %>').disabled = false;
+                   document.getElementById('<%= ErrLabel.ClientID %>').innerHTML = '';
+                   grid.style.border = "none";
+               }
+
+
                
            }
           
@@ -255,6 +277,8 @@
         
         <br />
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        
+       &nbsp;&nbsp;&nbsp; <asp:Label ID="ErrLabel" runat="server" Font-Bold="True" Font-Size="10pt" ForeColor="Red"></asp:Label>
         
         <div class="table-responsive">
             <asp:UpdateProgress ID="UpdateProgress1" AssociatedUpdatePanelID="UpdatePanel1" runat="server" DynamicLayout="False">

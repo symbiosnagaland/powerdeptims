@@ -327,7 +327,7 @@
                                                      
                                                     <asp:TemplateField HeaderText="Action">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("DeliveryItemDetailsID")+","+Eval("ItemName")+","+ Eval("rate")+","+Eval("IssueHeadName")+","+Eval("quantity")%>' CommandName='<%# Eval("amount") %>' runat="server">Delete</asp:LinkButton>                                                                                                           
+                                                            <asp:LinkButton ID="lbtnDelete"  CommandArgument='<%# Eval("DeliveryItemDetailsID")+"`"+Eval("ItemName")+"`"+ Eval("rate")+"`"+Eval("IssueHeadName")+"`"+Eval("quantity")%>' CommandName='<%# Eval("amount") %>' runat="server">Delete</asp:LinkButton>                                                                                                           
                                                         </ItemTemplate>
                                                         </asp:TemplateField>
                                                 </Columns>
