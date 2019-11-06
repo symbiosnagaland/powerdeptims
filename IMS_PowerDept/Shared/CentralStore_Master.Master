@@ -29,9 +29,9 @@
            $(document).ready(function () {
 
                //get all ids ending with _panelSuccess. obviously, i know before hand only one is there
-               $("[id$=_panelSuccess]").fadeOut(10000);
+               $("[id$=_panelSuccess]").fadeOut(1000);
                //same for panelerror
-               $("[id$=_panelError").fadeOut(10000);
+               $("[id$=_panelError").fadeOut(1000);
            });
         </script>
     <asp:ContentPlaceHolder ID="head" runat="server">

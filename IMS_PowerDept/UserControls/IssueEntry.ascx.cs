@@ -659,7 +659,11 @@ namespace IMS_PowerDept.UserControls
                         DropDownList itemName = gvItems.Rows[i].FindControl("_ddItems") as DropDownList;
                         TextBox itemUnit = gvItems.Rows[i].FindControl("_tbUnit") as TextBox;
 
-                        TextBox tbQty = gvItems.Rows[i].FindControl("tbQty") as TextBox; 
+                        TextBox tbQty = gvItems.Rows[i].FindControl("tbQty") as TextBox;
+
+                        TextBox tbMaxQtyAvail = gvItems.Rows[i].FindControl("tbMaxQtyAvail") as TextBox; 
+
+                        
 
                         TextBox _tbOrderQuantity = gvItems.Rows[i].FindControl("_tbOrderQuantity") as TextBox;                       
                         DropDownList ddlIhead = gvItems.Rows[i].FindControl("ddlIhead") as DropDownList;
@@ -706,7 +710,7 @@ namespace IMS_PowerDept.UserControls
 
 
                             Double Oquantity = Convert.ToDouble(_tbOrderQuantity.Text);
-                            Double Availquantity=Convert.ToDouble(tbQty.Text);
+                            Double Availquantity = Convert.ToDouble(tbMaxQtyAvail.Text);
                            
                             if(Oquantity>Availquantity)
                             {

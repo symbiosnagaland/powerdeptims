@@ -16,14 +16,14 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
 
             //reterive issue HEadNames
-            string cmd = "select  ItemName,issueheadname,sum(quantity) as QTY,RTRIM (issueheadname)+ ' = '+ CONVERT(VARCHAR(8),sum(quantity)) "+
+            string cmd = "select  ItemName,issueheadname,sum(quantity) as QTY,RTRIM (issueheadname)+ ' = '+ CONVERT(VARCHAR(12),sum(quantity)) "+
                          "as issuableQuantity from ItemsRateSecondary group by itemname,issueheadname   having sum(quantity)>0.00 order by itemname,issueheadname ";
             //retrive item names          
-            string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
+            string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items order by Itemname";
 
             string cmd3 = "select itemname,issueheadname,Rate,OrderNo,Quantity,cast((Rate*Quantity)as decimal(10,2))  AS AMT from ItemsRateSecondary IT2 where quantity>0 order by rate, OrderNo";
 
-          //  string cmd4 = "select sum(quantity) as  TotQtyAvailable, itemname,IssueHeadName  from ItemsRateSecondary  group by itemname,IssueHeadName having sum(quantity)>0.00 ";
+            string cmd4 = "select sum(quantity) as  TotQtyAvailable, itemname,IssueHeadName  from ItemsRateSecondary  group by itemname,IssueHeadName having sum(quantity)>0.00 ";
 
             try
             {
@@ -41,9 +41,9 @@ namespace IMS_PowerDept.AppCode
                 dst.Tables.Add("IT2");
                 adapter.Fill(dst.Tables["IT2"]);
 
-              //  adapter.SelectCommand.CommandText = cmd4;
-              //  dst.Tables.Add("IT3");
-              //  adapter.Fill(dst.Tables["IT3"]);
+               adapter.SelectCommand.CommandText = cmd4;
+                dst.Tables.Add("IT3");
+               adapter.Fill(dst.Tables["IT3"]);
                
             }
             catch { throw; }

@@ -289,7 +289,7 @@
                                                     <asp:TemplateField HeaderText="Item">
                                                         <ItemTemplate>
 
-                                                              <asp:Label ID="hdnFieldItemID" Text='<%# Eval("ItemId") %>'   runat="server" />
+                                                              <asp:Label ID="hdnFieldItemID" Text='<%# Eval("ItemId") %>' Visible ="false"    runat="server" />
                                                      
                                                             <asp:Label ID="lblItem" Text='<%# Eval("ItemName") %>' runat="server"></asp:Label>
                                                         </ItemTemplate>

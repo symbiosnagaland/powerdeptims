@@ -202,17 +202,31 @@
 
 <div class="full_w">
     
-    <asp:Panel ID="panelSuccess" Visible="false"  runat="server" CssClass="n_ok">
+    <asp:Panel ID="panelSuccess"  runat="server" CssClass="n_ok" >
         <p>
-            <asp:Label ID="lblSuccess" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblSuccess" runat="server" ></asp:Label>
         </p>
     </asp:Panel>
     
-    <asp:Panel ID="panelError" Visible="false"  runat="server" CssClass="n_error">
+    <asp:Panel ID="panelError"   runat="server" CssClass="n_error">
         <p>
             <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
         </p>
     </asp:Panel>
+
+  <%--  comment--%>
+
+<%--     <asp:Panel ID="panel1" Visible="false"  runat="server" CssClass="n_ok">
+        <p>
+            <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+        </p>
+    </asp:Panel>
+    
+    <asp:Panel ID="panel2" Visible="false"  runat="server" CssClass="n_error">
+        <p>
+            <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
+        </p>
+    </asp:Panel>--%>
     
     <div class="h_title">Issue Entry</div>
     
@@ -331,7 +345,7 @@
                                     <ItemTemplate>
                                        <%-- <asp:DropDownList CssClass="err" ID="ddlRates" onchange="UpdateAmountbyRate(this.id)" Width="150px" runat="server"></asp:DropDownList>
                                     --%>
-                                        <asp:TextBox ID="tbRate" runat="server" Text="0"></asp:TextBox>&nbsp;&nbsp;&nbsp;
+                                        <asp:TextBox ID="tbRate" runat="server" Text="rate"></asp:TextBox>&nbsp;&nbsp;&nbsp;
                                         <asp:TextBox ID="tbQty" runat="server" Text="Qty"></asp:TextBox>&nbsp;&nbsp;&nbsp;
                                         <asp:TextBox ID="tbOrderNO" runat="server" Text="ONO"></asp:TextBox>
                                         <asp:TextBox ID="tbAmount" runat="server" Text="Amt"></asp:TextBox>

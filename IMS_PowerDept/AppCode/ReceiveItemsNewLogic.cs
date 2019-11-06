@@ -38,7 +38,7 @@ namespace IMS_PowerDept.AppCode
             DataSet dst = new DataSet();
 
             //reterive issue HEadNames
-            string cmd = "select distinct ItemName,issueheadname from ItemsRateSecondary ";
+            string cmd = "select distinct ItemName,issueheadname from ItemsRateSecondary  order by itemname";
             //retrive item names          
             string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items";
 

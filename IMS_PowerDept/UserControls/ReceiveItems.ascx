@@ -163,13 +163,13 @@
 
 
 <div class="full_w">
-    <asp:Panel ID="panelSuccess" Visible="false" CssClass="n_ok" runat="server">
+    <asp:Panel ID="panelSuccess"  CssClass="n_ok" runat="server">
         <p>
             <asp:Label ID="lblSuccess" runat="server" Text=""></asp:Label>
         </p>
     </asp:Panel>
     
-    <asp:Panel ID="panelError" Visible="false"  CssClass="n_error" runat="server">
+    <asp:Panel ID="panelError"   CssClass="n_error" runat="server">
         <p>
             <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
         </p>
