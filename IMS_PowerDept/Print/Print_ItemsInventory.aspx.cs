@@ -108,7 +108,14 @@ namespace IMS_PowerDept.Print
                        
                         lblFromDate.Visible = true;
 
+                       
+
+                       
+
                         lblFromDate.Text = "Stock Position Date: " + dateStockPosition;
+                        ///
+
+
                      
                         if (Request.QueryString["Id"] == "1")
                         {

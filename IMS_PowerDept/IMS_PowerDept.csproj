@@ -229,8 +229,10 @@
     <Content Include="UserControls\ChargeableHeadsControl.ascx" />
     <Content Include="UserControls\IssueEntryTemp.ascx" />
     <Content Include="UserControls\IssueList.ascx" />
+    <Content Include="UserControls\Issue_report_Excel.ascx" />
     <Content Include="UserControls\ItemsInventoryControl.ascx" />
     <Content Include="UserControls\ItemsListInventoryControl.ascx" />
+    <Content Include="UserControls\Receipt_Report_Excel.ascx" />
     <Content Include="UserControls\TransformerReceiptEntry.ascx" />
     <Content Include="UserControls\Dash.ascx" />
     <Content Include="UserControls\DivisionsControl.ascx" />
@@ -943,6 +945,13 @@
     <Compile Include="UserControls\IssueList.ascx.designer.cs">
       <DependentUpon>IssueList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Issue_report_Excel.ascx.cs">
+      <DependentUpon>Issue_report_Excel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Issue_report_Excel.ascx.designer.cs">
+      <DependentUpon>Issue_report_Excel.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ItemsInventoryControl.ascx.cs">
       <DependentUpon>ItemsInventoryControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -956,6 +965,13 @@
     </Compile>
     <Compile Include="UserControls\ItemsListInventoryControl.ascx.designer.cs">
       <DependentUpon>ItemsListInventoryControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Receipt_Report_Excel.ascx.cs">
+      <DependentUpon>Receipt_Report_Excel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Receipt_Report_Excel.ascx.designer.cs">
+      <DependentUpon>Receipt_Report_Excel.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TransformerReceiptEntry.ascx.cs">
       <DependentUpon>TransformerReceiptEntry.ascx</DependentUpon>

@@ -19,13 +19,14 @@ namespace IMS_PowerDept.UserControls
             if (!IsPostBack)
             {
                  SelectedIssueHeadNameDetails(IssueHeadList.SelectedValue.ToString());
+                 tbDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
             }
 
         }
 
         protected void btn1_Click(object sender, EventArgs e)
         {
-           /* string appPath = HttpRuntime.AppDomainAppVirtualPath;
+            string appPath = HttpRuntime.AppDomainAppVirtualPath;
 
          
              string scriptPath =   "<script>window.open('/Print/Print_ItemsInventory.aspx?ID=1&issueheadname=@ihn&date=@date','_newtab'); </script>";
@@ -50,7 +51,7 @@ namespace IMS_PowerDept.UserControls
                   "click","@" + scriptPath, false);
 
           //  SelectedIssueHeadNameDetails(IssueHeadList.SelectedValue.ToString());
-            */
+            
         }
         private void SelectedIssueHeadNameDetails(string pStrIssueHeadName)
         {
@@ -70,11 +71,25 @@ namespace IMS_PowerDept.UserControls
 
         protected void btn2_Click(object sender, EventArgs e)
         {
-          /*  string appPath = HttpRuntime.AppDomainAppVirtualPath;
+            string appPath = HttpRuntime.AppDomainAppVirtualPath;
             string scriptPath = "<script>window.open('/Print/Print_ItemsInventory.aspx?ID=2&issueheadname=@ihn&date=@date','_newtab'); </script>";
             scriptPath = scriptPath.Replace("@ihn", Utilities.QueryStringEncode(IssueHeadList.SelectedValue));
 
             string myDate = DateTime.ParseExact(tbDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+
+            if (tbDate.Text.Contains("/"))
+            {
+                myDate = DateTime.ParseExact(tbDate.Text, @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                myDate = DateTime.ParseExact(tbDate.Text, @"d-M-yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            }
+
+
+
+
 
             if (tbDate.Text == "")
             {
@@ -92,8 +107,8 @@ namespace IMS_PowerDept.UserControls
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                    "click","@" + scriptPath, false);
           //  SelectedIssueHeadNameDetails(IssueHeadList.SelectedValue.ToString());
-           * 
-           */
+           
+           
         }
 
         void DisplayCurrentPage()
