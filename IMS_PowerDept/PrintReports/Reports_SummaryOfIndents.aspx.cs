@@ -38,7 +38,7 @@ namespace IMS_PowerDept.PrintReports
         {
             try
             {
-                dadapter = new SqlDataAdapter("SELECT DISTINCT IndentingDivisionName FROM DeliveryItemsChallan WHERE ChallanDate between '" + stDate + "' and '" + edDate + "' AND IsDeliveredTemporary = 'No' order by ChallanDate ", con);
+                dadapter = new SqlDataAdapter("SELECT DISTINCT IndentingDivisionName FROM DeliveryItemsChallan WHERE ChallanDate between '" + stDate + "' and '" + edDate + "' AND IsDeliveredTemporary = 'No'  ", con);
                 dset = new DataSet();
                 dadapter.Fill(dset);
                 gv1.DataSource = dset.Tables[0];

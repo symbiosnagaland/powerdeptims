@@ -36,7 +36,7 @@ namespace IMS_PowerDept.PrintReports
             st.Text = Session["BeginDate"].ToString();
             st.Text = DateTime.ParseExact(st.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
-            ed.Text = Session["EndDate"].ToString();
+            ed.Text = Session["EndingDate"].ToString();
             ed.Text = DateTime.ParseExact(ed.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
 
 
