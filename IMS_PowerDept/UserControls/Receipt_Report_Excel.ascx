@@ -88,9 +88,9 @@
                              
                             <Columns>
                                 <asp:BoundField DataField="ReceivedItemsOTEOID" HeaderText="OTEOID" ReadOnly="True" SortExpression="ReceivedItemsOTEOID" />
-                                <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEODate" SortExpression="ReceivedItemOTEODate" />
+                                <asp:BoundField DataField="ReceivedItemOTEODate" HeaderText="OTEODate" DataFormatString="{0:dd/MM/yyyy}" SortExpression="ReceivedItemOTEODate" />
                                 <asp:BoundField DataField="SupplyOrderReference" HeaderText="Supply Order Ref. " SortExpression="SupplyOrderReference" />
-                                <asp:BoundField DataField="SupplyOrderDate" HeaderText="Supply Order Date" SortExpression="SupplyOrderDate" />
+                                <asp:BoundField DataField="SupplyOrderDate" HeaderText="Supply Order Date" ControlStyle-Width="102px" DataFormatString="{0:dd/MM/yyyy}" SortExpression="SupplyOrderDate" />
                                 <asp:BoundField DataField="Supplier" HeaderText="Supplier" SortExpression="Supplier" />
                                 <asp:BoundField DataField="itemname" HeaderText="Item" SortExpression="itemname" />
                                 <asp:BoundField DataField="Quantity" HeaderText="QTY." SortExpression="Quantity" />

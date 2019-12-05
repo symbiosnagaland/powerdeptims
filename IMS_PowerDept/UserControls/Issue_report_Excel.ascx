@@ -91,9 +91,9 @@
                         
                             <Columns>
                                     <asp:BoundField DataField="DeliveryItemsChallanID" HeaderText="ChallanID" ReadOnly="True" SortExpression="DeliveryItemsChallanID" />
-                                    <asp:BoundField DataField="ChallanDate" HeaderText="ChallanDate" SortExpression="ChallanDate" />
+                                    <asp:BoundField DataField="ChallanDate" HeaderText="ChallanDate" SortExpression="ChallanDate" DataFormatString="{0:dd/MM/yyyy}" />
                                     <asp:BoundField DataField="IndentReference" HeaderText="Indent Ref" SortExpression="IndentReference" />
-                                    <asp:BoundField DataField="IndentDate" HeaderText="Indent Date" SortExpression="IndentDate" />
+                                    <asp:BoundField DataField="IndentDate" HeaderText="Indent Date" SortExpression="IndentDate" DataFormatString="{0:dd/MM/yyyy}" />
             
                                     <asp:BoundField DataField="IndentingDivisionName" HeaderText="Division" SortExpression="IndentingDivisionName"/>            
                               
