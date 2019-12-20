@@ -20,6 +20,12 @@ namespace IMS_PowerDept.AppCode
             return (ConfigurationManager.AppSettings["UPLOADFOLDERPATH"].ToString());
         }
 
+        public static string GetDatabaseName()
+        {
+            return (ConfigurationManager.AppSettings["DBNAME"].ToString());
+        }
+
+
 
     }
 }

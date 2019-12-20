@@ -37,7 +37,7 @@ namespace IMS_PowerDept.CentralStore
         {
             try
             {
-                string _DatabaseName = "PowerDeptNagalandIMS";
+                string _DatabaseName = AppConns.GetDatabaseName();
                 string _BackupName = _DatabaseName + "_" + DateTime.Now.ToString("ddMMMMyyyy_hh_mm_tt") + ".bak";
             //    string _BackupName = _DatabaseName + ".bak";
 
@@ -69,7 +69,7 @@ namespace IMS_PowerDept.CentralStore
         {
             try
             {
-                 string _DatabaseName = "PowerDeptNagalandIMS";             
+                string _DatabaseName = AppConns.GetDatabaseName();    
                 SqlConnection sqlConnection = new SqlConnection();
                 sqlConnection.ConnectionString = AppConns.GetMasterConnectionString();
                 // string backupFolderPath = Server.MapPath(HttpContext.Current.Request.ApplicationPath) + "\\DBBackup\\";                   //"DROP DATABASE " + _DatabaseName + 

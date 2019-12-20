@@ -37,7 +37,7 @@
                                 Click <a href="javascript: history.go(-1)" > here </a> to go to previous page and try again.
                                   </p>
 
-                                <p>Or go to <a href="../Login.aspx" >Login Page. </a>
+                                <p>Or go to Login Page.
                               </p>
                                 
                           <%--         <p>If the same error persists, you may also click <asp:LinkButton ID="lnkbtnMailErrorDetails" runat="server">here</asp:LinkButton> &nbsp;to send us the error details (*requires internet connection) 
