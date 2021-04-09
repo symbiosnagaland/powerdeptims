@@ -18,6 +18,8 @@ namespace IMS_PowerDept.AppCode
             //reterive issue HEadNames
             string cmd = "select  ItemName,issueheadname,sum(quantity) as QTY,RTRIM (issueheadname)+ ' = '+ CONVERT(VARCHAR(12),sum(quantity)) "+
                          "as issuableQuantity from ItemsRateSecondary group by itemname,issueheadname   having sum(quantity)>0.00 order by itemname,issueheadname ";
+
+
             //retrive item names          
             string cmd2 = "select  itemname, CONVERT(VARCHAR(10), itemid) + ' ' + unit as itemid_unit from items order by Itemname";
 

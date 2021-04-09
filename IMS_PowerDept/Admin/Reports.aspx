@@ -321,6 +321,7 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
                         Begin Date
                     </td>
                     <td>
+                        
                         <asp:TextBox CssClass="form-control" ID="tbStartDateSearch" autocomplete="off"  placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
                     </td>
                 </tr>

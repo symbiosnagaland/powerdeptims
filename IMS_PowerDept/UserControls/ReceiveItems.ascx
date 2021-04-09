@@ -135,7 +135,7 @@
               // In this case we are looping through all the Dek Volume and then the Mcf volume boxes in the grid and not an individual one and totalling them
               if (inputs[i].name.indexOf("tbAmount") > 1) {
                   if (inputs[i].value != "") {
-                      sum = sum + parseInt(inputs[i].value);
+                      sum = sum + parseFloat(inputs[i].value);
                   }
 
               }

@@ -25,6 +25,10 @@ namespace IMS_PowerDept.AppCode
             return (ConfigurationManager.AppSettings["DBNAME"].ToString());
         }
 
+        public static string GetAppURL()
+        {
+            return (ConfigurationManager.AppSettings["APPURL"].ToString());
+        }
 
 
     }

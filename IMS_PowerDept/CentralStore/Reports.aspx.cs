@@ -42,7 +42,7 @@ namespace IMS_PowerDept.CentralStore
                 Session["BeginDate"] = tbStartDateSearch.Text;
                 Session["EndDate"] = tbEndDateSearch.Text;
 
-
+                //   Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_HeadWiseValuation2.aspx");
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if (appPath != "/")
 
@@ -50,6 +50,8 @@ namespace IMS_PowerDept.CentralStore
                      "click", @"<script>
                     window.open('/PrintReports/Report_HeadWiseValuation2.aspx','_newtab');
                     </script>", false);
+
+
 
                 else
 
@@ -66,6 +68,10 @@ namespace IMS_PowerDept.CentralStore
             {
                 Session["BeginDate"] = tbStartDateSearch.Text;
                 Session["EndDate"] = tbEndDateSearch.Text;
+
+
+              //  Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_HeadWiseValuation.aspx");
+
 
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if (appPath != "/")
@@ -108,6 +114,9 @@ namespace IMS_PowerDept.CentralStore
                 //ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                 //   "click", @"<script>window.open('/PrintReports/Report_DivisionIssueHead2.aspx','_newtab');</script>", false);
 
+                //  Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_DivisionIssueHead2.aspx");
+
+
 
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if (appPath != "/")
@@ -136,6 +145,10 @@ namespace IMS_PowerDept.CentralStore
 
                 //ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                 //   "click", @"<script>window.open('/PrintReports/Report_Division-wiseIssueofMaterials.aspx','_newtab');</script>", false);
+
+               // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_Division-wiseIssueofMaterials.aspx");
+
+
 
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if (appPath != "/")
@@ -179,25 +192,29 @@ namespace IMS_PowerDept.CentralStore
             // ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
             //"click", @"<script>window.open('/PrintReports/Report_ReceiptValuation.aspx','_newtab');</script>", false);
 
+            Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_ReceiptValuation.aspx");
+
+
+
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
 
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                  "click", @"<script>
-                    window.open('/PrintReports/Report_ReceiptValuation.aspx','_newtab');
-                    </script>", false);
+                        window.open('/PrintReports/Report_ReceiptValuation.aspx','_newtab');
+                        </script>", false);
 
             else
 
 
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                   "click", @"<script>
-                    window.open('/PrintReports/Report_ReceiptValuation.aspx','_newtab');
-                    </script>", false);
+                        window.open('/PrintReports/Report_ReceiptValuation.aspx','_newtab');
+                        </script>", false);
 
 
-        }
-
+       // }
+    }
         protected void supplierreceipts_Click(object sender, EventArgs e)
         {
             if (tbsummary.Text.Trim() == "")
@@ -218,12 +235,13 @@ namespace IMS_PowerDept.CentralStore
             // ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
             //"click", @"<script>window.open('/PrintReports/Report_SupplierSummaryOfReciepts.aspx','_newtab');</script>", false);
 
+            //  Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_SupplierSummaryOfReciepts.aspx");
 
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
 
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
-                 "click", @"<script>
+             "click", @"<script>
                     window.open('/PrintReports/Report_SupplierSummaryOfReciepts.aspx','_newtab');
                     </script>", false);
 
@@ -258,6 +276,9 @@ namespace IMS_PowerDept.CentralStore
 
             //   ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
             //"click", @"<script>window.open('/PrintReports/Reports_SummaryOfIndents.aspx','_newtab');</script>", false);
+
+
+            // Response.Redirect("http://192.168.5.6:8081/PrintReports/Reports_SummaryOfIndents.aspx");
 
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
@@ -301,6 +322,10 @@ namespace IMS_PowerDept.CentralStore
             //Response.Redirect("~/PrintReports/Report_ChallanAll.aspx");
             //     ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
             //"click", @"<script>window.open('/PrintReports/Report_ChallanAll.aspx','_newtab');</script>", false);
+
+
+            // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_ChallanAll.aspx");
+
 
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
@@ -405,6 +430,11 @@ namespace IMS_PowerDept.CentralStore
                 //          ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                 //"click", @"<script>window.open('/PrintReports/Report_TempIssuedItems2.aspx','_newtab');</script>", false);
 
+
+               // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_TempIssuedItems2.aspx");
+
+
+
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if (appPath != "/")
 
@@ -434,6 +464,7 @@ namespace IMS_PowerDept.CentralStore
                 //           ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                 //"click", @"<script>window.open('/PrintReports/Report_TempIssuedItems.aspx','_newtab');</script>", false);
 
+                //Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_TempIssuedItems.aspx");
 
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
                 if (appPath != "/")
@@ -474,11 +505,15 @@ namespace IMS_PowerDept.CentralStore
             Session["BeginDate"] = chdate.Text;
             Session["EndingDate"] = chdateend.Text;
 
+
+            // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_ChallanWiseValuationPrint.aspx");
+
+
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
 
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
-                 "click", @"<script>
+             "click", @"<script>
                     window.open('/PrintReports/Report_ChallanWiseValuationPrint.aspx','_newtab');
                     </script>", false);
 
@@ -493,6 +528,9 @@ namespace IMS_PowerDept.CentralStore
 
         protected void Button3_Click(object sender, EventArgs e)
         {
+            // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_BalanceSheet.aspx");
+
+
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
 
@@ -519,7 +557,8 @@ namespace IMS_PowerDept.CentralStore
                 return;
             }
             Session["Ihead"] = DropDownList1.Text;
-           
+           // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_BalanceSheet2.aspx");
+
 
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
             if (appPath != "/")
@@ -528,6 +567,8 @@ namespace IMS_PowerDept.CentralStore
                  "click", @"<script>
                     window.open('/PrintReports/Report_BalanceSheet2.aspx','_newtab');
                     </script>", false);
+
+
 
             else
 

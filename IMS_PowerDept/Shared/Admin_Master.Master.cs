@@ -12,7 +12,7 @@ namespace IMS_PowerDept.Shared
         protected void Page_Load(object sender, EventArgs e)
         {
             //if (Request.Url.ToString().Contains("localhost:61111"))
-            //Session["username"] = "0";
+           // Session["username"] = "0";
             if (Session["username"] != null)
                 Label1.Text = Session["username"].ToString();
             else
