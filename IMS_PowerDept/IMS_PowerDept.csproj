@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -155,6 +156,7 @@
     <Content Include="js\sortingfile\jquery-ui.css" />
     <Content Include="js\sortingfile\jquery.dataTables.css" />
     <Content Include="Login.aspx" />
+    <Content Include="PrintReports\Report_ChallanWiseValuationPrintFilter.aspx" />
     <Content Include="PrintReports\Transformer_Issue.aspx" />
     <Content Include="PrintReports\Transformer_Jobs.aspx" />
     <Content Include="PrintReports\Transformer_Receipts.aspx" />
@@ -614,6 +616,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReports\Report_ChallanWiseValuationPrintFilter.aspx.cs">
+      <DependentUpon>Report_ChallanWiseValuationPrintFilter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintReports\Report_ChallanWiseValuationPrintFilter.aspx.designer.cs">
+      <DependentUpon>Report_ChallanWiseValuationPrintFilter.aspx</DependentUpon>
     </Compile>
     <Compile Include="PrintReports\Transformer_Issue.aspx.cs">
       <DependentUpon>Transformer_Issue.aspx</DependentUpon>

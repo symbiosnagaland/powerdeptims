@@ -16,8 +16,8 @@ namespace IMS_PowerDept.Admin
 
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-
+        {           
+            IssueHeadList.Items.Add("ALL");
         }
 
 
@@ -298,10 +298,7 @@ namespace IMS_PowerDept.Admin
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         protected void Button2_Click(object sender, EventArgs e)
         {
@@ -504,6 +501,7 @@ namespace IMS_PowerDept.Admin
             }
             Session["BeginDate"] = chdate.Text;
             Session["EndingDate"] = chdateend.Text;
+            Session["IssueHead"] = IssueHeadList.Text;
 
 
             // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_ChallanWiseValuationPrint.aspx");
@@ -523,6 +521,44 @@ namespace IMS_PowerDept.Admin
                 ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
                   "click", @"<script>
                     window.open('/PrintReports/Report_ChallanWiseValuationPrint.aspx','_newtab');
+                    </script>", false);
+        }
+
+        protected void Button5_Click1(object sender, EventArgs e)
+        {
+            if (chdateFilter.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Enter Start Date";
+                return;
+            }
+            if (chdateendFilter.Text.Trim() == "")
+            {
+                panelError.Visible = true;
+                lblError.Text = "Enter Ending Date";
+                return;
+            }
+            Session["BeginDate"] = chdateFilter.Text;
+            Session["EndingDate"] = chdateendFilter.Text;
+
+
+            // Response.Redirect("http://192.168.5.6:8081/PrintReports/Report_ChallanWiseValuationPrint.aspx");
+
+
+            string appPath = HttpRuntime.AppDomainAppVirtualPath;
+            if (appPath != "/")
+
+                ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
+             "click", @"<script>
+                    window.open('/PrintReports/Report_ChallanWiseValuationPrintFilter.aspx','_newtab');
+                    </script>", false);
+
+            else
+
+
+                ScriptManager.RegisterStartupScript(Page, typeof(System.Web.UI.Page),
+                  "click", @"<script>
+                    window.open('/PrintReports/Report_ChallanWiseValuationPrintFilter.aspx','_newtab');
                     </script>", false);
         }
 

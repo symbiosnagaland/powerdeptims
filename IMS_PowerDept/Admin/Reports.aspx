@@ -40,7 +40,21 @@
                  changeMonth: true,
                  changeYear: true,
                  dateFormat: 'dd-mm-yy'
-             });
+           });
+
+        $("#ContentPlaceHolder1_chdateFilter").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd-mm-yy'
+            });
+
+        $("#ContentPlaceHolder1_chdateendFilter").datepicker(
+            {
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd-mm-yy'
+            });
 
        $("#ContentPlaceHolder1_TextBox1").datepicker(
             {
@@ -357,6 +371,21 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
 			<a href="#tab-2" class="tab">Challan-Wise Valuation (Abstract)</a>
 			<div class="content">
 				     <table style="width:100%">
+                 <%--<asp:Panel ID="Panel2"  runat="server">--%>
+                             <tr>
+                        <td>
+                            Issue Head Name
+                        </td>
+                        <td>
+                            
+                 <asp:DropDownList CssClass="err" Enabled="true"  EnableViewState="true" AutoPostBack="false" OnSelectedIndexChanged="ddldiv_SelectedIndexChanged" AppendDataBoundItems="True" ID="IssueHeadList" Width="250px" runat="server" DataSourceID="SqlIssueHead" DataTextField="IssueHeadName" DataValueField="IssueHeadName">
+                    </asp:DropDownList>
+           
+                        
+                            <asp:SqlDataSource ID="SqlIssueHead" runat="server" ConnectionString="<%$ ConnectionStrings:PowerDeptNagalandIMSConnectionString_server %>" SelectCommand="SELECT DISTINCT IssueHeadName FROM DeliveryItemsDetails"></asp:SqlDataSource>
+                        </td>
+                    </tr>
+
                 <tr>
                     <td>
                         Begin Date
@@ -383,6 +412,38 @@ background: -webkit-linear-gradient(top, #a5cd4e 0%, #6b8f1a 100%);
 					
 			</div>
 		</div>
+
+		<div id="tab-8">
+			<a href="#tab-8" class="tab">Challan-Wise Valuation (With Filter)</a>
+			<div class="content">
+				     <table style="width:100%">
+                <tr>
+                    <td>
+                        Begin Date
+                    </td>
+                    <td>
+                        <asp:TextBox CssClass="form-control" ID="chdateFilter" autocomplete="off" placeholder="Begin Date" Width="220px" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    Ending Date
+                    </td>
+                    <td>
+                          <asp:TextBox CssClass="form-control" autocomplete="off"  ID ="chdateendFilter" placeholder="Ending Date" Width="220px" runat="server"></asp:TextBox>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                         <asp:Button ID="Button5" CssClass="btn btn-primary" runat="server" Text="Preview Challan-Wise Valuation With Filter" OnClick="Button5_Click1"  />
+                    </td>
+                </tr>
+            </table>
+					
+			</div>
+		</div>
+
 		<div id="tab-3">
 			<a href="#tab-3" class="tab">Details Valuation - ALL</a>
 			<div class="content">

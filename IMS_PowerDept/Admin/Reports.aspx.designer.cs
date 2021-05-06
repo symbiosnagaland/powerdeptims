@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IMS_PowerDept.Admin {
-    
-    
-    public partial class RunValuationReports {
-        
+namespace IMS_PowerDept.Admin
+{
+
+
+    public partial class RunValuationReports
+    {
+
         /// <summary>
         /// sds control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource sds;
-        
+
         /// <summary>
         /// iheads control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource iheads;
-        
+
         /// <summary>
         /// panelSuccess control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelSuccess;
-        
+
         /// <summary>
         /// lblSuccess control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSuccess;
-        
+
         /// <summary>
         /// panelError control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelError;
-        
+
         /// <summary>
         /// lblError control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
-        
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
+
         /// <summary>
         /// up1 control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel up1;
-        
+
         /// <summary>
         /// CheckBox1 control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
-        
+
         /// <summary>
         /// issuehead control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList issuehead;
-        
+
         /// <summary>
         /// tbStartDateSearch control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbStartDateSearch;
-        
+
         /// <summary>
         /// tbEndDateSearch control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEndDateSearch;
-        
+
         /// <summary>
         /// btnSearch control.
         /// </summary>
@@ -128,7 +130,25 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
-        
+
+        /// <summary>
+        /// IssueHeadList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList IssueHeadList;
+
+        /// <summary>
+        /// SqlIssueHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlIssueHead;
+
         /// <summary>
         /// chdate control.
         /// </summary>
@@ -137,7 +157,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox chdate;
-        
+
         /// <summary>
         /// chdateend control.
         /// </summary>
@@ -146,7 +166,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox chdateend;
-        
+
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -155,7 +175,34 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-        
+
+        /// <summary>
+        /// chdateFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox chdateFilter;
+
+        /// <summary>
+        /// chdateendFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox chdateendFilter;
+
+        /// <summary>
+        /// Button5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button5;
+
         /// <summary>
         /// TextBox1 control.
         /// </summary>
@@ -164,7 +211,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
+
         /// <summary>
         /// TextBox2 control.
         /// </summary>
@@ -173,7 +220,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
-        
+
         /// <summary>
         /// Button2 control.
         /// </summary>
@@ -182,7 +229,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
-        
+
         /// <summary>
         /// upSetSession control.
         /// </summary>
@@ -191,7 +238,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upSetSession;
-        
+
         /// <summary>
         /// ck1 control.
         /// </summary>
@@ -200,7 +247,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ck1;
-        
+
         /// <summary>
         /// ck2 control.
         /// </summary>
@@ -209,7 +256,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ck2;
-        
+
         /// <summary>
         /// Panel1 control.
         /// </summary>
@@ -218,7 +265,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel1;
-        
+
         /// <summary>
         /// ddldiv control.
         /// </summary>
@@ -227,7 +274,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddldiv;
-        
+
         /// <summary>
         /// divname control.
         /// </summary>
@@ -236,7 +283,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource divname;
-        
+
         /// <summary>
         /// ddlchd control.
         /// </summary>
@@ -245,7 +292,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlchd;
-        
+
         /// <summary>
         /// stratdiv control.
         /// </summary>
@@ -254,7 +301,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox stratdiv;
-        
+
         /// <summary>
         /// enddiv control.
         /// </summary>
@@ -263,7 +310,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox enddiv;
-        
+
         /// <summary>
         /// detailvaluatoinByDivision control.
         /// </summary>
@@ -272,7 +319,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button detailvaluatoinByDivision;
-        
+
         /// <summary>
         /// tempbutton control.
         /// </summary>
@@ -281,7 +328,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button tempbutton;
-        
+
         /// <summary>
         /// valStart control.
         /// </summary>
@@ -290,7 +337,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox valStart;
-        
+
         /// <summary>
         /// valEnd control.
         /// </summary>
@@ -299,7 +346,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox valEnd;
-        
+
         /// <summary>
         /// receiptvaluation control.
         /// </summary>
@@ -308,7 +355,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button receiptvaluation;
-        
+
         /// <summary>
         /// tbsummary control.
         /// </summary>
@@ -317,7 +364,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbsummary;
-        
+
         /// <summary>
         /// endtbsummary control.
         /// </summary>
@@ -326,7 +373,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox endtbsummary;
-        
+
         /// <summary>
         /// supplierreceipts control.
         /// </summary>
@@ -335,7 +382,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button supplierreceipts;
-        
+
         /// <summary>
         /// Indents control.
         /// </summary>
@@ -344,7 +391,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Indents;
-        
+
         /// <summary>
         /// Button3 control.
         /// </summary>
@@ -353,7 +400,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button3;
-        
+
         /// <summary>
         /// DropDownList1 control.
         /// </summary>
@@ -362,7 +409,7 @@ namespace IMS_PowerDept.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-        
+
         /// <summary>
         /// Button4 control.
         /// </summary>
